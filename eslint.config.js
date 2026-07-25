@@ -31,6 +31,9 @@ module.exports = defineConfig([
           style: 'kebab-case',
         },
       ],
+      '@angular-eslint/use-lifecycle-interface': 'error',
+      '@angular-eslint/no-empty-lifecycle-method': 'error',
+      '@typescript-eslint/explicit-function-return-type': 'warn',
     },
   },
   {
