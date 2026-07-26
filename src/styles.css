@@ -1,3 +1,80 @@
-/* You can add global styles to this file, and also import other style files */
-
 @import 'tailwindcss';
+
+@font-face {
+  font-family: 'Bricolage Grotesque';
+  src: url('/fonts/bricolage-400.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Bricolage Grotesque';
+  src: url('/fonts/bricolage-500.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Bricolage Grotesque';
+  src: url('/fonts/bricolage-600.woff2') format('woff2');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Bricolage Grotesque';
+  src: url('/fonts/bricolage-700.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Bricolage Grotesque';
+  src: url('/fonts/bricolage-800.woff2') format('woff2');
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Kalam';
+  src: url('/fonts/kalam-400.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Kalam';
+  src: url('/fonts/kalam-700.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  /* *Primitives tokens */
+  --palette-neutral-50: #f8f9fa;
+  --palette-neutral-950: #0e1013;
+
+  --palette-yellow-500: #f7c518;
+  --palette-blue-500: #3355ff;
+  --palette-orange-500: #f87a55;
+}
+
+@theme inline {
+  /* *Semantic tokens */
+  --color-canvas: var(--palette-neutral-950);
+  --color-foreground: var(--palette-neutral-50);
+
+  --color-primary: var(--palette-blue-500);
+  --color-secondary: var(--palette-yellow-500);
+  --color-tertiary: var(--palette-orange-500);
+
+  --font-sans: 'Bricolage Grotesque', sans-serif;
+  --font-hand: 'Kalam', cursive;
+}
