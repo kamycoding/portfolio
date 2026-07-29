@@ -1,0 +1,147 @@
+<header
+  class="fixed inset-x-0 top-0 z-50 flex h-20 items-center bg-[linear-gradient(to_bottom,rgba(0,0,0,0.3)_0%,rgba(0,0,0,0)_70%)] px-4 lg:px-18"
+>
+  <div
+    class="mx-auto grid h-10.5 w-full max-w-324 grid-cols-[auto_repeat(4,auto)_auto] items-center justify-between"
+  >
+    <!-- Logo -->
+    <a routerLink="/" aria-label="Go to homepage">
+      <img class="h-10.5 w-auto" src="/logo.svg" alt="Kamycoding" />
+    </a>
+
+    <!-- Navigation -->
+    <nav class="col-span-4 grid grid-cols-subgrid" aria-label="Primary navigation">
+      <ul
+        class="col-span-4 grid items-center font-sans text-lg font-bold leading-[1.2] grid-cols-subgrid"
+      >
+        <!-- About me -->
+        <li>
+          <a
+            class="group relative inline-flex items-center justify-center"
+            routerLink="/"
+            fragment="about"
+          >
+            <span class="relative z-10">About me</span>
+
+            <img
+              class="pointer-events-none absolute top-1/2 left-1/2 max-w-none -translate-x-1/2 -translate-y-1/2 opacity-0 transition-opacity duration-150 group-hover:opacity-100 group-focus-visible:opacity-100"
+              src="/assets/decorations/navigation/nav-hover-about.svg"
+              alt=""
+              draggable="false"
+            />
+          </a>
+        </li>
+
+        <!-- Skills -->
+        <li>
+          <a
+            class="group relative inline-flex items-center justify-center"
+            routerLink="/"
+            fragment="skills"
+          >
+            <span class="relative z-10">Skills</span>
+
+            <img
+              class="pointer-events-none absolute top-1/2 left-1/2 max-w-none -translate-x-1/2 -translate-y-1/2 opacity-0 transition-opacity duration-150 group-hover:opacity-100 group-focus-visible:opacity-100"
+              src="/assets/decorations/navigation/nav-hover-skills.svg"
+              alt=""
+              draggable="false"
+            />
+          </a>
+        </li>
+
+        <!-- Projects -->
+        <li>
+          <a
+            class="group relative inline-flex items-center justify-center"
+            routerLink="/"
+            fragment="projects"
+          >
+            <span class="relative z-10">Projects</span>
+
+            <img
+              class="pointer-events-none absolute top-1/2 left-1/2 max-w-none -translate-x-1/2 -translate-y-1/2 opacity-0 transition-opacity duration-150 group-hover:opacity-100 group-focus-visible:opacity-100"
+              src="/assets/decorations/navigation/nav-hover-projects.svg"
+              alt=""
+              draggable="false"
+            />
+          </a>
+        </li>
+
+        <!-- Contact -->
+        <li>
+          <a
+            class="group relative inline-flex items-center justify-center"
+            routerLink="/"
+            fragment="contact"
+          >
+            <span class="relative z-10">Contact</span>
+
+            <img
+              class="pointer-events-none absolute top-1/2 left-1/2 max-w-none -translate-x-1/2 -translate-y-1/2 opacity-0 transition-opacity duration-150 group-hover:opacity-100 group-focus-visible:opacity-100"
+              src="/assets/decorations/navigation/nav-hover-contact.svg"
+              alt=""
+              draggable="false"
+            />
+          </a>
+        </li>
+      </ul>
+    </nav>
+
+    <!-- Language switch -->
+    <button
+      class="inline-flex h-8 items-center gap-1 p-0 font-sans text-base font-semibold leading-[1.2] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary"
+      type="button"
+      [attr.aria-label]="
+        activeLanguage() === 'en' ? 'Switch language to German' : 'Switch language to English'
+      "
+      (click)="toggleLanguage()"
+    >
+      <!-- EN -->
+      <span
+        class="group relative inline-flex items-center justify-center"
+        [class.text-tertiary]="activeLanguage() === 'en'"
+        [class.text-foreground]="activeLanguage() === 'de'"
+      >
+        <span class="relative z-10">EN</span>
+
+        <img
+          class="pointer-events-none absolute top-1/2 left-1/2 max-w-none -translate-x-1/2 -translate-y-1/2 opacity-0 transition-opacity duration-150 group-hover:opacity-100"
+          src="/assets/decorations/language-hover-en.svg"
+          alt=""
+          draggable="false"
+        />
+      </span>
+
+      <!-- Switch visual -->
+      <span class="relative h-4 w-10 shrink-0" aria-hidden="true">
+        <!-- Track -->
+        <span
+          class="absolute top-1/2 left-2 h-2 w-8 -translate-y-1/2 rounded-full border border-foreground bg-tertiary"
+        ></span>
+
+        <!-- Knob -->
+        <span
+          class="absolute top-0 left-0 size-4 rounded-full border border-foreground bg-primary transition-transform duration-200 ease-out"
+          [class.translate-x-6]="activeLanguage() === 'de'"
+        ></span>
+      </span>
+
+      <!-- DE -->
+      <span
+        class="group relative inline-flex items-center justify-center"
+        [class.text-tertiary]="activeLanguage() === 'de'"
+        [class.text-foreground]="activeLanguage() === 'en'"
+      >
+        <span class="relative z-10">DE</span>
+
+        <img
+          class="pointer-events-none absolute top-1/2 left-1/2 max-w-none -translate-x-1/2 -translate-y-1/2 opacity-0 transition-opacity duration-150 group-hover:opacity-100"
+          src="/assets/decorations/language-hover-de.svg"
+          alt=""
+          draggable="false"
+        />
+      </span>
+    </button>
+  </div>
+</header>
