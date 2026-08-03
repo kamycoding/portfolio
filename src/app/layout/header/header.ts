@@ -1,21 +1,40 @@
-import { Component, HostListener, OnDestroy, signal, ElementRef, viewChild } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
+import {
+  afterNextRender,
+  Component,
+  HostListener,
+  inject,
+  Injector,
+  signal,
+  viewChild,
+} from '@angular/core';
+import type { ElementRef, OnDestroy } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
 import type { NavigationItem, SocialLink } from './header.model';
+
+const DESKTOP_MEDIA_QUERY = '(min-width: 64rem)';
 
 @Component({
   selector: 'app-header',
   imports: [RouterLink],
   templateUrl: './header.html',
-  styleUrl: './header.css',
 })
 export class Header implements OnDestroy {
-  protected readonly activeLanguage = signal<'en' | 'de'>('en');
-  protected readonly isMobileMenuOpen = signal(false);
+  private readonly document = inject(DOCUMENT);
+  private readonly injector = inject(Injector);
+
   private readonly openMenuButton =
     viewChild.required<ElementRef<HTMLButtonElement>>('openMenuButton');
+
   private readonly closeMenuButton =
     viewChild.required<ElementRef<HTMLButtonElement>>('closeMenuButton');
+
+  private previousBodyOverflow = '';
+  private isBodyScrollLocked = false;
+
+  protected readonly activeLanguage = signal<'en' | 'de'>('en');
+  protected readonly isMobileMenuOpen = signal(false);
 
   protected readonly navigationItems: readonly NavigationItem[] = [
     {
@@ -55,7 +74,6 @@ export class Header implements OnDestroy {
       iconSrc: '/assets/icons/social/github.svg',
       opensInNewTab: true,
     },
-
     {
       id: 'email',
       href: 'mailto:kamyar.zamanfar@gmail.com',
@@ -70,23 +88,80 @@ export class Header implements OnDestroy {
   }
 
   protected openMobileMenu(): void {
+    if (this.isMobileMenuOpen()) {
+      return;
+    }
+
     this.isMobileMenuOpen.set(true);
-    document.body.style.overflow = 'hidden';
+    this.lockBodyScroll();
+
+    afterNextRender(
+      () => {
+        if (this.isMobileMenuOpen()) {
+          this.closeMenuButton().nativeElement.focus({
+            preventScroll: true,
+          });
+        }
+      },
+      {
+        injector: this.injector,
+      },
+    );
   }
 
-  protected closeMobileMenu(): void {
+  protected closeMobileMenu(restoreFocus = true): void {
+    if (!this.isMobileMenuOpen()) {
+      return;
+    }
+
+    if (restoreFocus) {
+      this.openMenuButton().nativeElement.focus({
+        preventScroll: true,
+      });
+    }
+
     this.isMobileMenuOpen.set(false);
-    document.body.style.overflow = '';
+    this.restoreBodyScroll();
   }
 
   @HostListener('document:keydown.escape')
   protected onEscape(): void {
-    if (this.isMobileMenuOpen()) {
-      this.closeMobileMenu();
+    if (!this.isMobileMenuOpen()) {
+      return;
+    }
+
+    this.closeMobileMenu();
+  }
+
+  @HostListener('window:resize')
+  protected onViewportResize(): void {
+    const isDesktop = this.document.defaultView?.matchMedia(DESKTOP_MEDIA_QUERY).matches ?? false;
+
+    if (isDesktop) {
+      this.closeMobileMenu(false);
     }
   }
 
   ngOnDestroy(): void {
-    document.body.style.overflow = '';
+    this.restoreBodyScroll();
+  }
+
+  private lockBodyScroll(): void {
+    if (this.isBodyScrollLocked) {
+      return;
+    }
+
+    this.previousBodyOverflow = this.document.body.style.overflow;
+    this.document.body.style.overflow = 'hidden';
+    this.isBodyScrollLocked = true;
+  }
+
+  private restoreBodyScroll(): void {
+    if (!this.isBodyScrollLocked) {
+      return;
+    }
+
+    this.document.body.style.overflow = this.previousBodyOverflow;
+    this.isBodyScrollLocked = false;
   }
 }
