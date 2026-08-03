@@ -1,0 +1,256 @@
+<header
+  class="fixed inset-x-0 top-0 z-50 flex h-16 items-center bg-[linear-gradient(to_bottom,rgba(0,0,0,0.3)_0%,rgba(0,0,0,0)_70%)] px-4 lg:h-20 lg:px-18"
+>
+  <!-- Mobile header -->
+  <div class="flex w-full items-center justify-between lg:hidden">
+    <!-- Logo -->
+    <a
+      class="inline-flex focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary"
+      routerLink="/"
+      aria-label="Go to homepage"
+    >
+      <img class="size-8" src="/logo.svg" alt="" draggable="false" />
+    </a>
+
+    <!-- Menu button -->
+    <button
+      #openMenuButton
+      class="group inline-flex size-11 items-center justify-center focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+      type="button"
+      aria-label="Open navigation menu"
+      aria-controls="mobile-navigation"
+      [attr.aria-expanded]="isMobileMenuOpen()"
+      (click)="openMobileMenu()"
+    >
+      <img
+        class="size-8 group-active:hidden"
+        src="/assets/icons/navigation/menu-open.svg"
+        alt=""
+        aria-hidden="true"
+        draggable="false"
+      />
+
+      <img
+        class="hidden size-8 group-active:block"
+        src="/assets/icons/navigation/menu-active.svg"
+        alt=""
+        aria-hidden="true"
+        draggable="false"
+      />
+    </button>
+  </div>
+
+  <!-- Desktop header -->
+  <div
+    class="mx-auto hidden h-10.5 w-full max-w-324 grid-cols-[auto_repeat(4,auto)_auto] items-center justify-between lg:grid"
+  >
+    <!-- Logo -->
+    <a
+      class="inline-flex focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary"
+      routerLink="/"
+      aria-label="Go to homepage"
+    >
+      <img class="h-10.5 w-auto" src="/logo.svg" alt="" draggable="false" />
+    </a>
+
+    <!-- Navigation -->
+    <nav class="col-span-4 grid grid-cols-subgrid" aria-label="Primary navigation">
+      <ul
+        class="col-span-4 grid items-center font-sans text-lg font-bold leading-[1.2] grid-cols-subgrid"
+      >
+        @for (item of navigationItems; track item.fragment) {
+          <li>
+            <a
+              class="group relative inline-flex items-center justify-center"
+              routerLink="/"
+              [fragment]="item.fragment"
+            >
+              <span class="relative z-10">{{ item.label }}</span>
+
+              <img
+                class="pointer-events-none absolute top-1/2 left-1/2 max-w-none -translate-x-1/2 -translate-y-1/2 opacity-0 transition-opacity duration-150 group-hover:opacity-100 group-focus-visible:opacity-100 motion-reduce:transition-none"
+                [src]="item.hoverDecorationSrc"
+                alt=""
+                draggable="false"
+              />
+            </a>
+          </li>
+        }
+      </ul>
+    </nav>
+
+    <!-- Language switch -->
+    <button
+      class="inline-flex h-8 items-center gap-1 p-0 font-sans text-base font-semibold leading-[1.2] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary"
+      type="button"
+      [attr.aria-label]="
+        activeLanguage() === 'en' ? 'Switch language to German' : 'Switch language to English'
+      "
+      (click)="toggleLanguage()"
+    >
+      <!-- English -->
+      <span
+        class="group relative inline-flex items-center justify-center"
+        [class.text-tertiary]="activeLanguage() === 'en'"
+        [class.text-foreground]="activeLanguage() === 'de'"
+      >
+        <span class="relative z-10">EN</span>
+
+        <img
+          class="pointer-events-none absolute top-1/2 left-1/2 max-w-none -translate-x-1/2 -translate-y-1/2 opacity-0 transition-opacity duration-150 group-hover:opacity-100 motion-reduce:transition-none"
+          src="/assets/decorations/language-hover-en.svg"
+          alt=""
+          draggable="false"
+        />
+      </span>
+
+      <!-- Switch visual -->
+      <span class="relative h-4 w-10 shrink-0" aria-hidden="true">
+        <span
+          class="absolute top-1/2 left-2 h-2 w-8 -translate-y-1/2 rounded-full border border-foreground bg-tertiary"
+        ></span>
+
+        <span
+          class="absolute top-0 left-0 size-4 rounded-full border border-foreground bg-primary transition-transform duration-200 ease-out motion-reduce:transition-none"
+          [class.translate-x-6]="activeLanguage() === 'de'"
+        ></span>
+      </span>
+
+      <!-- German -->
+      <span
+        class="group relative inline-flex items-center justify-center"
+        [class.text-tertiary]="activeLanguage() === 'de'"
+        [class.text-foreground]="activeLanguage() === 'en'"
+      >
+        <span class="relative z-10">DE</span>
+
+        <img
+          class="pointer-events-none absolute top-1/2 left-1/2 max-w-none -translate-x-1/2 -translate-y-1/2 opacity-0 transition-opacity duration-150 group-hover:opacity-100 motion-reduce:transition-none"
+          src="/assets/decorations/language-hover-de.svg"
+          alt=""
+          draggable="false"
+        />
+      </span>
+    </button>
+  </div>
+</header>
+
+<!-- Mobile navigation menu -->
+<div
+  id="mobile-navigation"
+  class="fixed inset-x-0 top-0 z-[60] h-[656px] max-h-[100dvh] w-full overflow-y-auto overscroll-contain bg-[url('/assets/backgrounds/mobile-menu-background.webp')] bg-no-repeat [background-size:100%_100%] transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:duration-0 lg:hidden"
+  [class.translate-y-0]="isMobileMenuOpen()"
+  [class.-translate-y-full]="!isMobileMenuOpen()"
+  [class.pointer-events-none]="!isMobileMenuOpen()"
+  [attr.aria-hidden]="!isMobileMenuOpen()"
+  [attr.inert]="isMobileMenuOpen() ? null : ''"
+>
+  <div class="flex h-16 items-center justify-between px-4">
+    <a
+      class="inline-flex focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary"
+      routerLink="/"
+      aria-label="Go to homepage"
+      (click)="closeMobileMenu(false)"
+    >
+      <img class="size-8" src="/logo.svg" alt="" draggable="false" />
+    </a>
+
+    <button
+      #closeMenuButton
+      class="group inline-flex size-11 items-center justify-center focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+      type="button"
+      aria-label="Close navigation menu"
+      aria-controls="mobile-navigation"
+      (click)="closeMobileMenu()"
+    >
+      <img
+        class="size-8 group-active:hidden"
+        src="/assets/icons/navigation/menu-close.svg"
+        alt=""
+        aria-hidden="true"
+        draggable="false"
+      />
+
+      <img
+        class="hidden size-8 group-active:block"
+        src="/assets/icons/navigation/close-active.svg"
+        alt=""
+        aria-hidden="true"
+        draggable="false"
+      />
+    </button>
+  </div>
+
+  <div class="mt-16 flex flex-col items-center gap-8">
+    <!-- Mobile navigation -->
+    <nav aria-label="Mobile navigation">
+      <ul class="flex flex-col items-center gap-8">
+        @for (item of navigationItems; track item.fragment) {
+          <li>
+            <a
+              class="inline-flex items-center justify-center p-2.5 font-sans text-lg font-bold leading-[1.2] text-foreground focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary"
+              routerLink="/"
+              [fragment]="item.fragment"
+              (click)="closeMobileMenu(false)"
+            >
+              {{ item.label }}
+            </a>
+          </li>
+        }
+      </ul>
+    </nav>
+
+    <!-- Language switch -->
+    <button
+      class="inline-flex h-8 items-center gap-1 p-0 font-sans text-base font-semibold leading-[1.2] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary"
+      type="button"
+      [attr.aria-label]="
+        activeLanguage() === 'en' ? 'Switch language to German' : 'Switch language to English'
+      "
+      (click)="toggleLanguage()"
+    >
+      <span
+        class="inline-flex items-center justify-center"
+        [class.text-tertiary]="activeLanguage() === 'en'"
+        [class.text-foreground]="activeLanguage() === 'de'"
+      >
+        EN
+      </span>
+
+      <span class="relative h-4 w-10 shrink-0" aria-hidden="true">
+        <span
+          class="absolute top-1/2 left-2 h-2 w-8 -translate-y-1/2 rounded-full border border-foreground bg-tertiary"
+        ></span>
+
+        <span
+          class="absolute top-0 left-0 size-4 rounded-full border border-foreground bg-primary transition-transform duration-200 ease-out motion-reduce:transition-none"
+          [class.translate-x-6]="activeLanguage() === 'de'"
+        ></span>
+      </span>
+
+      <span
+        class="inline-flex items-center justify-center"
+        [class.text-tertiary]="activeLanguage() === 'de'"
+        [class.text-foreground]="activeLanguage() === 'en'"
+      >
+        DE
+      </span>
+    </button>
+  </div>
+
+  <!-- Social links -->
+  <div class="mt-16 flex items-center justify-center gap-6">
+    @for (item of socialLinks; track item.id) {
+      <a
+        class="inline-flex size-10 items-center justify-center rounded-full focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+        [href]="item.href"
+        [attr.aria-label]="item.accessibleLabel"
+        [attr.target]="item.opensInNewTab ? '_blank' : null"
+        [attr.rel]="item.opensInNewTab ? 'noopener noreferrer' : null"
+        (click)="closeMobileMenu(false)"
+      >
+        <img class="size-10" [src]="item.iconSrc" alt="" draggable="false" />
+      </a>
+    }
+  </div>
+</div>
