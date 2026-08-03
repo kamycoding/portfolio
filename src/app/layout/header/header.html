@@ -61,7 +61,7 @@
         @for (item of navigationItems; track item.fragment) {
           <li>
             <a
-              class="group relative inline-flex items-center justify-center"
+              class="group relative inline-flex items-center justify-center var(--color-foreground)"
               routerLink="/"
               [fragment]="item.fragment"
             >
@@ -138,7 +138,7 @@
 <!-- Mobile navigation menu -->
 <div
   id="mobile-navigation"
-  class="fixed inset-x-0 top-0 z-[60] h-[656px] max-h-[100dvh] w-full overflow-y-auto overscroll-contain bg-[url('/assets/backgrounds/mobile-menu-background.webp')] bg-no-repeat [background-size:100%_100%] transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:duration-0 lg:hidden"
+  class="fixed inset-x-0 top-0 z-60 h-164 max-h-[100dvh] w-full overflow-y-auto overscroll-contain bg-[url('/assets/backgrounds/mobile-menu-background.webp')] bg-no-repeat [background-size:100%_100%] transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:duration-0 lg:hidden"
   [class.translate-y-0]="isMobileMenuOpen()"
   [class.-translate-y-full]="!isMobileMenuOpen()"
   [class.pointer-events-none]="!isMobileMenuOpen()"
