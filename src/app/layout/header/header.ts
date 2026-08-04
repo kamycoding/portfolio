@@ -1,4 +1,5 @@
 import { DOCUMENT } from '@angular/common';
+import { CdkTrapFocus } from '@angular/cdk/a11y';
 import {
   afterNextRender,
   Component,
@@ -17,7 +18,7 @@ const DESKTOP_MEDIA_QUERY = '(min-width: 64rem)';
 
 @Component({
   selector: 'app-header',
-  imports: [RouterLink],
+  imports: [RouterLink, CdkTrapFocus],
   templateUrl: './header.html',
 })
 export class Header implements OnDestroy {
@@ -114,14 +115,21 @@ export class Header implements OnDestroy {
       return;
     }
 
-    if (restoreFocus) {
-      this.openMenuButton().nativeElement.focus({
-        preventScroll: true,
-      });
-    }
-
     this.isMobileMenuOpen.set(false);
     this.restoreBodyScroll();
+
+    if (restoreFocus) {
+      afterNextRender(
+        () => {
+          this.openMenuButton().nativeElement.focus({
+            preventScroll: true,
+          });
+        },
+        {
+          injector: this.injector,
+        },
+      );
+    }
   }
 
   @HostListener('document:keydown.escape')
