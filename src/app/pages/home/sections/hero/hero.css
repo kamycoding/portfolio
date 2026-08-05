@@ -47,6 +47,7 @@
 
 .hero__greeting {
   position: relative;
+  width: min(284px, 100%);
   align-self: flex-start;
 }
 
@@ -56,10 +57,10 @@
   align-items: center;
   justify-content: center;
   margin: 0;
-  padding-inline: 24px;
+  padding-inline: clamp(12px, 6.4vw, 24px);
   border: 1px solid currentColor;
   border-radius: 100px;
-  font-size: 18px;
+  font-size: clamp(14px, 4.8vw, 18px);
   font-weight: 500;
   line-height: 1.2;
   white-space: nowrap;
@@ -67,17 +68,10 @@
 
 .hero__wave {
   position: absolute;
-  bottom: 100%;
-  left: 0;
-  width: 40px;
-  height: 40px;
-  transform: rotate(180deg) translateY(8px);
+  width: clamp(34px, 10.667vw, 40px);
+  height: clamp(34px, 10.667vw, 40px);
+  transform: translateY(8px);
   opacity: 0;
-}
-
-.hero__greeting:hover .hero__wave {
-  transform: rotate(180deg) translateY(0);
-  opacity: 1;
 }
 
 .hero__title {
@@ -85,20 +79,20 @@
   margin: 0;
 }
 
-.hero__title span {
+.hero__title > .hero__title-line {
+  display: flex;
   align-self: flex-start;
-  font-size: clamp(52px, 17.067vw, 64px);
+  font-size: clamp(38px, 13.5vw, 64px);
   font-weight: 700;
   line-height: 1;
-  letter-spacing: -0.03125em;
   white-space: nowrap;
 }
 
-.hero__title span:first-child {
+.hero__title > .hero__title-line:first-child {
   margin-top: -16px;
 }
 
-.hero__title span:nth-child(2) {
+.hero__title > .hero__title-line:nth-child(2) {
   margin-top: -16px;
 }
 
@@ -239,20 +233,19 @@
     display: block;
   }
 
-  .hero__title span {
+  .hero__title > .hero__title-line {
     position: absolute;
-    display: block;
+    display: flex;
     margin: 0;
     font-size: 8.889cqw;
-    letter-spacing: -0.03125em;
   }
 
-  .hero__title span:first-child {
+  .hero__title > .hero__title-line:first-child {
     top: 9.858cqw;
     left: 0;
   }
 
-  .hero__title span:nth-child(2) {
+  .hero__title > .hero__title-line:nth-child(2) {
     top: calc(100% + 1.667cqw);
     right: 0;
   }
