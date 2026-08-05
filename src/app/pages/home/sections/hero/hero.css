@@ -6,7 +6,7 @@
   position: relative;
   min-height: 812px;
   overflow: hidden;
-  background: var(--color-canvas);
+  background: var(--color-foreground);
   color: var(--color-foreground);
 }
 
