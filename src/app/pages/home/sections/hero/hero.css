@@ -97,21 +97,9 @@
 }
 
 .hero__cta {
-  display: inline-flex;
   order: 1;
   width: 156px;
   height: 44px;
-  align-items: flex-start;
-  justify-content: center;
-  padding-top: 9px;
-  border: 1px solid currentColor;
-  border-radius: 100px;
-  box-shadow: 2px 4px 0 currentColor;
-  color: inherit;
-  font-size: 18px;
-  font-weight: 500;
-  line-height: 1.2;
-  text-decoration: none;
 }
 
 .hero__polaroid {
@@ -269,12 +257,14 @@
   }
 
   .hero__cta {
+    --cta-height: 2.778cqw;
+    --cta-font-size: 1.25cqw;
+    --cta-shadow-x: 0.139cqw;
+    --cta-shadow-y: 0.278cqw;
+
     width: 10.833cqw;
     height: 3.056cqw;
     margin-top: 10.556cqw;
-    padding-top: 0.625cqw;
-    box-shadow: 0.139cqw 0.278cqw 0 currentColor;
-    font-size: 1.25cqw;
   }
 
   .hero__socials {

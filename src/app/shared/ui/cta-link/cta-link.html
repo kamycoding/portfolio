@@ -1,0 +1,8 @@
+<a
+  class="cta-link"
+  [class.cta-link--on-light]="surface() === 'light'"
+  [routerLink]="route()"
+  [fragment]="fragment()"
+>
+  {{ label() }}
+</a>

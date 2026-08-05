@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
+
+import { CtaLink } from '../../../../shared/ui/cta-link/cta-link';
 
 @Component({
   selector: 'app-hero',
-  imports: [RouterLink],
+  imports: [CtaLink],
   templateUrl: './hero.html',
   styleUrl: './hero.css',
 })
