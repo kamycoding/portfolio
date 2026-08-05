@@ -78,3 +78,243 @@
   --font-sans: 'Bricolage Grotesque', sans-serif;
   --font-hand: 'Kalam', cursive;
 }
+
+.hero__cta {
+  transition:
+    background-color 180ms ease-out,
+    transform 180ms cubic-bezier(0.2, 0.8, 0.2, 1),
+    box-shadow 180ms ease-out;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  a.hero__cta:hover {
+    transform: translate(2px, 4px);
+    box-shadow: none;
+    border-color: #f8f9fa;
+    background-color: #f87a55;
+    color: #f8f9fa;
+  }
+}
+
+a.hero__cta:active {
+  transform: translate(2px, 4px);
+  box-shadow: none;
+  border-color: #f8f9fa;
+  background-color: #f87a55;
+  color: #f8f9fa;
+  transition-duration: 80ms;
+}
+
+.hero__socials a {
+  position: relative;
+  overflow: hidden;
+  border-radius: 50%;
+  isolation: isolate;
+}
+
+.hero__socials a::before {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  border-radius: inherit;
+  background-color: #3355ff;
+  content: '';
+  transform: scaleY(0);
+  transform-origin: bottom;
+  transition: transform 220ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.hero__socials a img {
+  position: relative;
+  z-index: 1;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .hero__socials a:hover::before {
+    transform: scaleY(1);
+  }
+}
+
+.hero__socials a:focus-visible::before,
+.hero__socials a:active::before {
+  transform: scaleY(1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero__socials a::before {
+    transition: none;
+  }
+}
+
+.hero__greeting p {
+  position: relative;
+  width: 128px;
+  transition:
+    width 340ms cubic-bezier(0.16, 1, 0.3, 1),
+    background-color 260ms ease-out;
+}
+
+.hero__greeting p span {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+  transition:
+    opacity 190ms ease-out,
+    transform 300ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.hero__greeting-hover {
+  opacity: 0;
+  transform: translateX(12px);
+  text-transform: uppercase;
+}
+
+.hero__wave {
+  right: 0;
+  bottom: calc(100% + 8px);
+  transition:
+    opacity 200ms ease-out 100ms,
+    transform 300ms cubic-bezier(0.16, 1, 0.3, 1) 80ms;
+}
+
+@media (max-width: 63.999rem) {
+  .hero__greeting p {
+    width: 100%;
+    background-color: #3355ff;
+  }
+
+  .hero__greeting .hero__greeting-default {
+    opacity: 0;
+    transform: translateX(-12px);
+  }
+
+  .hero__greeting .hero__greeting-hover,
+  .hero .hero__greeting .hero__wave {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .hero .hero__polaroid .hero__portrait-image--default {
+    opacity: 0;
+  }
+
+  .hero .hero__polaroid .hero__portrait-image--hover {
+    opacity: 1;
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .hero__greeting:hover p {
+    width: min(284px, 100%);
+    background-color: #3355ff;
+  }
+
+  .hero__greeting:hover .hero__greeting-default {
+    opacity: 0;
+    transform: translateX(-12px);
+  }
+
+  .hero__greeting:hover .hero__greeting-hover,
+  .hero__greeting:hover .hero__wave {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@media (min-width: 64rem) {
+  .hero__greeting p {
+    width: 8.889cqw;
+  }
+}
+
+@media (min-width: 64rem) and (hover: hover) and (pointer: fine) {
+  .hero__greeting:hover p {
+    width: 19.722cqw;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero__greeting p,
+  .hero__greeting p span,
+  .hero__wave {
+    transition: none;
+  }
+}
+
+.hero__letter {
+  position: relative;
+  display: inline-block;
+  cursor: default;
+  transition:
+    color 180ms ease-out,
+    transform 260ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.hero__letter::after {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: max-content;
+  color: #f7c518;
+  content: attr(data-hover);
+  opacity: 0;
+  transform: translateX(-50%) scale(0.82);
+  transform-origin: center 70%;
+  transition:
+    opacity 180ms ease-out,
+    transform 260ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .hero__letter:hover {
+    color: transparent;
+    transform: scale(0.96);
+  }
+
+  .hero__letter:hover::after {
+    opacity: 1;
+    transform: translateX(-50%) scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero__letter,
+  .hero__letter::after {
+    transition: none;
+  }
+}
+
+.hero__polaroid figcaption {
+  position: relative;
+}
+
+.hero__polaroid figcaption span {
+  position: absolute;
+  transition:
+    opacity 180ms ease-out,
+    transform 260ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.hero__caption-hover {
+  opacity: 0;
+  transform: translateY(5px) scale(0.96);
+}
+
+.hero__polaroid:hover .hero__caption-default {
+  opacity: 0;
+  transform: translateY(-5px) scale(0.96);
+}
+
+.hero__polaroid:hover .hero__caption-hover {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero__polaroid figcaption span {
+    transition: none;
+  }
+}
