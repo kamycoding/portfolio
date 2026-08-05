@@ -1,0 +1,85 @@
+<section
+  id="about"
+  class="scroll-mt-20 bg-foreground px-4 py-22 text-canvas lg:min-h-180 lg:px-30 lg:py-36"
+  aria-labelledby="about-title"
+>
+  <div
+    class="mx-auto grid w-full max-w-300 grid-cols-1 items-center gap-10 lg:grid-cols-2 lg:gap-20"
+  >
+    <div class="flex w-full flex-col gap-12 lg:col-start-2 lg:row-start-1">
+      <header class="flex flex-col gap-4">
+        <p class="text-base leading-none font-medium uppercase min-[360px]:text-lg lg:text-xl">
+          Who's Kamyar?
+        </p>
+
+        <div class="flex w-fit max-w-full flex-col gap-1">
+          <h2
+            id="about-title"
+            class="text-[2.5rem] leading-none font-bold min-[360px]:text-5xl lg:text-[4rem]"
+          >
+            About me
+          </h2>
+
+          <img
+            class="about__title-underline h-5 w-full min-w-0"
+            src="/assets/about/about-title-underline.svg"
+            alt=""
+            aria-hidden="true"
+            draggable="false"
+          />
+        </div>
+      </header>
+
+      <div class="flex flex-col gap-6 text-base leading-normal min-[360px]:text-lg lg:text-xl">
+        <p>
+          Hi, I’m Kamyar, a full-stack developer who enjoys turning ideas into accessible,
+          maintainable digital products.
+        </p>
+
+        <p>
+          I care about thoughtful problem-solving, clean code, and building experiences that are
+          useful for real people.
+        </p>
+      </div>
+
+      <app-cta-link
+        class="about__cta self-end"
+        label="Let’s talk"
+        fragment="contact"
+        surface="light"
+      />
+    </div>
+
+    <ul
+      class="availability-list w-full lg:col-start-1 lg:row-start-1"
+      aria-label="Work availability"
+    >
+      @for (card of availabilityCards; track card.id) {
+        <li class="availability-card relative" [attr.data-variant]="card.variant">
+          <img
+            class="availability-card__paper block h-auto w-full"
+            [src]="card.paperSrc"
+            alt=""
+            aria-hidden="true"
+            draggable="false"
+          />
+
+          <div
+            class="availability-card__content absolute inset-0 flex items-center justify-center gap-3 text-foreground"
+          >
+            <img
+              class="size-8 shrink-0 min-[360px]:size-10"
+              [src]="card.iconSrc"
+              alt=""
+              aria-hidden="true"
+              draggable="false"
+            />
+            <span class="text-base leading-[1.2] font-normal min-[360px]:text-xl lg:text-2xl">
+              {{ card.label }}
+            </span>
+          </div>
+        </li>
+      }
+    </ul>
+  </div>
+</section>
