@@ -1,0 +1,66 @@
+:host {
+  --cta-height: 40px;
+  --cta-font-size: 18px;
+  --cta-shadow-x: 2px;
+  --cta-shadow-y: 4px;
+
+  display: block;
+  height: calc(var(--cta-height) + var(--cta-shadow-y));
+}
+
+.cta-link {
+  display: inline-flex;
+  width: 100%;
+  height: var(--cta-height);
+  align-items: center;
+  justify-content: center;
+  border: 1px solid currentColor;
+  border-radius: 100px;
+  box-shadow: var(--cta-shadow-x) var(--cta-shadow-y) 0 currentColor;
+  color: var(--color-foreground);
+  font-size: var(--cta-font-size);
+  font-weight: 500;
+  line-height: 1.2;
+  text-decoration: none;
+  white-space: nowrap;
+  transition:
+    color 180ms ease-out,
+    background-color 180ms ease-out,
+    border-color 180ms ease-out,
+    box-shadow 180ms ease-out,
+    transform 180ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.cta-link--on-light {
+  color: var(--color-canvas);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .cta-link:hover {
+    transform: translate(var(--cta-shadow-x), var(--cta-shadow-y));
+    border-color: var(--color-foreground);
+    background-color: var(--color-tertiary);
+    box-shadow: none;
+    color: var(--color-foreground);
+  }
+}
+
+.cta-link:active {
+  transform: translate(var(--cta-shadow-x), var(--cta-shadow-y));
+  border-color: var(--color-foreground);
+  background-color: var(--color-tertiary);
+  box-shadow: none;
+  color: var(--color-foreground);
+  transition-duration: 80ms;
+}
+
+.cta-link:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cta-link {
+    transition: none;
+  }
+}

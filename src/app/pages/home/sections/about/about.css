@@ -1,0 +1,149 @@
+:host {
+  display: block;
+}
+
+.about__title-underline {
+  clip-path: inset(0 0 0 0);
+  animation: draw-about-underline 10s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+}
+
+@keyframes draw-about-underline {
+  0%,
+  2% {
+    clip-path: inset(0 100% 0 0);
+  }
+
+  12%,
+  99.99% {
+    clip-path: inset(0 0 0 0);
+  }
+
+  100% {
+    clip-path: inset(0 100% 0 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .about__title-underline {
+    clip-path: inset(0 0 0 0);
+    animation: none;
+  }
+}
+
+.availability-list {
+  container-type: inline-size;
+  display: flex;
+  isolation: isolate;
+  flex-direction: column;
+}
+
+.availability-card {
+  width: 100%;
+  flex: none;
+}
+
+.availability-card[data-variant='yellow'],
+.availability-card[data-variant='orange'] {
+  z-index: 3;
+  height: 44.202cqw;
+}
+
+.availability-card[data-variant='blue'] {
+  z-index: 2;
+  height: 37.318cqw;
+}
+
+.availability-card[data-variant='orange'] {
+  z-index: 1;
+}
+
+.availability-card:not(:last-child) {
+  margin-bottom: -18.659cqw;
+}
+
+.availability-card__paper {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  transform: translateX(-50%);
+  object-fit: fill;
+  pointer-events: none;
+  user-select: none;
+}
+
+.availability-card[data-variant='yellow'] .availability-card__paper,
+.availability-card[data-variant='orange'] .availability-card__paper {
+  width: calc(100% + 2.332cqw);
+}
+
+.availability-card__content {
+  top: 50%;
+  right: auto;
+  bottom: auto;
+  left: 50%;
+  width: max-content;
+  height: 48px;
+  gap: 8px;
+  transform: translate(-50%, -50%);
+  white-space: nowrap;
+}
+
+.about__cta {
+  --cta-font-size: 16px;
+
+  width: 110px;
+}
+
+@media (min-width: 22.5rem) {
+  .availability-card__content {
+    gap: 16px;
+  }
+
+  .about__cta {
+    --cta-font-size: 18px;
+
+    width: 126px;
+  }
+}
+
+.availability-card[data-variant='yellow'] .availability-card__content {
+  top: calc(50% - 3.26cqw);
+  transform: translate(-50%, -50%) rotate(-4deg);
+}
+
+.availability-card[data-variant='orange'] .availability-card__content {
+  transform: translate(-50%, -50%) rotate(4deg);
+}
+
+@media (min-width: 64rem) {
+  .about__cta {
+    --cta-font-size: 20px;
+
+    width: 156px;
+  }
+
+  .availability-card[data-variant='yellow'],
+  .availability-card[data-variant='orange'] {
+    height: 34.052cqw;
+  }
+
+  .availability-card[data-variant='blue'] {
+    height: 27.143cqw;
+  }
+
+  .availability-card:not(:last-child) {
+    margin-bottom: -11.91cqw;
+  }
+
+  .availability-card[data-variant='yellow'] .availability-card__paper,
+  .availability-card[data-variant='orange'] .availability-card__paper {
+    width: calc(100% + 1.786cqw);
+  }
+
+  .availability-card[data-variant='yellow'] .availability-card__content {
+    top: calc(50% - 3.404cqw);
+  }
+}
