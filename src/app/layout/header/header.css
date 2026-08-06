@@ -1,0 +1,33 @@
+:host {
+  display: block;
+}
+
+.site-header {
+  border-bottom: 1px solid transparent;
+  background-color: transparent;
+  transition:
+    background-color 260ms ease-out,
+    border-color 260ms ease-out,
+    box-shadow 260ms ease-out,
+    backdrop-filter 260ms ease-out;
+}
+
+.site-header--scrolled {
+  border-bottom-color: color-mix(in srgb, var(--color-foreground) 12%, transparent);
+  background-color: color-mix(in srgb, var(--color-canvas) 68%, transparent);
+  box-shadow: 0 10px 32px rgba(0, 0, 0, 0.18);
+  backdrop-filter: blur(16px) saturate(130%);
+  -webkit-backdrop-filter: blur(16px) saturate(130%);
+}
+
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .site-header--scrolled {
+    background-color: color-mix(in srgb, var(--color-canvas) 92%, transparent);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .site-header {
+    transition: none;
+  }
+}

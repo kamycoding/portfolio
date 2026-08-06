@@ -20,6 +20,7 @@ const DESKTOP_MEDIA_QUERY = '(min-width: 64rem)';
   selector: 'app-header',
   imports: [RouterLink, CdkTrapFocus],
   templateUrl: './header.html',
+  styleUrl: './header.css',
 })
 export class Header implements OnDestroy {
   private readonly document = inject(DOCUMENT);
@@ -31,11 +32,26 @@ export class Header implements OnDestroy {
   private readonly closeMenuButton =
     viewChild.required<ElementRef<HTMLButtonElement>>('closeMenuButton');
 
+  private readonly scrollSentinel = viewChild.required<ElementRef<HTMLElement>>('scrollSentinel');
+
   private previousBodyOverflow = '';
   private isBodyScrollLocked = false;
+  private scrollObserver: IntersectionObserver | null = null;
 
   protected readonly activeLanguage = signal<'en' | 'de'>('en');
   protected readonly isMobileMenuOpen = signal(false);
+  protected readonly isScrolled = signal(false);
+
+  constructor() {
+    afterNextRender(
+      () => {
+        this.observeScrollPosition();
+      },
+      {
+        injector: this.injector,
+      },
+    );
+  }
 
   protected readonly navigationItems: readonly NavigationItem[] = [
     {
@@ -151,7 +167,28 @@ export class Header implements OnDestroy {
   }
 
   ngOnDestroy(): void {
+    this.scrollObserver?.disconnect();
     this.restoreBodyScroll();
+  }
+
+  private observeScrollPosition(): void {
+    const view = this.document.defaultView;
+
+    if (!view) {
+      return;
+    }
+
+    this.scrollObserver = new view.IntersectionObserver((entries) => {
+      const [entry] = entries;
+
+      if (!entry) {
+        return;
+      }
+
+      this.isScrolled.set(!entry.isIntersecting);
+    });
+
+    this.scrollObserver.observe(this.scrollSentinel().nativeElement);
   }
 
   private lockBodyScroll(): void {

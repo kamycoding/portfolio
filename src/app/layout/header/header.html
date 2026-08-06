@@ -1,5 +1,12 @@
+<span
+  #scrollSentinel
+  class="pointer-events-none absolute top-4 left-0 size-px"
+  aria-hidden="true"
+></span>
+
 <header
-  class="fixed inset-x-0 top-0 z-50 flex h-16 items-center bg-[linear-gradient(to_bottom,rgba(0,0,0,0.3)_0%,rgba(0,0,0,0)_70%)] px-4 lg:h-20 lg:px-18"
+  class="site-header fixed inset-x-0 top-0 z-50 flex h-16 items-center bg-[linear-gradient(to_bottom,rgba(0,0,0,0.3)_0%,rgba(0,0,0,0)_70%)] px-4 lg:h-20 lg:px-18"
+  [class.site-header--scrolled]="isScrolled()"
 >
   <!-- Mobile header -->
   <div class="flex w-full items-center justify-between lg:hidden">
