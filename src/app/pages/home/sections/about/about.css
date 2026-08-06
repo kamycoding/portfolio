@@ -2,34 +2,6 @@
   display: block;
 }
 
-.about__title-underline {
-  clip-path: inset(0 0 0 0);
-  animation: draw-about-underline 10s cubic-bezier(0.22, 1, 0.36, 1) infinite;
-}
-
-@keyframes draw-about-underline {
-  0%,
-  2% {
-    clip-path: inset(0 100% 0 0);
-  }
-
-  12%,
-  99.99% {
-    clip-path: inset(0 0 0 0);
-  }
-
-  100% {
-    clip-path: inset(0 100% 0 0);
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .about__title-underline {
-    clip-path: inset(0 0 0 0);
-    animation: none;
-  }
-}
-
 .availability-list {
   container-type: inline-size;
   display: flex;

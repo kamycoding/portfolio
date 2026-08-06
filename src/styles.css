@@ -64,6 +64,9 @@
   --palette-yellow-500: #f7c518;
   --palette-blue-500: #3355ff;
   --palette-orange-500: #f87a55;
+
+  --motion-decorative-reveal-duration: 10s;
+  --motion-decorative-reveal-easing: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 @theme inline {
@@ -77,6 +80,35 @@
 
   --font-sans: 'Bricolage Grotesque', sans-serif;
   --font-hand: 'Kalam', cursive;
+}
+
+.decorative-reveal {
+  clip-path: inset(0 0 0 0);
+  animation: decorative-reveal var(--motion-decorative-reveal-duration)
+    var(--motion-decorative-reveal-easing) infinite;
+}
+
+@keyframes decorative-reveal {
+  0%,
+  2% {
+    clip-path: inset(0 100% 0 0);
+  }
+
+  12%,
+  99.99% {
+    clip-path: inset(0 0 0 0);
+  }
+
+  100% {
+    clip-path: inset(0 100% 0 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .decorative-reveal {
+    clip-path: inset(0 0 0 0);
+    animation: none;
+  }
 }
 
 .hero__socials a {

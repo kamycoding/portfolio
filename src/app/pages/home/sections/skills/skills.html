@@ -1,0 +1,141 @@
+<section
+  id="skills"
+  class="skills-section flex min-h-290 scroll-mt-20 items-center overflow-hidden px-4 pt-22 pb-40 text-foreground lg:min-h-200 lg:px-8 lg:py-36 min-[90rem]:px-30"
+  aria-labelledby="skills-title"
+>
+  <div
+    class="relative z-10 mx-auto flex w-full max-w-300 flex-col items-end lg:grid lg:grid-cols-[200px_24px_minmax(0,1fr)_160px] lg:grid-rows-[144px_auto] lg:items-start lg:gap-y-12 min-[75rem]:grid-cols-[minmax(200px,261px)_clamp(16px,4vw,48px)_minmax(0,656px)_200px] min-[90rem]:grid-cols-[261px_48px_656px_235px]"
+  >
+    <header class="flex w-47 flex-col items-end gap-2 lg:col-start-1 lg:row-start-1 lg:w-full">
+      <p class="text-lg leading-none font-medium uppercase lg:text-xl">My stack</p>
+
+      <div
+        class="skills__title-art grid h-14.5 w-47 place-items-center lg:aspect-[261/80] lg:h-auto lg:w-full"
+      >
+        <img
+          class="skills__title-loop decorative-reveal"
+          src="/assets/skills/skills-title-loop.webp"
+          alt=""
+          aria-hidden="true"
+          draggable="false"
+        />
+        <h2
+          id="skills-title"
+          class="relative z-10 text-5xl leading-none font-bold whitespace-nowrap lg:text-5xl min-[75rem]:text-[clamp(3rem,5vw,4rem)]"
+        >
+          Skill set
+        </h2>
+      </div>
+    </header>
+
+    <div
+      class="skills__description relative mt-8 flex min-h-53 w-full items-center self-stretch px-4 py-10 lg:col-start-3 lg:row-start-1 lg:mt-0 lg:h-36 lg:min-h-0 lg:px-8 lg:py-6"
+    >
+      <picture class="absolute inset-0 size-full" aria-hidden="true">
+        <source media="(min-width: 64rem)" srcset="/assets/skills/skills-description-paper.webp" />
+        <img
+          class="block size-full object-fill"
+          src="/assets/skills/skills-description-paper-mobile.webp"
+          alt=""
+          draggable="false"
+        />
+      </picture>
+
+      <p class="relative z-10 text-lg leading-normal text-canvas lg:text-base min-[75rem]:text-lg">
+        I build maintainable web applications with Angular and TypeScript, and I enjoy expanding my
+        stack through hands-on projects, thoughtful problem-solving, and continuous learning.
+      </p>
+    </div>
+
+    <ul
+      class="mt-10 grid w-fit max-w-full grid-cols-2 justify-between gap-x-4 gap-y-4 self-center min-[360px]:grid-cols-3 lg:col-start-3 lg:row-start-2 lg:mt-0 lg:w-full lg:max-w-160 lg:grid-cols-[repeat(5,5.5rem)] lg:gap-x-0 lg:gap-y-6 lg:justify-self-center min-[75rem]:grid-cols-[repeat(5,6rem)]"
+      aria-label="Technologies and tools"
+    >
+      @for (skill of skillItems; track skill.id) {
+        <li
+          class="skills__item flex w-24 flex-col items-center gap-1 text-center lg:w-22 min-[75rem]:w-24"
+        >
+          <span class="flex size-14 items-center justify-center lg:size-16 min-[75rem]:size-18">
+            <img
+              class="skills__icon size-full object-contain"
+              [src]="skill.iconSrc"
+              alt=""
+              aria-hidden="true"
+              draggable="false"
+            />
+          </span>
+          <span
+            class="text-base leading-[1.2] min-[360px]:text-lg lg:text-base min-[75rem]:text-lg"
+          >
+            {{ skill.label }}
+          </span>
+        </li>
+      }
+    </ul>
+
+    <button
+      type="button"
+      class="skills__peel-card relative mt-6 mr-2 size-50 self-end cursor-pointer border-0 bg-transparent p-0 lg:col-start-4 lg:row-start-2 lg:mt-0 lg:mr-0 lg:size-40 lg:self-center lg:justify-self-center min-[75rem]:size-50"
+      [class.skills__peel-card--open]="isPeelCardOpen()"
+      [attr.aria-pressed]="isPeelCardOpen()"
+      [attr.aria-label]="
+        isPeelCardOpen()
+          ? 'Hide technologies I am interested in learning'
+          : 'Reveal technologies I am interested in learning'
+      "
+      (click)="togglePeelCard()"
+    >
+      <img
+        class="skills__peel-image skills__peel-image--default"
+        src="/assets/skills/peel-card-default.webp"
+        alt=""
+        aria-hidden="true"
+        draggable="false"
+      />
+      <img
+        class="skills__peel-image skills__peel-image--hover"
+        src="/assets/skills/peel-card-hover.webp"
+        alt=""
+        aria-hidden="true"
+        draggable="false"
+      />
+      <img
+        class="skills__peel-image skills__peel-image--open"
+        src="/assets/skills/peel-card-click.webp"
+        alt=""
+        aria-hidden="true"
+        draggable="false"
+      />
+
+      <span
+        class="skills__peel-front absolute inset-0 z-10 flex flex-col items-center justify-center font-hand text-foreground"
+      >
+        <img
+          class="h-10 w-13 object-contain lg:h-8 lg:w-10 min-[75rem]:h-10 min-[75rem]:w-13"
+          src="/assets/skills/arrow-peel.svg"
+          alt=""
+          aria-hidden="true"
+          draggable="false"
+        />
+        <span class="text-[2.5rem] leading-none lg:text-[2rem] min-[75rem]:text-[2.5rem]">
+          Pull to<br />peel
+        </span>
+      </span>
+
+      <span
+        class="skills__peel-back absolute inset-0 z-10 flex flex-col items-center justify-center gap-3 px-5 text-foreground"
+      >
+        <span class="text-xl leading-[1.1] font-semibold italic lg:text-base min-[75rem]:text-xl">
+          Also, I’m interested<br />in diving into:
+        </span>
+        <img
+          class="size-14 object-contain lg:size-12 min-[75rem]:size-14"
+          src="/assets/skills/icons/Android.svg"
+          alt=""
+          aria-hidden="true"
+          draggable="false"
+        />
+      </span>
+    </button>
+  </div>
+</section>
