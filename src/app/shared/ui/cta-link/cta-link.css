@@ -17,7 +17,7 @@
   border: 1px solid currentColor;
   border-radius: 100px;
   box-shadow: var(--cta-shadow-x) var(--cta-shadow-y) 0 currentColor;
-  color: var(--color-foreground);
+  color: var(--cta-color, var(--color-foreground));
   font-size: var(--cta-font-size);
   font-weight: 500;
   line-height: 1.2;

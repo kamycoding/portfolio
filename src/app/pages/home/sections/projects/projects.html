@@ -1,0 +1,71 @@
+<section
+  id="projects"
+  class="scroll-mt-20 bg-foreground px-4 pt-22 text-canvas lg:px-8 lg:pt-36 min-[90rem]:px-30"
+  aria-labelledby="projects-title"
+>
+  <div
+    class="mx-auto grid w-full max-w-300 grid-cols-1 gap-y-10 lg:grid-cols-2 lg:gap-x-20 lg:gap-y-22"
+  >
+    <header class="w-full max-w-140 self-center">
+      <p class="text-base leading-none font-medium uppercase lg:text-xl">My craft</p>
+
+      <div class="mt-2 w-fit max-w-full">
+        <h2 id="projects-title" class="text-5xl leading-none font-bold lg:text-[4rem]">Projects</h2>
+        <img
+          class="decorative-reveal mt-1 h-5 w-full object-fill"
+          src="/assets/projects/projects-title-underline.webp"
+          alt=""
+          aria-hidden="true"
+          draggable="false"
+        />
+      </div>
+
+      <p class="mt-12 max-w-140 text-base leading-normal lg:text-lg">
+        Encourage people to take a look and interact with your projects. Highlight your approach to
+        creating responsive, user-friendly projects with efficient code.
+      </p>
+    </header>
+
+    @for (project of projects; track project.slug) {
+      <article
+        class="projects__card grid min-w-0 grid-cols-1"
+        [class.projects__card--featured]="project.variant === 'featured'"
+      >
+        <div
+          class="projects__media relative col-start-1 row-start-1 aspect-[560/399] overflow-hidden rounded-2xl"
+        >
+          <img
+            class="projects__image block size-full"
+            [src]="project.imageSrc"
+            [alt]="project.imageAlt"
+            draggable="false"
+          />
+
+          @if (project.variant === 'featured') {
+            <span class="sr-only">Featured project</span>
+            <img
+              class="projects__badge absolute top-1/2 left-0 z-10 w-[30%] -translate-y-1/2"
+              [src]="project.badgeSrc"
+              alt=""
+              aria-hidden="true"
+              draggable="false"
+            />
+          }
+        </div>
+
+        <div class="col-start-1 row-start-2 mt-4">
+          <h3 class="text-xl leading-none font-bold lg:text-2xl">{{ project.title }}</h3>
+          <p class="mt-4 text-justify text-base leading-normal lg:text-lg">
+            {{ project.description }}
+          </p>
+        </div>
+
+        <app-cta-link
+          class="projects__details-link z-20 col-start-1 row-start-3 mt-4 w-40 justify-self-end lg:row-start-1 lg:mr-6 lg:mb-6 lg:mt-0 lg:w-44 lg:self-end"
+          label="Project details"
+          [route]="'/projects/' + project.slug"
+        />
+      </article>
+    }
+  </div>
+</section>
