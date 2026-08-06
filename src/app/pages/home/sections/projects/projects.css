@@ -1,0 +1,102 @@
+:host {
+  display: block;
+}
+
+.projects__media {
+  isolation: isolate;
+}
+
+.projects__media::after {
+  position: absolute;
+  z-index: 5;
+  inset: 0;
+  background: linear-gradient(to bottom, transparent 42%, rgb(14 16 19 / 72%) 100%);
+  content: '';
+  opacity: 1;
+  pointer-events: none;
+  transition: opacity 240ms ease-out;
+}
+
+.projects__card--featured .projects__media::after {
+  opacity: 0;
+}
+
+.projects__image {
+  object-fit: cover;
+  transition: transform 360ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.projects__card--featured .projects__image {
+  animation: featured-project-float 4.8s ease-in-out infinite;
+  object-fit: contain;
+  transition-duration: 650ms;
+  transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.projects__badge {
+  filter: drop-shadow(0 4px 5px rgb(14 16 19 / 24%));
+  pointer-events: none;
+  user-select: none;
+}
+
+.projects__details-link {
+  --cta-color: var(--color-canvas);
+
+  transition:
+    opacity 180ms ease-out,
+    transform 280ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@media (min-width: 64rem) and (hover: hover) and (pointer: fine) {
+  .projects__details-link {
+    --cta-color: var(--color-foreground);
+
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  .projects__media::after {
+    opacity: 0;
+  }
+
+  .projects__card:hover .projects__media::after,
+  .projects__card:focus-within .projects__media::after,
+  .projects__card:hover .projects__details-link,
+  .projects__card:focus-within .projects__details-link {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .projects__card:hover .projects__image,
+  .projects__card:focus-within .projects__image {
+    transform: scale(1.02);
+  }
+
+  .projects__card--featured:hover .projects__image,
+  .projects__card--featured:focus-within .projects__image {
+    transform: scale(1.015);
+  }
+}
+
+@keyframes featured-project-float {
+  0%,
+  100% {
+    translate: 0 0;
+  }
+
+  50% {
+    translate: 0 -6px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .projects__card--featured .projects__image {
+    animation: none;
+  }
+
+  .projects__media::after,
+  .projects__image,
+  .projects__details-link {
+    transition: none;
+  }
+}
