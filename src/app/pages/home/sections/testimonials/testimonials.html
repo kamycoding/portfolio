@@ -1,0 +1,92 @@
+<section
+  id="testimonials"
+  class="scroll-mt-20 bg-foreground px-4 py-22 text-canvas lg:px-8 lg:py-36 min-[90rem]:px-30"
+  aria-labelledby="testimonials-title"
+>
+  <div class="mx-auto w-full max-w-300">
+    <header class="ml-auto w-fit max-w-full text-right">
+      <div class="flex items-end justify-end gap-2">
+        <img
+          class="h-9 w-25 shrink-0 object-fill"
+          src="/assets/testimonials/testimonials-title-arrow.webp"
+          alt=""
+          aria-hidden="true"
+          draggable="false"
+        />
+        <p class="pb-0.5 text-base leading-none font-medium uppercase lg:text-lg">
+          In their words:
+        </p>
+      </div>
+
+      <h2
+        id="testimonials-title"
+        class="mt-1 text-[clamp(2.25rem,12.8vw,3rem)] leading-none font-bold lg:text-[4rem]"
+      >
+        Colleagues' Thoughts
+      </h2>
+    </header>
+
+    <ul class="testimonials__cards mt-8" role="list">
+      @for (testimonial of testimonials; track testimonial.id) {
+        <li class="testimonial-card" tabindex="0">
+          <picture class="testimonial-card__paper" aria-hidden="true">
+            <source
+              media="(min-width: 64rem)"
+              [srcset]="paperAssets[testimonial.paperVariant].desktopSrc"
+            />
+            <img
+              [src]="paperAssets[testimonial.paperVariant].mobileSrc"
+              alt=""
+              loading="lazy"
+              decoding="async"
+              draggable="false"
+            />
+          </picture>
+
+          <picture class="testimonial-card__highlight" aria-hidden="true">
+            <source
+              media="(min-width: 64rem)"
+              srcset="/assets/testimonials/testimonial-highlight.svg"
+            />
+            <img
+              src="/assets/testimonials/testimonial-highlight-mobile.svg"
+              alt=""
+              loading="lazy"
+              decoding="async"
+              draggable="false"
+            />
+          </picture>
+
+          <blockquote class="testimonial-card__content">
+            <p class="testimonial-card__quote">{{ testimonial.quote }}</p>
+
+            <footer class="testimonial-card__footer">
+              <div class="testimonial-card__identity">
+                <cite class="testimonial-card__name not-italic">
+                  {{ testimonial.name }}
+                </cite>
+                <p class="testimonial-card__role">{{ testimonial.role }}</p>
+              </div>
+
+              <a
+                class="testimonial-card__profile"
+                [href]="testimonial.linkedinUrl"
+                target="_blank"
+                rel="noopener noreferrer"
+                [attr.aria-label]="'View ' + testimonial.name + '\'s LinkedIn profile'"
+              >
+                <img
+                  src="/assets/testimonials/linkedin-mark.svg"
+                  alt=""
+                  aria-hidden="true"
+                  draggable="false"
+                />
+                <span>Profile</span>
+              </a>
+            </footer>
+          </blockquote>
+        </li>
+      }
+    </ul>
+  </div>
+</section>
