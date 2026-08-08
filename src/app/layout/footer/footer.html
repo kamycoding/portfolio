@@ -1,0 +1,42 @@
+<footer class="site-footer" aria-label="Site footer">
+  <div class="site-footer__inner">
+    <div class="site-footer__brand">
+      <a routerLink="/" aria-label="Go to the homepage">
+        <img src="/logo.svg" alt="" draggable="false" />
+      </a>
+      <p>© Kamyar Zamanfar {{ currentYear }}</p>
+    </div>
+
+    <a class="site-footer__legal" routerLink="/legal-notice">
+      <span>Legal Notice</span>
+      <img
+        class="site-footer__legal-decoration"
+        src="/assets/decorations/navigation/nav-hover-contact.svg"
+        alt=""
+        aria-hidden="true"
+        draggable="false"
+      />
+    </a>
+
+    <nav class="site-footer__socials" aria-label="Footer links">
+      @for (item of socialLinks; track item.id) {
+        <a
+          class="site-footer__social-link"
+          [href]="item.href"
+          [attr.aria-label]="item.accessibleLabel"
+          [attr.target]="item.opensInNewTab ? '_blank' : null"
+          [attr.rel]="item.opensInNewTab ? 'noopener noreferrer' : null"
+        >
+          <img
+            class="site-footer__social-icon"
+            [src]="item.iconSrc"
+            alt=""
+            aria-hidden="true"
+            draggable="false"
+          />
+          <span>{{ item.label }}</span>
+        </a>
+      }
+    </nav>
+  </div>
+</footer>
