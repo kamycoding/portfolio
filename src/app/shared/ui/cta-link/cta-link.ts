@@ -14,4 +14,6 @@ export class CtaLink {
   readonly route = input('/');
   readonly fragment = input<string>();
   readonly surface = input<'dark' | 'light'>('dark');
+  readonly href = input<string>();
+  readonly disabled = input(false);
 }

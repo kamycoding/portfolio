@@ -1,1 +1,102 @@
-<p>project-detail works!</p>
+@if (project(); as project) {
+  <main class="project-detail">
+    <nav class="project-detail__navigation" aria-label="Project navigation">
+      <a class="project-detail__back" routerLink="/" fragment="projects">
+        <img
+          src="/assets/project-detail/back-arrow.svg"
+          alt=""
+          aria-hidden="true"
+          draggable="false"
+        />
+        <span>Go Back</span>
+      </a>
+
+      @if (nextProject(); as nextProject) {
+        <a
+          class="project-detail__next"
+          [routerLink]="['/projects', nextProject.slug]"
+          [attr.aria-label]="'View next project: ' + nextProject.title"
+        >
+          <span>Next Project</span>
+          <img
+            src="/assets/project-detail/next-arrow.svg"
+            alt=""
+            aria-hidden="true"
+            draggable="false"
+          />
+        </a>
+      }
+    </nav>
+
+    <div class="project-detail__layout">
+      <article class="project-detail__information" [attr.aria-labelledby]="'project-title'">
+        <header class="project-detail__title-group">
+          <h1 id="project-title">{{ project.title }}</h1>
+          <img
+            class="project-detail__title-underline"
+            src="/assets/project-detail/title-underline.svg"
+            alt=""
+            aria-hidden="true"
+            draggable="false"
+          />
+        </header>
+
+        <div class="project-detail__copy">
+          <section>
+            <h2>Description</h2>
+            <p>{{ project.description }}</p>
+          </section>
+
+          <section>
+            <h2>Implementation Details</h2>
+            <p>{{ project.implementationDetails }}</p>
+          </section>
+
+          <p class="project-detail__duration">
+            <strong>Duration:</strong>
+            {{ project.duration }}
+          </p>
+
+          <ul class="project-detail__technologies" aria-label="Technologies used">
+            @for (technology of project.technologies; track technology.label) {
+              <li>
+                @if (technology.iconSrc) {
+                  <img [src]="technology.iconSrc" alt="" aria-hidden="true" draggable="false" />
+                }
+                <span>{{ technology.label }}</span>
+              </li>
+            }
+          </ul>
+        </div>
+      </article>
+
+      <section class="project-detail__showcase" [attr.aria-label]="project.title + ' preview'">
+        <figure class="project-detail__preview">
+          <img
+            class="project-detail__preview-image"
+            [src]="project.imageSrc"
+            [alt]="project.imageAlt"
+            draggable="false"
+          />
+
+          @if (project.variant === 'featured') {
+            <img
+              class="project-detail__badge"
+              [src]="project.badgeSrc"
+              alt="Featured project"
+              draggable="false"
+            />
+          } @else {
+            <app-brand-stamp class="project-detail__brand-stamp" />
+          }
+        </figure>
+
+        <div class="project-detail__actions" aria-label="Project links">
+          <app-cta-link label="GitHub" [href]="project.githubUrl" [disabled]="!project.githubUrl" />
+          <app-cta-link label="Live Test" [href]="project.liveUrl" [disabled]="!project.liveUrl" />
+        </div>
+      </section>
+    </div>
+
+  </main>
+}
