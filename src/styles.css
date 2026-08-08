@@ -64,9 +64,16 @@
   --palette-yellow-500: #f7c518;
   --palette-blue-500: #3355ff;
   --palette-orange-500: #f87a55;
+  --palette-red-500: #ff3a00;
 
   --motion-decorative-reveal-duration: 10s;
   --motion-decorative-reveal-easing: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+:is(input, textarea):autofill {
+  box-shadow: 0 0 0 1000px var(--color-canvas) inset;
+  caret-color: var(--color-foreground);
+  -webkit-text-fill-color: var(--color-foreground);
 }
 
 @theme inline {
@@ -77,6 +84,7 @@
   --color-primary: var(--palette-blue-500);
   --color-secondary: var(--palette-yellow-500);
   --color-tertiary: var(--palette-orange-500);
+  --color-error: var(--palette-red-500);
 
   --font-sans: 'Bricolage Grotesque', sans-serif;
   --font-hand: 'Kalam', cursive;

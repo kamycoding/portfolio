@@ -1,0 +1,171 @@
+<section
+  id="contact"
+  class="contact px-4 pt-26 text-foreground lg:px-[clamp(2rem,8.333vw,7.5rem)] lg:pt-36"
+  aria-labelledby="contact-title"
+>
+  <div
+    class="contact__inner relative mx-auto w-full max-w-300 lg:grid lg:min-h-140 lg:grid-cols-[minmax(0,560px)_minmax(0,480px)]"
+  >
+    <app-brand-stamp
+      class="contact__stamp absolute -top-8.5 right-0 z-1 w-30 lg:top-0 lg:w-42"
+    />
+
+    <div class="contact__intro pt-19 lg:flex lg:flex-col lg:pt-0">
+      <p class="contact__eyebrow text-base leading-none font-medium uppercase">Contact me</p>
+      <h2
+        id="contact-title"
+        class="contact__title mt-4 text-[clamp(40px,12.8vw,48px)] leading-none font-bold lg:text-[64px]"
+      >
+        Ready to work<br />together?
+      </h2>
+
+      <div class="contact__copy mt-8 text-justify text-base leading-[1.2] lg:max-w-140 lg:text-lg">
+        <p class="mt-4">
+          I’m interested in thoughtful projects where clean engineering, reliable collaboration, and
+          a strong user experience matter.
+        </p>
+        <p>
+          If you have a project, role, or idea where my full-stack experience could help, I’d be
+          happy to hear more about it.
+        </p>
+      </div>
+
+    </div>
+
+    <form
+      #formElement
+      class="contact-form mt-10 lg:mt-0 lg:pt-32"
+      [formGroup]="contactForm"
+      (ngSubmit)="submit()"
+      autocomplete="on"
+      novalidate
+    >
+      <div class="contact-form__fields">
+        <div class="contact-field" [class.contact-field--invalid]="hasVisibleError('name')">
+          <label for="contact-name">What’s your name?</label>
+          <input
+            id="contact-name"
+            type="text"
+            formControlName="name"
+            autocomplete="name"
+            autocapitalize="words"
+            enterkeyhint="next"
+            maxlength="80"
+            placeholder="Your name goes here"
+            [attr.aria-invalid]="hasVisibleError('name')"
+            aria-describedby="contact-name-error"
+          />
+          <p id="contact-name-error" class="contact-field__error" aria-live="polite">
+            {{ hasVisibleError('name') ? nameError() : '' }}
+          </p>
+        </div>
+
+        <div class="contact-field" [class.contact-field--invalid]="hasVisibleError('email')">
+          <label for="contact-email">What’s your email?</label>
+          <input
+            id="contact-email"
+            type="email"
+            formControlName="email"
+            autocomplete="email"
+            autocapitalize="none"
+            enterkeyhint="next"
+            inputmode="email"
+            maxlength="254"
+            placeholder="youremail@email.com"
+            spellcheck="false"
+            [attr.aria-invalid]="hasVisibleError('email')"
+            aria-describedby="contact-email-error"
+          />
+          <p id="contact-email-error" class="contact-field__error" aria-live="polite">
+            {{ hasVisibleError('email') ? emailError() : '' }}
+          </p>
+        </div>
+
+        <div
+          class="contact-field contact-field--message"
+          [class.contact-field--invalid]="hasVisibleError('message')"
+        >
+          <label for="contact-message">How can I help you?</label>
+          <textarea
+            id="contact-message"
+            formControlName="message"
+            maxlength="2000"
+            rows="1"
+            placeholder="Hello Kamyar, I am interested in…"
+            [attr.aria-invalid]="hasVisibleError('message')"
+            aria-describedby="contact-message-error"
+          ></textarea>
+          <p id="contact-message-error" class="contact-field__error" aria-live="polite">
+            {{ hasVisibleError('message') ? messageError() : '' }}
+          </p>
+        </div>
+      </div>
+
+      <div class="contact-form__honeypot" aria-hidden="true">
+        <label for="contact-company">Leave this field empty</label>
+        <input
+          id="contact-company"
+          type="text"
+          formControlName="company"
+          tabindex="-1"
+          autocomplete="off"
+        />
+      </div>
+
+      <div class="contact-consent">
+        <img
+          class="contact__arrow contact__arrow--desktop decorative-reveal"
+          src="/assets/contact-footer/contact-arrow.svg"
+          alt=""
+          aria-hidden="true"
+          draggable="false"
+        />
+        <label class="contact-consent__label" for="contact-privacy">
+          <input
+            id="contact-privacy"
+            type="checkbox"
+            formControlName="privacyAccepted"
+            [attr.aria-invalid]="hasVisibleError('privacyAccepted')"
+            aria-describedby="contact-privacy-error"
+          />
+          <span>
+            I’ve read the
+            <a routerLink="/privacy-policy">privacy policy</a>
+            and agree to the processing of my data as outlined.
+          </span>
+        </label>
+        <p id="contact-privacy-error" class="contact-consent__error" aria-live="polite">
+          {{ hasVisibleError('privacyAccepted') ? 'Please accept the privacy policy.' : '' }}
+        </p>
+      </div>
+
+      <div class="contact-form__actions">
+        <img
+          class="contact__arrow contact__arrow--mobile decorative-reveal"
+          src="/assets/contact-footer/contact-arrow.svg"
+          alt=""
+          aria-hidden="true"
+          draggable="false"
+        />
+        <button
+          class="contact-form__submit"
+          type="submit"
+          [disabled]="contactForm.invalid || submissionState() === 'submitting'"
+          [attr.aria-busy]="submissionState() === 'submitting'"
+        >
+          {{ submissionState() === 'submitting' ? 'Sending…' : 'Send' }}
+        </button>
+      </div>
+
+      <p
+        class="contact-form__status"
+        [class.contact-form__status--error]="submissionState() === 'server-error'"
+        [class.contact-form__status--success]="submissionState() === 'success'"
+        aria-live="polite"
+        aria-atomic="true"
+      >
+        {{ responseMessage() }}
+      </p>
+    </form>
+  </div>
+</section>
