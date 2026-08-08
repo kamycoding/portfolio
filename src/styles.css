@@ -90,6 +90,29 @@
   --font-hand: 'Kalam', cursive;
 }
 
+@media (min-width: 64rem) {
+  .project-detail-active .project-detail__copy {
+    padding-inline-end: clamp(16px, 2.222vw, 32px);
+  }
+
+  .project-detail-active
+    app-header
+    .site-header:not(.site-header--scrolled)
+    nav
+    li:nth-child(-n + 2)
+    a {
+    color: var(--color-canvas);
+  }
+}
+
+.project-detail-active .project-detail__back:is(:hover, :focus-visible, :active) {
+  color: var(--color-tertiary);
+}
+
+.project-detail-active .project-detail__next:is(:hover, :focus-visible, :active) {
+  color: var(--color-secondary);
+}
+
 .decorative-reveal {
   clip-path: inset(0 0 0 0);
   animation: decorative-reveal var(--motion-decorative-reveal-duration)
