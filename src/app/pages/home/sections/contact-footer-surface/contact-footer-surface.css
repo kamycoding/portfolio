@@ -1,0 +1,19 @@
+:host {
+  display: block;
+}
+
+.contact-footer-surface {
+  min-height: 900px;
+  overflow: hidden;
+  background-color: var(--color-foreground);
+  background-image: url('/assets/contact-footer/contact-footer-texture.png');
+  background-repeat: no-repeat;
+  background-position: top center;
+  background-size: cover;
+}
+
+@media (min-width: 64rem) {
+  .contact-footer-surface {
+    background-size: 100% 100%;
+  }
+}

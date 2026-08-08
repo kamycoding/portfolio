@@ -1,0 +1,63 @@
+:host {
+  display: block;
+  aspect-ratio: 1;
+}
+
+.brand-stamp {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.brand-stamp__background,
+.brand-stamp__ring {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.brand-stamp__background {
+  object-fit: contain;
+}
+
+.brand-stamp__ring {
+  overflow: visible;
+  animation: brand-stamp-spin 20s linear infinite;
+  transform-box: fill-box;
+  transform-origin: center;
+  will-change: transform;
+}
+
+.brand-stamp__ring text {
+  fill: var(--color-canvas);
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.brand-stamp__logo {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 38%;
+  height: 42.2%;
+  background-color: var(--color-canvas);
+  opacity: 0.84;
+  transform: translate(-58%, -51%) rotate(-15deg);
+  -webkit-mask: url('/logo.svg') center / contain no-repeat;
+  mask: url('/logo.svg') center / contain no-repeat;
+}
+
+@keyframes brand-stamp-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .brand-stamp__ring {
+    animation: none;
+  }
+}

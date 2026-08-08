@@ -12,7 +12,8 @@ import {
 import type { ElementRef, OnDestroy } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
-import type { NavigationItem, SocialLink } from './header.model';
+import { HEADER_SOCIAL_LINKS } from '../../shared/data/social-links';
+import type { NavigationItem } from './header.model';
 
 const DESKTOP_MEDIA_QUERY = '(min-width: 64rem)';
 
@@ -76,29 +77,7 @@ export class Header implements OnDestroy {
     },
   ];
 
-  protected readonly socialLinks: readonly SocialLink[] = [
-    {
-      id: 'linkedin',
-      href: 'https://www.linkedin.com/in/kamyarzamanfar/',
-      accessibleLabel: 'Visit LinkedIn profile',
-      iconSrc: '/assets/icons/social/linkedin.svg',
-      opensInNewTab: true,
-    },
-    {
-      id: 'github',
-      href: 'https://github.com/kamycoding',
-      accessibleLabel: 'Visit GitHub profile',
-      iconSrc: '/assets/icons/social/github.svg',
-      opensInNewTab: true,
-    },
-    {
-      id: 'email',
-      href: 'mailto:kamyar.zamanfar@gmail.com',
-      accessibleLabel: 'Send an email',
-      iconSrc: '/assets/icons/social/email.svg',
-      opensInNewTab: false,
-    },
-  ];
+  protected readonly socialLinks = HEADER_SOCIAL_LINKS;
 
   protected toggleLanguage(): void {
     this.activeLanguage.update((language) => (language === 'en' ? 'de' : 'en'));
