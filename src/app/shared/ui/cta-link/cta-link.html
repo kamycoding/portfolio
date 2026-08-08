@@ -1,8 +1,29 @@
-<a
-  class="cta-link"
-  [class.cta-link--on-light]="surface() === 'light'"
-  [routerLink]="route()"
-  [fragment]="fragment()"
->
-  {{ label() }}
-</a>
+@if (disabled()) {
+  <span
+    class="cta-link cta-link--disabled"
+    [class.cta-link--on-light]="surface() === 'light'"
+    role="link"
+    aria-disabled="true"
+  >
+    {{ label() }}
+  </span>
+} @else if (href(); as externalUrl) {
+  <a
+    class="cta-link"
+    [class.cta-link--on-light]="surface() === 'light'"
+    [href]="externalUrl"
+    target="_blank"
+    rel="noopener noreferrer"
+  >
+    {{ label() }}
+  </a>
+} @else {
+  <a
+    class="cta-link"
+    [class.cta-link--on-light]="surface() === 'light'"
+    [routerLink]="route()"
+    [fragment]="fragment()"
+  >
+    {{ label() }}
+  </a>
+}

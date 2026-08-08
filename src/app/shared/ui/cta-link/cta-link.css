@@ -35,8 +35,13 @@
   color: var(--color-canvas);
 }
 
+.cta-link--disabled {
+  cursor: not-allowed;
+  opacity: 0.72;
+}
+
 @media (hover: hover) and (pointer: fine) {
-  .cta-link:hover {
+  .cta-link:not(.cta-link--disabled):hover {
     transform: translate(var(--cta-shadow-x), var(--cta-shadow-y));
     border-color: var(--color-foreground);
     background-color: var(--color-tertiary);
@@ -45,7 +50,7 @@
   }
 }
 
-.cta-link:active {
+.cta-link:not(.cta-link--disabled):active {
   transform: translate(var(--cta-shadow-x), var(--cta-shadow-y));
   border-color: var(--color-foreground);
   background-color: var(--color-tertiary);
