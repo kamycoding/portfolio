@@ -7,6 +7,10 @@
   color: var(--color-foreground);
 }
 
+.site-footer--light {
+  color: var(--color-canvas);
+}
+
 .site-footer__inner {
   display: grid;
   width: 100%;

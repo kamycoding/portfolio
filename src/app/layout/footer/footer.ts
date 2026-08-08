@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
 import { FOOTER_SOCIAL_LINKS } from '../../shared/data/social-links';
@@ -11,6 +11,8 @@ import { FOOTER_SOCIAL_LINKS } from '../../shared/data/social-links';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Footer {
+  readonly theme = input<'dark' | 'light'>('dark');
+
   protected readonly currentYear = new Date().getFullYear();
   protected readonly socialLinks = FOOTER_SOCIAL_LINKS;
 }
