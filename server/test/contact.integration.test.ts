@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import { once } from 'node:events';
 import { request as httpRequest, type Server } from 'node:http';
 import type { AddressInfo } from 'node:net';
-import { afterEach, test } from 'node:test';
+import { test } from 'node:test';
 
 import type { ContactEmailSender, SendContactEmailInput } from '../src/services/email.service.js';
 
@@ -24,12 +24,6 @@ const validContactRequest = {
   privacyAccepted: true,
   company: '',
 };
-
-const originalFetch = globalThis.fetch;
-
-afterEach(() => {
-  globalThis.fetch = originalFetch;
-});
 
 test('delivers a valid contact request with the validated Reply-To details', async () => {
   let deliveredMessage: SendContactEmailInput | undefined;
@@ -97,36 +91,57 @@ test('returns a fake success for a populated honeypot without sending email', as
   assert.equal(sendCount, 0);
 });
 
-test('returns a safe response and logs only diagnostics when email delivery fails', async () => {
-  const emailSender: ContactEmailSender = async () => {
-    throw new EmailDeliveryError('provider-response', 500);
-  };
-  const originalConsoleError = console.error;
-  let diagnostics: unknown;
-  console.error = (_message: unknown, details: unknown) => {
-    diagnostics = details;
-  };
+test(
+  'returns safe responses and logs only available diagnostics when delivery fails',
+  { concurrency: false },
+  async () => {
+    let attempt = 0;
+    const emailSender: ContactEmailSender = async () => {
+      attempt += 1;
+      throw attempt === 1
+        ? new EmailDeliveryError('provider-response', 500)
+        : new EmailDeliveryError('timeout');
+    };
+    const originalConsoleError = console.error;
+    const diagnostics: unknown[] = [];
+    console.error = (_message: unknown, details: unknown) => {
+      diagnostics.push(details);
+    };
 
-  try {
-    await withApp(emailSender, async (baseUrl) => {
-      const response = await postContact(baseUrl, validContactRequest);
-      const body = (await response.json()) as { success: boolean; message: string };
+    try {
+      await withApp(emailSender, async (baseUrl) => {
+        const providerResponse = await postContact(baseUrl, validContactRequest);
+        const timeoutResponse = await postContact(baseUrl, validContactRequest);
+        const providerBody = (await providerResponse.json()) as {
+          success: boolean;
+          message: string;
+        };
+        const timeoutBody = (await timeoutResponse.json()) as {
+          success: boolean;
+          message: string;
+        };
 
-      assert.equal(response.status, 502);
-      assert.deepEqual(body, {
-        success: false,
-        message: 'Your message could not be sent. Please try again in a moment.',
+        assert.equal(providerResponse.status, 502);
+        assert.equal(timeoutResponse.status, 502);
+        assert.deepEqual(providerBody, {
+          success: false,
+          message: 'Your message could not be sent. Please try again in a moment.',
+        });
+        assert.deepEqual(timeoutBody, {
+          success: false,
+          message: 'Your message could not be sent. Please try again in a moment.',
+        });
       });
-    });
-  } finally {
-    console.error = originalConsoleError;
-  }
+    } finally {
+      console.error = originalConsoleError;
+    }
 
-  assert.deepEqual(diagnostics, {
-    category: 'provider-response',
-    providerStatus: 500,
-  });
-});
+    assert.deepEqual(diagnostics, [
+      { category: 'provider-response', providerStatus: 500 },
+      { category: 'timeout' },
+    ]);
+  },
+);
 
 test('limits repeated contact submissions', async () => {
   let sendCount = 0;
@@ -147,33 +162,43 @@ test('limits repeated contact submissions', async () => {
   assert.equal(sendCount, 5);
 });
 
-test('aborts a stalled Brevo request after the configured timeout', async () => {
-  globalThis.fetch = ((_input: string | URL | Request, init?: RequestInit) => {
-    return new Promise<Response>((_resolve, reject) => {
-      init?.signal?.addEventListener(
-        'abort',
-        () => {
-          const error = new Error('Request aborted.');
-          error.name = 'AbortError';
-          reject(error);
-        },
-        { once: true },
-      );
-    });
-  }) as typeof fetch;
+test(
+  'aborts a stalled Brevo request after the configured timeout',
+  { concurrency: false },
+  async () => {
+    const originalFetch = globalThis.fetch;
 
-  await assert.rejects(
-    sendContactEmail(
-      {
-        name: validContactRequest.name,
-        email: validContactRequest.email,
-        message: validContactRequest.message,
-      },
-      5,
-    ),
-    (error: unknown) => error instanceof EmailDeliveryError && error.category === 'timeout',
-  );
-});
+    try {
+      globalThis.fetch = ((_input: string | URL | Request, init?: RequestInit) => {
+        return new Promise<Response>((_resolve, reject) => {
+          init?.signal?.addEventListener(
+            'abort',
+            () => {
+              const error = new Error('Request aborted.');
+              error.name = 'AbortError';
+              reject(error);
+            },
+            { once: true },
+          );
+        });
+      }) as typeof fetch;
+
+      await assert.rejects(
+        sendContactEmail(
+          {
+            name: validContactRequest.name,
+            email: validContactRequest.email,
+            message: validContactRequest.message,
+          },
+          5,
+        ),
+        (error: unknown) => error instanceof EmailDeliveryError && error.category === 'timeout',
+      );
+    } finally {
+      globalThis.fetch = originalFetch;
+    }
+  },
+);
 
 async function withApp(
   emailSender: ContactEmailSender,
