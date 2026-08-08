@@ -39,7 +39,12 @@ export function createContactRouter(emailSender: ContactEmailSender = sendContac
     } catch (error: unknown) {
       const diagnostics =
         error instanceof EmailDeliveryError
-          ? { category: error.category, providerStatus: error.providerStatus }
+          ? {
+              category: error.category,
+              ...(error.providerStatus === undefined
+                ? {}
+                : { providerStatus: error.providerStatus }),
+            }
           : { category: 'unexpected' };
 
       console.error('Contact email delivery failed.', diagnostics);
