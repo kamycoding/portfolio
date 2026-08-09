@@ -59,6 +59,23 @@ describe('ProjectDetail', () => {
     );
   });
 
+  it('renders the El Pollo Loco GitHub and live links as active external links', async () => {
+    await harness.navigateByUrl('/projects/el-pollo-loco', ProjectDetail);
+
+    const projectLinks = Array.from(
+      harness.routeNativeElement?.querySelectorAll<HTMLAnchorElement>(
+        '.project-detail__actions a',
+      ) ?? [],
+    );
+
+    expect(projectLinks.map((link) => link.href)).toEqual([
+      'https://github.com/kamycoding/El-Pollo-Loco',
+      'https://kamycoding.github.io/El-Pollo-Loco/',
+    ]);
+    expect(projectLinks.every((link) => link.target === '_blank')).toBe(true);
+    expect(projectLinks.every((link) => link.rel === 'noopener noreferrer')).toBe(true);
+  });
+
   it('redirects an unsupported slug to the existing not-found route', async () => {
     await harness.navigateByUrl('/projects/unsupported');
 

@@ -164,16 +164,17 @@
 .project-detail__actions {
   display: flex;
   margin-top: 44px;
+  flex-wrap: wrap;
   justify-content: flex-end;
   gap: 32px;
 }
 
 .project-detail__actions app-cta-link {
-  width: 110px;
+  --cta-min-width: 110px;
 }
 
 .project-detail__actions app-cta-link:last-child {
-  width: 125px;
+  --cta-min-width: 125px;
 }
 
 .project-detail__next {
