@@ -15,7 +15,7 @@ export const routes: Routes = [
   {
     path: 'legal-notice',
     component: LegalNotice,
-    title: 'Legal Notice Kamycoding',
+    title: 'Legal Notice | KamyCoding',
   },
   {
     path: 'privacy-policy',

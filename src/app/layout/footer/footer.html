@@ -1,4 +1,8 @@
-<footer class="site-footer" aria-label="Site footer">
+<footer
+  class="site-footer"
+  [class.site-footer--light]="theme() === 'light'"
+  aria-label="Site footer"
+>
   <div class="site-footer__inner">
     <div class="site-footer__brand">
       <a routerLink="/" aria-label="Go to the homepage">
