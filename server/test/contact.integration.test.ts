@@ -10,11 +10,13 @@ process.env.PORT = '3000';
 process.env.NODE_ENV = 'test';
 process.env.ALLOWED_ORIGIN = 'http://localhost:4200';
 process.env.BREVO_API_KEY = 'test-api-key';
+process.env.BREVO_REQUEST_TIMEOUT_MS = '17500';
 process.env.CONTACT_TO_EMAIL = 'recipient@example.com';
 process.env.CONTACT_FROM_EMAIL = 'verified-sender@example.com';
 process.env.CONTACT_FROM_NAME = 'Portfolio Contact Form';
 
 const { createApp } = await import('../src/app.js');
+const { env, validateEnvironment } = await import('../src/config/env.js');
 const { EmailDeliveryError, sendContactEmail } = await import('../src/services/email.service.js');
 
 const validContactRequest = {
@@ -24,6 +26,36 @@ const validContactRequest = {
   privacyAccepted: true,
   company: '',
 };
+
+test('accepts a configured Brevo request timeout', () => {
+  assert.equal(env.BREVO_REQUEST_TIMEOUT_MS, 17_500);
+});
+
+test('rejects an invalid Brevo request timeout', () => {
+  const result = validateEnvironment({
+    ...process.env,
+    BREVO_REQUEST_TIMEOUT_MS: 'not-a-number',
+  });
+
+  assert.equal(result.success, false);
+
+  if (!result.success) {
+    assert.ok(result.error.flatten().fieldErrors.BREVO_REQUEST_TIMEOUT_MS?.length);
+  }
+});
+
+test('uses the safe default when the Brevo request timeout is omitted', () => {
+  const environment = { ...process.env };
+  delete environment.BREVO_REQUEST_TIMEOUT_MS;
+
+  const result = validateEnvironment(environment);
+
+  assert.equal(result.success, true);
+
+  if (result.success) {
+    assert.equal(result.data.BREVO_REQUEST_TIMEOUT_MS, 15_000);
+  }
+});
 
 test('delivers a valid contact request with the validated Reply-To details', async () => {
   let deliveredMessage: SendContactEmailInput | undefined;

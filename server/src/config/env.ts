@@ -9,6 +9,8 @@ const envSchema = z.object({
 
   BREVO_API_KEY: z.string().min(1, 'BREVO_API_KEY is required.'),
 
+  BREVO_REQUEST_TIMEOUT_MS: z.coerce.number().int().positive().default(15_000),
+
   CONTACT_TO_EMAIL: z.email(),
 
   CONTACT_FROM_EMAIL: z.email(),
@@ -16,7 +18,11 @@ const envSchema = z.object({
   CONTACT_FROM_NAME: z.string().trim().min(1, 'CONTACT_FROM_NAME is required.').max(100),
 });
 
-const parsedEnv = envSchema.safeParse(process.env);
+export function validateEnvironment(environment: NodeJS.ProcessEnv) {
+  return envSchema.safeParse(environment);
+}
+
+const parsedEnv = validateEnvironment(process.env);
 
 if (!parsedEnv.success) {
   console.error('Invalid environment variables:', parsedEnv.error.flatten().fieldErrors);

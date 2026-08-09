@@ -1,7 +1,6 @@
 import { env } from '../config/env.js';
 
 const BREVO_API_URL = 'https://api.brevo.com/v3/smtp/email';
-const BREVO_REQUEST_TIMEOUT_MS = 8_000;
 
 export type EmailDeliveryErrorCategory = 'network' | 'provider-response' | 'timeout';
 
@@ -27,7 +26,7 @@ export type ContactEmailSender = (input: SendContactEmailInput) => Promise<void>
 
 export async function sendContactEmail(
   input: SendContactEmailInput,
-  timeoutMs = BREVO_REQUEST_TIMEOUT_MS,
+  timeoutMs = env.BREVO_REQUEST_TIMEOUT_MS,
 ): Promise<void> {
   const abortController = new AbortController();
   const timeout = setTimeout(() => abortController.abort(), timeoutMs);
