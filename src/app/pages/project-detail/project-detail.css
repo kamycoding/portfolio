@@ -9,7 +9,7 @@
   padding: 96px 72px 24px;
   grid-template-rows: auto auto auto;
   background-color: var(--color-canvas);
-  background-image: url('/assets/project-detail/project-detail-header-bg..png');
+  background-image: url('/assets/project-detail/project-detail-header-bg.webp');
   background-repeat: no-repeat;
   background-position: center top;
   background-size: 100% 100%;
@@ -197,7 +197,7 @@
     min-height: 1120px;
     padding: 96px 16px 0;
     flex-direction: column;
-    background-image: url('/assets/project-detail/project-detail-bg-mobile.png');
+    background-image: url('/assets/project-detail/project-detail-bg-mobile.webp');
     background-position: center top;
     background-size: 100% 100%;
   }
