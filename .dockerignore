@@ -1,0 +1,39 @@
+# Version control and local tooling
+.git
+.github
+.agents
+.codex
+.vscode
+.idea
+**/.DS_Store
+**/Thumbs.db
+*.swp
+
+# Dependencies and generated output
+**/node_modules
+**/dist
+**/coverage
+/.angular
+/out-tsc
+/tmp
+*.log
+
+# Secrets and local environment files
+.env
+.env.*
+**/.env
+**/.env.*
+
+# Angular frontend (the image deploys only /server)
+/src
+/public
+/angular.json
+/package.json
+/package-lock.json
+/tsconfig*.json
+/eslint.config.js
+/.postcssrc.json
+/proxy.conf.json
+
+# Backend files not needed to build or run the image
+/server/test
