@@ -32,7 +32,7 @@ describe('LegalNotice', () => {
   it('reuses the shared light footer and provides a route back home', () => {
     const footer = fixture.nativeElement.querySelector('app-footer') as HTMLElement | null;
     const backLink = fixture.nativeElement.querySelector(
-      '.legal-notice__back',
+      '.legal-page__back',
     ) as HTMLAnchorElement | null;
 
     expect(footer?.querySelector('.site-footer--light')).not.toBeNull();

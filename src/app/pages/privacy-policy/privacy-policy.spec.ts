@@ -39,7 +39,7 @@ describe('PrivacyPolicy', () => {
   it('reuses the shared light footer and provides a route back home', () => {
     const footer = fixture.nativeElement.querySelector('app-footer') as HTMLElement | null;
     const backLink = fixture.nativeElement.querySelector(
-      '.privacy-policy__back',
+      '.legal-page__back',
     ) as HTMLAnchorElement | null;
     const privacyLink = footer?.querySelector(
       'a[href="/privacy-policy"]',
