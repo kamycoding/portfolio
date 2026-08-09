@@ -1,53 +1,31 @@
-<main class="legal-notice">
-  <header class="legal-notice__hero">
-    <div class="legal-notice__hero-inner">
-      <h1>Legal Notice</h1>
-    </div>
-  </header>
+<app-legal-page-layout title="Legal Notice">
+  <section>
+    <h2 id="legal-information-heading">Information pursuant to § 5 DDG</h2>
 
-  <div class="legal-notice__page">
-    <a class="legal-notice__back" routerLink="/">
-      <img
-        src="/assets/project-detail/back-arrow.svg"
-        alt=""
-        aria-hidden="true"
-        draggable="false"
-      />
-      <span>Back</span>
-    </a>
-
-    <article class="legal-notice__content" aria-labelledby="legal-information-heading">
-      <section>
-        <h2 id="legal-information-heading">Information pursuant to § 5 DDG</h2>
-
-        <address>
-          <p>
-            Kamyar Zamanfar<br />
-            KamyCoding
-          </p>
-
-          <p>
-            Alte Poststraße 14<br />
-            53840 Troisdorf<br />
-            Germany
-          </p>
-        </address>
-      </section>
-
-      <section>
-        <h2>Contact</h2>
-        <p>
-          Email:
-          <a href="mailto:contact@kamycoding.com">contact&#64;kamycoding.com</a>
-        </p>
-      </section>
-
-      <p class="legal-notice__updated">
-        Last updated:
-        <time datetime="2026-08-09">August 9, 2026</time>
+    <address>
+      <p>
+        Kamyar Zamanfar<br />
+        KamyCoding
       </p>
-    </article>
 
-    <app-footer theme="light" />
-  </div>
-</main>
+      <p>
+        Alte Poststraße 14<br />
+        53840 Troisdorf<br />
+        Germany
+      </p>
+    </address>
+  </section>
+
+  <section>
+    <h2>Contact</h2>
+    <p>
+      Email:
+      <a href="mailto:contact@kamycoding.com">contact&#64;kamycoding.com</a>
+    </p>
+  </section>
+
+  <p class="legal-notice__updated">
+    Last updated:
+    <time datetime="2026-08-09">August 9, 2026</time>
+  </p>
+</app-legal-page-layout>

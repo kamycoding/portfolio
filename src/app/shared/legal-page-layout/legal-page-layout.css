@@ -1,0 +1,112 @@
+:host {
+  display: block;
+}
+
+.legal-page {
+  min-height: 100svh;
+  background-color: var(--color-foreground);
+  color: var(--color-canvas);
+}
+
+.legal-page__hero {
+  height: 271px;
+  background-color: var(--color-foreground);
+  background-image: url('/assets/legal-notice/legal-notice-header-bg.png');
+  background-repeat: no-repeat;
+  background-position: center bottom;
+  background-size: 100% 100%;
+  color: var(--color-foreground);
+}
+
+.legal-page__hero-inner {
+  display: flex;
+  width: min(1440px, 100%);
+  height: 100%;
+  margin-inline: auto;
+  padding: 0 20px 95px;
+  align-items: flex-end;
+}
+
+.legal-page h1 {
+  margin: 0;
+  font-size: clamp(40px, 12.8vw, 48px);
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.legal-page__page {
+  width: min(1440px, 100%);
+  margin-inline: auto;
+}
+
+.legal-page__back {
+  display: inline-flex;
+  margin: 16px 20px 0;
+  align-items: center;
+  gap: 8px;
+  color: var(--color-canvas);
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.2;
+  text-decoration: none;
+}
+
+.legal-page__back img {
+  width: 24px;
+  height: 24px;
+}
+
+.legal-page__back:is(:hover, :focus-visible, :active) {
+  color: var(--color-tertiary);
+}
+
+.legal-page__back:focus-visible {
+  border-radius: 2px;
+  outline: 2px solid var(--color-primary);
+  outline-offset: 4px;
+}
+
+.legal-page__content {
+  display: flex;
+  width: min(1200px, calc(100% - 40px));
+  min-height: var(--legal-content-min-height, auto);
+  margin: 20px auto 0;
+  flex-direction: column;
+  gap: 32px;
+  font-size: 16px;
+  line-height: var(--legal-content-line-height, 1.5);
+}
+
+.legal-page app-footer {
+  display: block;
+  margin-top: 64px;
+}
+
+@media (min-width: 64rem) {
+  .legal-page__hero {
+    height: 439px;
+  }
+
+  .legal-page__hero-inner {
+    padding: 0 clamp(32px, 8.333vw, 120px) 176px;
+  }
+
+  .legal-page h1 {
+    font-size: 64px;
+    line-height: 1;
+  }
+
+  .legal-page__back {
+    display: none;
+  }
+
+  .legal-page__content {
+    width: min(1200px, calc(100% - 64px));
+    margin-top: 80px;
+    gap: 40px;
+  }
+
+  .legal-page app-footer {
+    margin-top: 80px;
+  }
+}

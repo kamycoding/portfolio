@@ -1,11 +1,10 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
 
-import { Footer } from '../../layout/footer/footer';
+import { LegalPageLayout } from '../../shared/legal-page-layout/legal-page-layout';
 
 @Component({
   selector: 'app-legal-notice',
-  imports: [RouterLink, Footer],
+  imports: [LegalPageLayout],
   templateUrl: './legal-notice.html',
   styleUrl: './legal-notice.css',
   changeDetection: ChangeDetectionStrategy.OnPush,

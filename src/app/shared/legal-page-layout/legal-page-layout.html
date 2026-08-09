@@ -1,0 +1,25 @@
+<main class="legal-page">
+  <header class="legal-page__hero">
+    <div class="legal-page__hero-inner">
+      <h1 id="legal-page-title">{{ title() }}</h1>
+    </div>
+  </header>
+
+  <div class="legal-page__page">
+    <a class="legal-page__back" routerLink="/">
+      <img
+        src="/assets/project-detail/back-arrow.svg"
+        alt=""
+        aria-hidden="true"
+        draggable="false"
+      />
+      <span>Back</span>
+    </a>
+
+    <article class="legal-page__content" aria-labelledby="legal-page-title">
+      <ng-content />
+    </article>
+
+    <app-footer theme="light" />
+  </div>
+</main>
