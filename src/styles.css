@@ -56,6 +56,10 @@
   font-display: swap;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 :root {
   /* *Primitives tokens */
   --palette-neutral-50: #f8f9fa;
@@ -91,6 +95,10 @@
 }
 
 @media (min-width: 64rem) {
+  .project-detail-active app-header .site-header__desktop {
+    max-width: none;
+  }
+
   .project-detail-active .project-detail__copy {
     padding-inline-end: clamp(16px, 2.222vw, 32px);
   }
@@ -102,6 +110,12 @@
     li:nth-child(-n + 2)
     a {
     color: var(--color-canvas);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
   }
 }
 
