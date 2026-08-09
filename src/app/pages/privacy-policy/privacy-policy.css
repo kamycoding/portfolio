@@ -1,0 +1,149 @@
+:host {
+  display: block;
+}
+
+.privacy-policy {
+  min-height: 100svh;
+  background-color: var(--color-foreground);
+  color: var(--color-canvas);
+}
+
+.privacy-policy__hero {
+  height: 271px;
+  background-color: var(--color-foreground);
+  background-image: url('/assets/legal-notice/legal-notice-header-bg.png');
+  background-repeat: no-repeat;
+  background-position: center bottom;
+  background-size: 100% 100%;
+  color: var(--color-foreground);
+}
+
+.privacy-policy__hero-inner {
+  display: flex;
+  width: min(1440px, 100%);
+  height: 100%;
+  margin-inline: auto;
+  padding: 0 20px 95px;
+  align-items: flex-end;
+}
+
+.privacy-policy h1,
+.privacy-policy h2,
+.privacy-policy p,
+.privacy-policy ul {
+  margin: 0;
+}
+
+.privacy-policy h1 {
+  font-size: clamp(40px, 12.8vw, 48px);
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.privacy-policy__page {
+  width: min(1440px, 100%);
+  margin-inline: auto;
+}
+
+.privacy-policy__back {
+  display: inline-flex;
+  margin: 16px 20px 0;
+  align-items: center;
+  gap: 8px;
+  color: var(--color-canvas);
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.2;
+  text-decoration: none;
+}
+
+.privacy-policy__back img {
+  width: 24px;
+  height: 24px;
+}
+
+.privacy-policy__back:is(:hover, :focus-visible, :active) {
+  color: var(--color-tertiary);
+}
+
+.privacy-policy__back:focus-visible,
+.privacy-policy__content a:focus-visible {
+  border-radius: 2px;
+  outline: 2px solid var(--color-primary);
+  outline-offset: 4px;
+}
+
+.privacy-policy__content {
+  display: flex;
+  width: min(1200px, calc(100% - 40px));
+  margin: 20px auto 0;
+  flex-direction: column;
+  gap: 32px;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.privacy-policy__content section {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.privacy-policy__content h2 {
+  color: var(--color-primary);
+  font-size: 23px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.privacy-policy__content address {
+  font-style: normal;
+}
+
+.privacy-policy__content ul {
+  padding-inline-start: 24px;
+}
+
+.privacy-policy__content a {
+  color: var(--color-primary);
+  overflow-wrap: anywhere;
+  text-underline-offset: 3px;
+}
+
+.privacy-policy app-footer {
+  display: block;
+  margin-top: 64px;
+}
+
+@media (min-width: 64rem) {
+  .privacy-policy__hero {
+    height: 439px;
+  }
+
+  .privacy-policy__hero-inner {
+    padding: 0 clamp(32px, 8.333vw, 120px) 176px;
+  }
+
+  .privacy-policy h1 {
+    font-size: 64px;
+    line-height: 1;
+  }
+
+  .privacy-policy__back {
+    display: none;
+  }
+
+  .privacy-policy__content {
+    width: min(1200px, calc(100% - 64px));
+    margin-top: 80px;
+    gap: 40px;
+  }
+
+  .privacy-policy__content h2 {
+    font-size: 24px;
+  }
+
+  .privacy-policy app-footer {
+    margin-top: 80px;
+  }
+}

@@ -20,7 +20,7 @@ export const routes: Routes = [
   {
     path: 'privacy-policy',
     component: PrivacyPolicy,
-    title: 'Privacy Policy Kamycoding',
+    title: 'Privacy Policy | KamyCoding',
   },
   {
     path: 'projects/:slug',
