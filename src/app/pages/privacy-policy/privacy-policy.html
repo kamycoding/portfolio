@@ -32,47 +32,46 @@
 
   <section>
     <h2>3. Hosting and Server Log Files</h2>
-    <p>This website and its backend are hosted using external hosting providers.</p>
+    <p>This website and its contact-form backend are hosted using external hosting providers.</p>
     <p>
-      When you access this website, technical information may automatically be processed by the
-      hosting infrastructure. This may include, in particular:
+      <strong>Frontend hosting: Netlify.</strong>
+      The Angular frontend is hosted by Netlify. When you access the website, Netlify may process
+      technical connection and request information required to provide, operate, secure and diagnose
+      the website. This may include IP addresses, the date and time of access, requested pages or
+      files, referrer information, browser and operating-system information, and HTTP status codes.
     </p>
-    <ul>
-      <li>IP address</li>
-      <li>date and time of access</li>
-      <li>requested page or file</li>
-      <li>referrer URL</li>
-      <li>browser type and version</li>
-      <li>operating system</li>
-      <li>HTTP status code</li>
-    </ul>
     <p>
-      This processing is necessary to provide the website securely and reliably and to detect
-      technical problems or misuse.
+      <strong>Backend hosting: Apply.Build.</strong>
+      The contact API is hosted using Apply.Build, a service operated by Codebite Oy in Finland.
+      Apply.Build states that its application compute, logs and object storage are hosted in the
+      European Economic Area and that it acts as a processor for personal data processed within
+      hosted customer applications. Technical request and security metadata, such as IP addresses,
+      HTTP headers, request paths, timestamps and user-agent information, may be processed for
+      operation, security and diagnostics.
     </p>
     <p>
       The legal basis is Art. 6(1)(f) GDPR. My legitimate interest is the secure and technically
       reliable operation of this website.
-    </p>
-    <p>
-      Hosting provider information will be added after the final production hosting setup has been
-      completed.
     </p>
   </section>
 
   <section>
     <h2>4. Contact Form</h2>
     <p>
-      If you contact me using the contact form, the information you enter will be processed in order
-      to handle and respond to your request.
+      If you contact me using the contact form, the name, email address and message you enter are
+      transmitted to the backend and processed in order to handle and respond to your request.
     </p>
-    <p>The contact form may process the following data:</p>
+    <p>The contact form processes the following enquiry data:</p>
     <ul>
       <li>name</li>
       <li>email address</li>
       <li>message</li>
-      <li>information concerning acceptance of the privacy notice</li>
     </ul>
+    <p>
+      The form also transmits whether the required privacy notice acknowledgement was selected so
+      that the submission can be validated. This value is not included in the email content sent
+      through Brevo.
+    </p>
     <p>The information is used to process your enquiry and communicate with you.</p>
     <p>
       Depending on the nature of your request, the legal basis is Art. 6(1)(b) GDPR where the
@@ -87,14 +86,16 @@
   <section>
     <h2>5. Email Delivery via Brevo</h2>
     <p>
-      Messages submitted through the contact form are technically transmitted using the email
-      delivery service Brevo.
+      Brevo is used as the transactional email delivery provider for messages submitted through the
+      contact form.
     </p>
     <p>
-      In this context, data contained in your enquiry, such as your name, email address and message,
-      may be processed by Brevo for the purpose of delivering the email.
+      The backend sends the name, email address and message entered in the contact form to Brevo via
+      its API so that the enquiry can be delivered to the professional mailbox.
     </p>
-    <p>Brevo acts as a service provider for the technical delivery of these messages.</p>
+    <p>
+      Brevo processes this data as a service provider for the technical delivery of the message.
+    </p>
     <p>
       Personal data is transmitted only to the extent necessary for the delivery and processing of
       your enquiry.
@@ -104,9 +105,13 @@
   <section>
     <h2>6. Email Hosting via Zoho Mail</h2>
     <p>
-      Emails sent to
+      Messages delivered through the contact form, as well as emails sent directly to
       <a href="mailto:contact@kamycoding.com">contact&#64;kamycoding.com</a>
-      are hosted and processed using Zoho Mail.
+      are received and stored in the professional mailbox provided by Zoho Mail.
+    </p>
+    <p>
+      The Zoho account uses the European service domain mail.zoho.eu, which Zoho identifies as its
+      EU data center.
     </p>
     <p>
       Zoho may process email content, sender and recipient addresses, and technical metadata
@@ -181,10 +186,7 @@
       Appropriate technical and organisational measures are used to protect personal data against
       loss, misuse, unauthorised access or disclosure.
     </p>
-    <p>
-      Communication with this website is provided via encrypted HTTPS connections where technically
-      available.
-    </p>
+    <p>Communication with the production website is encrypted using HTTPS.</p>
   </section>
 
   <section>
