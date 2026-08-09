@@ -11,16 +11,29 @@
       <p>© Kamyar Zamanfar {{ currentYear }}</p>
     </div>
 
-    <a class="site-footer__legal" routerLink="/legal-notice">
-      <span>Legal Notice</span>
-      <img
-        class="site-footer__legal-decoration"
-        src="/assets/decorations/navigation/nav-hover-contact.svg"
-        alt=""
-        aria-hidden="true"
-        draggable="false"
-      />
-    </a>
+    <nav class="site-footer__legal-links" aria-label="Legal pages">
+      <a class="site-footer__legal-link" routerLink="/legal-notice">
+        <span>Legal Notice</span>
+        <img
+          class="site-footer__legal-decoration"
+          src="/assets/decorations/navigation/nav-hover-contact.svg"
+          alt=""
+          aria-hidden="true"
+          draggable="false"
+        />
+      </a>
+
+      <a class="site-footer__legal-link" routerLink="/privacy-policy">
+        <span>Privacy Policy</span>
+        <img
+          class="site-footer__legal-decoration"
+          src="/assets/decorations/navigation/nav-hover-contact.svg"
+          alt=""
+          aria-hidden="true"
+          draggable="false"
+        />
+      </a>
+    </nav>
 
     <nav class="site-footer__socials" aria-label="Footer links">
       @for (item of socialLinks; track item.id) {
