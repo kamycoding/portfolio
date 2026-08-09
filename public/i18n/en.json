@@ -1,0 +1,189 @@
+{
+  "pageTitles": {
+    "notFound": "Page Not Found | KamyCoding"
+  },
+  "nav": {
+    "about": "About me",
+    "skills": "Skills",
+    "projects": "Projects",
+    "contact": "Contact",
+    "homeAria": "Go to homepage",
+    "primaryAria": "Primary navigation",
+    "mobileAria": "Mobile navigation",
+    "menuAria": "Navigation menu",
+    "openMenuAria": "Open navigation menu",
+    "closeMenuAria": "Close navigation menu",
+    "switchToGerman": "Switch language to German",
+    "switchToEnglish": "Switch language to English"
+  },
+  "footer": {
+    "aria": "Site footer",
+    "homeAria": "Go to the homepage",
+    "legalAria": "Legal pages",
+    "linksAria": "Footer links",
+    "legalNotice": "Legal Notice",
+    "privacyPolicy": "Privacy Policy"
+  },
+  "social": {
+    "navigationAria": "Social media links",
+    "githubLabel": "GitHub",
+    "linkedinLabel": "LinkedIn",
+    "emailLabel": "Email",
+    "githubAria": "Visit GitHub profile",
+    "linkedinAria": "Visit LinkedIn profile",
+    "emailAria": "Send an email",
+    "openGithubAria": "Open Kamyar Zamanfar's GitHub profile",
+    "openLinkedinAria": "Open Kamyar Zamanfar's LinkedIn profile",
+    "emailKamyarAria": "Send an email to Kamyar Zamanfar"
+  },
+  "hero": {
+    "greeting": "Hello world",
+    "introduction": "Hi, I'm Kamyar Zamanfar",
+    "roleAria": "Full-Stack Developer",
+    "portraitAlt": "Portrait of Kamyar Zamanfar",
+    "cta": "Get in Touch"
+  },
+  "about": {
+    "eyebrow": "Who's Kamyar?",
+    "heading": "About me",
+    "paragraphs": {
+      "introduction": "Hi, I’m Kamyar, a full-stack developer who enjoys turning ideas into accessible, maintainable digital products.",
+      "values": "I care about thoughtful problem-solving, clean code, and building experiences that are useful for real people."
+    },
+    "cta": "Let’s talk",
+    "availabilityAria": "Work availability",
+    "availability": {
+      "cologne": "Based in Cologne",
+      "relocation": "Open to relocation",
+      "remote": "Open to remote work"
+    }
+  },
+  "skills": {
+    "eyebrow": "My stack",
+    "heading": "Skill set",
+    "description": "I build maintainable web applications with Angular and TypeScript, and I enjoy expanding my stack through hands-on projects, thoughtful problem-solving, and continuous learning.",
+    "listAria": "Technologies and tools",
+    "peel": {
+      "revealAria": "Reveal technologies I am interested in learning",
+      "hideAria": "Hide technologies I am interested in learning",
+      "front": "Pull to\npeel",
+      "back": "Also, I’m interested\nin diving into:"
+    }
+  },
+  "projects": {
+    "eyebrow": "My craft",
+    "heading": "Projects",
+    "introduction": "Take a look at selected projects that show my approach to responsive, user-friendly interfaces and maintainable code.",
+    "featured": "Featured project",
+    "details": "Project details",
+    "items": {
+      "join": {
+        "description": "Task manager inspired by the Kanban System. Create and organize tasks using drag and drop functions, assign users and categories.",
+        "imageAlt": "Join task manager displayed on a laptop",
+        "implementation": "Short text that describes your role or the workflow for this specific project. Let a recruiter know more about your knowledge and ability to work independently or collaboratively in a structured way.",
+        "duration": "5 weeks"
+      },
+      "elPolloLoco": {
+        "description": "Jump, run and throw game based on an object-oriented approach. Help Pepe find coins and tabasco salsa to fight the crazy hen.",
+        "imageAlt": "El Pollo Loco desert game scene with Pepe",
+        "implementation": "Short text that describes your role or the workflow for this specific project. Let a recruiter know more about your knowledge and ability to work independently or collaboratively in a structured way.",
+        "duration": "3 weeks"
+      },
+      "dabubble": {
+        "description": "This Slack clone transforms team communication and collaboration with an intuitive interface, real-time messaging, and clear channel organization.",
+        "imageAlt": "DABubble team messaging interface",
+        "implementation": "Short text that describes your role or the workflow for this specific project. Let a recruiter know more about your knowledge and ability to work independently or collaboratively in a structured way.",
+        "duration": "4 weeks"
+      }
+    }
+  },
+  "projectDetail": {
+    "navigationAria": "Project navigation",
+    "back": "Go Back",
+    "next": "Next Project",
+    "nextAria": "View next project: {{project}}",
+    "description": "Description",
+    "implementation": "Implementation Details",
+    "duration": "Duration:",
+    "technologiesAria": "Technologies used",
+    "previewAria": "{{project}} preview",
+    "featuredAlt": "Featured project",
+    "linksAria": "Project links",
+    "liveTest": "Live Test"
+  },
+  "testimonials": {
+    "eyebrow": "In their words:",
+    "heading": "Colleagues' Thoughts",
+    "profile": "Profile",
+    "profileAria": "View {{name}}'s LinkedIn profile",
+    "items": {
+      "tobiasLange": {
+        "quote": "Karl really kept the team together with his great organization and clear communication. We wouldn't have got this far without his commitment.",
+        "role": "Frontend Developer"
+      },
+      "mariaSchaefer": {
+        "quote": "It was a great pleasure to work with Karl. He knows how to push and encourage team members to present the best work possible, always adding something to brainstorm. Regarding the well-being of group members, he was always present and available to listen and help others, with a great sense of humor as well.",
+        "role": "Frontend Developer"
+      },
+      "davidBraun": {
+        "quote": "Karl was a top team colleague at DA. His positive commitment and willingness to take on responsibility made a significant contribution to us achieving our goals.",
+        "role": "Frontend Developer"
+      }
+    }
+  },
+  "contact": {
+    "eyebrow": "Contact me",
+    "heading": "Ready to work\ntogether?",
+    "paragraphs": {
+      "projects": "I’m interested in thoughtful projects where clean engineering, reliable collaboration, and a strong user experience matter.",
+      "invitation": "If you have a project, role, or idea where my full-stack experience could help, I’d be happy to hear more about it."
+    },
+    "fields": {
+      "name": {
+        "label": "What’s your name?",
+        "placeholder": "Your name goes here",
+        "required": "Oops! It seems your name is missing.",
+        "maxlength": "Please keep your name under 80 characters."
+      },
+      "email": {
+        "label": "What’s your email?",
+        "placeholder": "youremail@email.com",
+        "required": "Oops! Your email is required.",
+        "invalid": "Please enter a valid email address.",
+        "maxlength": "Please keep your email under 254 characters."
+      },
+      "message": {
+        "label": "How can I help you?",
+        "placeholder": "Hello Kamyar, I am interested in…",
+        "required": "What do you need to develop?",
+        "maxlength": "Please keep your message under 2000 characters."
+      },
+      "honeypot": "Leave this field empty"
+    },
+    "privacy": {
+      "agreement": "I agree to the processing of my data as outlined.",
+      "link": "Read the privacy policy",
+      "required": "Please accept the privacy policy."
+    },
+    "actions": {
+      "send": "Send",
+      "sending": "Sending…"
+    },
+    "status": {
+      "sending": "Sending your message…",
+      "success": "Thank you! Your message has been sent.",
+      "error": "Your message could not be sent. Please try again in a moment."
+    }
+  },
+  "notFound": {
+    "code": "Error 404",
+    "heading": "Page not found",
+    "description": "The page you’re looking for doesn’t exist or may have moved.",
+    "navigationAria": "Not found page navigation",
+    "home": "Back to homepage",
+    "projects": "View projects"
+  },
+  "legalUi": {
+    "back": "Back"
+  }
+}

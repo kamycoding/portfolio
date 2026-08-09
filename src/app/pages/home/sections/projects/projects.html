@@ -7,10 +7,14 @@
     class="mx-auto grid w-full max-w-300 grid-cols-1 gap-y-10 lg:grid-cols-2 lg:gap-x-20 lg:gap-y-22"
   >
     <header class="w-full max-w-140 self-center">
-      <p class="text-base leading-none font-medium uppercase lg:text-xl">My craft</p>
+      <p class="text-base leading-none font-medium uppercase lg:text-xl">
+        {{ 'projects.eyebrow' | translate }}
+      </p>
 
       <div class="mt-2 w-fit max-w-full">
-        <h2 id="projects-title" class="text-5xl leading-none font-bold lg:text-[4rem]">Projects</h2>
+        <h2 id="projects-title" class="text-5xl leading-none font-bold lg:text-[4rem]">
+          {{ 'projects.heading' | translate }}
+        </h2>
         <img
           class="decorative-reveal mt-1 h-5 w-full object-fill"
           src="/assets/projects/projects-title-underline.webp"
@@ -21,8 +25,7 @@
       </div>
 
       <p class="mt-12 max-w-140 text-base leading-normal lg:text-lg">
-        Encourage people to take a look and interact with your projects. Highlight your approach to
-        creating responsive, user-friendly projects with efficient code.
+        {{ 'projects.introduction' | translate }}
       </p>
     </header>
 
@@ -37,12 +40,12 @@
           <img
             class="projects__image block size-full"
             [src]="project.imageSrc"
-            [alt]="project.imageAlt"
+            [alt]="project.imageAltKey | translate"
             draggable="false"
           />
 
           @if (project.variant === 'featured') {
-            <span class="sr-only">Featured project</span>
+            <span class="sr-only">{{ 'projects.featured' | translate }}</span>
             <img
               class="projects__badge absolute top-1/2 left-0 z-10 w-[30%] -translate-y-1/2"
               [src]="project.badgeSrc"
@@ -56,13 +59,13 @@
         <div class="col-start-1 row-start-2 mt-4">
           <h3 class="text-xl leading-none font-bold lg:text-2xl">{{ project.title }}</h3>
           <p class="mt-4 text-justify text-base leading-normal lg:text-lg">
-            {{ project.description }}
+            {{ project.descriptionKey | translate }}
           </p>
         </div>
 
         <app-cta-link
           class="projects__details-link z-20 col-start-1 row-start-3 mt-4 w-40 justify-self-end lg:row-start-1 lg:mr-6 lg:mb-6 lg:mt-0 lg:w-44 lg:self-end"
-          label="Project details"
+          [label]="'projects.details' | translate"
           [route]="'/projects/' + project.slug"
         />
       </article>

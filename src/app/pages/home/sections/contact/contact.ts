@@ -1,4 +1,3 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -16,6 +15,7 @@ import {
   type ValidatorFn,
 } from '@angular/forms';
 import { RouterLink } from '@angular/router';
+import { TranslatePipe } from '@ngx-translate/core';
 import { take } from 'rxjs';
 
 import type {
@@ -37,7 +37,7 @@ const trimmedMinLength = (minimumLength: number): ValidatorFn => {
 
 @Component({
   selector: 'app-contact',
-  imports: [ReactiveFormsModule, RouterLink, BrandStamp],
+  imports: [ReactiveFormsModule, RouterLink, BrandStamp, TranslatePipe],
   templateUrl: './contact.html',
   styleUrl: './contact.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -72,32 +72,30 @@ export class Contact {
     const errors = this.contactForm.controls.name.errors;
 
     if (errors?.['required'] || errors?.['trimmedMinLength']) {
-      return 'Oops! It seems your name is missing.';
+      return 'contact.fields.name.required';
     }
 
-    return errors?.['maxlength'] ? 'Please keep your name under 80 characters.' : '';
+    return errors?.['maxlength'] ? 'contact.fields.name.maxlength' : '';
   }
 
   protected emailError(): string {
     const errors = this.contactForm.controls.email.errors;
 
     if (errors?.['required']) {
-      return 'Hoppla! Your email is required.';
+      return 'contact.fields.email.required';
     }
 
-    return errors?.['email']
-      ? 'Please enter a valid email address.'
-      : 'Please keep your email under 254 characters.';
+    return errors?.['email'] ? 'contact.fields.email.invalid' : 'contact.fields.email.maxlength';
   }
 
   protected messageError(): string {
     const errors = this.contactForm.controls.message.errors;
 
     if (errors?.['required'] || errors?.['trimmedMinLength']) {
-      return 'What do you need to develop?';
+      return 'contact.fields.message.required';
     }
 
-    return errors?.['maxlength'] ? 'Please keep your message under 2000 characters.' : '';
+    return errors?.['maxlength'] ? 'contact.fields.message.maxlength' : '';
   }
 
   protected submit(): void {
@@ -125,7 +123,7 @@ export class Contact {
     };
 
     this.submissionState.set('submitting');
-    this.responseMessage.set('Sending your message…');
+    this.responseMessage.set('contact.status.sending');
 
     this.contactService
       .submit(request)
@@ -133,22 +131,16 @@ export class Contact {
       .subscribe({
         next: (response) => {
           if (!response.success) {
-            this.handleSubmissionError(response.message);
+            this.handleSubmissionError();
             return;
           }
 
           this.submissionState.set('success');
-          this.responseMessage.set(response.message ?? 'Thank you! Your message has been sent.');
+          this.responseMessage.set('contact.status.success');
           this.contactForm.reset();
           this.submitAttempted.set(false);
         },
-        error: (error: unknown) => {
-          const message =
-            error instanceof HttpErrorResponse && typeof error.error?.message === 'string'
-              ? error.error.message
-              : undefined;
-          this.handleSubmissionError(message);
-        },
+        error: () => this.handleSubmissionError(),
       });
   }
 
@@ -174,10 +166,8 @@ export class Contact {
     });
   }
 
-  private handleSubmissionError(message?: string): void {
+  private handleSubmissionError(): void {
     this.submissionState.set('server-error');
-    this.responseMessage.set(
-      message ?? 'Your message could not be sent. Please try again in a moment.',
-    );
+    this.responseMessage.set('contact.status.error');
   }
 }

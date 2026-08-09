@@ -14,8 +14,8 @@
         <div class="hero__intro">
           <div class="hero__greeting">
             <p>
-              <span class="hero__greeting-default">Hello world</span>
-              <span class="hero__greeting-hover">Hi, I'm Kamyar Zamanfar</span>
+              <span class="hero__greeting-default">{{ 'hero.greeting' | translate }}</span>
+              <span class="hero__greeting-hover">{{ 'hero.introduction' | translate }}</span>
               <img
                 class="hero__wave"
                 src="/assets/hero/waving-hand.svg"
@@ -26,7 +26,7 @@
             </p>
           </div>
 
-          <h1 id="hero-title" class="hero__title" aria-label="Full-Stack Developer">
+          <h1 id="hero-title" class="hero__title" [attr.aria-label]="'hero.roleAria' | translate">
             <span class="hero__title-line" aria-hidden="true">
               <span class="hero__letter" data-hover="f">F</span>
               <span class="hero__letter" data-hover="U">u</span>
@@ -58,7 +58,7 @@
             <img
               class="hero__portrait-image hero__portrait-image--default"
               src="/assets/hero/portrait-default.webp"
-              alt="Portrait of Kamyar Zamanfar"
+              [alt]="'hero.portraitAlt' | translate"
               draggable="false"
             />
             <img
@@ -76,15 +76,15 @@
         </figure>
       </div>
 
-      <app-cta-link class="hero__cta" label="Get in Touch" fragment="contact" />
+      <app-cta-link class="hero__cta" [label]="'hero.cta' | translate" fragment="contact" />
     </div>
 
-    <nav class="hero__socials" aria-label="Social media links">
+    <nav class="hero__socials" [attr.aria-label]="'social.navigationAria' | translate">
       <a
         href="https://www.linkedin.com/in/kamyarzamanfar/"
         target="_blank"
         rel="noopener noreferrer"
-        aria-label="Open Kamyar Zamanfar's LinkedIn profile"
+        [attr.aria-label]="'social.openLinkedinAria' | translate"
       >
         <img src="/assets/icons/social/linkedin.svg" alt="" aria-hidden="true" draggable="false" />
       </a>
@@ -93,12 +93,15 @@
         href="https://github.com/kamycoding"
         target="_blank"
         rel="noopener noreferrer"
-        aria-label="Open Kamyar Zamanfar's GitHub profile"
+        [attr.aria-label]="'social.openGithubAria' | translate"
       >
         <img src="/assets/icons/social/github.svg" alt="" aria-hidden="true" draggable="false" />
       </a>
 
-      <a href="mailto:kamyar.zamanfar@gmail.com" aria-label="Send an email to Kamyar Zamanfar">
+      <a
+        href="mailto:kamyar.zamanfar@gmail.com"
+        [attr.aria-label]="'social.emailKamyarAria' | translate"
+      >
         <img src="/assets/icons/social/email.svg" alt="" aria-hidden="true" draggable="false" />
       </a>
     </nav>

@@ -18,28 +18,25 @@ export const TESTIMONIAL_PAPER_ASSETS = {
 export const TESTIMONIALS = [
   {
     id: 'tobias-lange',
-    quote:
-      "Karl really kept the team together with his great organization and clear communication. We wouldn't have got this far without his commitment.",
+    quoteKey: 'testimonials.items.tobiasLange.quote',
     name: 'Tobias Lange',
-    role: 'Frontend Developer',
+    roleKey: 'testimonials.items.tobiasLange.role',
     linkedinUrl: 'https://www.linkedin.com/',
     paperVariant: 'paper-01',
   },
   {
     id: 'maria-schaefer',
-    quote:
-      'It was a great pleasure to work with Karl. He knows how to push and encourage team members to present the best work possible, always adding something to brainstorm. Regarding the well-being of group members, he was always present and available to listen and help others, with a great sense of humor as well.',
+    quoteKey: 'testimonials.items.mariaSchaefer.quote',
     name: 'Maria Schäfer',
-    role: 'Frontend Developer',
+    roleKey: 'testimonials.items.mariaSchaefer.role',
     linkedinUrl: 'https://www.linkedin.com/',
     paperVariant: 'paper-02',
   },
   {
     id: 'david-braun',
-    quote:
-      'Karl was a top team colleague at DA. His positive commitment and willingness to take on responsibility made a significant contribution to us achieving our goals.',
+    quoteKey: 'testimonials.items.davidBraun.quote',
     name: 'David Braun',
-    role: 'Frontend Developer',
+    roleKey: 'testimonials.items.davidBraun.role',
     linkedinUrl: 'https://www.linkedin.com/',
     paperVariant: 'paper-01',
   },

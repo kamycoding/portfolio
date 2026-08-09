@@ -11,8 +11,9 @@ describe('project data helpers', () => {
     for (const slug of ['join', 'el-pollo-loco', 'dabubble']) {
       const project = getProjectBySlug(slug);
 
-      expect(project?.implementationDetails).toBeTruthy();
-      expect(project?.duration).toBeTruthy();
+      expect(project?.descriptionKey).toMatch(/^projects\.items\./);
+      expect(project?.implementationDetailsKey).toMatch(/^projects\.items\./);
+      expect(project?.durationKey).toMatch(/^projects\.items\./);
       expect(project?.technologies.length).toBeGreaterThan(0);
       expect(project?.technologies.every((technology) => technology.iconSrc)).toBe(true);
     }

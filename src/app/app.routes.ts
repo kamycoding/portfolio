@@ -10,7 +10,7 @@ export const routes: Routes = [
   {
     path: '',
     component: Home,
-    title: 'Kamycoding',
+    title: 'KamyCoding',
   },
   {
     path: 'legal-notice',
@@ -31,6 +31,6 @@ export const routes: Routes = [
   {
     path: '**',
     component: NotFound,
-    title: 'Not Found - Kamycoding',
+    data: { titleKey: 'pageTitles.notFound' },
   },
 ];
