@@ -59,7 +59,7 @@ describe('ProjectDetail', () => {
     await harness.navigateByUrl('/projects/unsupported');
 
     expect(TestBed.inject(Router).url).toBe('/not-found');
-    expect(harness.routeNativeElement?.textContent).toContain('not-found works!');
+    expect(harness.routeNativeElement?.textContent).toContain('Page not found');
   });
 
   function getRouteElement<T extends Element>(selector: string): T {
