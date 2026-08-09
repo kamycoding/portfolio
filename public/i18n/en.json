@@ -47,8 +47,8 @@
     "eyebrow": "Who's Kamyar?",
     "heading": "About me",
     "paragraphs": {
-      "introduction": "Hi, I’m Kamyar, a full-stack developer who enjoys turning ideas into accessible, maintainable digital products.",
-      "values": "I care about thoughtful problem-solving, clean code, and building experiences that are useful for real people."
+      "introduction": "I’m Kamyar, a full-stack developer based near Cologne. With a background in design, I approach software from both a technical and a user perspective.",
+      "values": "I’m interested in building products that are not only well engineered, but also intuitive to use. My main interests are modern software architecture and practical ways to integrate AI into real-world applications."
     },
     "cta": "Let’s talk",
     "availabilityAria": "Work availability",
@@ -61,7 +61,7 @@
   "skills": {
     "eyebrow": "My stack",
     "heading": "Skill set",
-    "description": "I build maintainable web applications with Angular and TypeScript, and I enjoy expanding my stack through hands-on projects, thoughtful problem-solving, and continuous learning.",
+    "description": "I work with Angular, React, TypeScript, and Node.js to build modern, maintainable web applications. I enjoy working across the stack, solving real-world problems, and continuously improving through hands-on projects.",
     "listAria": "Technologies and tools",
     "peel": {
       "revealAria": "Reveal technologies I am interested in learning",
@@ -135,8 +135,8 @@
     "eyebrow": "Contact me",
     "heading": "Ready to work\ntogether?",
     "paragraphs": {
-      "projects": "I’m interested in thoughtful projects where clean engineering, reliable collaboration, and a strong user experience matter.",
-      "invitation": "If you have a project, role, or idea where my full-stack experience could help, I’d be happy to hear more about it."
+      "projects": "I’m always open to thoughtful projects, new opportunities, and ideas where good engineering and strong user experience come together.",
+      "invitation": "If you think my full-stack experience could be a good fit, I’d be happy to hear from you."
     },
     "fields": {
       "name": {

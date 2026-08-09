@@ -47,8 +47,8 @@
     "eyebrow": "Wer ist Kamyar?",
     "heading": "Über mich",
     "paragraphs": {
-      "introduction": "Hi, ich bin Kamyar, Full-Stack Developer, und verwandle Ideen gerne in barrierearme, wartbare digitale Produkte.",
-      "values": "Mir sind durchdachte Problemlösungen, sauberer Code und Anwendungen wichtig, die echten Menschen einen Mehrwert bieten."
+      "introduction": "Ich bin Kamyar und arbeite als Full-Stack-Entwickler in der Nähe von Köln. Durch meinen Design-Hintergrund betrachte ich Software nicht nur aus technischer Sicht, sondern auch aus der Perspektive der Menschen, die sie nutzen.",
+      "values": "Mein besonderes Interesse gilt moderner Softwarearchitektur und sinnvollen Einsatzmöglichkeiten von KI in realen Anwendungen."
     },
     "cta": "Lass uns sprechen",
     "availabilityAria": "Verfügbarkeit",
@@ -61,7 +61,7 @@
   "skills": {
     "eyebrow": "Mein Stack",
     "heading": "Skillset",
-    "description": "Ich entwickle wartbare Webanwendungen mit Angular und TypeScript und erweitere meinen Stack durch praktische Projekte, durchdachte Problemlösungen und kontinuierliches Lernen.",
+    "description": "Ich arbeite mit Angular, React, TypeScript und Node.js und entwickle damit moderne, wartbare Webanwendungen. Dabei arbeite ich gerne im gesamten Stack, löse praxisnahe Probleme und erweitere meine Fähigkeiten kontinuierlich durch reale Projekte.",
     "listAria": "Technologien und Werkzeuge",
     "peel": {
       "revealAria": "Technologien anzeigen, die ich lernen möchte",
@@ -135,8 +135,8 @@
     "eyebrow": "Kontakt",
     "heading": "Bereit für eine\nZusammenarbeit?",
     "paragraphs": {
-      "projects": "Ich interessiere mich für durchdachte Projekte, bei denen saubere Entwicklung, verlässliche Zusammenarbeit und eine starke User Experience zählen.",
-      "invitation": "Wenn du ein Projekt, eine Position oder eine Idee hast, bei der meine Full-Stack-Erfahrung helfen kann, freue ich mich darauf, mehr darüber zu erfahren."
+      "projects": "Ich bin immer offen für spannende Projekte, neue Möglichkeiten und Ideen, bei denen gute technische Umsetzung und eine starke User Experience zusammenkommen.",
+      "invitation": "Wenn du denkst, dass meine Full-Stack-Erfahrung gut zu deinem Projekt oder Team passt, freue ich mich, von dir zu hören."
     },
     "fields": {
       "name": {
