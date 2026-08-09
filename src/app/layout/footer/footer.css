@@ -14,7 +14,7 @@
 .site-footer__inner {
   display: grid;
   width: 100%;
-  max-width: 1200px;
+  max-width: 42rem;
   margin-inline: auto;
   align-items: start;
   row-gap: 12px;
@@ -167,6 +167,7 @@
   }
 
   .site-footer__inner {
+    max-width: 1200px;
     min-height: 132px;
     grid-template-columns: repeat(4, 1fr);
     grid-template-rows: auto 1fr;

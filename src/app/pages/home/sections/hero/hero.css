@@ -97,9 +97,9 @@
 }
 
 .hero__cta {
+  --cta-min-width: 156px;
+
   order: 1;
-  width: 156px;
-  height: 44px;
 }
 
 .hero__polaroid {
@@ -259,11 +259,10 @@
   .hero__cta {
     --cta-height: 2.778cqw;
     --cta-font-size: 1.25cqw;
+    --cta-min-width: 10.833cqw;
     --cta-shadow-x: 0.139cqw;
     --cta-shadow-y: 0.278cqw;
 
-    width: 10.833cqw;
-    height: 3.056cqw;
     margin-top: 10.556cqw;
   }
 
