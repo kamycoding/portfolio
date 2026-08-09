@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 
+import { provideTestTranslateService, setTestLanguage } from '../../testing/i18n-testing';
 import { PrivacyPolicy } from './privacy-policy';
 
 describe('PrivacyPolicy', () => {
@@ -9,9 +11,10 @@ describe('PrivacyPolicy', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [PrivacyPolicy],
-      providers: [provideRouter([])],
+      providers: [provideRouter([]), ...provideTestTranslateService()],
     }).compileComponents();
 
+    await setTestLanguage(TestBed.inject(TranslateService));
     fixture = TestBed.createComponent(PrivacyPolicy);
     fixture.detectChanges();
   });
@@ -45,6 +48,17 @@ describe('PrivacyPolicy', () => {
     expect(content).toContain('transactional email delivery provider');
     expect(content).toContain('mail.zoho.eu');
     expect(content).not.toContain('Hosting provider information will be added');
+  });
+
+  it('keeps the authoritative legal body in English when the interface is German', async () => {
+    await setTestLanguage(TestBed.inject(TranslateService), 'de');
+    fixture.detectChanges();
+
+    const content = fixture.nativeElement.textContent as string;
+
+    expect(content).toContain('2. General Information');
+    expect(content).toContain('The protection of your personal data is important to me.');
+    expect(content).not.toContain('Allgemeine Informationen');
   });
 
   it('reuses the shared light footer and provides a route back home', () => {

@@ -1,8 +1,5 @@
 import type { PortfolioProject, ProjectSlug } from './projects.model';
 
-const IMPLEMENTATION_DETAILS =
-  'Short text that describes your role or the workflow for this specific project. Let a recruiter know more about your knowledge and ability to work independently or collaboratively in a structured way.';
-
 const TECHNOLOGIES = {
   angular: { label: 'Angular', iconSrc: '/assets/skills/icons/Angular.svg' },
   css: { label: 'CSS', iconSrc: '/assets/skills/icons/CSS.svg' },
@@ -16,12 +13,11 @@ export const PORTFOLIO_PROJECTS = [
   {
     slug: 'join',
     title: 'Join',
-    description:
-      'Task manager inspired by the Kanban System. Create and organize tasks using drag and drop functions, assign users and categories.',
+    descriptionKey: 'projects.items.join.description',
     imageSrc: '/assets/projects/join-laptop.webp',
-    imageAlt: 'Join task manager displayed on a laptop',
-    implementationDetails: IMPLEMENTATION_DETAILS,
-    duration: '5 weeks',
+    imageAltKey: 'projects.items.join.imageAlt',
+    implementationDetailsKey: 'projects.items.join.implementation',
+    durationKey: 'projects.items.join.duration',
     technologies: [
       TECHNOLOGIES.css,
       TECHNOLOGIES.html,
@@ -35,24 +31,22 @@ export const PORTFOLIO_PROJECTS = [
   {
     slug: 'el-pollo-loco',
     title: 'El Pollo Loco',
-    description:
-      'Jump, run and throw game based on object-oriented approach. Help Pepe to find coins and tabasco salsa to fight against the crazy hen.',
+    descriptionKey: 'projects.items.elPolloLoco.description',
     imageSrc: '/assets/projects/el-pollo-loco.webp',
-    imageAlt: 'El Pollo Loco desert game scene with Pepe',
-    implementationDetails: IMPLEMENTATION_DETAILS,
-    duration: '3 weeks',
+    imageAltKey: 'projects.items.elPolloLoco.imageAlt',
+    implementationDetailsKey: 'projects.items.elPolloLoco.implementation',
+    durationKey: 'projects.items.elPolloLoco.duration',
     technologies: [TECHNOLOGIES.javascript, TECHNOLOGIES.html, TECHNOLOGIES.css],
     variant: 'standard',
   },
   {
     slug: 'dabubble',
     title: 'DABubble',
-    description:
-      'This app is a Slack Clone App. It revolutionizes team communication and collaboration with its intuitive interface, real-time messaging, and robust channel organization.',
+    descriptionKey: 'projects.items.dabubble.description',
     imageSrc: '/assets/projects/dabubble.webp',
-    imageAlt: 'DABubble team messaging interface',
-    implementationDetails: IMPLEMENTATION_DETAILS,
-    duration: '4 weeks',
+    imageAltKey: 'projects.items.dabubble.imageAlt',
+    implementationDetailsKey: 'projects.items.dabubble.implementation',
+    durationKey: 'projects.items.dabubble.duration',
     technologies: [TECHNOLOGIES.javascript, TECHNOLOGIES.html, TECHNOLOGIES.css],
     variant: 'standard',
   },

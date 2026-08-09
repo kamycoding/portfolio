@@ -1,17 +1,19 @@
 <main class="not-found" aria-labelledby="not-found-title">
   <div class="not-found__content">
-    <p class="not-found__code">Error 404</p>
+    <p class="not-found__code">{{ 'notFound.code' | translate }}</p>
 
-    <h1 id="not-found-title">Page not found</h1>
+    <h1 id="not-found-title">{{ 'notFound.heading' | translate }}</h1>
 
     <p class="not-found__message">
-      The page you&rsquo;re looking for doesn&rsquo;t exist or may have moved.
+      {{ 'notFound.description' | translate }}
     </p>
 
-    <nav class="not-found__actions" aria-label="Not found page navigation">
-      <a class="not-found__action not-found__action--primary" routerLink="/">Back to homepage</a>
+    <nav class="not-found__actions" [attr.aria-label]="'notFound.navigationAria' | translate">
+      <a class="not-found__action not-found__action--primary" routerLink="/">
+        {{ 'notFound.home' | translate }}
+      </a>
       <a class="not-found__action not-found__action--secondary" routerLink="/" fragment="projects">
-        View projects
+        {{ 'notFound.projects' | translate }}
       </a>
     </nav>
   </div>

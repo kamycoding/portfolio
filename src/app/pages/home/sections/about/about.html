@@ -9,7 +9,7 @@
     <div class="flex w-full flex-col gap-12 lg:col-start-2 lg:row-start-1">
       <header class="flex flex-col gap-4">
         <p class="text-base leading-none font-medium uppercase min-[360px]:text-lg lg:text-xl">
-          Who's Kamyar?
+          {{ 'about.eyebrow' | translate }}
         </p>
 
         <div class="flex w-fit max-w-full flex-col gap-1">
@@ -17,7 +17,7 @@
             id="about-title"
             class="text-[2.5rem] leading-none font-bold min-[360px]:text-5xl lg:text-[4rem]"
           >
-            About me
+            {{ 'about.heading' | translate }}
           </h2>
 
           <img
@@ -32,19 +32,17 @@
 
       <div class="flex flex-col gap-6 text-base leading-normal min-[360px]:text-lg lg:text-xl">
         <p>
-          Hi, I’m Kamyar, a full-stack developer who enjoys turning ideas into accessible,
-          maintainable digital products.
+          {{ 'about.paragraphs.introduction' | translate }}
         </p>
 
         <p>
-          I care about thoughtful problem-solving, clean code, and building experiences that are
-          useful for real people.
+          {{ 'about.paragraphs.values' | translate }}
         </p>
       </div>
 
       <app-cta-link
         class="about__cta self-end"
-        label="Let’s talk"
+        [label]="'about.cta' | translate"
         fragment="contact"
         surface="light"
       />
@@ -52,7 +50,7 @@
 
     <ul
       class="availability-list w-full lg:col-start-1 lg:row-start-1"
-      aria-label="Work availability"
+      [attr.aria-label]="'about.availabilityAria' | translate"
     >
       @for (card of availabilityCards; track card.id) {
         <li class="availability-card relative" [attr.data-variant]="card.variant">
@@ -75,7 +73,7 @@
               draggable="false"
             />
             <span class="text-base leading-[1.2] font-normal min-[360px]:text-xl lg:text-2xl">
-              {{ card.label }}
+              {{ card.labelKey | translate }}
             </span>
           </div>
         </li>

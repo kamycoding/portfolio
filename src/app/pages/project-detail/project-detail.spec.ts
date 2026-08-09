@@ -2,6 +2,8 @@ import { TestBed } from '@angular/core/testing';
 import { Title } from '@angular/platform-browser';
 import { Router, provideRouter } from '@angular/router';
 import { RouterTestingHarness } from '@angular/router/testing';
+import { TranslateService } from '@ngx-translate/core';
+import { provideTestTranslateService, setTestLanguage } from '../../testing/i18n-testing';
 import { NotFound } from '../not-found/not-found';
 import { ProjectDetail } from './project-detail';
 import { projectDetailGuard } from './project-detail.guard';
@@ -16,9 +18,11 @@ describe('ProjectDetail', () => {
           { path: 'projects/:slug', component: ProjectDetail, canActivate: [projectDetailGuard] },
           { path: '**', component: NotFound },
         ]),
+        ...provideTestTranslateService(),
       ],
     });
 
+    await setTestLanguage(TestBed.inject(TranslateService));
     harness = await RouterTestingHarness.create();
   });
 

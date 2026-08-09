@@ -4,9 +4,9 @@ export type TestimonialPaperVariant = 'paper-01' | 'paper-02';
 
 export interface Testimonial {
   readonly id: TestimonialId;
-  readonly quote: string;
+  readonly quoteKey: string;
   readonly name: string;
-  readonly role: string;
+  readonly roleKey: string;
   readonly linkedinUrl: string;
   readonly paperVariant: TestimonialPaperVariant;
 }

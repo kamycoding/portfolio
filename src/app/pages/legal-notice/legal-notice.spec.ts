@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 
+import { provideTestTranslateService, setTestLanguage } from '../../testing/i18n-testing';
 import { LegalNotice } from './legal-notice';
 
 describe('LegalNotice', () => {
@@ -9,9 +11,10 @@ describe('LegalNotice', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [LegalNotice],
-      providers: [provideRouter([])],
+      providers: [provideRouter([]), ...provideTestTranslateService()],
     }).compileComponents();
 
+    await setTestLanguage(TestBed.inject(TranslateService));
     fixture = TestBed.createComponent(LegalNotice);
     fixture.detectChanges();
   });

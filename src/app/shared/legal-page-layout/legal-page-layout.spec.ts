@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 
+import { provideTestTranslateService, setTestLanguage } from '../../testing/i18n-testing';
 import { LegalPageLayout } from './legal-page-layout';
 
 @Component({
@@ -20,9 +22,10 @@ describe('LegalPageLayout', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [TestHost],
-      providers: [provideRouter([])],
+      providers: [provideRouter([]), ...provideTestTranslateService()],
     }).compileComponents();
 
+    await setTestLanguage(TestBed.inject(TranslateService));
     fixture = TestBed.createComponent(TestHost);
     fixture.detectChanges();
   });

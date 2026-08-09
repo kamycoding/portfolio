@@ -2,7 +2,9 @@ import { provideHttpClient } from '@angular/common/http';
 import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 
+import { provideTestTranslateService, setTestLanguage } from '../../../../testing/i18n-testing';
 import { Contact } from './contact';
 
 describe('Contact', () => {
@@ -12,9 +14,15 @@ describe('Contact', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [Contact],
-      providers: [provideHttpClient(), provideHttpClientTesting(), provideRouter([])],
+      providers: [
+        provideHttpClient(),
+        provideHttpClientTesting(),
+        provideRouter([]),
+        ...provideTestTranslateService(),
+      ],
     }).compileComponents();
 
+    await setTestLanguage(TestBed.inject(TranslateService));
     fixture = TestBed.createComponent(Contact);
     httpTesting = TestBed.inject(HttpTestingController);
     fixture.detectChanges();
@@ -109,7 +117,9 @@ describe('Contact', () => {
     fixture.detectChanges();
 
     expect(getControl<HTMLInputElement>('#contact-name').value).toBe('Kamyar Visitor');
-    expect(fixture.nativeElement.textContent).toContain('Please try again later.');
+    expect(fixture.nativeElement.textContent).toContain(
+      'Your message could not be sent. Please try again in a moment.',
+    );
   });
 
   function fillValidTextFields(): void {

@@ -1,6 +1,9 @@
 @if (project(); as project) {
   <main class="project-detail">
-    <nav class="project-detail__navigation" aria-label="Project navigation">
+    <nav
+      class="project-detail__navigation"
+      [attr.aria-label]="'projectDetail.navigationAria' | translate"
+    >
       <a class="project-detail__back" routerLink="/" fragment="projects">
         <img
           src="/assets/project-detail/back-arrow.svg"
@@ -8,16 +11,16 @@
           aria-hidden="true"
           draggable="false"
         />
-        <span>Go Back</span>
+        <span>{{ 'projectDetail.back' | translate }}</span>
       </a>
 
       @if (nextProject(); as nextProject) {
         <a
           class="project-detail__next"
           [routerLink]="['/projects', nextProject.slug]"
-          [attr.aria-label]="'View next project: ' + nextProject.title"
+          [attr.aria-label]="'projectDetail.nextAria' | translate: { project: nextProject.title }"
         >
-          <span>Next Project</span>
+          <span>{{ 'projectDetail.next' | translate }}</span>
           <img
             src="/assets/project-detail/next-arrow.svg"
             alt=""
@@ -43,21 +46,24 @@
 
         <div class="project-detail__copy">
           <section>
-            <h2>Description</h2>
-            <p>{{ project.description }}</p>
+            <h2>{{ 'projectDetail.description' | translate }}</h2>
+            <p>{{ project.descriptionKey | translate }}</p>
           </section>
 
           <section>
-            <h2>Implementation Details</h2>
-            <p>{{ project.implementationDetails }}</p>
+            <h2>{{ 'projectDetail.implementation' | translate }}</h2>
+            <p>{{ project.implementationDetailsKey | translate }}</p>
           </section>
 
           <p class="project-detail__duration">
-            <strong>Duration:</strong>
-            {{ project.duration }}
+            <strong>{{ 'projectDetail.duration' | translate }}</strong>
+            {{ project.durationKey | translate }}
           </p>
 
-          <ul class="project-detail__technologies" aria-label="Technologies used">
+          <ul
+            class="project-detail__technologies"
+            [attr.aria-label]="'projectDetail.technologiesAria' | translate"
+          >
             @for (technology of project.technologies; track technology.label) {
               <li>
                 @if (technology.iconSrc) {
@@ -70,12 +76,15 @@
         </div>
       </article>
 
-      <section class="project-detail__showcase" [attr.aria-label]="project.title + ' preview'">
+      <section
+        class="project-detail__showcase"
+        [attr.aria-label]="'projectDetail.previewAria' | translate: { project: project.title }"
+      >
         <figure class="project-detail__preview">
           <img
             class="project-detail__preview-image"
             [src]="project.imageSrc"
-            [alt]="project.imageAlt"
+            [alt]="project.imageAltKey | translate"
             draggable="false"
           />
 
@@ -83,7 +92,7 @@
             <img
               class="project-detail__badge"
               [src]="project.badgeSrc"
-              alt="Featured project"
+              [alt]="'projectDetail.featuredAlt' | translate"
               draggable="false"
             />
           } @else {
@@ -91,12 +100,18 @@
           }
         </figure>
 
-        <div class="project-detail__actions" aria-label="Project links">
+        <div
+          class="project-detail__actions"
+          [attr.aria-label]="'projectDetail.linksAria' | translate"
+        >
           <app-cta-link label="GitHub" [href]="project.githubUrl" [disabled]="!project.githubUrl" />
-          <app-cta-link label="Live Test" [href]="project.liveUrl" [disabled]="!project.liveUrl" />
+          <app-cta-link
+            [label]="'projectDetail.liveTest' | translate"
+            [href]="project.liveUrl"
+            [disabled]="!project.liveUrl"
+          />
         </div>
       </section>
     </div>
-
   </main>
 }

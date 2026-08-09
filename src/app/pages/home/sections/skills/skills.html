@@ -7,7 +7,9 @@
     class="relative z-10 mx-auto flex w-full max-w-300 flex-col items-end lg:grid lg:grid-cols-[200px_24px_minmax(0,1fr)_160px] lg:grid-rows-[144px_auto] lg:items-start lg:gap-y-12 min-[75rem]:grid-cols-[minmax(200px,261px)_clamp(16px,4vw,48px)_minmax(0,656px)_200px] min-[90rem]:grid-cols-[261px_48px_656px_235px]"
   >
     <header class="flex w-47 flex-col items-end gap-2 lg:col-start-1 lg:row-start-1 lg:w-full">
-      <p class="text-lg leading-none font-medium uppercase lg:text-xl">My stack</p>
+      <p class="text-lg leading-none font-medium uppercase lg:text-xl">
+        {{ 'skills.eyebrow' | translate }}
+      </p>
 
       <div
         class="skills__title-art grid h-14.5 w-47 place-items-center lg:aspect-[261/80] lg:h-auto lg:w-full"
@@ -23,7 +25,7 @@
           id="skills-title"
           class="relative z-10 text-5xl leading-none font-bold whitespace-nowrap lg:text-5xl min-[75rem]:text-[clamp(3rem,5vw,4rem)]"
         >
-          Skill set
+          {{ 'skills.heading' | translate }}
         </h2>
       </div>
     </header>
@@ -42,14 +44,13 @@
       </picture>
 
       <p class="relative z-10 text-lg leading-normal text-canvas lg:text-base min-[75rem]:text-lg">
-        I build maintainable web applications with Angular and TypeScript, and I enjoy expanding my
-        stack through hands-on projects, thoughtful problem-solving, and continuous learning.
+        {{ 'skills.description' | translate }}
       </p>
     </div>
 
     <ul
       class="mt-10 grid w-fit max-w-full grid-cols-2 justify-between gap-x-4 gap-y-4 self-center min-[360px]:grid-cols-3 lg:col-start-3 lg:row-start-2 lg:mt-0 lg:w-full lg:max-w-160 lg:grid-cols-[repeat(5,5.5rem)] lg:gap-x-0 lg:gap-y-6 lg:justify-self-center min-[75rem]:grid-cols-[repeat(5,6rem)]"
-      aria-label="Technologies and tools"
+      [attr.aria-label]="'skills.listAria' | translate"
     >
       @for (skill of skillItems; track skill.id) {
         <li
@@ -79,9 +80,7 @@
       [class.skills__peel-card--open]="isPeelCardOpen()"
       [attr.aria-pressed]="isPeelCardOpen()"
       [attr.aria-label]="
-        isPeelCardOpen()
-          ? 'Hide technologies I am interested in learning'
-          : 'Reveal technologies I am interested in learning'
+        (isPeelCardOpen() ? 'skills.peel.hideAria' : 'skills.peel.revealAria') | translate
       "
       (click)="togglePeelCard()"
     >
@@ -117,16 +116,20 @@
           aria-hidden="true"
           draggable="false"
         />
-        <span class="text-[2.5rem] leading-none lg:text-[2rem] min-[75rem]:text-[2.5rem]">
-          Pull to<br />peel
+        <span
+          class="text-[2.5rem] leading-none whitespace-pre-line lg:text-[2rem] min-[75rem]:text-[2.5rem]"
+        >
+          {{ 'skills.peel.front' | translate }}
         </span>
       </span>
 
       <span
         class="skills__peel-back absolute inset-0 z-10 flex flex-col items-center justify-center gap-3 px-5 text-foreground"
       >
-        <span class="text-xl leading-[1.1] font-semibold italic lg:text-base min-[75rem]:text-xl">
-          Also, I’m interested<br />in diving into:
+        <span
+          class="text-xl leading-[1.1] font-semibold whitespace-pre-line italic lg:text-base min-[75rem]:text-xl"
+        >
+          {{ 'skills.peel.back' | translate }}
         </span>
         <img
           class="size-14 object-contain lg:size-12 min-[75rem]:size-14"

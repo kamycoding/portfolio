@@ -6,30 +6,27 @@
   <div
     class="contact__inner relative mx-auto w-full max-w-300 lg:grid lg:min-h-140 lg:grid-cols-[minmax(0,560px)_minmax(0,480px)]"
   >
-    <app-brand-stamp
-      class="contact__stamp absolute -top-8.5 right-0 z-1 w-30 lg:top-0 lg:w-42"
-    />
+    <app-brand-stamp class="contact__stamp absolute -top-8.5 right-0 z-1 w-30 lg:top-0 lg:w-42" />
 
     <div class="contact__intro pt-19 lg:flex lg:flex-col lg:pt-0">
-      <p class="contact__eyebrow text-base leading-none font-medium uppercase">Contact me</p>
+      <p class="contact__eyebrow text-base leading-none font-medium uppercase">
+        {{ 'contact.eyebrow' | translate }}
+      </p>
       <h2
         id="contact-title"
-        class="contact__title mt-4 text-[clamp(40px,12.8vw,48px)] leading-none font-bold lg:text-[64px]"
+        class="contact__title mt-4 text-[clamp(40px,12.8vw,48px)] leading-none font-bold whitespace-pre-line lg:text-[64px]"
       >
-        Ready to work<br />together?
+        {{ 'contact.heading' | translate }}
       </h2>
 
       <div class="contact__copy mt-8 text-justify text-base leading-[1.2] lg:max-w-140 lg:text-lg">
         <p class="mt-4">
-          I’m interested in thoughtful projects where clean engineering, reliable collaboration, and
-          a strong user experience matter.
+          {{ 'contact.paragraphs.projects' | translate }}
         </p>
         <p>
-          If you have a project, role, or idea where my full-stack experience could help, I’d be
-          happy to hear more about it.
+          {{ 'contact.paragraphs.invitation' | translate }}
         </p>
       </div>
-
     </div>
 
     <form
@@ -42,7 +39,7 @@
     >
       <div class="contact-form__fields">
         <div class="contact-field" [class.contact-field--invalid]="hasVisibleError('name')">
-          <label for="contact-name">What’s your name?</label>
+          <label for="contact-name">{{ 'contact.fields.name.label' | translate }}</label>
           <input
             id="contact-name"
             type="text"
@@ -51,17 +48,17 @@
             autocapitalize="words"
             enterkeyhint="next"
             maxlength="80"
-            placeholder="Your name goes here"
+            [placeholder]="'contact.fields.name.placeholder' | translate"
             [attr.aria-invalid]="hasVisibleError('name')"
             aria-describedby="contact-name-error"
           />
           <p id="contact-name-error" class="contact-field__error" aria-live="polite">
-            {{ hasVisibleError('name') ? nameError() : '' }}
+            {{ hasVisibleError('name') ? (nameError() | translate) : '' }}
           </p>
         </div>
 
         <div class="contact-field" [class.contact-field--invalid]="hasVisibleError('email')">
-          <label for="contact-email">What’s your email?</label>
+          <label for="contact-email">{{ 'contact.fields.email.label' | translate }}</label>
           <input
             id="contact-email"
             type="email"
@@ -71,13 +68,13 @@
             enterkeyhint="next"
             inputmode="email"
             maxlength="254"
-            placeholder="youremail@email.com"
+            [placeholder]="'contact.fields.email.placeholder' | translate"
             spellcheck="false"
             [attr.aria-invalid]="hasVisibleError('email')"
             aria-describedby="contact-email-error"
           />
           <p id="contact-email-error" class="contact-field__error" aria-live="polite">
-            {{ hasVisibleError('email') ? emailError() : '' }}
+            {{ hasVisibleError('email') ? (emailError() | translate) : '' }}
           </p>
         </div>
 
@@ -85,24 +82,24 @@
           class="contact-field contact-field--message"
           [class.contact-field--invalid]="hasVisibleError('message')"
         >
-          <label for="contact-message">How can I help you?</label>
+          <label for="contact-message">{{ 'contact.fields.message.label' | translate }}</label>
           <textarea
             id="contact-message"
             formControlName="message"
             maxlength="2000"
             rows="1"
-            placeholder="Hello Kamyar, I am interested in…"
+            [placeholder]="'contact.fields.message.placeholder' | translate"
             [attr.aria-invalid]="hasVisibleError('message')"
             aria-describedby="contact-message-error"
           ></textarea>
           <p id="contact-message-error" class="contact-field__error" aria-live="polite">
-            {{ hasVisibleError('message') ? messageError() : '' }}
+            {{ hasVisibleError('message') ? (messageError() | translate) : '' }}
           </p>
         </div>
       </div>
 
       <div class="contact-form__honeypot" aria-hidden="true">
-        <label for="contact-company">Leave this field empty</label>
+        <label for="contact-company">{{ 'contact.fields.honeypot' | translate }}</label>
         <input
           id="contact-company"
           type="text"
@@ -129,13 +126,12 @@
             aria-describedby="contact-privacy-error"
           />
           <span>
-            I’ve read the
-            <a routerLink="/privacy-policy">privacy policy</a>
-            and agree to the processing of my data as outlined.
+            {{ 'contact.privacy.agreement' | translate }}
+            <a routerLink="/privacy-policy">{{ 'contact.privacy.link' | translate }}</a>
           </span>
         </label>
         <p id="contact-privacy-error" class="contact-consent__error" aria-live="polite">
-          {{ hasVisibleError('privacyAccepted') ? 'Please accept the privacy policy.' : '' }}
+          {{ hasVisibleError('privacyAccepted') ? ('contact.privacy.required' | translate) : '' }}
         </p>
       </div>
 
@@ -153,7 +149,12 @@
           [disabled]="contactForm.invalid || submissionState() === 'submitting'"
           [attr.aria-busy]="submissionState() === 'submitting'"
         >
-          {{ submissionState() === 'submitting' ? 'Sending…' : 'Send' }}
+          {{
+            (submissionState() === 'submitting'
+              ? 'contact.actions.sending'
+              : 'contact.actions.send'
+            ) | translate
+          }}
         </button>
       </div>
 
@@ -164,7 +165,7 @@
         aria-live="polite"
         aria-atomic="true"
       >
-        {{ responseMessage() }}
+        {{ responseMessage() | translate }}
       </p>
     </form>
   </div>

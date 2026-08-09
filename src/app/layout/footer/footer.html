@@ -1,19 +1,19 @@
 <footer
   class="site-footer"
   [class.site-footer--light]="theme() === 'light'"
-  aria-label="Site footer"
+  [attr.aria-label]="'footer.aria' | translate"
 >
   <div class="site-footer__inner">
     <div class="site-footer__brand">
-      <a routerLink="/" aria-label="Go to the homepage">
+      <a routerLink="/" [attr.aria-label]="'footer.homeAria' | translate">
         <img src="/logo.svg" alt="" draggable="false" />
       </a>
       <p>© Kamyar Zamanfar {{ currentYear }}</p>
     </div>
 
-    <nav class="site-footer__legal-links" aria-label="Legal pages">
+    <nav class="site-footer__legal-links" [attr.aria-label]="'footer.legalAria' | translate">
       <a class="site-footer__legal-link" routerLink="/legal-notice">
-        <span>Legal Notice</span>
+        <span>{{ 'footer.legalNotice' | translate }}</span>
         <img
           class="site-footer__legal-decoration"
           src="/assets/decorations/navigation/nav-hover-contact.svg"
@@ -24,7 +24,7 @@
       </a>
 
       <a class="site-footer__legal-link" routerLink="/privacy-policy">
-        <span>Privacy Policy</span>
+        <span>{{ 'footer.privacyPolicy' | translate }}</span>
         <img
           class="site-footer__legal-decoration"
           src="/assets/decorations/navigation/nav-hover-contact.svg"
@@ -35,12 +35,12 @@
       </a>
     </nav>
 
-    <nav class="site-footer__socials" aria-label="Footer links">
+    <nav class="site-footer__socials" [attr.aria-label]="'footer.linksAria' | translate">
       @for (item of socialLinks; track item.id) {
         <a
           class="site-footer__social-link"
           [href]="item.href"
-          [attr.aria-label]="item.accessibleLabel"
+          [attr.aria-label]="item.accessibleLabelKey | translate"
           [attr.target]="item.opensInNewTab ? '_blank' : null"
           [attr.rel]="item.opensInNewTab ? 'noopener noreferrer' : null"
         >
@@ -51,7 +51,7 @@
             aria-hidden="true"
             draggable="false"
           />
-          <span>{{ item.label }}</span>
+          <span>{{ item.labelKey | translate }}</span>
         </a>
       }
     </nav>

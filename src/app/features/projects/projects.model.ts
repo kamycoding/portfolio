@@ -8,11 +8,11 @@ export interface ProjectTechnology {
 interface BaseProject {
   readonly slug: ProjectSlug;
   readonly title: string;
-  readonly description: string;
+  readonly descriptionKey: string;
   readonly imageSrc: string;
-  readonly imageAlt: string;
-  readonly implementationDetails: string;
-  readonly duration: string;
+  readonly imageAltKey: string;
+  readonly implementationDetailsKey: string;
+  readonly durationKey: string;
   readonly technologies: readonly ProjectTechnology[];
   readonly githubUrl?: string;
   readonly liveUrl?: string;

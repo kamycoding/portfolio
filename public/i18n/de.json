@@ -1,0 +1,189 @@
+{
+  "pageTitles": {
+    "notFound": "Seite nicht gefunden | KamyCoding"
+  },
+  "nav": {
+    "about": "Über mich",
+    "skills": "Skills",
+    "projects": "Projekte",
+    "contact": "Kontakt",
+    "homeAria": "Zur Startseite",
+    "primaryAria": "Hauptnavigation",
+    "mobileAria": "Mobile Navigation",
+    "menuAria": "Navigationsmenü",
+    "openMenuAria": "Navigationsmenü öffnen",
+    "closeMenuAria": "Navigationsmenü schließen",
+    "switchToGerman": "Sprache auf Deutsch umstellen",
+    "switchToEnglish": "Sprache auf Englisch umstellen"
+  },
+  "footer": {
+    "aria": "Fußbereich der Website",
+    "homeAria": "Zur Startseite",
+    "legalAria": "Rechtliche Seiten",
+    "linksAria": "Links im Fußbereich",
+    "legalNotice": "Impressum",
+    "privacyPolicy": "Datenschutzerklärung"
+  },
+  "social": {
+    "navigationAria": "Social-Media-Links",
+    "githubLabel": "GitHub",
+    "linkedinLabel": "LinkedIn",
+    "emailLabel": "E-Mail",
+    "githubAria": "GitHub-Profil besuchen",
+    "linkedinAria": "LinkedIn-Profil besuchen",
+    "emailAria": "Eine E-Mail senden",
+    "openGithubAria": "GitHub-Profil von Kamyar Zamanfar öffnen",
+    "openLinkedinAria": "LinkedIn-Profil von Kamyar Zamanfar öffnen",
+    "emailKamyarAria": "Eine E-Mail an Kamyar Zamanfar senden"
+  },
+  "hero": {
+    "greeting": "Hallo Welt",
+    "introduction": "Hi, ich bin Kamyar Zamanfar",
+    "roleAria": "Full-Stack Developer",
+    "portraitAlt": "Porträt von Kamyar Zamanfar",
+    "cta": "Kontakt aufnehmen"
+  },
+  "about": {
+    "eyebrow": "Wer ist Kamyar?",
+    "heading": "Über mich",
+    "paragraphs": {
+      "introduction": "Hi, ich bin Kamyar, Full-Stack Developer, und verwandle Ideen gerne in barrierearme, wartbare digitale Produkte.",
+      "values": "Mir sind durchdachte Problemlösungen, sauberer Code und Anwendungen wichtig, die echten Menschen einen Mehrwert bieten."
+    },
+    "cta": "Lass uns sprechen",
+    "availabilityAria": "Verfügbarkeit",
+    "availability": {
+      "cologne": "In Köln zu Hause",
+      "relocation": "Offen für einen Umzug",
+      "remote": "Offen für Remote-Arbeit"
+    }
+  },
+  "skills": {
+    "eyebrow": "Mein Stack",
+    "heading": "Skillset",
+    "description": "Ich entwickle wartbare Webanwendungen mit Angular und TypeScript und erweitere meinen Stack durch praktische Projekte, durchdachte Problemlösungen und kontinuierliches Lernen.",
+    "listAria": "Technologien und Werkzeuge",
+    "peel": {
+      "revealAria": "Technologien anzeigen, die ich lernen möchte",
+      "hideAria": "Technologien ausblenden, die ich lernen möchte",
+      "front": "Ziehen und\naufdecken",
+      "back": "Außerdem möchte ich\ntiefer einsteigen in:"
+    }
+  },
+  "projects": {
+    "eyebrow": "Mein Handwerk",
+    "heading": "Projekte",
+    "introduction": "Entdecke ausgewählte Projekte, die meinen Ansatz für responsive, benutzerfreundliche Oberflächen und wartbaren Code zeigen.",
+    "featured": "Ausgewähltes Projekt",
+    "details": "Projektdetails",
+    "items": {
+      "join": {
+        "description": "Ein vom Kanban-System inspirierter Task-Manager. Aufgaben per Drag-and-drop erstellen und organisieren sowie Personen und Kategorien zuweisen.",
+        "imageAlt": "Der Task-Manager Join auf einem Laptop",
+        "implementation": "Kurzer Text über meine Rolle oder den Workflow in diesem Projekt. Er zeigt, wie ich mein Wissen strukturiert und selbstständig oder im Team eingesetzt habe.",
+        "duration": "5 Wochen"
+      },
+      "elPolloLoco": {
+        "description": "Ein objektorientiertes Jump-and-Run-Spiel. Hilf Pepe, Münzen und Tabasco-Salsa zu sammeln, um gegen das verrückte Huhn anzutreten.",
+        "imageAlt": "Wüstenszene aus El Pollo Loco mit Pepe",
+        "implementation": "Kurzer Text über meine Rolle oder den Workflow in diesem Projekt. Er zeigt, wie ich mein Wissen strukturiert und selbstständig oder im Team eingesetzt habe.",
+        "duration": "3 Wochen"
+      },
+      "dabubble": {
+        "description": "Dieser Slack-Klon erleichtert die Kommunikation und Zusammenarbeit im Team mit einer intuitiven Oberfläche, Echtzeitnachrichten und übersichtlichen Channels.",
+        "imageAlt": "Team-Messaging-Oberfläche von DABubble",
+        "implementation": "Kurzer Text über meine Rolle oder den Workflow in diesem Projekt. Er zeigt, wie ich mein Wissen strukturiert und selbstständig oder im Team eingesetzt habe.",
+        "duration": "4 Wochen"
+      }
+    }
+  },
+  "projectDetail": {
+    "navigationAria": "Projektnavigation",
+    "back": "Zurück",
+    "next": "Nächstes Projekt",
+    "nextAria": "Nächstes Projekt ansehen: {{project}}",
+    "description": "Beschreibung",
+    "implementation": "Umsetzungsdetails",
+    "duration": "Dauer:",
+    "technologiesAria": "Verwendete Technologien",
+    "previewAria": "Vorschau für {{project}}",
+    "featuredAlt": "Ausgewähltes Projekt",
+    "linksAria": "Projektlinks",
+    "liveTest": "Live testen"
+  },
+  "testimonials": {
+    "eyebrow": "In ihren Worten:",
+    "heading": "Stimmen aus dem Team",
+    "profile": "Profil",
+    "profileAria": "LinkedIn-Profil von {{name}} ansehen",
+    "items": {
+      "tobiasLange": {
+        "quote": "Karl hat das Team mit seiner großartigen Organisation und klaren Kommunikation wirklich zusammengehalten. Ohne seinen Einsatz wären wir nicht so weit gekommen.",
+        "role": "Frontend Developer"
+      },
+      "mariaSchaefer": {
+        "quote": "Die Zusammenarbeit mit Karl war eine große Freude. Er versteht es, Teammitglieder zu motivieren und zu ermutigen, ihre bestmögliche Arbeit zu zeigen, und bringt stets neue Impulse in das Brainstorming ein. Für das Wohlbefinden der Gruppe hatte er immer ein offenes Ohr, war hilfsbereit und brachte außerdem viel Humor mit.",
+        "role": "Frontend Developer"
+      },
+      "davidBraun": {
+        "quote": "Karl war bei DA ein hervorragender Teamkollege. Sein positiver Einsatz und seine Bereitschaft, Verantwortung zu übernehmen, haben wesentlich dazu beigetragen, dass wir unsere Ziele erreicht haben.",
+        "role": "Frontend Developer"
+      }
+    }
+  },
+  "contact": {
+    "eyebrow": "Kontakt",
+    "heading": "Bereit für eine\nZusammenarbeit?",
+    "paragraphs": {
+      "projects": "Ich interessiere mich für durchdachte Projekte, bei denen saubere Entwicklung, verlässliche Zusammenarbeit und eine starke User Experience zählen.",
+      "invitation": "Wenn du ein Projekt, eine Position oder eine Idee hast, bei der meine Full-Stack-Erfahrung helfen kann, freue ich mich darauf, mehr darüber zu erfahren."
+    },
+    "fields": {
+      "name": {
+        "label": "Wie heißt du?",
+        "placeholder": "Dein Name",
+        "required": "Ups! Dein Name fehlt noch.",
+        "maxlength": "Bitte verwende höchstens 80 Zeichen für deinen Namen."
+      },
+      "email": {
+        "label": "Wie lautet deine E-Mail-Adresse?",
+        "placeholder": "deineemail@email.de",
+        "required": "Ups! Deine E-Mail-Adresse fehlt noch.",
+        "invalid": "Bitte gib eine gültige E-Mail-Adresse ein.",
+        "maxlength": "Bitte verwende höchstens 254 Zeichen für deine E-Mail-Adresse."
+      },
+      "message": {
+        "label": "Wie kann ich dir helfen?",
+        "placeholder": "Hallo Kamyar, ich interessiere mich für…",
+        "required": "Was möchtest du entwickeln?",
+        "maxlength": "Bitte beschränke deine Nachricht auf 2000 Zeichen."
+      },
+      "honeypot": "Dieses Feld bitte leer lassen"
+    },
+    "privacy": {
+      "agreement": "Ich stimme der beschriebenen Verarbeitung meiner Daten zu.",
+      "link": "Datenschutzerklärung lesen",
+      "required": "Bitte akzeptiere die Datenschutzerklärung."
+    },
+    "actions": {
+      "send": "Senden",
+      "sending": "Wird gesendet…"
+    },
+    "status": {
+      "sending": "Deine Nachricht wird gesendet…",
+      "success": "Vielen Dank! Deine Nachricht wurde gesendet.",
+      "error": "Deine Nachricht konnte nicht gesendet werden. Bitte versuche es gleich noch einmal."
+    }
+  },
+  "notFound": {
+    "code": "Fehler 404",
+    "heading": "Seite nicht gefunden",
+    "description": "Die gesuchte Seite existiert nicht oder wurde möglicherweise verschoben.",
+    "navigationAria": "Navigation der Fehlerseite",
+    "home": "Zurück zur Startseite",
+    "projects": "Projekte ansehen"
+  },
+  "legalUi": {
+    "back": "Zurück"
+  }
+}

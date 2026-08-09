@@ -11,7 +11,9 @@ import {
 } from '@angular/core';
 import type { ElementRef, OnDestroy } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { TranslatePipe } from '@ngx-translate/core';
 
+import { LanguageService } from '../../core/i18n/language.service';
 import { HEADER_SOCIAL_LINKS } from '../../shared/data/social-links';
 import type { NavigationItem } from './header.model';
 
@@ -19,13 +21,14 @@ const DESKTOP_MEDIA_QUERY = '(min-width: 64rem)';
 
 @Component({
   selector: 'app-header',
-  imports: [RouterLink, CdkTrapFocus],
+  imports: [RouterLink, CdkTrapFocus, TranslatePipe],
   templateUrl: './header.html',
   styleUrl: './header.css',
 })
 export class Header implements OnDestroy {
   private readonly document = inject(DOCUMENT);
   private readonly injector = inject(Injector);
+  private readonly languageService = inject(LanguageService);
 
   private readonly openMenuButton =
     viewChild.required<ElementRef<HTMLButtonElement>>('openMenuButton');
@@ -39,7 +42,7 @@ export class Header implements OnDestroy {
   private isBodyScrollLocked = false;
   private scrollObserver: IntersectionObserver | null = null;
 
-  protected readonly activeLanguage = signal<'en' | 'de'>('en');
+  protected readonly activeLanguage = this.languageService.currentLanguage;
   protected readonly isMobileMenuOpen = signal(false);
   protected readonly isScrolled = signal(false);
 
@@ -56,22 +59,22 @@ export class Header implements OnDestroy {
 
   protected readonly navigationItems: readonly NavigationItem[] = [
     {
-      label: 'About me',
+      labelKey: 'nav.about',
       fragment: 'about',
       hoverDecorationSrc: '/assets/decorations/navigation/nav-hover-about.svg',
     },
     {
-      label: 'Skills',
+      labelKey: 'nav.skills',
       fragment: 'skills',
       hoverDecorationSrc: '/assets/decorations/navigation/nav-hover-skills.svg',
     },
     {
-      label: 'Projects',
+      labelKey: 'nav.projects',
       fragment: 'projects',
       hoverDecorationSrc: '/assets/decorations/navigation/nav-hover-projects.svg',
     },
     {
-      label: 'Contact',
+      labelKey: 'nav.contact',
       fragment: 'contact',
       hoverDecorationSrc: '/assets/decorations/navigation/nav-hover-contact.svg',
     },
@@ -80,7 +83,7 @@ export class Header implements OnDestroy {
   protected readonly socialLinks = HEADER_SOCIAL_LINKS;
 
   protected toggleLanguage(): void {
-    this.activeLanguage.update((language) => (language === 'en' ? 'de' : 'en'));
+    void this.languageService.toggleLanguage().catch(() => undefined);
   }
 
   protected openMobileMenu(): void {

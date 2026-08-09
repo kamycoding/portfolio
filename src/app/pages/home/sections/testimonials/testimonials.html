@@ -14,7 +14,7 @@
           draggable="false"
         />
         <p class="pb-0.5 text-base leading-none font-medium uppercase lg:text-lg">
-          In their words:
+          {{ 'testimonials.eyebrow' | translate }}
         </p>
       </div>
 
@@ -22,7 +22,7 @@
         id="testimonials-title"
         class="mt-1 text-[clamp(2.25rem,12.8vw,3rem)] leading-none font-bold lg:text-[4rem]"
       >
-        Colleagues' Thoughts
+        {{ 'testimonials.heading' | translate }}
       </h2>
     </header>
 
@@ -58,14 +58,14 @@
           </picture>
 
           <blockquote class="testimonial-card__content">
-            <p class="testimonial-card__quote">{{ testimonial.quote }}</p>
+            <p class="testimonial-card__quote">{{ testimonial.quoteKey | translate }}</p>
 
             <footer class="testimonial-card__footer">
               <div class="testimonial-card__identity">
                 <cite class="testimonial-card__name not-italic">
                   {{ testimonial.name }}
                 </cite>
-                <p class="testimonial-card__role">{{ testimonial.role }}</p>
+                <p class="testimonial-card__role">{{ testimonial.roleKey | translate }}</p>
               </div>
 
               <a
@@ -73,7 +73,9 @@
                 [href]="testimonial.linkedinUrl"
                 target="_blank"
                 rel="noopener noreferrer"
-                [attr.aria-label]="'View ' + testimonial.name + '\'s LinkedIn profile'"
+                [attr.aria-label]="
+                  'testimonials.profileAria' | translate: { name: testimonial.name }
+                "
               >
                 <img
                   src="/assets/testimonials/linkedin-mark.svg"
@@ -81,7 +83,7 @@
                   aria-hidden="true"
                   draggable="false"
                 />
-                <span>Profile</span>
+                <span>{{ 'testimonials.profile' | translate }}</span>
               </a>
             </footer>
           </blockquote>

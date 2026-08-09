@@ -3,6 +3,7 @@ import { Component, DestroyRef, computed, effect, inject } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { Title } from '@angular/platform-browser';
+import { TranslatePipe } from '@ngx-translate/core';
 import { map } from 'rxjs';
 import { getNextProject, getProjectBySlug } from '../../features/projects/projects.data';
 import { BrandStamp } from '../../shared/ui/brand-stamp/brand-stamp';
@@ -10,7 +11,7 @@ import { CtaLink } from '../../shared/ui/cta-link/cta-link';
 
 @Component({
   selector: 'app-project-detail',
-  imports: [RouterLink, CtaLink, BrandStamp],
+  imports: [RouterLink, CtaLink, BrandStamp, TranslatePipe],
   templateUrl: './project-detail.html',
   styleUrl: './project-detail.css',
 })

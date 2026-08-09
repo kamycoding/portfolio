@@ -1,5 +1,5 @@
 export interface NavigationItem {
-  readonly label: string;
+  readonly labelKey: string;
   readonly fragment: string;
   readonly hoverDecorationSrc: string;
 }

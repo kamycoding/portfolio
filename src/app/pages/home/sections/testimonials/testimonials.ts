@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { TranslatePipe } from '@ngx-translate/core';
 
 import {
   TESTIMONIAL_PAPER_ASSETS,
@@ -7,7 +8,7 @@ import {
 
 @Component({
   selector: 'app-testimonials',
-  imports: [],
+  imports: [TranslatePipe],
   templateUrl: './testimonials.html',
   styleUrl: './testimonials.css',
 })
