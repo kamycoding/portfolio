@@ -36,6 +36,17 @@ describe('PrivacyPolicy', () => {
     expect(emailLink?.textContent).toBe('contact@kamycoding.com');
   });
 
+  it('describes the production hosting and contact delivery providers', () => {
+    const content = fixture.nativeElement.textContent as string;
+
+    expect(content).toContain('Frontend hosting: Netlify');
+    expect(content).toContain('Backend hosting: Apply.Build');
+    expect(content).toContain('Codebite Oy');
+    expect(content).toContain('transactional email delivery provider');
+    expect(content).toContain('mail.zoho.eu');
+    expect(content).not.toContain('Hosting provider information will be added');
+  });
+
   it('reuses the shared light footer and provides a route back home', () => {
     const footer = fixture.nativeElement.querySelector('app-footer') as HTMLElement | null;
     const backLink = fixture.nativeElement.querySelector(
