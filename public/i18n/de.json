@@ -2,7 +2,8 @@
   "pageTitles": {
     "notFound": "Seite nicht gefunden | KamyCoding",
     "legalNotice": "Impressum | KamyCoding",
-    "privacyPolicy": "Datenschutzerklärung | KamyCoding"
+    "privacyPolicy": "Datenschutzerklärung | KamyCoding",
+    "projectDetail": "Projekt | KamyCoding"
   },
   "nav": {
     "about": "Über mich",
@@ -120,15 +121,15 @@
     "profileAria": "LinkedIn-Profil von {{name}} ansehen",
     "items": {
       "tobiasLange": {
-        "quote": "Karl hat das Team mit seiner großartigen Organisation und klaren Kommunikation wirklich zusammengehalten. Ohne seinen Einsatz wären wir nicht so weit gekommen.",
+        "quote": "Kamyar hat das Team mit seiner großartigen Organisation und klaren Kommunikation wirklich zusammengehalten. Ohne seinen Einsatz wären wir nicht so weit gekommen.",
         "role": "Frontend Developer"
       },
       "mariaSchaefer": {
-        "quote": "Die Zusammenarbeit mit Karl war eine große Freude. Er versteht es, Teammitglieder zu motivieren und zu ermutigen, ihre bestmögliche Arbeit zu zeigen, und bringt stets neue Impulse in das Brainstorming ein. Für das Wohlbefinden der Gruppe hatte er immer ein offenes Ohr, war hilfsbereit und brachte außerdem viel Humor mit.",
+        "quote": "Die Zusammenarbeit mit Kamyar war eine große Freude. Er versteht es, Teammitglieder zu motivieren und zu ermutigen, ihre bestmögliche Arbeit zu zeigen, und bringt stets neue Impulse in das Brainstorming ein. Für das Wohlbefinden der Gruppe hatte er immer ein offenes Ohr, war hilfsbereit und brachte außerdem viel Humor mit.",
         "role": "Frontend Developer"
       },
       "davidBraun": {
-        "quote": "Karl war bei DA ein hervorragender Teamkollege. Sein positiver Einsatz und seine Bereitschaft, Verantwortung zu übernehmen, haben wesentlich dazu beigetragen, dass wir unsere Ziele erreicht haben.",
+        "quote": "Kamyar war bei DA ein hervorragender Teamkollege. Sein positiver Einsatz und seine Bereitschaft, Verantwortung zu übernehmen, haben wesentlich dazu beigetragen, dass wir unsere Ziele erreicht haben.",
         "role": "Frontend Developer"
       }
     }
