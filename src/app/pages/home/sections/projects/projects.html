@@ -33,6 +33,7 @@
       <article
         class="projects__card grid min-w-0 grid-cols-1"
         [class.projects__card--featured]="project.variant === 'featured'"
+        [class.projects__card--el-pollo-loco]="project.slug === 'el-pollo-loco'"
       >
         <div
           class="projects__media relative col-start-1 row-start-1 aspect-[560/399] overflow-hidden rounded-2xl"
