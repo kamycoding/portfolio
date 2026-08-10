@@ -15,12 +15,12 @@ export const routes: Routes = [
   {
     path: 'legal-notice',
     component: LegalNotice,
-    title: 'Legal Notice | KamyCoding',
+    data: { titleKey: 'pageTitles.legalNotice' },
   },
   {
     path: 'privacy-policy',
     component: PrivacyPolicy,
-    title: 'Privacy Policy | KamyCoding',
+    data: { titleKey: 'pageTitles.privacyPolicy' },
   },
   {
     path: 'projects/:slug',

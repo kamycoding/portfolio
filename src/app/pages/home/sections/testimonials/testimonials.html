@@ -8,7 +8,7 @@
       <div class="flex items-end justify-end gap-2">
         <img
           class="h-9 w-25 shrink-0 object-fill"
-          src="/assets/testimonials/testimonials-title-arrow.webp"
+          src="/assets/testimonials/testimonials-title-arrow.png"
           alt=""
           aria-hidden="true"
           draggable="false"
@@ -26,9 +26,12 @@
       </h2>
     </header>
 
-    <ul class="testimonials__cards mt-8" role="list">
+    <ul class="testimonials__cards mx-auto mt-8 flex w-full max-w-[343px] flex-col" role="list">
       @for (testimonial of testimonials; track testimonial.id) {
-        <li class="testimonial-card" tabindex="0">
+        <li
+          class="testimonial-card relative z-1 grid aspect-square w-full min-w-0 origin-center text-canvas isolate"
+          tabindex="0"
+        >
           <picture class="testimonial-card__paper" aria-hidden="true">
             <source
               media="(min-width: 64rem)"
@@ -57,19 +60,23 @@
             />
           </picture>
 
-          <blockquote class="testimonial-card__content">
+          <blockquote
+            class="testimonial-card__content relative z-2 flex min-h-full min-w-0 flex-col justify-between"
+          >
             <p class="testimonial-card__quote">{{ testimonial.quoteKey | translate }}</p>
 
-            <footer class="testimonial-card__footer">
-              <div class="testimonial-card__identity">
-                <cite class="testimonial-card__name not-italic">
+            <footer class="testimonial-card__footer flex min-w-0 items-end justify-between gap-2">
+              <div class="testimonial-card__identity min-w-0">
+                <cite class="testimonial-card__name block leading-[1.2] font-bold not-italic">
                   {{ testimonial.name }}
                 </cite>
-                <p class="testimonial-card__role">{{ testimonial.roleKey | translate }}</p>
+                <p class="testimonial-card__role leading-[1.2] font-medium">
+                  {{ testimonial.roleKey | translate }}
+                </p>
               </div>
 
               <a
-                class="testimonial-card__profile"
+                class="testimonial-card__profile inline-flex flex-none items-center gap-1 text-canvas leading-[1.2] font-medium no-underline"
                 [href]="testimonial.linkedinUrl"
                 target="_blank"
                 rel="noopener noreferrer"

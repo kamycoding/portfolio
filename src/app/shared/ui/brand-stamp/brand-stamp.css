@@ -25,7 +25,7 @@
 .brand-stamp__ring {
   overflow: visible;
   animation: brand-stamp-spin 20s linear infinite;
-  transform-box: fill-box;
+  transform-box: view-box;
   transform-origin: center;
   will-change: transform;
 }
@@ -33,7 +33,7 @@
 .brand-stamp__ring text {
   fill: var(--color-canvas);
   font-family: var(--font-sans);
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 700;
 }
 
@@ -45,7 +45,7 @@
   height: 42.2%;
   background-color: var(--color-canvas);
   opacity: 0.84;
-  transform: translate(-58%, -51%) rotate(-15deg);
+  transform: translate(-50%, -50%) rotate(-15deg);
   -webkit-mask: url('/logo.svg') center / contain no-repeat;
   mask: url('/logo.svg') center / contain no-repeat;
 }

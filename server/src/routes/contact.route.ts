@@ -63,5 +63,3 @@ export function createContactRouter(emailSender: ContactEmailSender = sendContac
 
   return router;
 }
-
-export const contactRouter = createContactRouter();

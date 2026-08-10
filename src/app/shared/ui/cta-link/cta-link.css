@@ -1,17 +1,24 @@
 :host {
   --cta-height: 40px;
   --cta-font-size: 18px;
+  --cta-min-width: 0px;
+  --cta-padding-inline: 24px;
   --cta-shadow-x: 2px;
   --cta-shadow-y: 4px;
 
-  display: block;
-  height: calc(var(--cta-height) + var(--cta-shadow-y));
+  display: inline-block;
+  max-width: 100%;
+  min-height: calc(var(--cta-height) + var(--cta-shadow-y));
 }
 
 .cta-link {
+  box-sizing: border-box;
   display: inline-flex;
-  width: 100%;
-  height: var(--cta-height);
+  width: max-content;
+  min-width: min(var(--cta-min-width), 100%);
+  max-width: 100%;
+  min-height: var(--cta-height);
+  padding: 8px var(--cta-padding-inline);
   align-items: center;
   justify-content: center;
   border: 1px solid currentColor;
@@ -21,8 +28,10 @@
   font-size: var(--cta-font-size);
   font-weight: 500;
   line-height: 1.2;
+  overflow-wrap: anywhere;
+  text-align: center;
   text-decoration: none;
-  white-space: nowrap;
+  white-space: normal;
   transition:
     color 180ms ease-out,
     background-color 180ms ease-out,

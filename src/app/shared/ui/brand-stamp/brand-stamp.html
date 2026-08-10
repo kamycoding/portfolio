@@ -1,19 +1,21 @@
 <div class="brand-stamp" aria-hidden="true">
   <img
     class="brand-stamp__background"
-    src="/assets/contact-footer/contact-stamp.svg"
+    src="/assets/contact-footer/contact-stamp.png"
     alt=""
     draggable="false"
   />
 
-  <svg class="brand-stamp__ring" viewBox="0 0 168 168" focusable="false">
+  <svg
+    class="brand-stamp__ring"
+    viewBox="0 0 168 168"
+    preserveAspectRatio="xMidYMid meet"
+    focusable="false"
+  >
     <defs>
-      <path
-        [attr.id]="textPathId"
-        d="M 84 16 A 68 68 0 1 1 84 152 A 68 68 0 1 1 84 16"
-      />
+      <path [attr.id]="textPathId" d="M 84 16 A 68 68 0 1 1 84 152 A 68 68 0 1 1 84 16" />
     </defs>
-    <text textLength="427" lengthAdjust="spacing">
+    <text textLength="427" lengthAdjust="spacingAndGlyphs">
       <textPath [attr.href]="textPathHref">
         Kamyar Zamanfar - Full-stack Developer - Kamyar Zamanfar - Full-stack Developer -
       </textPath>

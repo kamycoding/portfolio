@@ -1,12 +1,14 @@
 <section
   id="contact"
-  class="contact px-4 pt-26 text-foreground lg:px-[clamp(2rem,8.333vw,7.5rem)] lg:pt-36"
+  class="contact scroll-mt-20 px-4 pt-26 text-foreground lg:px-[clamp(2rem,8.333vw,7.5rem)] lg:pt-36"
   aria-labelledby="contact-title"
 >
   <div
-    class="contact__inner relative mx-auto w-full max-w-300 lg:grid lg:min-h-140 lg:grid-cols-[minmax(0,560px)_minmax(0,480px)]"
+    class="contact__inner relative mx-auto w-full max-w-2xl lg:grid lg:min-h-140 lg:max-w-300 lg:grid-cols-[minmax(0,560px)_minmax(0,480px)]"
   >
-    <app-brand-stamp class="contact__stamp absolute -top-8.5 right-0 z-1 w-30 lg:top-0 lg:w-42" />
+    <app-brand-stamp
+      class="contact__stamp absolute -top-8.5 right-0 z-1 w-30 min-[40rem]:right-6 lg:top-0 lg:right-0 lg:w-42"
+    />
 
     <div class="contact__intro pt-19 lg:flex lg:flex-col lg:pt-0">
       <p class="contact__eyebrow text-base leading-none font-medium uppercase">
@@ -137,7 +139,7 @@
 
       <div class="contact-form__actions">
         <img
-          class="contact__arrow contact__arrow--mobile decorative-reveal"
+          class="contact__arrow contact__arrow--mobile decorative-reveal w-full max-w-100 justify-self-end"
           src="/assets/contact-footer/contact-arrow.svg"
           alt=""
           aria-hidden="true"

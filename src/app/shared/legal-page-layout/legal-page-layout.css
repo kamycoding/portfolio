@@ -11,7 +11,7 @@
 .legal-page__hero {
   height: 271px;
   background-color: var(--color-foreground);
-  background-image: url('/assets/legal-notice/legal-notice-header-bg.png');
+  background-image: url('/assets/legal-notice/legal-notice-header-bg.webp');
   background-repeat: no-repeat;
   background-position: center bottom;
   background-size: 100% 100%;

@@ -7,10 +7,6 @@
   display: none;
 }
 
-.contact__arrow--mobile {
-  width: 100%;
-}
-
 .contact-field {
   min-height: 114px;
   padding: 12px 24px 8px;

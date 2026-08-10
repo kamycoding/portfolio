@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
+    "lint": "npm --prefix .. exec -- eslint \"{src,test}/**/*.ts\"",
     "test": "tsx --test test/contact.integration.test.ts",
     "dev": "tsx watch src/index.ts",
     "build": "tsc",

@@ -7,8 +7,6 @@ import { RouterLink } from '@angular/router';
   templateUrl: './cta-link.html',
   styleUrl: './cta-link.css',
 })
-
-//! note check again
 export class CtaLink {
   readonly label = input.required<string>();
   readonly route = input('/');

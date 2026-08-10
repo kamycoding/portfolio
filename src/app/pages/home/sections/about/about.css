@@ -65,8 +65,7 @@
 
 .about__cta {
   --cta-font-size: 16px;
-
-  width: 110px;
+  --cta-min-width: 110px;
 }
 
 @media (min-width: 22.5rem) {
@@ -76,8 +75,7 @@
 
   .about__cta {
     --cta-font-size: 18px;
-
-    width: 126px;
+    --cta-min-width: 126px;
   }
 }
 
@@ -90,11 +88,30 @@
   transform: translate(-50%, -50%) rotate(4deg);
 }
 
+@media (min-width: 40rem) and (max-width: 63.999rem) {
+  .availability-list {
+    max-width: 44rem;
+    margin-inline: auto;
+  }
+
+  .availability-card__content {
+    gap: clamp(16px, 2.5vw, 24px);
+  }
+
+  .availability-card__content img {
+    width: clamp(40px, 5vw, 48px);
+    height: clamp(40px, 5vw, 48px);
+  }
+
+  .availability-card__content span {
+    font-size: clamp(20px, 2.75vw, 28px);
+  }
+}
+
 @media (min-width: 64rem) {
   .about__cta {
     --cta-font-size: 20px;
-
-    width: 156px;
+    --cta-min-width: 156px;
   }
 
   .availability-card[data-variant='yellow'],
