@@ -1,6 +1,8 @@
 {
   "pageTitles": {
-    "notFound": "Page Not Found | KamyCoding"
+    "notFound": "Page Not Found | KamyCoding",
+    "legalNotice": "Legal Notice | KamyCoding",
+    "privacyPolicy": "Privacy Policy | KamyCoding"
   },
   "nav": {
     "about": "About me",
