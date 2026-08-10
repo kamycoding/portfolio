@@ -155,7 +155,7 @@
 .project-detail__brand-stamp {
   position: absolute;
   top: 50%;
-  right: -60px;
+  left: -60px;
   width: 120px;
   height: 120px;
   transform: translateY(-50%);
