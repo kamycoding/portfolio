@@ -5,9 +5,16 @@
 .hero {
   position: relative;
   min-height: 812px;
+  min-height: 100svh;
   overflow: hidden;
   background: var(--color-foreground);
   color: var(--color-foreground);
+}
+
+@supports (height: 100dvh) {
+  .hero {
+    min-height: 100dvh;
+  }
 }
 
 .hero__background {
@@ -165,11 +172,23 @@
   outline-offset: 4px;
 }
 
-@media (min-width: 64rem) {
-  .hero {
-    min-height: 0;
+@media (max-width: 63.9375rem) and (max-height: 700px) {
+  .hero__composition {
+    top: 112px;
+    gap: 22px;
   }
 
+  .hero__polaroid {
+    width: 165px;
+    height: 198px;
+  }
+
+  .hero__portrait {
+    height: 143px;
+  }
+}
+
+@media (min-width: 64rem) {
   .hero__stage {
     container-type: inline-size;
     width: min(100%, 1440px);
