@@ -25,5 +25,3 @@ export const contactRequestSchema = z
     company: z.string().max(200).optional().default(''),
   })
   .strict();
-
-export type ContactRequest = z.infer<typeof contactRequestSchema>;
