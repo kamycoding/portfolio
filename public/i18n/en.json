@@ -2,7 +2,8 @@
   "pageTitles": {
     "notFound": "Page Not Found | KamyCoding",
     "legalNotice": "Legal Notice | KamyCoding",
-    "privacyPolicy": "Privacy Policy | KamyCoding"
+    "privacyPolicy": "Privacy Policy | KamyCoding",
+    "projectDetail": "Project | KamyCoding"
   },
   "nav": {
     "about": "About me",
@@ -120,15 +121,15 @@
     "profileAria": "View {{name}}'s LinkedIn profile",
     "items": {
       "tobiasLange": {
-        "quote": "Karl really kept the team together with his great organization and clear communication. We wouldn't have got this far without his commitment.",
+        "quote": "Kamyar really kept the team together with his great organization and clear communication. We wouldn't have got this far without his commitment.",
         "role": "Frontend Developer"
       },
       "mariaSchaefer": {
-        "quote": "It was a great pleasure to work with Karl. He knows how to push and encourage team members to present the best work possible, always adding something to brainstorm. Regarding the well-being of group members, he was always present and available to listen and help others, with a great sense of humor as well.",
+        "quote": "It was a great pleasure to work with Kamyar. He knows how to push and encourage team members to present the best work possible, always adding something to brainstorm. Regarding the well-being of group members, he was always present and available to listen and help others, with a great sense of humor as well.",
         "role": "Frontend Developer"
       },
       "davidBraun": {
-        "quote": "Karl was a top team colleague at DA. His positive commitment and willingness to take on responsibility made a significant contribution to us achieving our goals.",
+        "quote": "Kamyar was a top team colleague at DA. His positive commitment and willingness to take on responsibility made a significant contribution to us achieving our goals.",
         "role": "Frontend Developer"
       }
     }

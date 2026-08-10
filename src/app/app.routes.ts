@@ -26,7 +26,7 @@ export const routes: Routes = [
     path: 'projects/:slug',
     component: ProjectDetail,
     canActivate: [projectDetailGuard],
-    title: 'Project - Kamycoding',
+    data: { titleKey: 'pageTitles.projectDetail' },
   },
   {
     path: '**',
