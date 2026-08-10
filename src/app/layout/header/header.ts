@@ -86,6 +86,22 @@ export class Header implements OnDestroy {
     void this.languageService.toggleLanguage().catch(() => undefined);
   }
 
+  protected onLogoClick(): void {
+    this.closeMobileMenu(false);
+
+    const view = this.document.defaultView;
+
+    if (!view) {
+      return;
+    }
+
+    view.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: view.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',
+    });
+  }
+
   protected openMobileMenu(): void {
     if (this.isMobileMenuOpen()) {
       return;

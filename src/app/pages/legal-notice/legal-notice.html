@@ -1,6 +1,6 @@
-<app-legal-page-layout title="Legal Notice">
+<app-legal-page-layout [title]="'legalNotice.title' | translate">
   <section>
-    <h2 id="legal-information-heading">Information pursuant to § 5 DDG</h2>
+    <h2 id="legal-information-heading">{{ 'legalNotice.information.heading' | translate }}</h2>
 
     <address>
       <p>
@@ -11,21 +11,47 @@
       <p>
         Alte Poststraße 14<br />
         53840 Troisdorf<br />
-        Germany
+        {{ 'legalNotice.information.country' | translate }}
       </p>
     </address>
   </section>
 
   <section>
-    <h2>Contact</h2>
+    <h2>{{ 'legalNotice.contact.heading' | translate }}</h2>
     <p>
-      Email:
+      {{ 'legalNotice.contact.emailLabel' | translate }}:
       <a href="mailto:contact@kamycoding.com">contact&#64;kamycoding.com</a>
     </p>
   </section>
 
+  <section>
+    <h2>{{ 'legalNotice.responsible.heading' | translate }}</h2>
+    <p>Kamyar Zamanfar<br />{{ 'legalNotice.responsible.address' | translate }}</p>
+  </section>
+
+  <section>
+    <h2>{{ 'legalNotice.contentLiability.heading' | translate }}</h2>
+    @for (paragraph of 'legalNotice.contentLiability.paragraphs' | translate; track $index) {
+      <p>{{ paragraph }}</p>
+    }
+  </section>
+
+  <section>
+    <h2>{{ 'legalNotice.externalLinks.heading' | translate }}</h2>
+    @for (paragraph of 'legalNotice.externalLinks.paragraphs' | translate; track $index) {
+      <p>{{ paragraph }}</p>
+    }
+  </section>
+
+  <section>
+    <h2>{{ 'legalNotice.copyright.heading' | translate }}</h2>
+    @for (paragraph of 'legalNotice.copyright.paragraphs' | translate; track $index) {
+      <p>{{ paragraph }}</p>
+    }
+  </section>
+
   <p class="legal-notice__updated">
-    Last updated:
-    <time datetime="2026-08-09">August 9, 2026</time>
+    {{ 'legalNotice.updated.label' | translate }}:
+    <time datetime="2026-08-10">{{ 'legalNotice.updated.date' | translate }}</time>
   </p>
 </app-legal-page-layout>

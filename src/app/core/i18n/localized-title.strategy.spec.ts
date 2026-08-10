@@ -21,6 +21,16 @@ describe('LocalizedTitleStrategy', () => {
             component: TestPage,
             data: { titleKey: 'pageTitles.notFound' },
           },
+          {
+            path: 'legal',
+            component: TestPage,
+            data: { titleKey: 'pageTitles.legalNotice' },
+          },
+          {
+            path: 'privacy',
+            component: TestPage,
+            data: { titleKey: 'pageTitles.privacyPolicy' },
+          },
         ]),
         ...provideTestTranslateService(),
         { provide: TitleStrategy, useClass: LocalizedTitleStrategy },
@@ -39,5 +49,48 @@ describe('LocalizedTitleStrategy', () => {
     TestBed.tick();
 
     expect(TestBed.inject(Title).getTitle()).toBe('Seite nicht gefunden | KamyCoding');
+  });
+
+  it('keeps both legal route titles localized during live language changes', async () => {
+    TestBed.configureTestingModule({
+      providers: [
+        provideRouter([
+          {
+            path: 'legal',
+            component: TestPage,
+            data: { titleKey: 'pageTitles.legalNotice' },
+          },
+          {
+            path: 'privacy',
+            component: TestPage,
+            data: { titleKey: 'pageTitles.privacyPolicy' },
+          },
+        ]),
+        ...provideTestTranslateService(),
+        { provide: TitleStrategy, useClass: LocalizedTitleStrategy },
+      ],
+    });
+
+    const translate = TestBed.inject(TranslateService);
+    const title = TestBed.inject(Title);
+    await setTestLanguage(translate);
+    const harness = await RouterTestingHarness.create();
+
+    await harness.navigateByUrl('/legal', TestPage);
+    TestBed.tick();
+    expect(title.getTitle()).toBe('Legal Notice | KamyCoding');
+
+    await setTestLanguage(translate, 'de');
+    TestBed.tick();
+    expect(title.getTitle()).toBe('Impressum | KamyCoding');
+
+    await setTestLanguage(translate);
+    await harness.navigateByUrl('/privacy', TestPage);
+    TestBed.tick();
+    expect(title.getTitle()).toBe('Privacy Policy | KamyCoding');
+
+    await setTestLanguage(translate, 'de');
+    TestBed.tick();
+    expect(title.getTitle()).toBe('Datenschutzerklärung | KamyCoding');
   });
 });

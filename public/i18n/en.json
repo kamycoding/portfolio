@@ -185,6 +185,280 @@
     "home": "Back to homepage",
     "projects": "View projects"
   },
+  "legalNotice": {
+    "title": "Legal Notice",
+    "information": {
+      "heading": "Information pursuant to § 5 DDG",
+      "country": "Germany"
+    },
+    "contact": {
+      "heading": "Contact",
+      "emailLabel": "Email"
+    },
+    "responsible": {
+      "heading": "Responsible for Content",
+      "address": "Address as stated above."
+    },
+    "contentLiability": {
+      "heading": "Liability for Content",
+      "paragraphs": [
+        "The contents of this website have been prepared with the greatest possible care.",
+        "However, no guarantee can be given regarding the accuracy, completeness or currentness of the information provided.",
+        "As the service provider, I am responsible for my own content on this website in accordance with applicable law."
+      ]
+    },
+    "externalLinks": {
+      "heading": "Liability for External Links",
+      "paragraphs": [
+        "This website may contain links to external third-party websites whose content is outside my control.",
+        "I therefore cannot assume responsibility for such external content. Responsibility for the content of linked websites remains with the respective provider or operator.",
+        "At the time the links were created, no unlawful content was apparent. Continuous monitoring of linked websites without specific indications of a legal violation is not reasonably possible.",
+        "If I become aware of any legal infringement, the relevant links will be removed without undue delay."
+      ]
+    },
+    "copyright": {
+      "heading": "Copyright",
+      "paragraphs": [
+        "The content, text, graphics and other works created for this website are, where applicable, protected by German copyright law.",
+        "Reproduction, modification, distribution or other use beyond what is permitted by law requires the prior consent of the respective rights holder.",
+        "Where content on this website was not created by me, third-party copyrights are respected."
+      ]
+    },
+    "updated": {
+      "label": "Last updated",
+      "date": "August 10, 2026"
+    }
+  },
+  "privacyPolicy": {
+    "title": "Privacy Policy",
+    "common": {
+      "emailLabel": "Email",
+      "provider": "Provider"
+    },
+    "controller": {
+      "heading": "1. Controller",
+      "intro": "The controller responsible for the processing of personal data on this website is:",
+      "country": "Germany"
+    },
+    "general": {
+      "heading": "2. General Information on Data Processing",
+      "paragraphs": [
+        "The protection of your personal data is important to me.",
+        "Personal data means any information relating to an identified or identifiable natural person. This may include, for example, an IP address, a name, an email address or the content of a message.",
+        "Personal data is processed through this website only insofar as necessary to provide and secure the website, process contact requests or operate the services expressly described below.",
+        "Processing is carried out in accordance with applicable data protection law, in particular Regulation (EU) 2016/679, the General Data Protection Regulation (GDPR)."
+      ]
+    },
+    "netlify": {
+      "heading": "3. Website Hosting – Netlify",
+      "intro": "The frontend of this website is hosted using Netlify.",
+      "beforeList": [
+        "When you access this website, technically necessary connection and usage data may be processed.",
+        "This may include, in particular:"
+      ],
+      "items": [
+        "IP address",
+        "date and time of access",
+        "requested resource",
+        "browser type and version",
+        "operating system or device information",
+        "referrer information",
+        "technical log and security information"
+      ],
+      "afterList": [
+        "This processing is carried out in order to provide this website securely, reliably and efficiently.",
+        "The legal basis is Article 6(1)(f) GDPR.",
+        "The legitimate interest is the secure and technically reliable provision of this website.",
+        "Netlify is based in the United States. Processing or transfer of personal data to the United States therefore cannot be completely excluded.",
+        "Netlify states that it uses recognised transfer mechanisms for relevant international data transfers, including the European Commission's Standard Contractual Clauses and, where applicable, the EU-U.S. Data Privacy Framework."
+      ]
+    },
+    "backend": {
+      "heading": "4. Backend Hosting – Apply.Build / Codebite Oy",
+      "intro": "The backend of this website is operated using Apply.Build.",
+      "providerIntro": "The service is provided by",
+      "country": "Finland",
+      "beforeList": [
+        "The backend processes requests sent to the website, in particular requests submitted through the contact form.",
+        "For the technical operation and security of the service, technical log data may be processed, including:"
+      ],
+      "items": [
+        "IP address",
+        "HTTP headers",
+        "request path",
+        "timestamp",
+        "runtime and security information"
+      ],
+      "afterList": [
+        "This processing serves to operate the infrastructure securely, diagnose technical problems and protect it against misuse.",
+        "The legal basis is Article 6(1)(f) GDPR.",
+        "The legitimate interest is the secure, stable and reliable operation of the backend infrastructure."
+      ]
+    },
+    "contactForm": {
+      "heading": "5. Contact Form",
+      "beforeList": [
+        "A contact form is available on this website.",
+        "When you use the contact form, the information entered by you is processed.",
+        "This may include:"
+      ],
+      "items": [
+        "name",
+        "email address",
+        "message",
+        "acknowledgement of the privacy information",
+        "technical information necessary to transmit the request"
+      ],
+      "afterList": [
+        "The data is used exclusively to receive, process and respond to your inquiry.",
+        "If your inquiry relates to entering into or performing a contractual relationship, processing is based on Article 6(1)(b) GDPR.",
+        "For other inquiries, processing is based on Article 6(1)(f) GDPR. The legitimate interest is the proper handling and response to incoming inquiries."
+      ]
+    },
+    "validation": {
+      "heading": "6. Server-Side Validation and Abuse Protection",
+      "paragraphs": [
+        "Information submitted through the contact form is validated both in the frontend and on the server.",
+        "Server-side validation is used to reject invalid or unexpected input.",
+        "Technical safeguards are also used to protect the contact form from automated abuse, including rate limiting and a honeypot field.",
+        "The legal basis for this processing is Article 6(1)(f) GDPR.",
+        "The legitimate interest is protecting the website, email infrastructure and technical systems against spam and misuse."
+      ]
+    },
+    "brevo": {
+      "heading": "7. Email Delivery via Brevo",
+      "beforeList": [
+        "Brevo is used to technically deliver messages submitted through the contact form.",
+        "Brevo processes the information required to deliver the email.",
+        "This may include:"
+      ],
+      "items": [
+        "name",
+        "email address",
+        "message content",
+        "sender and recipient information",
+        "technical delivery information"
+      ],
+      "afterList": [
+        "Brevo is used as a technical service provider for email delivery.",
+        "Depending on the nature of your inquiry, the legal basis is Article 6(1)(b) GDPR or Article 6(1)(f) GDPR.",
+        "Brevo provides information regarding its processing of personal data and makes a Data Processing Agreement available to its customers."
+      ]
+    },
+    "zoho": {
+      "heading": "8. Email Storage – Zoho Mail",
+      "beforeAddress": [
+        "Incoming messages are managed through my email account hosted with Zoho Mail.",
+        "For European hosted services, the relevant Zoho entity includes:"
+      ],
+      "country": "The Netherlands",
+      "beforeList": [
+        "Zoho operates data centre infrastructure in the European Union.",
+        "The following information may be stored in connection with email communications:"
+      ],
+      "items": [
+        "name",
+        "email address",
+        "communication content",
+        "date and time",
+        "technical email metadata"
+      ],
+      "afterList": [
+        "The processing is required to handle and document communications.",
+        "Depending on the nature of the inquiry, the legal basis is Article 6(1)(b) GDPR or Article 6(1)(f) GDPR."
+      ]
+    },
+    "retention": {
+      "heading": "9. Retention Period",
+      "paragraphs": [
+        "Personal data is generally stored only for as long as necessary for the respective purpose.",
+        "Contact requests and related email communications are deleted once the inquiry has been completed and there are no legal, contractual or other legitimate grounds requiring further storage.",
+        "Where statutory retention obligations apply, the relevant information will be retained for the duration required by law.",
+        "Technical log data may be retained by the hosting and infrastructure providers for the periods necessary for security, diagnostics and operation of their services."
+      ]
+    },
+    "languagePreference": {
+      "heading": "10. Language Preference and Local Storage",
+      "beforeKey": [
+        "This website supports English and German.",
+        "A technically necessary value is stored in your browser's Local Storage in order to remember the language selected by you."
+      ],
+      "keyIntro": "The storage key is:",
+      "keyOutro": "",
+      "afterKey": [
+        "The stored value contains only the selected language.",
+        "It is used solely to preserve your language preference after a reload or on a later visit.",
+        "The language preference is not used for advertising, analytics or tracking purposes."
+      ]
+    },
+    "tracking": {
+      "heading": "11. Cookies, Analytics and Tracking",
+      "paragraphs": [
+        "This website currently does not use its own analytics or marketing tracking services.",
+        "In particular, KamyCoding does not set tracking cookies for personalised advertising or the creation of user profiles.",
+        "Technically necessary processing performed by the hosting and infrastructure providers remains unaffected."
+      ]
+    },
+    "encryption": {
+      "heading": "12. Encrypted Transmission",
+      "paragraphs": [
+        "This website is provided over HTTPS.",
+        "This encrypts communication between your browser and the website while the information is being transmitted.",
+        "Modern browsers generally indicate an encrypted connection through the use of \"https://\" in the address bar."
+      ]
+    },
+    "recipients": {
+      "heading": "13. Recipients of Personal Data",
+      "intro": "Personal data is disclosed to service providers only to the extent necessary to operate the website and process requests.",
+      "listIntro": "These providers currently include",
+      "items": [
+        "Netlify for frontend hosting",
+        "Codebite Oy / Apply.Build for backend hosting",
+        "Brevo for technical email delivery",
+        "Zoho for storage and management of email communications"
+      ],
+      "outro": "Personal data is not disclosed to these providers for advertising purposes."
+    },
+    "rights": {
+      "heading": "14. Your Rights under the GDPR",
+      "intro": "Subject to the applicable statutory requirements, you have in particular the following rights",
+      "items": [
+        "right of access under Article 15 GDPR",
+        "right to rectification under Article 16 GDPR",
+        "right to erasure under Article 17 GDPR",
+        "right to restriction of processing under Article 18 GDPR",
+        "right to data portability under Article 20 GDPR",
+        "right to object under Article 21 GDPR"
+      ],
+      "outro": "Where processing is based on consent, you may generally withdraw that consent at any time with effect for the future."
+    },
+    "objection": {
+      "heading": "15. Right to Object",
+      "body": "Where personal data is processed on the basis of Article 6(1)(f) GDPR, you have the right, subject to the statutory requirements, to object to such processing on grounds relating to your particular situation."
+    },
+    "complaint": {
+      "heading": "16. Right to Lodge a Complaint",
+      "paragraphs": [
+        "You have the right to lodge a complaint with a competent data protection supervisory authority concerning the processing of your personal data.",
+        "You may in particular contact the supervisory authority responsible for your place of residence, habitual residence, place of work or the place of the alleged infringement."
+      ]
+    },
+    "automatedDecisionMaking": {
+      "heading": "17. Automated Decision-Making",
+      "body": "This website does not use automated decision-making, including profiling, within the meaning of Article 22 GDPR."
+    },
+    "changes": {
+      "heading": "18. Changes to this Privacy Policy",
+      "paragraphs": [
+        "This Privacy Policy may be updated if technical, legal or organisational circumstances change.",
+        "The version currently published on this website applies."
+      ]
+    },
+    "updated": {
+      "label": "Last updated",
+      "date": "August 10, 2026"
+    }
+  },
   "legalUi": {
     "back": "Back"
   }

@@ -52,11 +52,13 @@
             maxlength="80"
             [placeholder]="'contact.fields.name.placeholder' | translate"
             [attr.aria-invalid]="hasVisibleError('name')"
-            aria-describedby="contact-name-error"
+            [attr.aria-describedby]="hasVisibleError('name') ? 'contact-name-error' : null"
           />
-          <p id="contact-name-error" class="contact-field__error" aria-live="polite">
-            {{ hasVisibleError('name') ? (nameError() | translate) : '' }}
-          </p>
+          @if (hasVisibleError('name')) {
+            <p id="contact-name-error" class="contact-field__error" aria-live="polite">
+              {{ nameError() | translate }}
+            </p>
+          }
         </div>
 
         <div class="contact-field" [class.contact-field--invalid]="hasVisibleError('email')">
@@ -73,11 +75,13 @@
             [placeholder]="'contact.fields.email.placeholder' | translate"
             spellcheck="false"
             [attr.aria-invalid]="hasVisibleError('email')"
-            aria-describedby="contact-email-error"
+            [attr.aria-describedby]="hasVisibleError('email') ? 'contact-email-error' : null"
           />
-          <p id="contact-email-error" class="contact-field__error" aria-live="polite">
-            {{ hasVisibleError('email') ? (emailError() | translate) : '' }}
-          </p>
+          @if (hasVisibleError('email')) {
+            <p id="contact-email-error" class="contact-field__error" aria-live="polite">
+              {{ emailError() | translate }}
+            </p>
+          }
         </div>
 
         <div
@@ -92,11 +96,13 @@
             rows="1"
             [placeholder]="'contact.fields.message.placeholder' | translate"
             [attr.aria-invalid]="hasVisibleError('message')"
-            aria-describedby="contact-message-error"
+            [attr.aria-describedby]="hasVisibleError('message') ? 'contact-message-error' : null"
           ></textarea>
-          <p id="contact-message-error" class="contact-field__error" aria-live="polite">
-            {{ hasVisibleError('message') ? (messageError() | translate) : '' }}
-          </p>
+          @if (hasVisibleError('message')) {
+            <p id="contact-message-error" class="contact-field__error" aria-live="polite">
+              {{ messageError() | translate }}
+            </p>
+          }
         </div>
       </div>
 

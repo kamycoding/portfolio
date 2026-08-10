@@ -32,7 +32,7 @@
 }
 
 .skills__icon {
-  filter: grayscale(1);
+  filter: grayscale(0);
   transition:
     filter 220ms ease-out,
     transform 260ms cubic-bezier(0.16, 1, 0.3, 1);
@@ -97,6 +97,10 @@
 }
 
 @media (hover: hover) and (pointer: fine) {
+  .skills__icon {
+    filter: grayscale(1);
+  }
+
   .skills__item:hover .skills__icon {
     filter: grayscale(0);
     transform: scale(0.7778);

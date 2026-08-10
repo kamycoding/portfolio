@@ -15,6 +15,7 @@
       class="inline-flex focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary"
       routerLink="/"
       [attr.aria-label]="'nav.homeAria' | translate"
+      (click)="onLogoClick()"
     >
       <img class="size-8" src="/logo.svg" alt="" draggable="false" />
     </a>
@@ -56,6 +57,7 @@
       class="inline-flex focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary"
       routerLink="/"
       [attr.aria-label]="'nav.homeAria' | translate"
+      (click)="onLogoClick()"
     >
       <img class="h-10.5 w-auto" src="/logo.svg" alt="" draggable="false" />
     </a>
@@ -166,7 +168,7 @@
         class="inline-flex focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary"
         routerLink="/"
         [attr.aria-label]="'nav.homeAria' | translate"
-        (click)="closeMobileMenu()"
+        (click)="onLogoClick()"
       >
         <img class="size-8" src="/logo.svg" alt="" draggable="false" />
       </a>

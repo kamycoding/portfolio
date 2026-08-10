@@ -7,6 +7,7 @@ import { PrivacyPolicy } from './privacy-policy';
 
 describe('PrivacyPolicy', () => {
   let fixture: ComponentFixture<PrivacyPolicy>;
+  let translate: TranslateService;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -14,54 +15,44 @@ describe('PrivacyPolicy', () => {
       providers: [provideRouter([]), ...provideTestTranslateService()],
     }).compileComponents();
 
-    await setTestLanguage(TestBed.inject(TranslateService));
+    translate = TestBed.inject(TranslateService);
+    await setTestLanguage(translate);
     fixture = TestBed.createComponent(PrivacyPolicy);
     fixture.detectChanges();
   });
 
-  it('creates the page with its primary heading', () => {
-    const heading = fixture.nativeElement.querySelector('h1') as HTMLHeadingElement | null;
-
-    expect(fixture.componentInstance).toBeTruthy();
-    expect(heading?.textContent).toBe('Privacy Policy');
-    expect(fixture.nativeElement.querySelectorAll('h1')).toHaveLength(1);
-  });
-
-  it('renders controller information and a contact email link', () => {
+  it('renders the complete representative English privacy policy content', () => {
     const content = fixture.nativeElement.textContent as string;
+    const headings = fixture.nativeElement.querySelectorAll('h2') as NodeListOf<HTMLHeadingElement>;
     const emailLink = fixture.nativeElement.querySelector(
       'a[href="mailto:contact@kamycoding.com"]',
     ) as HTMLAnchorElement | null;
 
-    expect(content).toContain('1. Controller');
-    expect(content).toContain('Kamyar Zamanfar');
-    expect(content).toContain('Alte Poststraße 14');
+    expect(fixture.nativeElement.querySelector('h1')?.textContent).toBe('Privacy Policy');
+    expect(content).toContain('3. Website Hosting – Netlify');
+    expect(content).toContain('Codebite Oy');
+    expect(content).toContain('7. Email Delivery via Brevo');
+    expect(content).toContain('Zoho Corporation B.V.');
+    expect(content).toContain('18. Changes to this Privacy Policy');
+    expect(headings).toHaveLength(18);
     expect(emailLink?.textContent).toBe('contact@kamycoding.com');
   });
 
-  it('describes the production hosting and contact delivery providers', () => {
-    const content = fixture.nativeElement.textContent as string;
-
-    expect(content).toContain('Frontend hosting: Netlify');
-    expect(content).toContain('Backend hosting: Apply.Build');
-    expect(content).toContain('Codebite Oy');
-    expect(content).toContain('transactional email delivery provider');
-    expect(content).toContain('mail.zoho.eu');
-    expect(content).not.toContain('Hosting provider information will be added');
-  });
-
-  it('keeps the authoritative legal body in English when the interface is German', async () => {
-    await setTestLanguage(TestBed.inject(TranslateService), 'de');
+  it('updates the privacy policy body to German without navigation or reload', async () => {
+    await setTestLanguage(translate, 'de');
     fixture.detectChanges();
 
     const content = fixture.nativeElement.textContent as string;
 
-    expect(content).toContain('2. General Information');
-    expect(content).toContain('The protection of your personal data is important to me.');
-    expect(content).not.toContain('Allgemeine Informationen');
+    expect(fixture.nativeElement.querySelector('h1')?.textContent).toBe('Datenschutzerklärung');
+    expect(content).toContain('3. Hosting der Website – Netlify');
+    expect(content).toContain('6. Serverseitige Validierung und Missbrauchsschutz');
+    expect(content).toContain('14. Ihre Rechte nach der DSGVO');
+    expect(content).toContain('18. Änderung dieser Datenschutzerklärung');
+    expect(content).not.toContain('Changes to this Privacy Policy');
   });
 
-  it('reuses the shared light footer and provides a route back home', () => {
+  it('keeps the shared layout, privacy route, and contact email link intact', () => {
     const footer = fixture.nativeElement.querySelector('app-footer') as HTMLElement | null;
     const backLink = fixture.nativeElement.querySelector(
       '.legal-page__back',
