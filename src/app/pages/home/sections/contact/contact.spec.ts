@@ -70,6 +70,19 @@ describe('Contact', () => {
     expect(email.getAttribute('spellcheck')).toBe('false');
   });
 
+  it('keeps the privacy acknowledgement on one global-language route', async () => {
+    const translate = TestBed.inject(TranslateService);
+    const privacyLink = getControl<HTMLAnchorElement>('a[href="/privacy-policy"]');
+
+    expect(privacyLink.textContent).toContain('Read the privacy policy');
+
+    await setTestLanguage(translate, 'de');
+    fixture.detectChanges();
+
+    expect(privacyLink.getAttribute('href')).toBe('/privacy-policy');
+    expect(privacyLink.textContent).toContain('Datenschutzerklärung lesen');
+  });
+
   it('enables Send only when every field and privacy consent are valid', () => {
     fillValidTextFields();
     const submit = getControl<HTMLButtonElement>('.contact-form__submit');

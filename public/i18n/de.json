@@ -185,6 +185,277 @@
     "home": "Zurück zur Startseite",
     "projects": "Projekte ansehen"
   },
+  "legalNotice": {
+    "title": "Impressum",
+    "information": {
+      "heading": "Angaben gemäß § 5 DDG",
+      "country": "Deutschland"
+    },
+    "contact": {
+      "heading": "Kontakt",
+      "emailLabel": "E-Mail"
+    },
+    "responsible": {
+      "heading": "Verantwortlich für den Inhalt",
+      "address": "Anschrift wie oben."
+    },
+    "contentLiability": {
+      "heading": "Haftung für Inhalte",
+      "paragraphs": [
+        "Die Inhalte dieser Website wurden mit größtmöglicher Sorgfalt erstellt. Für die Richtigkeit, Vollständigkeit und Aktualität der Inhalte kann jedoch keine Gewähr übernommen werden.",
+        "Als Diensteanbieter bin ich für eigene Inhalte auf diesen Seiten nach den allgemeinen Gesetzen verantwortlich."
+      ]
+    },
+    "externalLinks": {
+      "heading": "Haftung für externe Links",
+      "paragraphs": [
+        "Diese Website kann Links zu externen Websites Dritter enthalten, auf deren Inhalte ich keinen Einfluss habe.",
+        "Für diese fremden Inhalte kann daher keine Gewähr übernommen werden. Für die Inhalte der verlinkten Seiten ist stets der jeweilige Anbieter oder Betreiber verantwortlich.",
+        "Zum Zeitpunkt der Verlinkung waren keine rechtswidrigen Inhalte erkennbar. Eine permanente inhaltliche Kontrolle der verlinkten Seiten ist ohne konkrete Anhaltspunkte für eine Rechtsverletzung nicht zumutbar.",
+        "Bei Bekanntwerden von Rechtsverletzungen werden entsprechende Links unverzüglich entfernt."
+      ]
+    },
+    "copyright": {
+      "heading": "Urheberrecht",
+      "paragraphs": [
+        "Die auf dieser Website erstellten Inhalte, Texte, Grafiken und sonstigen Werke unterliegen, soweit anwendbar, dem deutschen Urheberrecht.",
+        "Eine Vervielfältigung, Bearbeitung, Verbreitung oder sonstige Nutzung außerhalb der gesetzlichen Grenzen des Urheberrechts bedarf der vorherigen Zustimmung des jeweiligen Rechteinhabers.",
+        "Soweit Inhalte auf dieser Website nicht von mir erstellt wurden, werden die Urheberrechte Dritter beachtet."
+      ]
+    },
+    "updated": {
+      "label": "Stand",
+      "date": "10. August 2026"
+    }
+  },
+  "privacyPolicy": {
+    "title": "Datenschutzerklärung",
+    "common": {
+      "emailLabel": "E-Mail",
+      "provider": "Anbieter"
+    },
+    "controller": {
+      "heading": "1. Verantwortlicher",
+      "intro": "Verantwortlicher für die Verarbeitung personenbezogener Daten auf dieser Website ist:",
+      "country": "Deutschland"
+    },
+    "general": {
+      "heading": "2. Allgemeine Hinweise zur Datenverarbeitung",
+      "paragraphs": [
+        "Der Schutz Ihrer personenbezogenen Daten ist mir wichtig.",
+        "Personenbezogene Daten sind alle Informationen, die sich auf eine identifizierte oder identifizierbare natürliche Person beziehen. Dazu können beispielsweise eine IP-Adresse, ein Name, eine E-Mail-Adresse oder der Inhalt einer Nachricht gehören.",
+        "Personenbezogene Daten werden auf dieser Website nur verarbeitet, soweit dies für die Bereitstellung und Sicherheit der Website, die Bearbeitung von Kontaktanfragen oder die Nutzung der ausdrücklich beschriebenen Dienste erforderlich ist.",
+        "Die Verarbeitung erfolgt insbesondere auf Grundlage der Verordnung (EU) 2016/679 (Datenschutz-Grundverordnung – DSGVO)."
+      ]
+    },
+    "netlify": {
+      "heading": "3. Hosting der Website – Netlify",
+      "intro": "Das Frontend dieser Website wird über Netlify bereitgestellt.",
+      "beforeList": [
+        "Beim Aufruf der Website können technisch erforderliche Verbindungs- und Nutzungsdaten verarbeitet werden. Dazu können insbesondere gehören:"
+      ],
+      "items": [
+        "IP-Adresse",
+        "Datum und Uhrzeit des Zugriffs",
+        "aufgerufene Ressource",
+        "Browsertyp und Browserversion",
+        "Betriebssystem beziehungsweise Geräteinformationen",
+        "Referrer-Informationen",
+        "technische Protokoll- und Sicherheitsdaten"
+      ],
+      "afterList": [
+        "Die Verarbeitung erfolgt zum Zweck der zuverlässigen, sicheren und performanten Bereitstellung dieser Website.",
+        "Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO. Mein berechtigtes Interesse besteht in der sicheren und technisch zuverlässigen Bereitstellung meines Online-Angebots.",
+        "Netlify ist ein Anbieter mit Sitz in den USA. Eine Verarbeitung oder Übermittlung personenbezogener Daten in die USA kann daher nicht vollständig ausgeschlossen werden.",
+        "Netlify gibt an, für entsprechende internationale Datenübermittlungen unter anderem anerkannte Transfermechanismen wie die EU-Standardvertragsklauseln sowie – soweit anwendbar – das EU-U.S. Data Privacy Framework zu verwenden."
+      ]
+    },
+    "backend": {
+      "heading": "4. Backend-Hosting – Apply.Build / Codebite Oy",
+      "intro": "Das Backend dieser Website wird über Apply.Build betrieben.",
+      "providerIntro": "Anbieter des Dienstes ist",
+      "country": "Finnland",
+      "beforeList": [
+        "Das Backend verarbeitet Anfragen, die insbesondere über das Kontaktformular an die Website gesendet werden.",
+        "Zur technischen Bereitstellung und Absicherung des Dienstes können Protokolldaten verarbeitet werden, insbesondere:"
+      ],
+      "items": [
+        "IP-Adresse",
+        "HTTP-Header",
+        "Request-Pfad",
+        "Zeitstempel",
+        "technische Runtime- und Sicherheitsinformationen"
+      ],
+      "afterList": [
+        "Diese Verarbeitung dient dem sicheren Betrieb, der Fehlerdiagnose und dem Schutz der Infrastruktur vor Missbrauch.",
+        "Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO.",
+        "Das berechtigte Interesse besteht in der sicheren, stabilen und zuverlässigen Bereitstellung der Backend-Infrastruktur."
+      ]
+    },
+    "contactForm": {
+      "heading": "5. Kontaktformular",
+      "beforeList": [
+        "Auf dieser Website steht ein Kontaktformular zur Verfügung.",
+        "Wenn Sie das Kontaktformular verwenden, werden die von Ihnen eingegebenen Daten verarbeitet.",
+        "Dabei können insbesondere folgende Daten verarbeitet werden:"
+      ],
+      "items": [
+        "Name",
+        "E-Mail-Adresse",
+        "Nachricht",
+        "Bestätigung der Datenschutzhinweise",
+        "technische Informationen, die für die Übermittlung erforderlich sind"
+      ],
+      "afterList": [
+        "Die Angaben werden ausschließlich verwendet, um Ihre Anfrage zu empfangen, zu bearbeiten und gegebenenfalls darauf zu antworten.",
+        "Wenn sich Ihre Anfrage auf die Anbahnung oder Durchführung eines Vertrags bezieht, erfolgt die Verarbeitung auf Grundlage von Art. 6 Abs. 1 lit. b DSGVO.",
+        "Bei sonstigen Anfragen erfolgt die Verarbeitung auf Grundlage von Art. 6 Abs. 1 lit. f DSGVO. Das berechtigte Interesse besteht in der Bearbeitung und Beantwortung eingehender Anfragen."
+      ]
+    },
+    "validation": {
+      "heading": "6. Serverseitige Validierung und Missbrauchsschutz",
+      "paragraphs": [
+        "Eingaben aus dem Kontaktformular werden sowohl im Frontend als auch serverseitig überprüft.",
+        "Die serverseitige Validierung dient insbesondere dazu, ungültige oder unerwartete Eingaben zurückzuweisen.",
+        "Zum Schutz des Kontaktformulars vor automatisiertem Missbrauch werden außerdem technische Schutzmaßnahmen eingesetzt, darunter ein Rate Limit sowie ein sogenanntes Honeypot-Feld.",
+        "Die Verarbeitung erfolgt auf Grundlage von Art. 6 Abs. 1 lit. f DSGVO.",
+        "Das berechtigte Interesse besteht im Schutz der Website, des Mail-Systems und der technischen Infrastruktur vor Spam und missbräuchlicher Nutzung."
+      ]
+    },
+    "brevo": {
+      "heading": "7. E-Mail-Versand über Brevo",
+      "beforeList": [
+        "Zur technischen Übermittlung von Nachrichten aus dem Kontaktformular wird Brevo verwendet.",
+        "Brevo verarbeitet die für den Versand erforderlichen Daten im Rahmen der E-Mail-Zustellung.",
+        "Dabei können insbesondere verarbeitet werden:"
+      ],
+      "items": [
+        "Name",
+        "E-Mail-Adresse",
+        "Inhalt der Nachricht",
+        "Absender- und Empfängerinformationen",
+        "technische Zustellungsinformationen"
+      ],
+      "afterList": [
+        "Brevo wird hierbei als technischer Dienstleister für die E-Mail-Übermittlung eingesetzt.",
+        "Die Verarbeitung erfolgt abhängig vom Inhalt Ihrer Anfrage auf Grundlage von Art. 6 Abs. 1 lit. b DSGVO oder Art. 6 Abs. 1 lit. f DSGVO.",
+        "Brevo stellt Informationen zur Verarbeitung personenbezogener Daten sowie einen Vertrag zur Auftragsverarbeitung zur Verfügung."
+      ]
+    },
+    "zoho": {
+      "heading": "8. Speicherung von E-Mails – Zoho Mail",
+      "beforeAddress": [
+        "Empfangene Nachrichten werden über mein E-Mail-Postfach bei Zoho Mail verwaltet.",
+        "Für die europäische Bereitstellung von Zoho-Diensten ist unter anderem folgende Gesellschaft relevant:"
+      ],
+      "country": "Niederlande",
+      "beforeList": [
+        "Zoho betreibt Rechenzentrumsinfrastruktur in der Europäischen Union.",
+        "Im Rahmen der E-Mail-Kommunikation können insbesondere folgende Daten gespeichert werden:"
+      ],
+      "items": [
+        "Name",
+        "E-Mail-Adresse",
+        "Inhalt der Kommunikation",
+        "Datum und Uhrzeit",
+        "technische E-Mail-Metadaten"
+      ],
+      "afterList": [
+        "Die Verarbeitung dient der Bearbeitung und Dokumentation der Kommunikation.",
+        "Rechtsgrundlage ist je nach Art der Anfrage Art. 6 Abs. 1 lit. b DSGVO oder Art. 6 Abs. 1 lit. f DSGVO."
+      ]
+    },
+    "retention": {
+      "heading": "9. Speicherdauer",
+      "paragraphs": [
+        "Personenbezogene Daten werden grundsätzlich nur so lange gespeichert, wie dies für den jeweiligen Zweck erforderlich ist.",
+        "Kontaktanfragen und damit zusammenhängende E-Mail-Kommunikation werden gelöscht, sobald die Bearbeitung abgeschlossen ist und keine gesetzlichen, vertraglichen oder sonstigen berechtigten Gründe für eine weitere Speicherung bestehen.",
+        "Soweit gesetzliche Aufbewahrungspflichten bestehen, werden die betreffenden Daten für die Dauer dieser gesetzlichen Verpflichtungen gespeichert.",
+        "Für technische Protokolldaten können die eingesetzten Hosting-Anbieter eigene, für Sicherheits- und Betriebszwecke erforderliche Aufbewahrungsfristen anwenden."
+      ]
+    },
+    "languagePreference": {
+      "heading": "10. Sprachpräferenz und Local Storage",
+      "beforeKey": [
+        "Die Website unterstützt Englisch und Deutsch.",
+        "Zur Speicherung Ihrer gewählten Sprache wird eine technisch erforderliche Einstellung im Local Storage Ihres Browsers gespeichert."
+      ],
+      "keyIntro": "Dabei wird der Schlüssel",
+      "keyOutro": "verwendet.",
+      "afterKey": [
+        "Der gespeicherte Wert enthält lediglich die gewählte Sprache.",
+        "Diese Information dient ausschließlich dazu, Ihre Spracheinstellung bei einem späteren Besuch beziehungsweise nach einem Neuladen der Seite beizubehalten.",
+        "Die Sprachpräferenz wird nicht für Werbe-, Analyse- oder Trackingzwecke verwendet."
+      ]
+    },
+    "tracking": {
+      "heading": "11. Cookies, Analyse und Tracking",
+      "paragraphs": [
+        "Diese Website verwendet derzeit keine eigenen Analyse- oder Marketing-Tracking-Dienste.",
+        "Insbesondere werden keine Tracking-Cookies für personalisierte Werbung oder Nutzerprofile durch KamyCoding gesetzt.",
+        "Technisch notwendige Verarbeitungen durch die eingesetzten Hosting- und Infrastrukturdienstleister bleiben hiervon unberührt."
+      ]
+    },
+    "encryption": {
+      "heading": "12. Verschlüsselte Übertragung",
+      "paragraphs": [
+        "Diese Website wird über HTTPS bereitgestellt.",
+        "Dadurch wird die Kommunikation zwischen Ihrem Browser und der Website während der Übertragung verschlüsselt.",
+        "Eine verschlüsselte Verbindung erkennen moderne Browser in der Regel an der Verwendung von \"https://\" in der Adresszeile."
+      ]
+    },
+    "recipients": {
+      "heading": "13. Empfänger personenbezogener Daten",
+      "intro": "Personenbezogene Daten werden nur an Dienstleister übermittelt, soweit dies für den Betrieb dieser Website und die Bearbeitung von Anfragen erforderlich ist.",
+      "listIntro": "Hierzu gehören insbesondere",
+      "items": [
+        "Netlify für das Frontend-Hosting",
+        "Codebite Oy / Apply.Build für das Backend-Hosting",
+        "Brevo für die technische E-Mail-Zustellung",
+        "Zoho für die Speicherung und Verwaltung eingehender E-Mail-Kommunikation"
+      ],
+      "outro": "Eine Weitergabe zu Werbezwecken erfolgt nicht."
+    },
+    "rights": {
+      "heading": "14. Ihre Rechte nach der DSGVO",
+      "intro": "Soweit die gesetzlichen Voraussetzungen erfüllt sind, haben Sie insbesondere folgende Rechte",
+      "items": [
+        "Recht auf Auskunft gemäß Art. 15 DSGVO",
+        "Recht auf Berichtigung gemäß Art. 16 DSGVO",
+        "Recht auf Löschung gemäß Art. 17 DSGVO",
+        "Recht auf Einschränkung der Verarbeitung gemäß Art. 18 DSGVO",
+        "Recht auf Datenübertragbarkeit gemäß Art. 20 DSGVO",
+        "Recht auf Widerspruch gemäß Art. 21 DSGVO"
+      ],
+      "outro": "Wenn eine Verarbeitung auf Ihrer Einwilligung beruht, können Sie eine erteilte Einwilligung grundsätzlich mit Wirkung für die Zukunft widerrufen."
+    },
+    "objection": {
+      "heading": "15. Widerspruch gegen die Verarbeitung",
+      "body": "Soweit personenbezogene Daten auf Grundlage von Art. 6 Abs. 1 lit. f DSGVO verarbeitet werden, haben Sie unter den gesetzlichen Voraussetzungen das Recht, aus Gründen, die sich aus Ihrer besonderen Situation ergeben, Widerspruch gegen die Verarbeitung einzulegen."
+    },
+    "complaint": {
+      "heading": "16. Beschwerderecht bei einer Aufsichtsbehörde",
+      "paragraphs": [
+        "Sie haben das Recht, sich bei einer Datenschutzaufsichtsbehörde über die Verarbeitung Ihrer personenbezogenen Daten zu beschweren.",
+        "Sie können sich insbesondere an die für Ihren Wohnort, Ihren gewöhnlichen Aufenthaltsort, Ihren Arbeitsplatz oder den Ort des mutmaßlichen Verstoßes zuständige Aufsichtsbehörde wenden."
+      ]
+    },
+    "automatedDecisionMaking": {
+      "heading": "17. Automatisierte Entscheidungsfindung",
+      "body": "Eine automatisierte Entscheidungsfindung einschließlich Profiling im Sinne von Art. 22 DSGVO findet im Rahmen dieser Website nicht statt."
+    },
+    "changes": {
+      "heading": "18. Änderung dieser Datenschutzerklärung",
+      "paragraphs": [
+        "Diese Datenschutzerklärung kann angepasst werden, wenn sich technische, rechtliche oder organisatorische Rahmenbedingungen ändern.",
+        "Es gilt die jeweils auf dieser Website veröffentlichte aktuelle Fassung."
+      ]
+    },
+    "updated": {
+      "label": "Stand",
+      "date": "10. August 2026"
+    }
+  },
   "legalUi": {
     "back": "Zurück"
   }

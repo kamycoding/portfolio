@@ -8,14 +8,17 @@
 }
 
 .contact-field {
-  min-height: 114px;
-  padding: 12px 24px 8px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 16px 24px;
   border-bottom: 1px solid var(--color-secondary);
 }
 
 .contact-field label {
   display: block;
-  font-size: 20px;
+  font-size: 24px;
   font-weight: 500;
   line-height: 1.2;
   transition: color 180ms ease-out;
@@ -25,21 +28,16 @@
 .contact-field textarea {
   display: block;
   width: 100%;
-  height: 27px;
-  margin-top: 8px;
+  height: 22px;
+  margin: 0;
   padding: 0;
   border: 0;
   outline: 0;
   background: transparent;
   color: var(--color-foreground);
   font: inherit;
-  font-size: 16px;
+  font-size: 18px;
   line-height: 1.2;
-}
-
-.contact-field textarea {
-  max-height: 160px;
-  resize: vertical;
 }
 
 .contact-field input::placeholder,
@@ -50,7 +48,11 @@
 
 .contact-field:focus-within {
   border-bottom-color: var(--color-primary);
-  box-shadow: inset 0 1px var(--color-primary);
+}
+
+.contact-field--invalid,
+.contact-field--invalid:focus-within {
+  border-bottom-color: var(--color-foreground);
 }
 
 .contact-field:focus-within label,
@@ -59,11 +61,15 @@
 }
 
 .contact-field__error {
-  min-height: 34px;
-  margin-top: 4px;
+  position: absolute;
+  right: 24px;
+  bottom: 16px;
+  left: 24px;
+  margin: 0;
   color: var(--color-error);
   font-size: 14px;
   line-height: 1.2;
+  pointer-events: none;
 }
 
 .contact-field--invalid input::placeholder,
@@ -184,6 +190,10 @@
 }
 
 @media (hover: hover) and (pointer: fine) {
+  .contact-field:not(.contact-field--invalid):hover {
+    border-bottom-color: var(--color-primary);
+  }
+
   .contact-consent__label:hover > input {
     background-color: color-mix(in srgb, var(--color-primary) 30%, transparent);
   }
@@ -210,21 +220,7 @@
     width: 280px;
   }
 
-  .contact-field label {
-    font-size: 24px;
-  }
-
-  .contact-field {
-    padding-top: 16px;
-  }
-
-  .contact-field input,
-  .contact-field textarea {
-    font-size: 18px;
-  }
-
   .contact-field__error {
-    min-height: 22px;
     font-size: 18px;
   }
 
