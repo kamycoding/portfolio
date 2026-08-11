@@ -8,13 +8,16 @@
 }
 
 .contact-field {
+  --contact-field-error-line: 17px;
+
   display: grid;
-  gap: 8px;
-  padding: 16px 24px;
+  grid-template-rows: auto 8px 22px var(--contact-field-error-line);
+  padding: 16px 24px 0;
   border-bottom: 1px solid var(--color-secondary);
 }
 
 .contact-field label {
+  grid-row: 1;
   font-size: 24px;
   font-weight: 500;
   line-height: 1.2;
@@ -22,6 +25,7 @@
 }
 
 .contact-field :is(input, textarea) {
+  grid-row: 3;
   width: 100%;
   height: 22px;
   margin: 0;
@@ -56,23 +60,11 @@
 }
 
 .contact-field__error {
+  grid-row: 4;
   margin: 0;
   color: var(--color-error);
   font-size: 14px;
   line-height: 1.2;
-}
-
-.contact-field--invalid:has(:placeholder-shown) :is(input, textarea) {
-  grid-area: 2 / 1;
-  z-index: 1;
-}
-
-.contact-field--invalid:has(:placeholder-shown) .contact-field__error {
-  grid-area: 2 / 1;
-}
-
-.contact-field--invalid:has(:placeholder-shown) ::placeholder {
-  color: transparent;
 }
 
 .contact-consent {
@@ -216,6 +208,10 @@
     right: calc(100% + var(--contact-column-gap));
     display: block;
     width: 280px;
+  }
+
+  .contact-field {
+    --contact-field-error-line: 22px;
   }
 
   .contact-field__error {
