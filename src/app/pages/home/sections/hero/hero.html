@@ -12,73 +12,71 @@
 
   <div class="hero__stage">
     <div class="hero__composition">
-      <div class="hero__top-row">
-        <div class="hero__intro">
-          <div class="hero__greeting">
-            <p>
-              <span class="hero__greeting-default">{{ 'hero.greeting' | translate }}</span>
-              <span class="hero__greeting-hover">{{ 'hero.introduction' | translate }}</span>
-              <img
-                class="hero__wave"
-                src="/assets/hero/waving-hand.svg"
-                alt=""
-                aria-hidden="true"
-                draggable="false"
-              />
-            </p>
-          </div>
-
-          <h1 id="hero-title" class="hero__title" [attr.aria-label]="'hero.roleAria' | translate">
-            <span class="hero__title-line" aria-hidden="true">
-              <span class="hero__letter" data-hover="f">F</span>
-              <span class="hero__letter" data-hover="U">u</span>
-              <span class="hero__letter" data-hover="L">l</span>
-              <span class="hero__letter" data-hover="L">l</span>
-              <span class="hero__title-separator">-</span>
-              <span class="hero__letter" data-hover="S">s</span>
-              <span class="hero__letter" data-hover="T">t</span>
-              <span class="hero__letter" data-hover="A">a</span>
-              <span class="hero__letter" data-hover="C">c</span>
-              <span class="hero__letter" data-hover="K">k</span>
-            </span>
-            <span class="hero__title-line" aria-hidden="true">
-              <span class="hero__letter" data-hover="d">D</span>
-              <span class="hero__letter" data-hover="e">E</span>
-              <span class="hero__letter" data-hover="v">V</span>
-              <span class="hero__letter" data-hover="e">E</span>
-              <span class="hero__letter" data-hover="l">L</span>
-              <span class="hero__letter" data-hover="o">O</span>
-              <span class="hero__letter" data-hover="p">P</span>
-              <span class="hero__letter" data-hover="e">E</span>
-              <span class="hero__letter" data-hover="r">R</span>
-            </span>
-          </h1>
-        </div>
-
-        <figure class="hero__polaroid">
-          <div class="hero__portrait">
+      <div class="hero__intro">
+        <div class="hero__greeting">
+          <p>
+            <span class="hero__greeting-default">{{ 'hero.greeting' | translate }}</span>
+            <span class="hero__greeting-hover">{{ 'hero.introduction' | translate }}</span>
             <img
-              class="hero__portrait-image hero__portrait-image--default"
-              src="/assets/hero/portrait-default.webp"
-              [alt]="'hero.portraitAlt' | translate"
-              draggable="false"
-            />
-            <img
-              class="hero__portrait-image hero__portrait-image--hover"
-              src="/assets/hero/portrait-hover.webp"
+              class="hero__wave"
+              src="/assets/hero/waving-hand.svg"
               alt=""
               aria-hidden="true"
               draggable="false"
             />
-          </div>
-          <figcaption>
-            <span class="hero__caption-default">Kamy :)</span>
-            <span class="hero__caption-hover">Kamy :D</span>
-          </figcaption>
-        </figure>
+          </p>
+        </div>
+
+        <h1 id="hero-title" class="hero__title" [attr.aria-label]="'hero.roleAria' | translate">
+          <span class="hero__title-line" aria-hidden="true">
+            <span class="hero__letter" data-hover="f">F</span>
+            <span class="hero__letter" data-hover="U">u</span>
+            <span class="hero__letter" data-hover="L">l</span>
+            <span class="hero__letter" data-hover="L">l</span>
+            <span class="hero__title-separator">-</span>
+            <span class="hero__letter" data-hover="S">s</span>
+            <span class="hero__letter" data-hover="T">t</span>
+            <span class="hero__letter" data-hover="A">a</span>
+            <span class="hero__letter" data-hover="C">c</span>
+            <span class="hero__letter" data-hover="K">k</span>
+          </span>
+          <span class="hero__title-line" aria-hidden="true">
+            <span class="hero__letter" data-hover="d">D</span>
+            <span class="hero__letter" data-hover="e">E</span>
+            <span class="hero__letter" data-hover="v">V</span>
+            <span class="hero__letter" data-hover="e">E</span>
+            <span class="hero__letter" data-hover="l">L</span>
+            <span class="hero__letter" data-hover="o">O</span>
+            <span class="hero__letter" data-hover="p">P</span>
+            <span class="hero__letter" data-hover="e">E</span>
+            <span class="hero__letter" data-hover="r">R</span>
+          </span>
+        </h1>
       </div>
 
       <app-cta-link class="hero__cta" [label]="'hero.cta' | translate" fragment="contact" />
+
+      <figure class="hero__polaroid">
+        <div class="hero__portrait">
+          <img
+            class="hero__portrait-image hero__portrait-image--default"
+            src="/assets/hero/portrait-default.webp"
+            [alt]="'hero.portraitAlt' | translate"
+            draggable="false"
+          />
+          <img
+            class="hero__portrait-image hero__portrait-image--hover"
+            src="/assets/hero/portrait-hover.webp"
+            alt=""
+            aria-hidden="true"
+            draggable="false"
+          />
+        </div>
+        <figcaption>
+          <span class="hero__caption-default">Kamy :)</span>
+          <span class="hero__caption-hover">Kamy :D</span>
+        </figcaption>
+      </figure>
     </div>
 
     <nav class="hero__socials" [attr.aria-label]="'social.navigationAria' | translate">

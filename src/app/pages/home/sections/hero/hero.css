@@ -4,7 +4,6 @@
 
 .hero {
   position: relative;
-  min-height: 812px;
   min-height: 100svh;
   overflow: hidden;
   background: var(--color-foreground);
@@ -12,7 +11,8 @@
 }
 
 @supports (height: 100dvh) {
-  .hero {
+  .hero,
+  .hero__stage {
     min-height: 100dvh;
   }
 }
@@ -30,32 +30,38 @@
 
 .hero__stage {
   position: relative;
+  box-sizing: border-box;
+  display: grid;
   width: 100%;
-  min-height: 812px;
-  margin-inline: auto;
+  min-height: 100svh;
+  padding: clamp(72px, 12svh, 96px) 16px clamp(48px, 8svh, 64px);
+  place-items: center;
 }
 
 .hero__composition {
-  position: absolute;
-  top: 137px;
-  left: 50%;
-  display: flex;
-  width: min(343px, calc(100% - 32px));
-  transform: translateX(-50%);
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 32px;
+  position: relative;
+  display: grid;
+  width: min(343px, 100%);
+  grid-template-areas:
+    'intro'
+    'cta'
+    'polaroid';
+  gap: clamp(16px, 3.5svh, 28px);
+  justify-items: end;
 }
 
-.hero__top-row,
 .hero__intro {
-  display: contents;
+  display: flex;
+  width: 100%;
+  min-width: 0;
+  flex-direction: column;
+  grid-area: intro;
+  gap: clamp(16px, 3svh, 24px);
 }
 
 .hero__greeting {
   position: relative;
   width: min(284px, 100%);
-  align-self: flex-start;
 }
 
 .hero__greeting p {
@@ -82,11 +88,14 @@
 }
 
 .hero__title {
-  display: contents;
+  display: flex;
+  width: 100%;
   margin: 0;
+  flex-direction: column;
+  gap: 16px;
 }
 
-.hero__title > .hero__title-line {
+.hero__title-line {
   display: flex;
   align-self: flex-start;
   font-size: clamp(38px, 13.5vw, 64px);
@@ -95,37 +104,35 @@
   white-space: nowrap;
 }
 
-.hero__title > .hero__title-line:first-child {
-  margin-top: -16px;
-}
-
-.hero__title > .hero__title-line:nth-child(2) {
-  margin-top: -16px;
+.hero__title-line:nth-child(2) {
+  margin-top: 0;
 }
 
 .hero__cta {
   --cta-min-width: 156px;
 
-  order: 1;
+  width: max-content;
+  grid-area: cta;
 }
 
 .hero__polaroid {
   box-sizing: border-box;
-  order: 2;
-  width: 203.567px;
-  height: 244px;
+  display: flex;
+  width: clamp(155px, 25.07svh, 203.567px);
+  aspect-ratio: 203.567 / 244;
   margin: 0 auto;
-  padding: 14px 14px 0;
+  padding: clamp(10px, 1.724svh, 14px) clamp(10px, 1.724svh, 14px) 0;
   transform: rotate(8deg);
+  flex-direction: column;
+  grid-area: polaroid;
   background: var(--color-foreground);
   color: var(--color-canvas);
-  flex: 0 0 auto;
 }
 
 .hero__portrait {
   position: relative;
   width: 100%;
-  height: 176px;
+  aspect-ratio: 1;
   overflow: hidden;
   background: #777;
 }
@@ -153,7 +160,7 @@
 
 .hero__polaroid figcaption {
   display: flex;
-  height: 54px;
+  flex: 1;
   align-items: center;
   justify-content: center;
   font-family: var(--font-hand);
@@ -172,133 +179,89 @@
   outline-offset: 4px;
 }
 
-@media (max-width: 63.9375rem) and (max-height: 700px) {
-  .hero__composition {
-    top: 112px;
-    gap: 22px;
-  }
-
-  .hero__polaroid {
-    width: 165px;
-    height: 198px;
-  }
-
-  .hero__portrait {
-    height: 143px;
-  }
-}
-
 @media (min-width: 64rem) {
   .hero__stage {
-    container-type: inline-size;
-    width: min(100%, 1440px);
-    min-height: 0;
-    aspect-ratio: 8 / 5;
-    max-height: 900px;
+    padding: 80px clamp(32px, 5vw, 72px) 48px;
   }
 
   .hero__composition {
-    top: 12.778cqw;
-    left: 20cqw;
-    display: flex;
-    width: 60.038cqw;
-    transform: none;
-    flex-direction: column;
-    align-items: flex-end;
-    gap: 1.667cqw;
-  }
-
-  .hero__top-row {
-    position: relative;
-    display: block;
-    width: 100%;
-    height: 18.747cqw;
+    width: min(60vw, 864px);
+    transform: translateY(clamp(-20px, -2svh, -12px));
+    grid-template-areas:
+      'intro'
+      'cta';
+    gap: 0;
+    justify-items: stretch;
   }
 
   .hero__intro {
-    display: block;
-  }
-
-  .hero__greeting {
-    position: absolute;
-    top: 4.858cqw;
-    left: 0;
+    padding-top: clamp(48px, 4.861vw, 70px);
+    gap: clamp(24px, 2.222vw, 32px);
   }
 
   .hero__greeting p {
-    height: 2.778cqw;
-    padding-inline: 1.667cqw;
-    font-size: 1.25cqw;
+    padding-inline: clamp(17px, 1.667vw, 24px);
+    font-size: clamp(14px, 1.25vw, 18px);
   }
 
   .hero__wave {
-    width: 2.778cqw;
-    height: 2.778cqw;
+    width: clamp(34px, 2.778vw, 40px);
+    height: clamp(34px, 2.778vw, 40px);
   }
 
   .hero__title {
-    display: block;
+    gap: clamp(16px, 1.667vw, 24px);
   }
 
-  .hero__title > .hero__title-line {
-    position: absolute;
-    display: flex;
-    margin: 0;
-    font-size: 8.889cqw;
+  .hero__title-line {
+    font-size: clamp(80px, 8.889vw, 128px);
   }
 
-  .hero__title > .hero__title-line:first-child {
-    top: 9.858cqw;
-    left: 0;
-  }
-
-  .hero__title > .hero__title-line:nth-child(2) {
-    top: calc(100% + 1.667cqw);
-    right: 0;
+  .hero__title-line:nth-child(2) {
+    margin-top: 0;
+    align-self: flex-end;
   }
 
   .hero__polaroid {
     position: absolute;
-    top: 0.902cqw;
-    right: 1.111cqw;
-    width: 14.137cqw;
-    height: 16.944cqw;
-    padding: 0.972cqw 0.972cqw 0;
-  }
-
-  .hero__portrait {
-    height: 12.222cqw;
+    top: clamp(8px, 0.902vw, 13px);
+    right: clamp(8px, 1.111vw, 16px);
+    width: clamp(160px, 14.137vw, 203.567px);
+    padding: clamp(11px, 0.972vw, 14px) clamp(11px, 0.972vw, 14px) 0;
   }
 
   .hero__polaroid figcaption {
-    height: 3.75cqw;
-    font-size: 1.667cqw;
+    font-size: clamp(18px, 1.667vw, 24px);
   }
 
   .hero__cta {
-    --cta-height: 2.778cqw;
-    --cta-font-size: 1.25cqw;
-    --cta-min-width: 10.833cqw;
-    --cta-shadow-x: 0.139cqw;
-    --cta-shadow-y: 0.278cqw;
+    --cta-font-size: clamp(16px, 1.25vw, 18px);
+    --cta-min-width: clamp(140px, 10.833vw, 156px);
 
-    margin-top: 10.556cqw;
+    margin-top: clamp(20px, 1.667vw, 24px);
+    justify-self: end;
   }
 
   .hero__socials {
     position: absolute;
-    bottom: 7.639cqw;
-    left: 5cqw;
+    bottom: calc(clamp(48px, 7.639vw, 110px) + 16px);
+    left: max(72px, calc((100% - 1296px) / 2));
     display: flex;
-    width: 2.778cqw;
+    width: 40px;
     flex-direction: column;
-    gap: 0.556cqw;
+    gap: clamp(6px, 0.556vw, 8px);
   }
 
-  .hero__socials a,
+  .hero__socials a {
+    display: grid;
+    width: 40px;
+    height: 40px;
+    place-items: center;
+  }
+
   .hero__socials img {
     display: block;
-    width: 2.778cqw;
-    height: 2.778cqw;
+    width: clamp(32px, 2.778vw, 40px);
+    height: clamp(32px, 2.778vw, 40px);
   }
 }
