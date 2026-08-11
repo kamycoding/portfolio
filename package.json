@@ -7,6 +7,8 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
+    "test:functions": "vitest run netlify/tests/contact.spec.ts",
+    "typecheck:functions": "tsc -p tsconfig.netlify.json",
     "lint": "ng lint"
   },
   "private": true,
@@ -22,7 +24,8 @@
     "@ngx-translate/core": "^18.0.0",
     "@ngx-translate/http-loader": "^18.0.0",
     "rxjs": "~7.8.0",
-    "tslib": "^2.3.0"
+    "tslib": "^2.3.0",
+    "zod": "^4.4.3"
   },
   "devDependencies": {
     "@angular/build": "^22.0.8",
