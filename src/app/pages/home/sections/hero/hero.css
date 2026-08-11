@@ -181,6 +181,7 @@
 
 @media (min-width: 64rem) {
   .hero__stage {
+    --hero-desktop-content-width: 1440px;
     padding: 80px clamp(32px, 5vw, 72px) 48px;
   }
 
@@ -244,12 +245,12 @@
 
   .hero__socials {
     position: absolute;
-    bottom: calc(clamp(48px, 7.639vw, 110px) + 16px);
-    left: max(72px, calc((100% - 1296px) / 2));
+    bottom: 110px;
+    left: max(72px, calc((100% - var(--hero-desktop-content-width)) / 2 + 72px));
     display: flex;
     width: 40px;
     flex-direction: column;
-    gap: clamp(6px, 0.556vw, 8px);
+    gap: 8px;
   }
 
   .hero__socials a {
@@ -261,7 +262,7 @@
 
   .hero__socials img {
     display: block;
-    width: clamp(32px, 2.778vw, 40px);
-    height: clamp(32px, 2.778vw, 40px);
+    width: 40px;
+    height: 40px;
   }
 }
