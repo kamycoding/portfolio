@@ -275,18 +275,6 @@ html {
   }
 }
 
-@media (min-width: 64rem) {
-  .hero__greeting p {
-    width: 8.889cqw;
-  }
-}
-
-@media (min-width: 64rem) and (hover: hover) and (pointer: fine) {
-  .hero__greeting:hover p {
-    width: 19.722cqw;
-  }
-}
-
 @media (prefers-reduced-motion: reduce) {
   .hero__greeting p,
   .hero__greeting p span,
