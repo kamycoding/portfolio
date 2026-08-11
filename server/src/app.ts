@@ -1,6 +1,6 @@
 import cors from 'cors';
 import express from 'express';
-import { rateLimit } from 'express-rate-limit';
+import { ipKeyGenerator, rateLimit } from 'express-rate-limit';
 import helmet from 'helmet';
 
 import { env } from './config/env.js';
@@ -14,6 +14,10 @@ interface CreateAppOptions {
 
 export function createApp(options: CreateAppOptions = {}): express.Express {
   const app = express();
+
+  // The public backend endpoint can receive arbitrary forwarded headers. Keep them
+  // untrusted until Apply.Build provides an authoritative proxy trust configuration.
+  app.set('trust proxy', false);
 
   app.use(helmet());
   app.use(express.json({ limit: '10kb' }));
@@ -45,6 +49,11 @@ export function createApp(options: CreateAppOptions = {}): express.Express {
     limit: options.contactRateLimit ?? 5,
     standardHeaders: 'draft-8',
     legacyHeaders: false,
+    keyGenerator: (request) => {
+      const peerAddress = request.socket.remoteAddress;
+
+      return peerAddress ? ipKeyGenerator(peerAddress) : 'unknown-peer';
+    },
     message: {
       success: false,
       message: 'Too many requests. Please try again later.',
