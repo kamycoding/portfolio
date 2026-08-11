@@ -186,9 +186,8 @@ describe('Netlify contact function', () => {
     expect(response.headers.get('allow')).toBe('POST');
   });
 
-  it('maps the function to /api/contact with native per-IP rate limiting', () => {
+  it('configures native per-IP rate limiting', () => {
     expect(config).toEqual({
-      path: '/api/contact',
       rateLimit: {
         windowLimit: 5,
         windowSize: 180,
