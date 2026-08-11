@@ -138,7 +138,13 @@ test(
         throw new EmailDeliveryError('timeout');
       }
 
-      throw new EmailDeliveryError('network');
+      throw new EmailDeliveryError('network', undefined, {
+        errorName: 'TypeError',
+        code: 'FETCH_FAILED',
+        causeCode: 'ENOTFOUND',
+        syscall: 'getaddrinfo',
+        hostname: 'api.brevo.com',
+      });
     };
     const originalConsoleError = console.error;
     const diagnostics: unknown[] = [];
@@ -187,8 +193,20 @@ test(
     assert.deepEqual(diagnostics, [
       { category: 'provider-response', providerStatus: 500 },
       { category: 'timeout' },
-      { category: 'network' },
+      {
+        category: 'network',
+        errorName: 'TypeError',
+        code: 'FETCH_FAILED',
+        causeCode: 'ENOTFOUND',
+        syscall: 'getaddrinfo',
+        hostname: 'api.brevo.com',
+      },
     ]);
+    const loggedDiagnostics = JSON.stringify(diagnostics);
+    assert.equal(loggedDiagnostics.includes(process.env.BREVO_API_KEY ?? ''), false);
+    assert.equal(loggedDiagnostics.includes(validContactRequest.name), false);
+    assert.equal(loggedDiagnostics.includes(validContactRequest.email), false);
+    assert.equal(loggedDiagnostics.includes(validContactRequest.message), false);
   },
 );
 
@@ -255,6 +273,59 @@ test('keeps the health endpoint independent from contact email delivery', async 
     assert.equal((await fetch(`${baseUrl}/api/health`)).status, 200);
   });
 });
+
+test(
+  'preserves only allow-listed network diagnostics from a failed Brevo fetch',
+  { concurrency: false },
+  async () => {
+    const originalFetch = globalThis.fetch;
+
+    try {
+      globalThis.fetch = (async () => {
+        const cause = Object.assign(new Error('DNS lookup included unsafe details.'), {
+          code: 'ENOTFOUND',
+          syscall: 'getaddrinfo',
+          hostname: 'api.brevo.com',
+          apiKey: process.env.BREVO_API_KEY,
+          requestBody: validContactRequest.message,
+        });
+        const error = Object.assign(new TypeError('fetch failed', { cause }), {
+          code: 'FETCH_FAILED',
+          requestBody: validContactRequest,
+        });
+
+        throw error;
+      }) as typeof fetch;
+
+      await assert.rejects(
+        sendContactEmail({
+          name: validContactRequest.name,
+          email: validContactRequest.email,
+          message: validContactRequest.message,
+        }),
+        (error: unknown) => {
+          assert.ok(error instanceof EmailDeliveryError);
+          assert.equal(error.category, 'network');
+          assert.deepEqual(error.networkDiagnostics, {
+            errorName: 'TypeError',
+            code: 'FETCH_FAILED',
+            causeCode: 'ENOTFOUND',
+            syscall: 'getaddrinfo',
+            hostname: 'api.brevo.com',
+          });
+          assert.equal(JSON.stringify(error.networkDiagnostics).includes('test-api-key'), false);
+          assert.equal(
+            JSON.stringify(error.networkDiagnostics).includes(validContactRequest.message),
+            false,
+          );
+          return true;
+        },
+      );
+    } finally {
+      globalThis.fetch = originalFetch;
+    }
+  },
+);
 
 test(
   'aborts a stalled Brevo request after the configured timeout',
