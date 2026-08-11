@@ -1,4 +1,4 @@
-export type TestimonialId = 'tobias-lange' | 'maria-schaefer' | 'david-braun';
+export type TestimonialId = 'tobias-lange' | 'sogand-asari' | 'david-braun';
 
 export type TestimonialPaperVariant = 'paper-01' | 'paper-02';
 

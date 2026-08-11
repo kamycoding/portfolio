@@ -38,7 +38,7 @@ export const PORTFOLIO_PROJECTS = [
     durationKey: 'projects.items.elPolloLoco.duration',
     technologies: [TECHNOLOGIES.javascript, TECHNOLOGIES.html, TECHNOLOGIES.css],
     githubUrl: 'https://github.com/kamycoding/El-Pollo-Loco',
-    liveUrl: 'https://kamycoding.github.io/El-Pollo-Loco/',
+    liveUrl: 'https://elpolloloco.kamycoding.com',
     variant: 'standard',
   },
   {

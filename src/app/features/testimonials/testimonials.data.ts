@@ -25,11 +25,11 @@ export const TESTIMONIALS = [
     paperVariant: 'paper-01',
   },
   {
-    id: 'maria-schaefer',
+    id: 'sogand-asari',
     quoteKey: 'testimonials.items.mariaSchaefer.quote',
-    name: 'Maria Schäfer',
+    name: 'Sogand Asari',
     roleKey: 'testimonials.items.mariaSchaefer.role',
-    linkedinUrl: 'https://www.linkedin.com/',
+    linkedinUrl: 'https://www.linkedin.com/in/sogandasari/',
     paperVariant: 'paper-02',
   },
   {

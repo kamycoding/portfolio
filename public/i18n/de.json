@@ -2,8 +2,7 @@
   "pageTitles": {
     "notFound": "Seite nicht gefunden | KamyCoding",
     "legalNotice": "Impressum | KamyCoding",
-    "privacyPolicy": "Datenschutzerklärung | KamyCoding",
-    "projectDetail": "Projekt | KamyCoding"
+    "privacyPolicy": "Datenschutzerklärung | KamyCoding"
   },
   "nav": {
     "about": "Über mich",
@@ -83,19 +82,19 @@
       "join": {
         "description": "Ein vom Kanban-System inspirierter Task-Manager. Aufgaben per Drag-and-drop erstellen und organisieren sowie Personen und Kategorien zuweisen.",
         "imageAlt": "Der Task-Manager Join auf einem Laptop",
-        "implementation": "Kurzer Text über meine Rolle oder den Workflow in diesem Projekt. Er zeigt, wie ich mein Wissen strukturiert und selbstständig oder im Team eingesetzt habe.",
+        "implementation": "Ich habe die Aufgabenverwaltung mit Angular, TypeScript und Firebase umgesetzt. Aufgaben lassen sich erstellen, per Drag-and-drop organisieren sowie Personen und Kategorien zuweisen.",
         "duration": "5 Wochen"
       },
       "elPolloLoco": {
         "description": "Ein objektorientiertes Jump-and-Run-Spiel. Hilf Pepe, Münzen und Tabasco-Salsa zu sammeln, um gegen das verrückte Huhn anzutreten.",
         "imageAlt": "Wüstenszene aus El Pollo Loco mit Pepe",
-        "implementation": "Kurzer Text über meine Rolle oder den Workflow in diesem Projekt. Er zeigt, wie ich mein Wissen strukturiert und selbstständig oder im Team eingesetzt habe.",
+        "implementation": "Ich habe das objektorientierte Spiel mit JavaScript, HTML und CSS umgesetzt. Die Spielmechanik umfasst Laufen, Springen, Werfen, das Sammeln von Münzen und Salsa sowie den Kampf gegen das finale Huhn.",
         "duration": "3 Wochen"
       },
       "dabubble": {
         "description": "Dieser Slack-Klon erleichtert die Kommunikation und Zusammenarbeit im Team mit einer intuitiven Oberfläche, Echtzeitnachrichten und übersichtlichen Channels.",
         "imageAlt": "Team-Messaging-Oberfläche von DABubble",
-        "implementation": "Kurzer Text über meine Rolle oder den Workflow in diesem Projekt. Er zeigt, wie ich mein Wissen strukturiert und selbstständig oder im Team eingesetzt habe.",
+        "implementation": "Ich habe die Messaging-Oberfläche mit JavaScript, HTML und CSS umgesetzt, mit Fokus auf Echtzeitunterhaltungen und eine übersichtliche Channel-Struktur.",
         "duration": "4 Wochen"
       }
     }
@@ -125,8 +124,8 @@
         "role": "Frontend Developer"
       },
       "mariaSchaefer": {
-        "quote": "Die Zusammenarbeit mit Kamyar war eine große Freude. Er versteht es, Teammitglieder zu motivieren und zu ermutigen, ihre bestmögliche Arbeit zu zeigen, und bringt stets neue Impulse in das Brainstorming ein. Für das Wohlbefinden der Gruppe hatte er immer ein offenes Ohr, war hilfsbereit und brachte außerdem viel Humor mit.",
-        "role": "Frontend Developer"
+        "quote": "Kamyar hat meine Portfolio-Website umgesetzt und den gesamten Prozess sehr professionell und sorgfältig begleitet. Er war geduldig, präzise und immer darauf fokussiert, die passende Lösung für meine Wünsche zu finden. Ich kann die Zusammenarbeit mit ihm auf jeden Fall weiterempfehlen.",
+        "role": "Product Designer"
       },
       "davidBraun": {
         "quote": "Kamyar war bei DA ein hervorragender Teamkollege. Sein positiver Einsatz und seine Bereitschaft, Verantwortung zu übernehmen, haben wesentlich dazu beigetragen, dass wir unsere Ziele erreicht haben.",

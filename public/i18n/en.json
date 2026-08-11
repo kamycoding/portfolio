@@ -2,8 +2,7 @@
   "pageTitles": {
     "notFound": "Page Not Found | KamyCoding",
     "legalNotice": "Legal Notice | KamyCoding",
-    "privacyPolicy": "Privacy Policy | KamyCoding",
-    "projectDetail": "Project | KamyCoding"
+    "privacyPolicy": "Privacy Policy | KamyCoding"
   },
   "nav": {
     "about": "About me",
@@ -83,19 +82,19 @@
       "join": {
         "description": "Task manager inspired by the Kanban System. Create and organize tasks using drag and drop functions, assign users and categories.",
         "imageAlt": "Join task manager displayed on a laptop",
-        "implementation": "Short text that describes your role or the workflow for this specific project. Let a recruiter know more about your knowledge and ability to work independently or collaboratively in a structured way.",
+        "implementation": "I implemented the task-management interface with Angular, TypeScript, and Firebase. Tasks can be created, organized with drag and drop, and assigned to users and categories.",
         "duration": "5 weeks"
       },
       "elPolloLoco": {
         "description": "Jump, run and throw game based on an object-oriented approach. Help Pepe find coins and tabasco salsa to fight the crazy hen.",
         "imageAlt": "El Pollo Loco desert game scene with Pepe",
-        "implementation": "Short text that describes your role or the workflow for this specific project. Let a recruiter know more about your knowledge and ability to work independently or collaboratively in a structured way.",
+        "implementation": "I implemented the object-oriented game with JavaScript, HTML, and CSS. Its mechanics include running, jumping, throwing, collecting coins and salsa, and fighting the final hen.",
         "duration": "3 weeks"
       },
       "dabubble": {
         "description": "This Slack clone transforms team communication and collaboration with an intuitive interface, real-time messaging, and clear channel organization.",
         "imageAlt": "DABubble team messaging interface",
-        "implementation": "Short text that describes your role or the workflow for this specific project. Let a recruiter know more about your knowledge and ability to work independently or collaboratively in a structured way.",
+        "implementation": "I built the messaging interface with JavaScript, HTML, and CSS, focusing on real-time conversations and clear channel organization.",
         "duration": "4 weeks"
       }
     }
@@ -125,8 +124,8 @@
         "role": "Frontend Developer"
       },
       "mariaSchaefer": {
-        "quote": "It was a great pleasure to work with Kamyar. He knows how to push and encourage team members to present the best work possible, always adding something to brainstorm. Regarding the well-being of group members, he was always present and available to listen and help others, with a great sense of humor as well.",
-        "role": "Frontend Developer"
+        "quote": "Kamyar built my portfolio website and handled the whole process with great care and professionalism. He was patient, precise, and always focused on finding the right solution for what I needed. I’d definitely recommend working with him to anyone who values both a smooth process and a great final result.",
+        "role": "Product Designer"
       },
       "davidBraun": {
         "quote": "Kamyar was a top team colleague at DA. His positive commitment and willingness to take on responsibility made a significant contribution to us achieving our goals.",

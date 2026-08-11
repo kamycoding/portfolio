@@ -1,12 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 import { Title } from '@angular/platform-browser';
-import { Router, provideRouter } from '@angular/router';
+import { Router, TitleStrategy, provideRouter } from '@angular/router';
 import { RouterTestingHarness } from '@angular/router/testing';
 import { TranslateService } from '@ngx-translate/core';
+import { routes } from '../../app.routes';
+import { LocalizedTitleStrategy } from '../../core/i18n/localized-title.strategy';
 import { provideTestTranslateService, setTestLanguage } from '../../testing/i18n-testing';
-import { NotFound } from '../not-found/not-found';
 import { ProjectDetail } from './project-detail';
-import { projectDetailGuard } from './project-detail.guard';
 
 describe('ProjectDetail', () => {
   let harness: RouterTestingHarness;
@@ -14,11 +14,9 @@ describe('ProjectDetail', () => {
   beforeEach(async () => {
     TestBed.configureTestingModule({
       providers: [
-        provideRouter([
-          { path: 'projects/:slug', component: ProjectDetail, canActivate: [projectDetailGuard] },
-          { path: '**', component: NotFound },
-        ]),
+        provideRouter(routes),
         ...provideTestTranslateService(),
+        { provide: TitleStrategy, useClass: LocalizedTitleStrategy },
       ],
     });
 
@@ -27,6 +25,9 @@ describe('ProjectDetail', () => {
   });
 
   it('renders supported slugs from the shared project data and updates the document title', async () => {
+    const translate = TestBed.inject(TranslateService);
+    const title = TestBed.inject(Title);
+
     await harness.navigateByUrl('/projects/join', ProjectDetail);
 
     expect(getRouteElement<HTMLHeadingElement>('h1').textContent).toContain('Join');
@@ -36,13 +37,24 @@ describe('ProjectDetail', () => {
     expect(harness.routeNativeElement?.textContent).toContain('Implementation Details');
     expect(harness.routeNativeElement?.querySelectorAll('app-cta-link')).toHaveLength(2);
     expect(harness.routeNativeElement?.querySelector('app-brand-stamp')).toBeNull();
-    expect(TestBed.inject(Title).getTitle()).toBe('Join | KamyCoding');
+    expect(title.getTitle()).toBe('Join | KamyCoding');
+
+    await setTestLanguage(translate, 'de');
+    TestBed.tick();
+    expect(title.getTitle()).toBe('Join | KamyCoding');
+
+    await setTestLanguage(translate);
+    TestBed.tick();
+    expect(title.getTitle()).toBe('Join | KamyCoding');
+
+    await harness.navigateByUrl('/projects/el-pollo-loco', ProjectDetail);
+    expect(title.getTitle()).toBe('El Pollo Loco | KamyCoding');
 
     await harness.navigateByUrl('/projects/dabubble', ProjectDetail);
 
     expect(getRouteElement<HTMLHeadingElement>('h1').textContent).toContain('DABubble');
     expect(harness.routeNativeElement?.querySelector('app-brand-stamp')).not.toBeNull();
-    expect(TestBed.inject(Title).getTitle()).toBe('DABubble | KamyCoding');
+    expect(title.getTitle()).toBe('DABubble | KamyCoding');
   });
 
   it('links to projects in the intended cyclic order', async () => {
@@ -70,7 +82,7 @@ describe('ProjectDetail', () => {
 
     expect(projectLinks.map((link) => link.href)).toEqual([
       'https://github.com/kamycoding/El-Pollo-Loco',
-      'https://kamycoding.github.io/El-Pollo-Loco/',
+      'https://elpolloloco.kamycoding.com/',
     ]);
     expect(projectLinks.every((link) => link.target === '_blank')).toBe(true);
     expect(projectLinks.every((link) => link.rel === 'noopener noreferrer')).toBe(true);
