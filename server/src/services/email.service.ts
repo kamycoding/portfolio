@@ -4,16 +4,68 @@ const BREVO_API_URL = 'https://api.brevo.com/v3/smtp/email';
 
 export type EmailDeliveryErrorCategory = 'network' | 'provider-response' | 'timeout';
 
+export interface EmailNetworkDiagnostics {
+  readonly errorName?: string;
+  readonly code?: string;
+  readonly causeCode?: string;
+  readonly syscall?: string;
+  readonly hostname?: string;
+}
+
 export class EmailDeliveryError extends Error {
   readonly category: EmailDeliveryErrorCategory;
   readonly providerStatus: number | undefined;
+  readonly networkDiagnostics: EmailNetworkDiagnostics;
 
-  constructor(category: EmailDeliveryErrorCategory, providerStatus?: number) {
+  constructor(
+    category: EmailDeliveryErrorCategory,
+    providerStatus?: number,
+    networkDiagnostics: EmailNetworkDiagnostics = {},
+  ) {
     super('Email delivery failed.');
     this.name = 'EmailDeliveryError';
     this.category = category;
     this.providerStatus = providerStatus;
+    this.networkDiagnostics = networkDiagnostics;
   }
+}
+
+function readProperty(value: unknown, property: string): unknown {
+  if ((typeof value !== 'object' && typeof value !== 'function') || value === null) {
+    return undefined;
+  }
+
+  try {
+    return Reflect.get(value, property);
+  } catch {
+    return undefined;
+  }
+}
+
+function readDiagnosticString(value: unknown, property: string): string | undefined {
+  const candidate = readProperty(value, property);
+
+  return typeof candidate === 'string' && candidate.length > 0 && candidate.length <= 200
+    ? candidate
+    : undefined;
+}
+
+function sanitizeNetworkDiagnostics(error: unknown): EmailNetworkDiagnostics {
+  const cause = readProperty(error, 'cause');
+  const errorName = readDiagnosticString(error, 'name');
+  const code = readDiagnosticString(error, 'code');
+  const causeCode = readDiagnosticString(cause, 'code');
+  const syscall = readDiagnosticString(error, 'syscall') ?? readDiagnosticString(cause, 'syscall');
+  const hostname =
+    readDiagnosticString(error, 'hostname') ?? readDiagnosticString(cause, 'hostname');
+
+  return {
+    ...(errorName === undefined ? {} : { errorName }),
+    ...(code === undefined ? {} : { code }),
+    ...(causeCode === undefined ? {} : { causeCode }),
+    ...(syscall === undefined ? {} : { syscall }),
+    ...(hostname === undefined ? {} : { hostname }),
+  };
 }
 
 export interface SendContactEmailInput {
@@ -71,7 +123,7 @@ export async function sendContactEmail(
       throw new EmailDeliveryError('timeout');
     }
 
-    throw new EmailDeliveryError('network');
+    throw new EmailDeliveryError('network', undefined, sanitizeNetworkDiagnostics(error));
   } finally {
     clearTimeout(timeout);
   }

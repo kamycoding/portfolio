@@ -44,6 +44,7 @@ export function createContactRouter(emailSender: ContactEmailSender = sendContac
               ...(error.providerStatus === undefined
                 ? {}
                 : { providerStatus: error.providerStatus }),
+              ...error.networkDiagnostics,
             }
           : { category: 'unexpected' };
 
