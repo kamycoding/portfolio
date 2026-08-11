@@ -46,7 +46,7 @@ module.exports = defineConfig([
     extends: [eslint.configs.recommended, tseslint.configs.recommended],
   },
   {
-    files: ['netlify/functions/**/*.{ts,mts}'],
+    files: ['netlify/functions/**/*.{ts,mts}', 'netlify/tests/**/*.ts'],
     extends: [eslint.configs.recommended, tseslint.configs.recommended],
   },
 ]);

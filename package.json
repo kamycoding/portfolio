@@ -7,7 +7,7 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "test:functions": "vitest run netlify/functions/contact.spec.ts",
+    "test:functions": "vitest run netlify/tests/contact.spec.ts",
     "typecheck:functions": "tsc -p tsconfig.netlify.json",
     "lint": "ng lint"
   },

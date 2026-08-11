@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from 'vitest';
 
-import { config, createContactHandler } from './contact.mts';
+import { config, createContactHandler } from '../functions/contact.mts';
 
 const environment: Record<string, string | undefined> = {
   BREVO_API_KEY: 'test-api-key',
