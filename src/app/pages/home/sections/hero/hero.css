@@ -245,7 +245,8 @@
 
   .hero__socials {
     position: absolute;
-    bottom: 110px;
+    /* Tracks the width-driven cover scale of the bottom-anchored artwork. */
+    bottom: max(110px, 5.882vw);
     left: max(72px, calc((100% - var(--hero-desktop-content-width)) / 2 + 72px));
     display: flex;
     width: 40px;
