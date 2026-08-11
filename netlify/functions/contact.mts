@@ -227,7 +227,7 @@ export const config = {
   path: '/api/contact',
   rateLimit: {
     windowLimit: 5,
-    windowSize: 900,
+    windowSize: 180,
     aggregateBy: ['ip', 'domain'],
   },
 } as const;
