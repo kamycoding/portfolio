@@ -224,7 +224,6 @@ export function createContactHandler(
 export default createContactHandler();
 
 export const config = {
-  path: '/api/contact',
   rateLimit: {
     windowLimit: 5,
     windowSize: 180,
