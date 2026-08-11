@@ -98,6 +98,19 @@ export class Contact {
     return errors?.['maxlength'] ? 'contact.fields.message.maxlength' : '';
   }
 
+  protected growMessage(event: Event): void {
+    const textarea = event.currentTarget as HTMLTextAreaElement;
+
+    if (!textarea.value) {
+      textarea.style.height = '';
+      return;
+    }
+
+    if (textarea.scrollHeight > textarea.clientHeight) {
+      textarea.style.height = `${textarea.scrollHeight}px`;
+    }
+  }
+
   protected submit(): void {
     if (this.submissionState() === 'submitting') {
       return;

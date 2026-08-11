@@ -95,6 +95,7 @@
             maxlength="2000"
             rows="1"
             [placeholder]="'contact.fields.message.placeholder' | translate"
+            (input)="growMessage($event)"
             [attr.aria-invalid]="hasVisibleError('message')"
             [attr.aria-describedby]="hasVisibleError('message') ? 'contact-message-error' : null"
           ></textarea>
