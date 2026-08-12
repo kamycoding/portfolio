@@ -14,8 +14,29 @@
     <link
       rel="preload"
       as="image"
-      href="/assets/hero/hero-background.webp"
+      href="/assets/hero/hero-background-optimized.webp"
       type="image/webp"
+      fetchpriority="high"
+    />
+    <link
+      rel="preload"
+      as="image"
+      href="/assets/hero/portrait-colored-352.webp"
+      imagesrcset="
+        /assets/hero/portrait-colored-352.webp 352w,
+        /assets/hero/portrait-colored-528.webp 528w
+      "
+      imagesizes="176px"
+      type="image/webp"
+      media="(max-width: 63.999rem)"
+      fetchpriority="high"
+    />
+    <link
+      rel="preload"
+      as="image"
+      href="/assets/hero/portrait-default.webp"
+      type="image/webp"
+      media="(min-width: 64rem)"
       fetchpriority="high"
     />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />

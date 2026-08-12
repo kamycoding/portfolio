@@ -150,14 +150,6 @@
   opacity: 0;
 }
 
-.hero__polaroid:hover .hero__portrait-image--default {
-  opacity: 0;
-}
-
-.hero__polaroid:hover .hero__portrait-image--hover {
-  opacity: 1;
-}
-
 .hero__polaroid figcaption {
   display: flex;
   flex: 1;
@@ -180,6 +172,18 @@
 }
 
 @media (min-width: 64rem) {
+  .hero__portrait-image--hover {
+    background: url('/assets/hero/portrait-hover.webp') center 22% / cover no-repeat;
+  }
+
+  .hero__polaroid:hover .hero__portrait-image--initial {
+    opacity: 0;
+  }
+
+  .hero__polaroid:hover .hero__portrait-image--hover {
+    opacity: 1;
+  }
+
   .hero__stage {
     --hero-desktop-content-width: 1440px;
     padding: 80px clamp(32px, 5vw, 72px) 48px;
