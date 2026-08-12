@@ -30,7 +30,11 @@
       @for (testimonial of testimonials; track testimonial.id) {
         <li
           class="testimonial-card relative z-1 grid aspect-square w-full min-w-0 origin-center text-canvas isolate"
+          [class.testimonial-card--active]="activeTestimonialId() === testimonial.id"
           tabindex="0"
+          (click)="activateTestimonial($event, testimonial.id)"
+          (keydown.enter)="activateTestimonial($event, testimonial.id)"
+          (keydown.space)="activateTestimonial($event, testimonial.id)"
         >
           <picture class="testimonial-card__paper" aria-hidden="true">
             <source

@@ -230,7 +230,7 @@
   .hero__polaroid {
     position: absolute;
     top: clamp(8px, 0.902vw, 13px);
-    right: clamp(8px, 1.111vw, 16px);
+    right: clamp(-48px, calc(0.2333 * (100vw - 1200px) + 8px), 16px);
     width: clamp(160px, 14.137vw, 203.567px);
     padding: clamp(11px, 0.972vw, 14px) clamp(11px, 0.972vw, 14px) 0;
   }
@@ -249,8 +249,8 @@
 
   .hero__socials {
     position: absolute;
-    /* Tracks the width-driven cover scale of the bottom-anchored artwork. */
-    bottom: max(110px, 5.882vw);
+    /* Tracks both axes of the bottom-anchored 1440 × 900 cover artwork. */
+    bottom: max(110px, 5.882vw, 12.222svh);
     left: max(72px, calc((100% - var(--hero-desktop-content-width)) / 2 + 72px));
     display: flex;
     width: 40px;
