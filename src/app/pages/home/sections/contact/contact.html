@@ -7,21 +7,21 @@
     class="contact__inner relative mx-auto w-full max-w-2xl lg:grid lg:min-h-140 lg:max-w-300 lg:grid-cols-[minmax(0,560px)_minmax(0,480px)]"
   >
     <app-brand-stamp
-      class="contact__stamp absolute -top-8.5 right-0 z-1 w-30 min-[40rem]:right-6 lg:top-0 lg:right-0 lg:w-42"
+      class="contact__stamp absolute -top-4 right-0 z-1 w-30 min-[40rem]:-top-8.5 min-[40rem]:right-6 lg:-top-12 lg:right-0 lg:w-42 min-[75rem]:top-0"
     />
 
-    <div class="contact__intro pt-19 lg:flex lg:flex-col lg:pt-0">
+    <div class="contact__intro @container pt-19 lg:flex lg:flex-col lg:pt-0">
       <p class="contact__eyebrow text-base leading-none font-medium uppercase">
         {{ 'contact.eyebrow' | translate }}
       </p>
       <h2
         id="contact-title"
-        class="contact__title mt-4 text-[clamp(40px,12.8vw,48px)] leading-none font-bold whitespace-pre-line lg:text-[64px]"
+        class="contact__title mt-4 text-[clamp(40px,12.8vw,48px)] leading-none font-bold whitespace-pre-line [&:lang(de)]:text-[clamp(32px,11.2cqw,48px)] min-[40rem]:[&:lang(en)]:text-[clamp(40px,5vw,48px)] lg:text-[64px] lg:[&:lang(en)]:text-[clamp(40px,11.2cqw,64px)] lg:[&:lang(de)]:text-[clamp(40px,11.2cqw,64px)]"
       >
         {{ 'contact.heading' | translate }}
       </h2>
 
-      <div class="contact__copy mt-8 text-justify text-base leading-[1.2] lg:max-w-140 lg:text-lg">
+      <div class="contact__copy mt-8 text-start text-base leading-[1.2] lg:max-w-140 lg:text-lg">
         <p class="mt-4">
           {{ 'contact.paragraphs.projects' | translate }}
         </p>
@@ -129,8 +129,9 @@
           height="44"
           draggable="false"
         />
-        <label class="contact-consent__label" for="contact-privacy">
+        <label class="contact-consent__label group" for="contact-privacy">
           <input
+            class="cursor-pointer transition-[background-color,box-shadow,transform] duration-180 ease-out checked:shadow-[0_0_0_4px_color-mix(in_srgb,var(--color-primary)_18%,transparent)] active:scale-90 active:-rotate-4 group-hover:scale-108 group-hover:rotate-2 group-hover:shadow-[0_0_0_5px_color-mix(in_srgb,var(--color-primary)_16%,transparent)] motion-reduce:transition-none"
             id="contact-privacy"
             type="checkbox"
             formControlName="privacyAccepted"

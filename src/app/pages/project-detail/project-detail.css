@@ -6,8 +6,8 @@
   display: grid;
   min-height: max(900px, 100svh);
   overflow: hidden;
-  padding: 96px 72px 24px;
-  grid-template-rows: auto auto auto;
+  padding: clamp(96px, 8svh, 160px) 72px 24px;
+  grid-template-rows: auto auto minmax(max-content, 1fr);
   background-color: var(--color-canvas);
   background-image: url('/assets/project-detail/project-detail-header-bg.webp');
   background-repeat: no-repeat;
@@ -32,6 +32,8 @@
 }
 
 .project-detail__back {
+  width: min(1296px, 100%);
+  margin-inline: auto;
   grid-row: 1;
   justify-self: start;
   color: var(--color-canvas);
@@ -46,7 +48,7 @@
 
 .project-detail__layout {
   display: grid;
-  width: min(1200px, 100%);
+  width: min(1296px, 100%);
   margin: 38px auto 0;
   grid-row: 2;
   grid-template-columns: minmax(0, 488px) minmax(0, 560px);
@@ -105,7 +107,7 @@
 }
 
 .project-detail__copy section p {
-  text-align: justify;
+  text-align: start;
 }
 
 .project-detail__technologies {
@@ -181,6 +183,7 @@
   width: min(1296px, 100%);
   margin: 48px auto 0;
   grid-row: 3;
+  align-self: start;
   justify-content: flex-end;
   color: var(--color-foreground);
 }

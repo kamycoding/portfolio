@@ -96,7 +96,16 @@ html {
 
 @media (min-width: 64rem) {
   .project-detail-active app-header .site-header__desktop {
-    max-width: none;
+    grid-template-columns: auto auto auto minmax(96px, 1fr) auto auto;
+    column-gap: clamp(28px, 3.25vw, 52px);
+  }
+
+  .project-detail-active app-header .site-header__desktop nav li:nth-child(3) {
+    justify-self: end;
+  }
+
+  .project-detail-active app-header .site-header__desktop > button {
+    margin-inline-start: clamp(20px, 2.25vw, 36px);
   }
 
   .project-detail-active .project-detail__copy {
