@@ -247,14 +247,6 @@ html {
     opacity: 1;
     transform: translateX(0);
   }
-
-  .hero .hero__polaroid .hero__portrait-image--default {
-    opacity: 0;
-  }
-
-  .hero .hero__polaroid .hero__portrait-image--hover {
-    opacity: 1;
-  }
 }
 
 @media (hover: hover) and (pointer: fine) {

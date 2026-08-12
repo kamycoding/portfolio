@@ -42,6 +42,10 @@
             class="projects__image block size-full"
             [src]="project.imageSrc"
             [alt]="project.imageAltKey | translate"
+            width="560"
+            height="399"
+            loading="lazy"
+            decoding="async"
             draggable="false"
           />
 
@@ -52,6 +56,10 @@
               [src]="project.badgeSrc"
               alt=""
               aria-hidden="true"
+              width="168"
+              height="169"
+              loading="lazy"
+              decoding="async"
               draggable="false"
             />
           }

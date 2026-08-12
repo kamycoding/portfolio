@@ -1,7 +1,7 @@
 <section id="hero" class="hero" aria-labelledby="hero-title">
   <img
     class="hero__background"
-    src="/assets/hero/hero-background.webp"
+    src="/assets/hero/hero-background-optimized.webp"
     width="1440"
     height="900"
     alt=""
@@ -58,19 +58,30 @@
 
       <figure class="hero__polaroid">
         <div class="hero__portrait">
-          <img
-            class="hero__portrait-image hero__portrait-image--default"
-            src="/assets/hero/portrait-default.webp"
-            [alt]="'hero.portraitAlt' | translate"
-            draggable="false"
-          />
-          <img
+          <picture>
+            <source
+              media="(max-width: 63.999rem)"
+              srcset="
+                /assets/hero/portrait-colored-352.webp 352w,
+                /assets/hero/portrait-colored-528.webp 528w
+              "
+              sizes="176px"
+            />
+            <img
+              class="hero__portrait-image hero__portrait-image--initial"
+              src="/assets/hero/portrait-default.webp"
+              width="1023"
+              height="1537"
+              loading="eager"
+              fetchpriority="high"
+              [alt]="'hero.portraitAlt' | translate"
+              draggable="false"
+            />
+          </picture>
+          <span
             class="hero__portrait-image hero__portrait-image--hover"
-            src="/assets/hero/portrait-hover.webp"
-            alt=""
             aria-hidden="true"
-            draggable="false"
-          />
+          ></span>
         </div>
         <figcaption>
           <span class="hero__caption-default">Kamy :)</span>
