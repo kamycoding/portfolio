@@ -2,7 +2,8 @@
   "pageTitles": {
     "notFound": "Page Not Found | KamyCoding",
     "legalNotice": "Legal Notice | KamyCoding",
-    "privacyPolicy": "Privacy Policy | KamyCoding"
+    "privacyPolicy": "Privacy Policy | KamyCoding",
+    "projectDetail": "Project | KamyCoding"
   },
   "nav": {
     "about": "About me",
@@ -82,19 +83,19 @@
       "join": {
         "description": "Task manager inspired by the Kanban System. Create and organize tasks using drag and drop functions, assign users and categories.",
         "imageAlt": "Join task manager displayed on a laptop",
-        "implementation": "I implemented the task-management interface with Angular, TypeScript, and Firebase. Tasks can be created, organized with drag and drop, and assigned to users and categories.",
+        "implementation": "Short text that describes your role or the workflow for this specific project. Let a recruiter know more about your knowledge and ability to work independently or collaboratively in a structured way.",
         "duration": "5 weeks"
       },
       "elPolloLoco": {
         "description": "Jump, run and throw game based on an object-oriented approach. Help Pepe find coins and tabasco salsa to fight the crazy hen.",
         "imageAlt": "El Pollo Loco desert game scene with Pepe",
-        "implementation": "I implemented the object-oriented game with JavaScript, HTML, and CSS. Its mechanics include running, jumping, throwing, collecting coins and salsa, and fighting the final hen.",
+        "implementation": "Short text that describes your role or the workflow for this specific project. Let a recruiter know more about your knowledge and ability to work independently or collaboratively in a structured way.",
         "duration": "3 weeks"
       },
       "dabubble": {
         "description": "This Slack clone transforms team communication and collaboration with an intuitive interface, real-time messaging, and clear channel organization.",
         "imageAlt": "DABubble team messaging interface",
-        "implementation": "I built the messaging interface with JavaScript, HTML, and CSS, focusing on real-time conversations and clear channel organization.",
+        "implementation": "Short text that describes your role or the workflow for this specific project. Let a recruiter know more about your knowledge and ability to work independently or collaboratively in a structured way.",
         "duration": "4 weeks"
       }
     }
@@ -119,17 +120,17 @@
     "profile": "Profile",
     "profileAria": "View {{name}}'s LinkedIn profile",
     "items": {
-      "tobiasLange": {
-        "quote": "Kamyar really kept the team together with his great organization and clear communication. We wouldn't have got this far without his commitment.",
-        "role": "Frontend Developer"
-      },
-      "mariaSchaefer": {
-        "quote": "Kamyar built my portfolio website and handled the whole process with great care and professionalism. He was patient, precise, and always focused on finding the right solution for what I needed. I’d definitely recommend working with him to anyone who values both a smooth process and a great final result.",
+      "sogandAsari": {
+        "quote": "Kamyar created my portfolio website and guided the entire process with great professionalism and care. He was patient, precise, and always focused on finding the right solution for my needs. I would definitely recommend working with him.",
         "role": "Product Designer"
       },
-      "davidBraun": {
-        "quote": "Kamyar was a top team colleague at DA. His positive commitment and willingness to take on responsibility made a significant contribution to us achieving our goals.",
-        "role": "Frontend Developer"
+      "maxBelich": {
+        "quote": "Kamyar gave his all throughout the entire project. He invested a great deal of time and energy into moving the project forward, supporting his team, and helping whenever problems arose. He was never afraid to take on any task, and successfully completing the project was always his goal.",
+        "role": "Full Stack Developer"
+      },
+      "tobiasIllner": {
+        "quote": "Kamyar always completed his tasks conscientiously and reliably. One particularly positive quality is that he actively offers his help and supports the team. Whenever something is unclear, he asks focused questions and shows a strong interest in gaining a better understanding of other areas of work as well. Working with him is very pleasant and productive.",
+        "role": "Full Stack Developer"
       }
     }
   },
