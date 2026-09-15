@@ -3,9 +3,17 @@
 }
 
 .legal-page {
+  display: flex;
   min-height: 100svh;
+  flex-direction: column;
   background-color: var(--color-foreground);
   color: var(--color-canvas);
+}
+
+@supports (height: 100dvh) {
+  .legal-page {
+    min-height: 100dvh;
+  }
 }
 
 .legal-page__hero {
@@ -35,8 +43,11 @@
 }
 
 .legal-page__page {
+  display: flex;
   width: min(1440px, 100%);
   margin-inline: auto;
+  flex: 1;
+  flex-direction: column;
 }
 
 .legal-page__back {
@@ -69,8 +80,7 @@
 .legal-page__content {
   display: flex;
   width: min(1200px, calc(100% - 40px));
-  min-height: var(--legal-content-min-height, auto);
-  margin: 20px auto 0;
+  margin: 20px auto 64px;
   flex-direction: column;
   gap: 32px;
   font-size: 16px;
@@ -79,7 +89,7 @@
 
 .legal-page app-footer {
   display: block;
-  margin-top: 64px;
+  margin-top: auto;
 }
 
 @media (min-width: 64rem) {
@@ -102,11 +112,7 @@
 
   .legal-page__content {
     width: min(1200px, calc(100% - 64px));
-    margin-top: 80px;
+    margin: 80px auto;
     gap: 40px;
-  }
-
-  .legal-page app-footer {
-    margin-top: 80px;
   }
 }

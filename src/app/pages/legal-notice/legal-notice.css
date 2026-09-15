@@ -3,7 +3,6 @@
 }
 
 app-legal-page-layout {
-  --legal-content-min-height: 430px;
   --legal-content-line-height: 1.2;
 }
 
@@ -49,10 +48,6 @@ a:focus-visible {
 }
 
 @media (min-width: 64rem) {
-  app-legal-page-layout {
-    --legal-content-min-height: 475px;
-  }
-
   h2 {
     font-size: 24px;
   }

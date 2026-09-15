@@ -7,7 +7,7 @@
     <header class="ml-auto w-fit max-w-full text-right">
       <div class="flex items-end justify-end gap-2">
         <img
-          class="h-9 w-25 shrink-0 object-fill"
+          class="decorative-reveal h-9 w-25 shrink-0 object-fill"
           src="/assets/testimonials/testimonials-title-arrow.png"
           alt=""
           aria-hidden="true"
@@ -30,7 +30,11 @@
       @for (testimonial of testimonials; track testimonial.id) {
         <li
           class="testimonial-card relative z-1 grid aspect-square w-full min-w-0 origin-center text-canvas isolate"
+          [class.testimonial-card--active]="activeTestimonialId() === testimonial.id"
           tabindex="0"
+          (click)="activateTestimonial($event, testimonial.id)"
+          (keydown.enter)="activateTestimonial($event, testimonial.id)"
+          (keydown.space)="activateTestimonial($event, testimonial.id)"
         >
           <picture class="testimonial-card__paper" aria-hidden="true">
             <source

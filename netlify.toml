@@ -3,8 +3,8 @@
   publish = "dist/portfolio/browser"
 
 [[redirects]]
-  from = "/api/*"
-  to = "https://kamycoding-api.apps.apply.build/api/:splat"
+  from = "/api/contact"
+  to = "/.netlify/functions/contact"
   status = 200
   force = true
 

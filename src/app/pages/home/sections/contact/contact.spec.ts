@@ -98,6 +98,8 @@ describe('Contact', () => {
 
   it('submits once and resets only after a confirmed success', () => {
     fillValidForm();
+    const message = getControl<HTMLTextAreaElement>('#contact-message');
+    message.style.height = '120px';
     submitForm();
 
     const requests = httpTesting.match('/api/contact');
@@ -117,6 +119,8 @@ describe('Contact', () => {
     fixture.detectChanges();
 
     expect(getControl<HTMLInputElement>('#contact-name').value).toBe('');
+    expect(message.value).toBe('');
+    expect(message.style.height).toBe('');
     expect(fixture.nativeElement.textContent).toContain('Thank you! Your message has been sent.');
   });
 

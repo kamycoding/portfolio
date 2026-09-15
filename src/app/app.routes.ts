@@ -26,7 +26,6 @@ export const routes: Routes = [
     path: 'projects/:slug',
     component: ProjectDetail,
     canActivate: [projectDetailGuard],
-    data: { titleKey: 'pageTitles.projectDetail' },
   },
   {
     path: '**',

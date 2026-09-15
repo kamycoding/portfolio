@@ -130,9 +130,21 @@ test(
     let attempt = 0;
     const emailSender: ContactEmailSender = async () => {
       attempt += 1;
-      throw attempt === 1
-        ? new EmailDeliveryError('provider-response', 500)
-        : new EmailDeliveryError('timeout');
+      if (attempt === 1) {
+        throw new EmailDeliveryError('provider-response', 500);
+      }
+
+      if (attempt === 2) {
+        throw new EmailDeliveryError('timeout');
+      }
+
+      throw new EmailDeliveryError('network', undefined, {
+        errorName: 'TypeError',
+        code: 'FETCH_FAILED',
+        causeCode: 'ENOTFOUND',
+        syscall: 'getaddrinfo',
+        hostname: 'api.brevo.com',
+      });
     };
     const originalConsoleError = console.error;
     const diagnostics: unknown[] = [];
@@ -144,6 +156,7 @@ test(
       await withApp(emailSender, async (baseUrl) => {
         const providerResponse = await postContact(baseUrl, validContactRequest);
         const timeoutResponse = await postContact(baseUrl, validContactRequest);
+        const networkResponse = await postContact(baseUrl, validContactRequest);
         const providerBody = (await providerResponse.json()) as {
           success: boolean;
           message: string;
@@ -152,14 +165,23 @@ test(
           success: boolean;
           message: string;
         };
+        const networkBody = (await networkResponse.json()) as {
+          success: boolean;
+          message: string;
+        };
 
         assert.equal(providerResponse.status, 502);
         assert.equal(timeoutResponse.status, 502);
+        assert.equal(networkResponse.status, 502);
         assert.deepEqual(providerBody, {
           success: false,
           message: 'Your message could not be sent. Please try again in a moment.',
         });
         assert.deepEqual(timeoutBody, {
+          success: false,
+          message: 'Your message could not be sent. Please try again in a moment.',
+        });
+        assert.deepEqual(networkBody, {
           success: false,
           message: 'Your message could not be sent. Please try again in a moment.',
         });
@@ -171,7 +193,20 @@ test(
     assert.deepEqual(diagnostics, [
       { category: 'provider-response', providerStatus: 500 },
       { category: 'timeout' },
+      {
+        category: 'network',
+        errorName: 'TypeError',
+        code: 'FETCH_FAILED',
+        causeCode: 'ENOTFOUND',
+        syscall: 'getaddrinfo',
+        hostname: 'api.brevo.com',
+      },
     ]);
+    const loggedDiagnostics = JSON.stringify(diagnostics);
+    assert.equal(loggedDiagnostics.includes(process.env.BREVO_API_KEY ?? ''), false);
+    assert.equal(loggedDiagnostics.includes(validContactRequest.name), false);
+    assert.equal(loggedDiagnostics.includes(validContactRequest.email), false);
+    assert.equal(loggedDiagnostics.includes(validContactRequest.message), false);
   },
 );
 
@@ -193,6 +228,104 @@ test('limits repeated contact submissions', async () => {
 
   assert.equal(sendCount, 5);
 });
+
+test('ignores forwarded headers for rate-limit identity without disabling limiting', async () => {
+  let sendCount = 0;
+  const emailSender: ContactEmailSender = async () => {
+    sendCount += 1;
+  };
+
+  await withApp(
+    emailSender,
+    async (baseUrl) => {
+      for (const forwardedFor of ['203.0.113.10', '203.0.113.11']) {
+        const response = await postContact(baseUrl, validContactRequest, {
+          'x-forwarded-for': forwardedFor,
+        });
+        assert.equal(response.status, 200);
+      }
+
+      const limitedResponse = await postContact(baseUrl, validContactRequest, {
+        'x-forwarded-for': '203.0.113.12',
+      });
+      assert.equal(limitedResponse.status, 429);
+    },
+    2,
+  );
+
+  assert.equal(sendCount, 2);
+});
+
+test('keeps the health endpoint independent from contact email delivery', async () => {
+  const emailSender: ContactEmailSender = async () => {
+    throw new EmailDeliveryError('network');
+  };
+
+  await withApp(emailSender, async (baseUrl) => {
+    const healthResponse = await fetch(`${baseUrl}/api/health`);
+    assert.equal(healthResponse.status, 200);
+    assert.deepEqual(await healthResponse.json(), {
+      success: true,
+      message: 'Server is running.',
+    });
+
+    assert.equal((await postContact(baseUrl, validContactRequest)).status, 502);
+    assert.equal((await fetch(`${baseUrl}/api/health`)).status, 200);
+  });
+});
+
+test(
+  'preserves only allow-listed network diagnostics from a failed Brevo fetch',
+  { concurrency: false },
+  async () => {
+    const originalFetch = globalThis.fetch;
+
+    try {
+      globalThis.fetch = (async () => {
+        const cause = Object.assign(new Error('DNS lookup included unsafe details.'), {
+          code: 'ENOTFOUND',
+          syscall: 'getaddrinfo',
+          hostname: 'api.brevo.com',
+          apiKey: process.env.BREVO_API_KEY,
+          requestBody: validContactRequest.message,
+        });
+        const error = Object.assign(new TypeError('fetch failed', { cause }), {
+          code: 'FETCH_FAILED',
+          requestBody: validContactRequest,
+        });
+
+        throw error;
+      }) as typeof fetch;
+
+      await assert.rejects(
+        sendContactEmail({
+          name: validContactRequest.name,
+          email: validContactRequest.email,
+          message: validContactRequest.message,
+        }),
+        (error: unknown) => {
+          assert.ok(error instanceof EmailDeliveryError);
+          assert.equal(error.category, 'network');
+          assert.deepEqual(error.networkDiagnostics, {
+            errorName: 'TypeError',
+            code: 'FETCH_FAILED',
+            causeCode: 'ENOTFOUND',
+            syscall: 'getaddrinfo',
+            hostname: 'api.brevo.com',
+          });
+          assert.equal(JSON.stringify(error.networkDiagnostics).includes('test-api-key'), false);
+          assert.equal(
+            JSON.stringify(error.networkDiagnostics).includes(validContactRequest.message),
+            false,
+          );
+          return true;
+        },
+      );
+    } finally {
+      globalThis.fetch = originalFetch;
+    }
+  },
+);
 
 test(
   'aborts a stalled Brevo request after the configured timeout',
@@ -235,8 +368,9 @@ test(
 async function withApp(
   emailSender: ContactEmailSender,
   run: (baseUrl: string) => Promise<void>,
+  contactRateLimit?: number,
 ): Promise<void> {
-  const app = createApp({ contactEmailSender: emailSender });
+  const app = createApp({ contactEmailSender: emailSender, contactRateLimit });
   const server = app.listen(0, '127.0.0.1');
   await once(server, 'listening');
 
@@ -254,7 +388,11 @@ interface TestResponse {
   json(): Promise<unknown>;
 }
 
-function postContact(baseUrl: string, body: object): Promise<TestResponse> {
+function postContact(
+  baseUrl: string,
+  body: object,
+  headers: Record<string, string> = {},
+): Promise<TestResponse> {
   const requestBody = JSON.stringify(body);
 
   return new Promise((resolve, reject) => {
@@ -264,6 +402,7 @@ function postContact(baseUrl: string, body: object): Promise<TestResponse> {
         'content-length': Buffer.byteLength(requestBody),
         'content-type': 'application/json',
         origin: 'http://localhost:4200',
+        ...headers,
       },
     });
     const chunks: Buffer[] = [];

@@ -136,3 +136,9 @@
     top: calc(50% - 3.404cqw);
   }
 }
+
+@media (min-width: 90rem) {
+  .about-section {
+    min-height: clamp(49.125rem, 50vw, 60rem);
+  }
+}

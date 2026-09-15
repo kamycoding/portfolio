@@ -44,6 +44,7 @@ const trimmedMinLength = (minimumLength: number): ValidatorFn => {
 })
 export class Contact {
   @ViewChild('formElement') private formElement?: ElementRef<HTMLFormElement>;
+  @ViewChild('messageTextarea') private messageTextarea?: ElementRef<HTMLTextAreaElement>;
 
   private readonly formBuilder = inject(NonNullableFormBuilder);
   private readonly contactService = inject(ContactService);
@@ -98,6 +99,19 @@ export class Contact {
     return errors?.['maxlength'] ? 'contact.fields.message.maxlength' : '';
   }
 
+  protected growMessage(event: Event): void {
+    const textarea = event.currentTarget as HTMLTextAreaElement;
+
+    if (!textarea.value) {
+      this.resetMessageHeight(textarea);
+      return;
+    }
+
+    if (textarea.scrollHeight > textarea.clientHeight) {
+      textarea.style.height = `${textarea.scrollHeight}px`;
+    }
+  }
+
   protected submit(): void {
     if (this.submissionState() === 'submitting') {
       return;
@@ -138,6 +152,7 @@ export class Contact {
           this.submissionState.set('success');
           this.responseMessage.set('contact.status.success');
           this.contactForm.reset();
+          this.resetMessageHeight();
           this.submitAttempted.set(false);
         },
         error: () => this.handleSubmissionError(),
@@ -164,6 +179,10 @@ export class Contact {
       );
       invalidControl?.focus();
     });
+  }
+
+  private resetMessageHeight(textarea = this.messageTextarea?.nativeElement): void {
+    textarea?.style.removeProperty('height');
   }
 
   private handleSubmissionError(): void {

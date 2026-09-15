@@ -42,6 +42,10 @@
             class="projects__image block size-full"
             [src]="project.imageSrc"
             [alt]="project.imageAltKey | translate"
+            width="560"
+            height="399"
+            loading="lazy"
+            decoding="async"
             draggable="false"
           />
 
@@ -52,6 +56,10 @@
               [src]="project.badgeSrc"
               alt=""
               aria-hidden="true"
+              width="168"
+              height="169"
+              loading="lazy"
+              decoding="async"
               draggable="false"
             />
           }
@@ -59,7 +67,7 @@
 
         <div class="col-start-1 row-start-2 mt-4">
           <h3 class="text-xl leading-none font-bold lg:text-2xl">{{ project.title }}</h3>
-          <p class="mt-4 text-justify text-base leading-normal lg:text-lg">
+          <p class="mt-4 text-start text-base leading-normal lg:text-lg">
             {{ project.descriptionKey | translate }}
           </p>
         </div>

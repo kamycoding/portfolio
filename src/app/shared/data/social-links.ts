@@ -27,7 +27,7 @@ const SOCIAL_LINKS = {
   email: {
     id: 'email',
     labelKey: 'social.emailLabel',
-    href: 'mailto:kamyar.zamanfar@gmail.com',
+    href: 'mailto:contact@kamycoding.com',
     accessibleLabelKey: 'social.emailAria',
     iconSrc: '/assets/icons/social/email.svg',
     opensInNewTab: false,

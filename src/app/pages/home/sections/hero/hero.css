@@ -150,14 +150,6 @@
   opacity: 0;
 }
 
-.hero__polaroid:hover .hero__portrait-image--default {
-  opacity: 0;
-}
-
-.hero__polaroid:hover .hero__portrait-image--hover {
-  opacity: 1;
-}
-
 .hero__polaroid figcaption {
   display: flex;
   flex: 1;
@@ -180,7 +172,20 @@
 }
 
 @media (min-width: 64rem) {
+  .hero__portrait-image--hover {
+    background: url('/assets/hero/portrait-hover.webp') center 22% / cover no-repeat;
+  }
+
+  .hero__polaroid:hover .hero__portrait-image--initial {
+    opacity: 0;
+  }
+
+  .hero__polaroid:hover .hero__portrait-image--hover {
+    opacity: 1;
+  }
+
   .hero__stage {
+    --hero-desktop-content-width: 1440px;
     padding: 80px clamp(32px, 5vw, 72px) 48px;
   }
 
@@ -225,7 +230,7 @@
   .hero__polaroid {
     position: absolute;
     top: clamp(8px, 0.902vw, 13px);
-    right: clamp(8px, 1.111vw, 16px);
+    right: clamp(-48px, calc(0.2333 * (100vw - 1200px) + 8px), 16px);
     width: clamp(160px, 14.137vw, 203.567px);
     padding: clamp(11px, 0.972vw, 14px) clamp(11px, 0.972vw, 14px) 0;
   }
@@ -244,12 +249,13 @@
 
   .hero__socials {
     position: absolute;
-    bottom: calc(clamp(48px, 7.639vw, 110px) + 16px);
-    left: max(72px, calc((100% - 1296px) / 2));
+    /* Tracks both axes of the bottom-anchored 1440 × 900 cover artwork. */
+    bottom: max(110px, 5.882vw, 12.222svh);
+    left: max(72px, calc((100% - var(--hero-desktop-content-width)) / 2 + 72px));
     display: flex;
     width: 40px;
     flex-direction: column;
-    gap: clamp(6px, 0.556vw, 8px);
+    gap: 8px;
   }
 
   .hero__socials a {
@@ -261,7 +267,7 @@
 
   .hero__socials img {
     display: block;
-    width: clamp(32px, 2.778vw, 40px);
-    height: clamp(32px, 2.778vw, 40px);
+    width: 40px;
+    height: 40px;
   }
 }
