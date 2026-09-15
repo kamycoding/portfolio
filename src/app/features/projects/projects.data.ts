@@ -2,10 +2,15 @@ import type { PortfolioProject, ProjectSlug } from './projects.model';
 
 const TECHNOLOGIES = {
   angular: { label: 'Angular', iconSrc: '/assets/skills/icons/Angular.svg' },
+  angularCdk: { label: 'Angular CDK', iconSrc: '/assets/skills/icons/Angular.svg' },
   css: { label: 'CSS', iconSrc: '/assets/skills/icons/CSS.svg' },
   firebase: { label: 'Firebase', iconSrc: '/assets/skills/icons/Firebase.svg' },
   html: { label: 'HTML', iconSrc: '/assets/skills/icons/HTML.svg' },
   javascript: { label: 'JavaScript', iconSrc: '/assets/skills/icons/Js.svg' },
+  postgresql: { label: 'PostgreSQL', iconSrc: '/assets/skills/icons/PostgreSQL.svg' },
+  rxjs: { label: 'RxJS', iconSrc: '/assets/skills/icons/RxJS.svg' },
+  scss: { label: 'SCSS', iconSrc: '/assets/skills/icons/Scss.svg' },
+  supabase: { label: 'Supabase', iconSrc: '/assets/skills/icons/Supabase.svg' },
   typescript: { label: 'TypeScript', iconSrc: '/assets/skills/icons/Ts.svg' },
 } as const;
 
@@ -19,12 +24,16 @@ export const PORTFOLIO_PROJECTS = [
     implementationDetailsKey: 'projects.items.join.implementation',
     durationKey: 'projects.items.join.duration',
     technologies: [
-      TECHNOLOGIES.css,
-      TECHNOLOGIES.html,
-      TECHNOLOGIES.firebase,
       TECHNOLOGIES.angular,
       TECHNOLOGIES.typescript,
+      TECHNOLOGIES.scss,
+      TECHNOLOGIES.supabase,
+      TECHNOLOGIES.postgresql,
+      TECHNOLOGIES.rxjs,
+      TECHNOLOGIES.angularCdk,
     ],
+    githubUrl: 'https://github.com/kamycoding/join-kanban',
+    liveUrl: 'https://join.kamycoding.com',
     variant: 'featured',
     badgeSrc: '/assets/projects/featured-project-badge.webp',
   },

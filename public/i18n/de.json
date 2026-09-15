@@ -81,9 +81,9 @@
     "details": "Projektdetails",
     "items": {
       "join": {
-        "description": "Ein vom Kanban-System inspirierter Task-Manager. Aufgaben per Drag-and-drop erstellen und organisieren sowie Personen und Kategorien zuweisen.",
+        "description": "Eine responsive Kanban-Anwendung zur Aufgabenverwaltung mit Kontoanmeldung, Gastzugang, Kontaktverwaltung, Aufgabenworkflows und einem intuitiven Drag-and-drop-Board.",
         "imageAlt": "Der Task-Manager Join auf einem Laptop",
-        "implementation": "Kurzer Text über meine Rolle oder den Workflow in diesem Projekt. Er zeigt, wie ich mein Wissen strukturiert und selbstständig oder im Team eingesetzt habe.",
+        "implementation": "Als kollaboratives Teamprojekt mit wiederverwendbaren Angular-22-Komponenten, reaktivem State-Management mit RxJS, Drag-and-drop über Angular CDK sowie Supabase-Authentifizierung und PostgreSQL-Persistenz für Kontakte und Aufgaben umgesetzt.",
         "duration": "5 Wochen"
       },
       "elPolloLoco": {
