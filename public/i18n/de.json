@@ -120,17 +120,17 @@
     "profile": "Profil",
     "profileAria": "LinkedIn-Profil von {{name}} ansehen",
     "items": {
-      "tobiasLange": {
-        "quote": "Kamyar hat das Team mit seiner großartigen Organisation und klaren Kommunikation wirklich zusammengehalten. Ohne seinen Einsatz wären wir nicht so weit gekommen.",
-        "role": "Frontend Developer"
+      "sogandAsari": {
+        "quote": "Kamyar hat meine Portfolio-Website umgesetzt und den gesamten Prozess sehr professionell und sorgfältig begleitet. Er war geduldig, präzise und immer darauf fokussiert, die passende Lösung für meine Wünsche zu finden. Ich kann die Zusammenarbeit mit ihm auf jeden Fall weiterempfehlen.",
+        "role": "Product Designer"
       },
-      "mariaSchaefer": {
-        "quote": "Die Zusammenarbeit mit Kamyar war eine große Freude. Er versteht es, Teammitglieder zu motivieren und zu ermutigen, ihre bestmögliche Arbeit zu zeigen, und bringt stets neue Impulse in das Brainstorming ein. Für das Wohlbefinden der Gruppe hatte er immer ein offenes Ohr, war hilfsbereit und brachte außerdem viel Humor mit.",
-        "role": "Frontend Developer"
+      "maxBelich": {
+        "quote": "Kamyar hat während des gesamten Projekts alles gegeben. Viel Zeit und Energie reingesteckt um es voranzubringen, sein Team zu unterstützen und bei Problemen behilflich zu sein. Er war sich keiner Arbeit zu scheu und das erfolgreiche Abschließen war sein Ziel.",
+        "role": "Full Stack Developer"
       },
-      "davidBraun": {
-        "quote": "Kamyar war bei DA ein hervorragender Teamkollege. Sein positiver Einsatz und seine Bereitschaft, Verantwortung zu übernehmen, haben wesentlich dazu beigetragen, dass wir unsere Ziele erreicht haben.",
-        "role": "Frontend Developer"
+      "tobiasIllner": {
+        "quote": "Kamyar erledigte seine Aufgaben stets gewissenhaft und zuverlässig. Besonders positiv ist, dass er aktiv seine Hilfe anbietet und das Team unterstützt. Bei Unklarheiten stellt er gezielt Fragen und zeigt großes Interesse daran, auch andere Aufgabenbereiche besser zu verstehen. Die Zusammenarbeit mit ihm ist sehr angenehm und produktiv.",
+        "role": "Full Stack Developer"
       }
     }
   },

@@ -70,9 +70,11 @@
                 <cite class="testimonial-card__name block leading-[1.2] font-bold not-italic">
                   {{ testimonial.name }}
                 </cite>
-                <p class="testimonial-card__role leading-[1.2] font-medium">
-                  {{ testimonial.roleKey | translate }}
-                </p>
+                @if (testimonial.roleKey) {
+                  <p class="testimonial-card__role leading-[1.2] font-medium">
+                    {{ testimonial.roleKey | translate }}
+                  </p>
+                }
               </div>
 
               <a

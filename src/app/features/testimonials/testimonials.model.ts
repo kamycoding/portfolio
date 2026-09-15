@@ -1,4 +1,4 @@
-export type TestimonialId = 'tobias-lange' | 'maria-schaefer' | 'david-braun';
+export type TestimonialId = 'sogand-asari' | 'max-belich' | 'tobias-illner';
 
 export type TestimonialPaperVariant = 'paper-01' | 'paper-02';
 
@@ -6,7 +6,7 @@ export interface Testimonial {
   readonly id: TestimonialId;
   readonly quoteKey: string;
   readonly name: string;
-  readonly roleKey: string;
+  readonly roleKey?: string;
   readonly linkedinUrl: string;
   readonly paperVariant: TestimonialPaperVariant;
 }

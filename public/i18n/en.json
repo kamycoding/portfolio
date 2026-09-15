@@ -120,17 +120,17 @@
     "profile": "Profile",
     "profileAria": "View {{name}}'s LinkedIn profile",
     "items": {
-      "tobiasLange": {
-        "quote": "Kamyar really kept the team together with his great organization and clear communication. We wouldn't have got this far without his commitment.",
-        "role": "Frontend Developer"
+      "sogandAsari": {
+        "quote": "Kamyar created my portfolio website and guided the entire process with great professionalism and care. He was patient, precise, and always focused on finding the right solution for my needs. I would definitely recommend working with him.",
+        "role": "Product Designer"
       },
-      "mariaSchaefer": {
-        "quote": "It was a great pleasure to work with Kamyar. He knows how to push and encourage team members to present the best work possible, always adding something to brainstorm. Regarding the well-being of group members, he was always present and available to listen and help others, with a great sense of humor as well.",
-        "role": "Frontend Developer"
+      "maxBelich": {
+        "quote": "Kamyar gave his all throughout the entire project. He invested a great deal of time and energy into moving the project forward, supporting his team, and helping whenever problems arose. He was never afraid to take on any task, and successfully completing the project was always his goal.",
+        "role": "Full Stack Developer"
       },
-      "davidBraun": {
-        "quote": "Kamyar was a top team colleague at DA. His positive commitment and willingness to take on responsibility made a significant contribution to us achieving our goals.",
-        "role": "Frontend Developer"
+      "tobiasIllner": {
+        "quote": "Kamyar always completed his tasks conscientiously and reliably. One particularly positive quality is that he actively offers his help and supports the team. Whenever something is unclear, he asks focused questions and shows a strong interest in gaining a better understanding of other areas of work as well. Working with him is very pleasant and productive.",
+        "role": "Full Stack Developer"
       }
     }
   },
