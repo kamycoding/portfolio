@@ -23,6 +23,22 @@ describe('project data helpers', () => {
     expect(getProjectBySlug('unknown-project')).toBeUndefined();
   });
 
+  it('describes the production Join stack and links without Firebase', () => {
+    const join = getProjectBySlug('join');
+
+    expect(join?.technologies.map((technology) => technology.label)).toEqual([
+      'Angular',
+      'TypeScript',
+      'SCSS',
+      'Supabase',
+      'PostgreSQL',
+      'RxJS',
+      'Angular CDK',
+    ]);
+    expect(join?.githubUrl).toBe('https://github.com/kamycoding/join-kanban');
+    expect(join?.liveUrl).toBe('https://join.kamycoding.com');
+  });
+
   it('keeps next-project navigation in the intended cyclic order', () => {
     expect(getNextProject('join').slug).toBe('el-pollo-loco');
     expect(getNextProject('el-pollo-loco').slug).toBe('dabubble');

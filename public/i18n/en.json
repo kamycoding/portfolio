@@ -81,9 +81,9 @@
     "details": "Project details",
     "items": {
       "join": {
-        "description": "Task manager inspired by the Kanban System. Create and organize tasks using drag and drop functions, assign users and categories.",
+        "description": "A responsive Kanban task management application with account authentication, guest access, contact management, task workflows, and an intuitive drag-and-drop board.",
         "imageAlt": "Join task manager displayed on a laptop",
-        "implementation": "Short text that describes your role or the workflow for this specific project. Let a recruiter know more about your knowledge and ability to work independently or collaboratively in a structured way.",
+        "implementation": "Built collaboratively as a team project with reusable Angular 22 components, reactive state management using RxJS, Angular CDK drag and drop, and Supabase authentication with PostgreSQL persistence for contacts and tasks.",
         "duration": "5 weeks"
       },
       "elPolloLoco": {

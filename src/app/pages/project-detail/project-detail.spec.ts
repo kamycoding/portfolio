@@ -88,6 +88,37 @@ describe('ProjectDetail', () => {
     expect(projectLinks.every((link) => link.rel === 'noopener noreferrer')).toBe(true);
   });
 
+  it('renders the production Join GitHub and live links as active external links', async () => {
+    await harness.navigateByUrl('/projects/join', ProjectDetail);
+
+    const disabledProjectLinks = harness.routeNativeElement?.querySelectorAll(
+      '.project-detail__actions [aria-disabled="true"]',
+    );
+    const projectLinks = Array.from(
+      harness.routeNativeElement?.querySelectorAll<HTMLAnchorElement>(
+        '.project-detail__actions a',
+      ) ?? [],
+    );
+
+    expect(disabledProjectLinks).toHaveLength(0);
+    expect(projectLinks).toHaveLength(2);
+    expect(projectLinks.map((link) => link.href)).toEqual([
+      'https://github.com/kamycoding/join-kanban',
+      'https://join.kamycoding.com/',
+    ]);
+    expect(projectLinks.every((link) => link.target === '_blank')).toBe(true);
+    expect(projectLinks.every((link) => link.rel === 'noopener noreferrer')).toBe(true);
+  });
+
+  it('keeps project CTAs disabled when the project has no external URLs', async () => {
+    await harness.navigateByUrl('/projects/dabubble', ProjectDetail);
+
+    const projectActions = getRouteElement<HTMLElement>('.project-detail__actions');
+
+    expect(projectActions.querySelectorAll('a')).toHaveLength(0);
+    expect(projectActions.querySelectorAll('[role="link"][aria-disabled="true"]')).toHaveLength(2);
+  });
+
   it('redirects an unsupported slug to the existing not-found route', async () => {
     await harness.navigateByUrl('/projects/unsupported');
 
