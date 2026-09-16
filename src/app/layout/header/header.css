@@ -6,8 +6,8 @@
   border-bottom: 1px solid transparent;
   background-color: transparent;
   box-shadow: none;
-  backdrop-filter: blur(0) saturate(100%);
-  -webkit-backdrop-filter: blur(0) saturate(100%);
+  backdrop-filter: blur(0);
+  -webkit-backdrop-filter: blur(0);
   transition:
     background-color 260ms ease-out,
     border-color 260ms ease-out,
@@ -15,52 +15,24 @@
     backdrop-filter 260ms ease-out;
 }
 
-/* Frosted pane: low alpha so the blur stays visible, a lit top edge and a
-   faint bottom seam - the same glass recipe the project cards use, tuned
-   for a dark surface. */
+/* Heavy blur plus a near-opaque bar: whatever scrolls under the header is
+   fully obscured, so the nav never competes with the page content. */
 .site-header--scrolled {
-  border-bottom-color: rgb(255 255 255 / 12%);
-  background-color: color-mix(in srgb, var(--color-canvas) 62%, transparent);
-  box-shadow:
-    inset 0 1px 0 rgb(255 255 255 / 14%),
-    0 8px 30px rgb(0 0 0 / 18%);
-  backdrop-filter: blur(22px) saturate(190%);
-  -webkit-backdrop-filter: blur(22px) saturate(190%);
-}
-
-/* Specular sheen across the top edge. */
-.site-header::after {
-  position: absolute;
-  z-index: 1;
-  height: 1px;
-  inset-inline: 0;
-  top: 0;
-  background: linear-gradient(
-    to right,
-    transparent 0%,
-    rgb(255 255 255 / 22%) 22%,
-    rgb(255 255 255 / 22%) 78%,
-    transparent 100%
-  );
-  content: '';
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 260ms ease-out;
-}
-
-.site-header--scrolled::after {
-  opacity: 1;
+  border-bottom-color: rgb(248 249 250 / 16%);
+  background-color: color-mix(in srgb, var(--color-canvas) 96%, transparent);
+  box-shadow: 0 8px 30px rgb(0 0 0 / 22%);
+  backdrop-filter: blur(40px) saturate(120%);
+  -webkit-backdrop-filter: blur(40px) saturate(120%);
 }
 
 @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
   .site-header--scrolled {
-    background-color: color-mix(in srgb, var(--color-canvas) 92%, transparent);
+    background-color: var(--color-canvas);
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .site-header,
-  .site-header::after {
+  .site-header {
     transition: none;
   }
 }
