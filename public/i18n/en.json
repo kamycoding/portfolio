@@ -79,12 +79,26 @@
     "introduction": "Take a look at selected projects that show my approach to responsive, user-friendly interfaces and maintainable code.",
     "featured": "Featured project",
     "details": "Project details",
+    "plannedStack": "Planned stack",
+    "technologiesAria": "Technologies used for {{project}}",
     "items": {
+      "heldio": {
+        "description": "A product concept for contextual language learning, shaped around practical, real-life learning needs.",
+        "imageAlt": "Heldio contextual language-learning product dashboard",
+        "implementation": "A product concept exploring how contextual lessons, focused practice and visible progress could support language learning for everyday situations.",
+        "duration": "Not specified"
+      },
       "join": {
         "description": "A responsive Kanban task management application with account authentication, guest access, contact management, task workflows, and an intuitive drag-and-drop board.",
-        "imageAlt": "Join task manager displayed on a laptop",
+        "imageAlt": "Join Kanban task management dashboard",
         "implementation": "Built collaboratively as a team project with reusable Angular 22 components, reactive state management using RxJS, Angular CDK drag and drop, and Supabase authentication with PostgreSQL persistence for contacts and tasks.",
         "duration": "5 weeks"
+      },
+      "sogand": {
+        "description": "A personal portfolio website presenting the work and perspective of a UX/UI and Product Designer.",
+        "imageAlt": "Homepage of Sogand's UX/UI and Product Design portfolio",
+        "implementation": "Created as a focused portfolio experience that gives Sogand's profile, design work and product perspective a clear visual hierarchy.",
+        "duration": "4 months"
       },
       "elPolloLoco": {
         "description": "Jump, run and throw game based on an object-oriented approach. Help Pepe find coins and tabasco salsa to fight the crazy hen.",
@@ -110,7 +124,6 @@
     "duration": "Duration:",
     "technologiesAria": "Technologies used",
     "previewAria": "{{project}} preview",
-    "featuredAlt": "Featured project",
     "linksAria": "Project links",
     "liveTest": "Live Test"
   },

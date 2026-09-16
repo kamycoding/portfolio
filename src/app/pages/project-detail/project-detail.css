@@ -63,10 +63,10 @@
 
 .project-detail__title-group h1 {
   margin: 0;
-  font-size: clamp(48px, 4.445vw, 64px);
+  font-size: clamp(40px, 4.445vw, 64px);
   font-weight: 700;
-  line-height: 1;
-  white-space: nowrap;
+  line-height: 1.05;
+  text-wrap: balance;
 }
 
 .project-detail__title-underline {
@@ -130,32 +130,41 @@
   white-space: nowrap;
 }
 
-.project-detail__technologies img {
+.project-detail__technologies iconify-icon {
+  display: block;
   width: 24px;
   height: 24px;
-  object-fit: contain;
+  flex: 0 0 24px;
 }
 
 .project-detail__showcase {
   color: var(--color-foreground);
 }
 
+/* Framed glass pane so the transparent artwork reads against the dark page. */
 .project-detail__preview {
   position: relative;
   width: 100%;
   margin: 0 auto;
+  padding: clamp(14px, 2.2vw, 28px);
+  border: 1px solid rgb(255 255 255 / 70%);
+  border-radius: 24px;
+  background: #fff;
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 90%);
 }
 
 .project-detail__preview-image {
+  position: relative;
+  z-index: 1;
   display: block;
   width: 100%;
   height: auto;
-  border-radius: 20px;
+  border-radius: 16px;
 }
 
-.project-detail__badge,
 .project-detail__brand-stamp {
   position: absolute;
+  z-index: 2;
   top: 50%;
   inset-inline-end: -60px;
   width: 120px;
@@ -235,7 +244,6 @@
     gap: 8px;
   }
 
-  .project-detail__badge,
   .project-detail__brand-stamp {
     display: none;
   }

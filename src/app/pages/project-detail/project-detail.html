@@ -60,19 +60,19 @@
             {{ project.durationKey | translate }}
           </p>
 
-          <ul
-            class="project-detail__technologies"
-            [attr.aria-label]="'projectDetail.technologiesAria' | translate"
-          >
-            @for (technology of project.technologies; track technology.label) {
-              <li>
-                @if (technology.iconSrc) {
-                  <img [src]="technology.iconSrc" alt="" aria-hidden="true" draggable="false" />
-                }
-                <span>{{ technology.label }}</span>
-              </li>
-            }
-          </ul>
+          @if (project.technologies.length) {
+            <ul
+              class="project-detail__technologies"
+              [attr.aria-label]="'projectDetail.technologiesAria' | translate"
+            >
+              @for (technology of project.technologies; track technology.label) {
+                <li>
+                  <iconify-icon [attr.icon]="technology.icon" aria-hidden="true"></iconify-icon>
+                  <span>{{ technology.label }}</span>
+                </li>
+              }
+            </ul>
+          }
         </div>
       </article>
 
@@ -85,31 +85,27 @@
             class="project-detail__preview-image"
             [src]="project.imageSrc"
             [alt]="project.imageAltKey | translate"
+            [width]="project.imageWidth"
+            [height]="project.imageHeight"
+            fetchpriority="high"
+            decoding="async"
             draggable="false"
           />
 
-          @if (project.variant === 'featured') {
-            <img
-              class="project-detail__badge"
-              [src]="project.badgeSrc"
-              [alt]="'projectDetail.featuredAlt' | translate"
-              draggable="false"
-            />
-          } @else {
-            <app-brand-stamp class="project-detail__brand-stamp" />
-          }
+          <app-brand-stamp class="project-detail__brand-stamp" />
         </figure>
 
         <div
           class="project-detail__actions"
           [attr.aria-label]="'projectDetail.linksAria' | translate"
         >
-          <app-cta-link label="GitHub" [href]="project.githubUrl" [disabled]="!project.githubUrl" />
-          <app-cta-link
-            [label]="'projectDetail.liveTest' | translate"
-            [href]="project.liveUrl"
-            [disabled]="!project.liveUrl"
-          />
+          @if (project.githubUrl; as githubUrl) {
+            <app-cta-link label="GitHub" [href]="githubUrl" />
+          }
+
+          @if (project.liveUrl; as liveUrl) {
+            <app-cta-link [label]="'projectDetail.liveTest' | translate" [href]="liveUrl" />
+          }
         </div>
       </section>
     </div>

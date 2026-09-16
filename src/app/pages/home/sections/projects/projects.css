@@ -2,105 +2,308 @@
   display: block;
 }
 
-.projects__media {
+.projects__section {
+  background-color: var(--color-foreground);
+}
+
+.projects__grid {
+  position: relative;
+  display: grid;
+  margin-top: 64px;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 24px;
   isolation: isolate;
 }
 
-.projects__media::after {
+/* Colour wash sits behind the cards only - never bleeds onto the section,
+   so the torn-paper edge and the heading stay clean. */
+.projects__grid::before {
   position: absolute;
-  z-index: 5;
-  inset: 0;
-  background: linear-gradient(to bottom, transparent 42%, rgb(14 16 19 / 72%) 100%);
+  z-index: -1;
+  border-radius: 28px;
+  background:
+    radial-gradient(34rem 20rem at 4% 2%, rgb(51 85 255 / 42%), transparent 58%),
+    radial-gradient(30rem 18rem at 96% 14%, rgb(248 122 85 / 36%), transparent 56%),
+    radial-gradient(26rem 16rem at 62% 42%, rgb(124 92 255 / 26%), transparent 58%),
+    radial-gradient(28rem 18rem at 88% 82%, rgb(51 85 255 / 30%), transparent 58%),
+    radial-gradient(32rem 20rem at 14% 94%, rgb(248 122 85 / 32%), transparent 60%);
   content: '';
-  opacity: 1;
+  inset: 0;
   pointer-events: none;
-  transition: opacity 240ms ease-out;
 }
 
-.projects__card--featured .projects__media::after {
-  opacity: 0;
+.projects__card {
+  position: relative;
+  display: grid;
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid rgb(255 255 255 / 55%);
+  border-radius: 22px;
+  background: rgb(255 255 255 / 18%);
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 70%),
+    inset 0 -1px 0 rgb(255 255 255 / 30%),
+    0 12px 40px rgb(14 16 19 / 10%);
+  backdrop-filter: blur(16px) saturate(190%);
+  -webkit-backdrop-filter: blur(16px) saturate(190%);
+  transition:
+    border-color 320ms ease-out,
+    box-shadow 320ms ease-out,
+    background-color 320ms ease-out,
+    transform 320ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
+/* Specular highlight along the top edge - the cue that reads as glass. */
+.projects__card::before {
+  position: absolute;
+  z-index: 4;
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent 0%,
+    rgb(255 255 255 / 90%) 18%,
+    rgb(255 255 255 / 90%) 82%,
+    transparent 100%
+  );
+  content: '';
+  inset: 0 0 auto;
+  pointer-events: none;
+}
+
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .projects__card {
+    background: rgb(255 255 255 / 88%);
+  }
+}
+
+.projects__card:not(.projects__card--featured) {
+  grid-template-rows: auto minmax(0, 1fr);
+  align-content: start;
+}
+
+.projects__media {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  padding: 14px;
+  border-bottom: 1px solid rgb(255 255 255 / 40%);
+}
+
+/* Glass pane the artwork floats on, inset from the card edge. */
+.projects__media::before {
+  position: absolute;
+  z-index: 0;
+  border: 1px solid rgb(255 255 255 / 75%);
+  border-radius: 14px;
+  background: linear-gradient(
+    145deg,
+    rgb(255 255 255 / 72%) 0%,
+    rgb(255 255 255 / 52%) 48%,
+    rgb(255 255 255 / 66%) 100%
+  );
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 85%);
+  backdrop-filter: blur(14px) saturate(150%);
+  -webkit-backdrop-filter: blur(14px) saturate(150%);
+  content: '';
+  inset: 6px;
+  pointer-events: none;
+}
+
+/* contain, so the whole mockup sits inside the frame instead of being
+   cropped against the card edge. */
 .projects__image {
-  object-fit: cover;
-  transition: transform 360ms cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.projects__card--featured .projects__image {
-  animation: featured-project-float 4.8s ease-in-out infinite;
+  position: relative;
+  z-index: 1;
+  display: block;
+  width: 100%;
+  height: 100%;
   object-fit: contain;
-  transition-duration: 650ms;
-  transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  transition: transform 260ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+.projects__content {
+  display: flex;
+  min-width: 0;
+  padding: 24px;
+  flex-direction: column;
+}
+
+/* Round "Featured project" sticker, pinned to the artwork's top-start corner. */
 .projects__badge {
-  filter: drop-shadow(0 4px 5px rgb(14 16 19 / 24%));
+  position: absolute;
+  z-index: 3;
+  top: 50%;
+  inset-inline-start: 12px;
+  width: clamp(64px, 17vw, 88px);
+  height: auto;
+  translate: 0 -50%;
+  rotate: -8deg;
   pointer-events: none;
   user-select: none;
 }
 
+.projects__content h3 {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.1;
+  transition: color 240ms ease-out;
+}
+
+.projects__description {
+  margin: 16px 0 0;
+  font-size: 16px;
+  line-height: 1.5;
+  text-align: start;
+}
+
+.projects__technology-section {
+  margin-top: 24px;
+}
+
+.projects__technology-label {
+  margin: 0 0 8px;
+  color: rgb(14 16 19 / 72%);
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: 0.03em;
+}
+
+.projects__technologies {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  flex-wrap: wrap;
+  gap: 8px;
+  list-style: none;
+}
+
+.projects__technologies li {
+  display: inline-flex;
+  padding: 6px 10px;
+  align-items: center;
+  gap: 6px;
+  border: 1px solid rgb(255 255 255 / 60%);
+  border-radius: 999px;
+  background: rgb(255 255 255 / 24%);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 60%);
+  backdrop-filter: blur(10px) saturate(170%);
+  -webkit-backdrop-filter: blur(10px) saturate(170%);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.2;
+}
+
+.projects__technology-icon {
+  display: block;
+  width: 16px;
+  height: 16px;
+  flex: 0 0 16px;
+}
+
 .projects__details-link {
   --cta-color: var(--color-canvas);
+  --cta-min-width: 144px;
 
-  transition:
-    opacity 180ms ease-out,
-    transform 280ms cubic-bezier(0.16, 1, 0.3, 1);
+  margin-top: auto;
+  padding-top: 28px;
+  align-self: flex-start;
 }
 
 @media (min-width: 64rem) {
-  .projects__card--el-pollo-loco .projects__details-link {
-    margin-bottom: 40px;
+  .projects__grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .projects__card--featured {
+    grid-column: 1 / -1;
+    grid-template-columns: minmax(0, 1.45fr) minmax(300px, 0.85fr);
+  }
+
+  .projects__card--featured .projects__media {
+    padding: clamp(16px, 1.6vw, 26px);
+    border-right: 1px solid rgb(255 255 255 / 40%);
+    border-bottom: 0;
+    aspect-ratio: 3 / 2;
+  }
+
+  /* The Heldio artwork is already a framed device shot - no pane behind it. */
+  .projects__card--featured .projects__media::before {
+    content: none;
+  }
+
+  /* Let the sticker hang half-way past the card edge. */
+  .projects__card--featured,
+  .projects__card--featured .projects__media {
+    overflow: visible;
+  }
+
+  /* Overhang is capped at the section's own side padding (32px at this
+     breakpoint), so the sticker never runs off the viewport. */
+  .projects__badge {
+    inset-inline-start: 0;
+    width: clamp(84px, 9vw, 112px);
+    translate: -24px -50%;
+  }
+
+  .projects__card--featured .projects__media {
+    border-radius: 22px 0 0 22px;
+  }
+
+  .projects__card--featured .projects__content {
+    padding: clamp(28px, 3vw, 48px);
+  }
+
+  .projects__card--featured h3 {
+    font-size: 32px;
   }
 }
 
-@media (min-width: 64rem) and (hover: hover) and (pointer: fine) {
-  .projects__details-link {
-    --cta-color: var(--color-foreground);
-
-    opacity: 0;
-    transform: translateY(8px);
+@media (min-width: 90rem) {
+  .projects__grid {
+    gap: 32px;
   }
 
-  .projects__media::after {
-    opacity: 0;
+  .projects__badge {
+    translate: -50% -50%;
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .projects__card:hover {
+    border-color: rgb(255 255 255 / 80%);
+    background: rgb(255 255 255 / 28%);
+    box-shadow:
+      inset 0 1px 0 rgb(255 255 255 / 85%),
+      inset 0 -1px 0 rgb(255 255 255 / 40%),
+      0 20px 56px rgb(14 16 19 / 13%);
+    transform: translateY(-4px);
   }
 
-  .projects__card:hover .projects__media::after,
-  .projects__card:focus-within .projects__media::after,
-  .projects__card:hover .projects__details-link,
-  .projects__card:focus-within .projects__details-link {
-    opacity: 1;
-    transform: translateY(0);
+  .projects__card:hover .projects__content h3 {
+    color: var(--color-primary);
   }
 
-  .projects__card:hover .projects__image,
-  .projects__card:focus-within .projects__image {
+  .projects__card:hover .projects__image {
     transform: scale(1.02);
   }
-
-  .projects__card--featured:hover .projects__image,
-  .projects__card--featured:focus-within .projects__image {
-    transform: scale(1.015);
-  }
 }
 
-@keyframes featured-project-float {
-  0%,
-  100% {
-    translate: 0 0;
-  }
+.projects__card:focus-within {
+  border-color: rgb(51 85 255 / 44%);
+  box-shadow:
+    0 0 0 3px rgb(51 85 255 / 12%),
+    0 14px 32px rgb(14 16 19 / 9%);
+}
 
-  50% {
-    translate: 0 -6px;
-  }
+.projects__card:focus-within .projects__content h3 {
+  color: var(--color-primary);
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .projects__card--featured .projects__image {
-    animation: none;
-  }
-
-  .projects__media::after,
+  .projects__card,
+  .projects__content h3,
   .projects__image,
   .projects__details-link {
     transition: none;

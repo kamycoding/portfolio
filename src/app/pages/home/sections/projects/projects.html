@@ -1,11 +1,9 @@
 <section
   id="projects"
-  class="scroll-mt-20 bg-foreground px-4 pt-22 text-canvas lg:px-8 lg:pt-36 min-[90rem]:px-30"
+  class="projects__section scroll-mt-20 px-4 pt-22 text-canvas lg:px-8 lg:pt-36 min-[90rem]:px-30"
   aria-labelledby="projects-title"
 >
-  <div
-    class="mx-auto grid w-full max-w-300 grid-cols-1 gap-y-10 lg:grid-cols-2 lg:gap-x-20 lg:gap-y-22"
-  >
+  <div class="mx-auto w-full max-w-300">
     <header class="w-full max-w-140 self-center">
       <p class="text-base leading-none font-medium uppercase lg:text-xl">
         {{ 'projects.eyebrow' | translate }}
@@ -29,55 +27,77 @@
       </p>
     </header>
 
-    @for (project of projects; track project.slug) {
-      <article
-        class="projects__card grid min-w-0 grid-cols-1"
-        [class.projects__card--featured]="project.variant === 'featured'"
-        [class.projects__card--el-pollo-loco]="project.slug === 'el-pollo-loco'"
-      >
-        <div
-          class="projects__media relative col-start-1 row-start-1 aspect-[560/399] overflow-hidden rounded-2xl"
+    <div class="projects__grid">
+      @for (project of projects; track project.slug) {
+        <article
+          class="projects__card"
+          [class.projects__card--featured]="project.variant === 'featured'"
         >
-          <img
-            class="projects__image block size-full"
-            [src]="project.imageSrc"
-            [alt]="project.imageAltKey | translate"
-            width="560"
-            height="399"
-            loading="lazy"
-            decoding="async"
-            draggable="false"
-          />
+          <div class="projects__media">
+            @if (project.variant === 'featured') {
+              <img
+                class="projects__badge"
+                src="/assets/projects/featured-project-badge.webp"
+                [alt]="'projects.featured' | translate"
+                width="168"
+                height="169"
+                loading="lazy"
+                decoding="async"
+                draggable="false"
+              />
+            }
 
-          @if (project.variant === 'featured') {
-            <span class="sr-only">{{ 'projects.featured' | translate }}</span>
             <img
-              class="projects__badge absolute top-1/2 left-0 z-10 w-[30%] -translate-y-1/2"
-              [src]="project.badgeSrc"
-              alt=""
-              aria-hidden="true"
-              width="168"
-              height="169"
-              loading="lazy"
+              class="projects__image"
+              [src]="project.imageSrc"
+              [alt]="project.imageAltKey | translate"
+              [width]="project.imageWidth"
+              [height]="project.imageHeight"
+              [attr.loading]="$first ? 'eager' : 'lazy'"
+              [attr.fetchpriority]="$first ? 'high' : null"
               decoding="async"
               draggable="false"
             />
-          }
-        </div>
+          </div>
 
-        <div class="col-start-1 row-start-2 mt-4">
-          <h3 class="text-xl leading-none font-bold lg:text-2xl">{{ project.title }}</h3>
-          <p class="mt-4 text-start text-base leading-normal lg:text-lg">
-            {{ project.descriptionKey | translate }}
-          </p>
-        </div>
+          <div class="projects__content">
+            <h3>{{ project.title }}</h3>
+            <p class="projects__description">{{ project.descriptionKey | translate }}</p>
 
-        <app-cta-link
-          class="projects__details-link z-20 col-start-1 row-start-3 mt-4 max-w-full min-w-40 justify-self-end lg:row-start-1 lg:mr-6 lg:mb-6 lg:mt-0 lg:min-w-44 lg:self-end"
-          [label]="'projects.details' | translate"
-          [route]="'/projects/' + project.slug"
-        />
-      </article>
-    }
+            @if (project.technologies.length) {
+              <div class="projects__technology-section">
+                @if (project.technologiesLabelKey; as labelKey) {
+                  <p class="projects__technology-label">{{ labelKey | translate }}</p>
+                }
+
+                <ul
+                  class="projects__technologies"
+                  [attr.aria-label]="
+                    'projects.technologiesAria' | translate: { project: project.title }
+                  "
+                >
+                  @for (technology of project.technologies; track technology.label) {
+                    <li>
+                      <iconify-icon
+                        class="projects__technology-icon"
+                        [attr.icon]="technology.icon"
+                        aria-hidden="true"
+                      ></iconify-icon>
+                      <span>{{ technology.label }}</span>
+                    </li>
+                  }
+                </ul>
+              </div>
+            }
+
+            <app-cta-link
+              class="projects__details-link"
+              [label]="'projects.details' | translate"
+              [route]="'/projects/' + project.slug"
+            />
+          </div>
+        </article>
+      }
+    </div>
   </div>
 </section>
