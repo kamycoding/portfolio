@@ -32,11 +32,11 @@ describe('ProjectDetail', () => {
 
     expect(getRouteElement<HTMLHeadingElement>('h1').textContent).toContain('Join');
     expect(getRouteElement<HTMLImageElement>('.project-detail__preview-image').alt).toContain(
-      'Join task manager',
+      'Join Kanban',
     );
     expect(harness.routeNativeElement?.textContent).toContain('Implementation Details');
     expect(harness.routeNativeElement?.querySelectorAll('app-cta-link')).toHaveLength(2);
-    expect(harness.routeNativeElement?.querySelector('app-brand-stamp')).toBeNull();
+    expect(harness.routeNativeElement?.querySelector('app-brand-stamp')).not.toBeNull();
     expect(title.getTitle()).toBe('Join | KamyCoding');
 
     await setTestLanguage(translate, 'de');
@@ -50,6 +50,11 @@ describe('ProjectDetail', () => {
     await harness.navigateByUrl('/projects/el-pollo-loco', ProjectDetail);
     expect(title.getTitle()).toBe('El Pollo Loco | KamyCoding');
 
+    await harness.navigateByUrl('/projects/heldio', ProjectDetail);
+    expect(getRouteElement<HTMLHeadingElement>('h1').textContent).toContain('Heldio');
+    expect(harness.routeNativeElement?.querySelector('.project-detail__badge')).toBeNull();
+    expect(title.getTitle()).toBe('Heldio | KamyCoding');
+
     await harness.navigateByUrl('/projects/dabubble', ProjectDetail);
 
     expect(getRouteElement<HTMLHeadingElement>('h1').textContent).toContain('DABubble');
@@ -61,13 +66,13 @@ describe('ProjectDetail', () => {
     await harness.navigateByUrl('/projects/join', ProjectDetail);
 
     expect(getRouteElement<HTMLAnchorElement>('.project-detail__next').getAttribute('href')).toBe(
-      '/projects/el-pollo-loco',
+      '/projects/sogand-personal-website',
     );
 
-    await harness.navigateByUrl('/projects/el-pollo-loco', ProjectDetail);
+    await harness.navigateByUrl('/projects/sogand-personal-website', ProjectDetail);
 
     expect(getRouteElement<HTMLAnchorElement>('.project-detail__next').getAttribute('href')).toBe(
-      '/projects/dabubble',
+      '/projects/el-pollo-loco',
     );
   });
 
@@ -110,13 +115,32 @@ describe('ProjectDetail', () => {
     expect(projectLinks.every((link) => link.rel === 'noopener noreferrer')).toBe(true);
   });
 
-  it('keeps project CTAs disabled when the project has no external URLs', async () => {
-    await harness.navigateByUrl('/projects/dabubble', ProjectDetail);
+  it('renders only the Heldio live link and omits the absent repository CTA', async () => {
+    await harness.navigateByUrl('/projects/heldio', ProjectDetail);
 
     const projectActions = getRouteElement<HTMLElement>('.project-detail__actions');
+    const projectLinks = projectActions.querySelectorAll<HTMLAnchorElement>('a');
 
-    expect(projectActions.querySelectorAll('a')).toHaveLength(0);
-    expect(projectActions.querySelectorAll('[role="link"][aria-disabled="true"]')).toHaveLength(2);
+    expect(projectLinks).toHaveLength(1);
+    expect(projectLinks[0].href).toBe('https://heldio.app/');
+    expect(projectLinks[0].textContent).not.toContain('GitHub');
+    expect(projectLinks[0].target).toBe('_blank');
+    expect(projectLinks[0].rel).toBe('noopener noreferrer');
+    expect(projectActions.querySelectorAll('[aria-disabled="true"]')).toHaveLength(0);
+  });
+
+  it('renders only the Sogand live link and omits the absent repository CTA', async () => {
+    await harness.navigateByUrl('/projects/sogand-personal-website', ProjectDetail);
+
+    const projectActions = getRouteElement<HTMLElement>('.project-detail__actions');
+    const projectLinks = projectActions.querySelectorAll<HTMLAnchorElement>('a');
+
+    expect(projectLinks).toHaveLength(1);
+    expect(projectLinks[0].href).toBe('https://www.sogandasari.com/');
+    expect(projectLinks[0].textContent).not.toContain('GitHub');
+    expect(projectLinks[0].target).toBe('_blank');
+    expect(projectLinks[0].rel).toBe('noopener noreferrer');
+    expect(projectActions.querySelectorAll('[aria-disabled="true"]')).toHaveLength(0);
   });
 
   it('redirects an unsupported slug to the existing not-found route', async () => {

@@ -1,8 +1,9 @@
-export type ProjectSlug = 'join' | 'el-pollo-loco' | 'dabubble';
+export type ProjectSlug =
+  'heldio' | 'join' | 'sogand-personal-website' | 'el-pollo-loco' | 'dabubble';
 
 export interface ProjectTechnology {
   readonly label: string;
-  readonly iconSrc?: string;
+  readonly icon: string;
 }
 
 interface BaseProject {
@@ -10,17 +11,20 @@ interface BaseProject {
   readonly title: string;
   readonly descriptionKey: string;
   readonly imageSrc: string;
+  readonly imageWidth: number;
+  readonly imageHeight: number;
   readonly imageAltKey: string;
   readonly implementationDetailsKey: string;
   readonly durationKey: string;
   readonly technologies: readonly ProjectTechnology[];
+  readonly technologiesLabelKey?: string;
   readonly githubUrl?: string;
   readonly liveUrl?: string;
+  readonly showOnHomepage: boolean;
 }
 
 export interface FeaturedProject extends BaseProject {
   readonly variant: 'featured';
-  readonly badgeSrc: string;
 }
 
 export interface StandardProject extends BaseProject {

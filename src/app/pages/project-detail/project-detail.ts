@@ -1,5 +1,12 @@
 import { DOCUMENT } from '@angular/common';
-import { Component, DestroyRef, computed, effect, inject } from '@angular/core';
+import {
+  Component,
+  CUSTOM_ELEMENTS_SCHEMA,
+  DestroyRef,
+  computed,
+  effect,
+  inject,
+} from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { Title } from '@angular/platform-browser';
@@ -12,6 +19,7 @@ import { CtaLink } from '../../shared/ui/cta-link/cta-link';
 @Component({
   selector: 'app-project-detail',
   imports: [RouterLink, CtaLink, BrandStamp, TranslatePipe],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   templateUrl: './project-detail.html',
   styleUrl: './project-detail.css',
 })
