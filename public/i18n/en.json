@@ -72,7 +72,7 @@
   "skills": {
     "eyebrow": "My stack",
     "heading": "Skill set",
-    "description": "I work with Angular, React, TypeScript, and Node.js to build modern, maintainable web applications. I enjoy working across the stack, solving real-world problems, and continuously improving through hands-on projects.",
+    "description": "I build modern, maintainable web products with Angular, React, TypeScript, and Node.js. I enjoy working across the stack, solving real problems, and turning ideas into thoughtful digital experiences.",
     "listAria": "Technologies and tools",
     "peel": {
       "revealAria": "Reveal technologies I am interested in learning",
@@ -151,10 +151,10 @@
   },
   "contact": {
     "eyebrow": "Contact me",
-    "heading": "Ready to work\ntogether?",
+    "heading": "Let’s build something meaningful.",
     "paragraphs": {
-      "projects": "I’m always open to thoughtful projects, new opportunities, and ideas where good engineering and strong user experience come together.",
-      "invitation": "If you think my full-stack experience could be a good fit, I’d be happy to hear from you."
+      "projects": "I’m open to interesting projects, new opportunities, and collaborations where thoughtful engineering and a strong user experience come together.",
+      "invitation": "If you’re looking for a developer who enjoys turning ideas into well-crafted digital products, I’d be glad to hear from you."
     },
     "fields": {
       "name": {
