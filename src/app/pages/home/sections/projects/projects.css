@@ -36,9 +36,11 @@
 /* A single viewport ratio gives every project card an equal footprint while
    preserving the complete artwork without a light backing frame. */
 .projects__media {
+  box-sizing: border-box;
   position: relative;
   aspect-ratio: 4 / 3;
   overflow: hidden;
+  padding-inline: 6px;
   border-bottom: 1px solid var(--color-canvas);
 }
 
@@ -178,7 +180,8 @@
   }
 
   .projects__card--featured .projects__media {
-    padding: clamp(8px, 0.9vw, 12px);
+    padding-block: 0;
+    padding-inline: clamp(6px, 0.5vw, 8px);
     border-right: 1px solid var(--color-canvas);
     border-bottom: 0;
     border-radius: 20px 0 0 20px;
