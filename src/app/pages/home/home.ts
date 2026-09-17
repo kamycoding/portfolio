@@ -11,6 +11,5 @@ import { Testimonials } from './sections/testimonials/testimonials';
   selector: 'app-home',
   imports: [Hero, About, Skills, Projects, Testimonials, ContactFooterSurface],
   templateUrl: './home.html',
-  styleUrl: './home.css',
 })
 export class Home {}

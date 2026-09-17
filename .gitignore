@@ -19,6 +19,7 @@ yarn-error.log
 *.launch
 .settings/
 *.sublime-workspace
+.kilo/
 
 # Visual Studio Code
 .vscode/*

@@ -2,8 +2,7 @@
   "pageTitles": {
     "notFound": "Seite nicht gefunden | KamyCoding",
     "legalNotice": "Impressum | KamyCoding",
-    "privacyPolicy": "Datenschutzerklärung | KamyCoding",
-    "projectDetail": "Projekt | KamyCoding"
+    "privacyPolicy": "Datenschutzerklärung | KamyCoding"
   },
   "nav": {
     "about": "Über mich",
@@ -58,8 +57,7 @@
     },
     "toggle": {
       "expand": "Mehr lesen",
-      "collapse": "Weniger anzeigen",
-      "aria": "Vollständige Biografie"
+      "collapse": "Weniger anzeigen"
     },
     "cta": "Lass uns sprechen",
     "availabilityAria": "Verfügbarkeit",
