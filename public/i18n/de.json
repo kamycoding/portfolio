@@ -87,14 +87,14 @@
     "introduction": "Entdecke ausgewählte Projekte, die meinen Ansatz für responsive, benutzerfreundliche Oberflächen und wartbaren Code zeigen.",
     "featured": "Ausgewähltes Projekt",
     "details": "Projektdetails",
-    "plannedStack": "Geplanter Stack",
+    "currentStack": "Aktueller Stack",
     "technologiesAria": "Verwendete Technologien für {{project}}",
     "items": {
       "heldio": {
-        "description": "Ein Produktkonzept für kontextbezogenes Sprachenlernen, ausgerichtet an praktischen Bedürfnissen im Alltag.",
+        "description": "Heldio ist eine KI-gestützte Plattform für kontextbezogenes Sprachenlernen. Sie verwandelt konkrete Lernziele und den persönlichen Kontext in einen individuellen Lernpfad mit gezielten Übungen, Feedback und sichtbarem Fortschritt.",
         "imageAlt": "Produkt-Dashboard von Heldio für kontextbezogenes Sprachenlernen",
-        "implementation": "Ein Produktkonzept, das untersucht, wie kontextbezogene Lektionen, gezielte Übungen und sichtbarer Lernfortschritt das Sprachenlernen in Alltagssituationen unterstützen können.",
-        "duration": "Nicht angegeben"
+        "implementation": "Der MVP bildet den gesamten Lernprozess ab: Ziel und Kontext erfassen, gezielte Rückfragen stellen, einen Lernplan erstellen, relevante Fähigkeiten üben, Feedback geben und Fortschritt verfolgen. Ich verantworte Produktkonzept, MVP-Scope, Roadmap und technische Architektur. Die responsive Webplattform wird mit Next.js, React, TypeScript, Tailwind CSS, NestJS und PostgreSQL entwickelt.",
+        "duration": "Seit 2026"
       },
       "join": {
         "description": "Eine responsive Kanban-Anwendung zur Aufgabenverwaltung mit Kontoanmeldung, Gastzugang, Kontaktverwaltung, Aufgabenworkflows und einem intuitiven Drag-and-drop-Board.",

@@ -72,7 +72,7 @@ describe('project data helpers', () => {
       'NestJS',
       'PostgreSQL',
     ]);
-    expect(project?.technologiesLabelKey).toBe('projects.plannedStack');
+    expect(project?.technologiesLabelKey).toBe('projects.currentStack');
     expect(project?.githubUrl).toBeUndefined();
     expect(project?.liveUrl).toBe('https://heldio.app/');
   });

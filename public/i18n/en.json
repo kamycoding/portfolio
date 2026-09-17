@@ -87,14 +87,14 @@
     "introduction": "Take a look at selected projects that show my approach to responsive, user-friendly interfaces and maintainable code.",
     "featured": "Featured project",
     "details": "Project details",
-    "plannedStack": "Planned stack",
+    "currentStack": "Current stack",
     "technologiesAria": "Technologies used for {{project}}",
     "items": {
       "heldio": {
-        "description": "A product concept for contextual language learning, shaped around practical, real-life learning needs.",
+        "description": "Heldio is an AI-powered platform for contextual language learning. It turns real-world learning goals and personal context into a tailored learning path with targeted practice, feedback, and visible progress.",
         "imageAlt": "Heldio contextual language-learning product dashboard",
-        "implementation": "A product concept exploring how contextual lessons, focused practice and visible progress could support language learning for everyday situations.",
-        "duration": "Not specified"
+        "implementation": "The MVP covers the complete learning flow: capturing a goal and context, asking relevant follow-up questions, creating a learning plan, practicing relevant skills, providing feedback, and tracking progress. I lead the product concept, MVP scope, roadmap, and technical architecture. The responsive web platform is being built with Next.js, React, TypeScript, Tailwind CSS, NestJS, and PostgreSQL.",
+        "duration": "Since 2026"
       },
       "join": {
         "description": "A responsive Kanban task management application with account authentication, guest access, contact management, task workflows, and an intuitive drag-and-drop board.",

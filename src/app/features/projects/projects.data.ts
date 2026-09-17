@@ -37,7 +37,7 @@ export const PORTFOLIO_PROJECTS = [
       TECHNOLOGIES.nestJs,
       TECHNOLOGIES.postgresql,
     ],
-    technologiesLabelKey: 'projects.plannedStack',
+    technologiesLabelKey: 'projects.currentStack',
     liveUrl: 'https://heldio.app/',
     variant: 'featured',
     showOnHomepage: true,
