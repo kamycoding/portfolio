@@ -97,9 +97,9 @@
         "duration": "Since 2026"
       },
       "join": {
-        "description": "A responsive Kanban task management application with account authentication, guest access, contact management, task workflows, and an intuitive drag-and-drop board.",
+        "description": "Join is a responsive Kanban application for organizing tasks and workflows. Users can create and manage tasks and move them between different stages using drag and drop. The application also includes user accounts, guest access, and integrated contact management.",
         "imageAlt": "Join Kanban task management dashboard",
-        "implementation": "Built collaboratively as a team project with reusable Angular 22 components, reactive state management using RxJS, Angular CDK drag and drop, and Supabase authentication with PostgreSQL persistence for contacts and tasks.",
+        "implementation": "The project was built collaboratively using Angular 22, TypeScript, SCSS, and Supabase. My main responsibility was the contact management feature, including creating, editing, deleting, and grouping contacts, as well as building the related detail views and validation logic. Supabase handles authentication and PostgreSQL persistence, while Angular CDK and RxJS are used for interactive workflows and reactive data handling.",
         "duration": "5 weeks"
       },
       "sogand": {

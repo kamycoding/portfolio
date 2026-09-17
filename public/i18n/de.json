@@ -97,9 +97,9 @@
         "duration": "Seit 2026"
       },
       "join": {
-        "description": "Eine responsive Kanban-Anwendung zur Aufgabenverwaltung mit Kontoanmeldung, Gastzugang, Kontaktverwaltung, Aufgabenworkflows und einem intuitiven Drag-and-drop-Board.",
+        "description": "Join ist eine responsive Kanban-Anwendung zur Organisation von Aufgaben und Workflows. Nutzer können Aufgaben erstellen, verwalten und per Drag and Drop zwischen verschiedenen Status verschieben. Zusätzlich bietet die Anwendung Benutzerkonten, Gastzugang und eine integrierte Kontaktverwaltung.",
         "imageAlt": "Kanban-Dashboard der Aufgabenverwaltung Join",
-        "implementation": "Als kollaboratives Teamprojekt mit wiederverwendbaren Angular-22-Komponenten, reaktivem State-Management mit RxJS, Drag-and-drop über Angular CDK sowie Supabase-Authentifizierung und PostgreSQL-Persistenz für Kontakte und Aufgaben umgesetzt.",
+        "implementation": "Das Projekt wurde als kollaborative Teamarbeit mit Angular 22, TypeScript, SCSS und Supabase umgesetzt. Ich war hauptsächlich für die Kontaktverwaltung verantwortlich und entwickelte Funktionen zum Erstellen, Bearbeiten, Löschen und Gruppieren von Kontakten sowie die zugehörigen Detailansichten und Validierungen. Supabase übernimmt Authentifizierung und PostgreSQL-Persistenz, während Angular CDK und RxJS für interaktive Workflows und reaktive Datenverarbeitung eingesetzt werden.",
         "duration": "5 Wochen"
       },
       "sogand": {
