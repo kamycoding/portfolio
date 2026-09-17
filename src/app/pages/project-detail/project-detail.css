@@ -245,7 +245,8 @@
 @media (max-width: 63.999rem) {
   .project-detail {
     display: flex;
-    min-height: 1120px;
+    min-height: 100vh;
+    min-height: 100svh;
     padding: 96px 16px 0;
     flex-direction: column;
     background-image: url('/assets/project-detail/project-detail-bg-mobile.webp');
@@ -304,6 +305,7 @@
   }
 
   .project-detail__actions {
+    margin-top: clamp(20px, 4vw, 28px);
     justify-content: center;
     gap: 32px;
   }
@@ -315,8 +317,8 @@
   .project-detail__navigation {
     display: flex;
     min-height: 72px;
-    margin: auto -16px 0;
-    padding: 24px 16px;
+    margin: clamp(48px, 8vw, 64px) -16px 0;
+    padding: 24px 16px 36px;
     order: 2;
     align-items: center;
     justify-content: space-between;
