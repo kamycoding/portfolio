@@ -33,19 +33,15 @@
   align-content: start;
 }
 
-/* Tight padding: the artwork already carries its own margin, so the frame
-   only needs enough inset to keep it off the card border. */
+/* A single viewport ratio gives every project card an equal footprint while
+   preserving the complete artwork without a light backing frame. */
 .projects__media {
   position: relative;
   aspect-ratio: 4 / 3;
   overflow: hidden;
-  padding: 6px;
   border-bottom: 1px solid var(--color-canvas);
-  background: #eef1f6;
 }
 
-/* contain, so the whole mockup sits inside the frame instead of being
-   cropped against the card edge. */
 .projects__image {
   position: relative;
   z-index: 1;
@@ -187,11 +183,9 @@
     border-bottom: 0;
     border-radius: 20px 0 0 20px;
 
-    /* No fixed ratio: the media column takes the card's full height from the
-       content column, so the artwork gets every pixel available. The floor
-       keeps the frame from collapsing if the copy column is ever short. */
-    min-height: 340px;
-    aspect-ratio: auto;
+    min-height: 0;
+    aspect-ratio: 4 / 3;
+    align-self: start;
   }
 
   .projects__card--featured .projects__content {

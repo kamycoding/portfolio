@@ -59,9 +59,9 @@ describe('ProjectDetail', () => {
   it('links to projects in the intended cyclic order', async () => {
     await harness.navigateByUrl('/projects/join', ProjectDetail);
 
-    expect(getRouteElement<HTMLAnchorElement>('.project-detail__next').getAttribute('href')).toBe(
-      '/projects/sogand-personal-website',
-    );
+    const nextProjectLink = getRouteElement<HTMLAnchorElement>('.project-detail__next');
+    expect(nextProjectLink.getAttribute('href')).toBe('/projects/sogand-personal-website');
+    expect(nextProjectLink.closest('.project-detail__showcase')).not.toBeNull();
 
     await harness.navigateByUrl('/projects/sogand-personal-website', ProjectDetail);
 

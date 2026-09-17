@@ -14,21 +14,6 @@
         <span>{{ 'projectDetail.back' | translate }}</span>
       </a>
 
-      @if (nextProject(); as nextProject) {
-        <a
-          class="project-detail__next"
-          [routerLink]="['/projects', nextProject.slug]"
-          [attr.aria-label]="'projectDetail.nextAria' | translate: { project: nextProject.title }"
-        >
-          <span>{{ 'projectDetail.next' | translate }}</span>
-          <img
-            src="/assets/project-detail/next-arrow.svg"
-            alt=""
-            aria-hidden="true"
-            draggable="false"
-          />
-        </a>
-      }
     </nav>
 
     <div class="project-detail__layout">
@@ -86,10 +71,7 @@
         class="project-detail__showcase"
         [attr.aria-label]="'projectDetail.previewAria' | translate: { project: project.title }"
       >
-        <figure
-          class="project-detail__preview"
-          [class.project-detail__preview--frameless]="project.slug === 'sogand-personal-website'"
-        >
+        <figure class="project-detail__preview">
           <img
             class="project-detail__preview-image"
             [src]="project.imageSrc"
@@ -116,6 +98,27 @@
             <app-cta-link [label]="'projectDetail.liveTest' | translate" [href]="liveUrl" />
           }
         </div>
+
+        @if (nextProject(); as nextProject) {
+          <nav
+            class="project-detail__next-navigation"
+            [attr.aria-label]="'projectDetail.navigationAria' | translate"
+          >
+            <a
+              class="project-detail__next"
+              [routerLink]="['/projects', nextProject.slug]"
+              [attr.aria-label]="'projectDetail.nextAria' | translate: { project: nextProject.title }"
+            >
+              <span>{{ 'projectDetail.next' | translate }}</span>
+              <img
+                src="/assets/project-detail/next-arrow.svg"
+                alt=""
+                aria-hidden="true"
+                draggable="false"
+              />
+            </a>
+          </nav>
+        }
       </section>
     </div>
   </main>
