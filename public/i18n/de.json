@@ -103,9 +103,9 @@
         "duration": "5 Wochen"
       },
       "sogand": {
-        "description": "Eine persönliche Portfolio-Website, die die Arbeit und Perspektive einer UX/UI- und Produktdesignerin präsentiert.",
+        "description": "Eine persönliche Portfolio-Website für eine UX/UI- und Product Designerin. Die Website präsentiert Projekte, Arbeitsweise und Designperspektive in einer klaren, modernen und visuell fokussierten Struktur.",
         "imageAlt": "Startseite von Sogands Portfolio für UX/UI- und Produktdesign",
-        "implementation": "Als fokussiertes Portfolio-Erlebnis umgesetzt, das Sogands Profil, Designarbeiten und Produktperspektive in einer klaren visuellen Hierarchie präsentiert.",
+        "implementation": "Die Website wurde mit Next.js, React, TypeScript und Tailwind CSS umgesetzt. Der Fokus lag auf einer klaren visuellen Hierarchie, responsivem Design, flüssiger Navigation und gezielten Animationen mit Framer Motion. Inhalte und Projekte wurden so strukturiert, dass die Designarbeit schnell erfassbar und gleichzeitig persönlich präsentiert wird.",
         "duration": "4 Monate"
       },
       "elPolloLoco": {

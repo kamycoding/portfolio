@@ -85,6 +85,6 @@ describe('Projects', () => {
       'Aktueller Stack',
     );
     expect(host.textContent).toContain('kontextbezogenes Sprachenlernen');
-    expect(host.textContent).toContain('UX/UI- und Produktdesignerin');
+    expect(host.textContent).toContain('UX/UI- und Product Designerin');
   });
 });

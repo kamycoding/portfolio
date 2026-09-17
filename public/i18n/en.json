@@ -103,9 +103,9 @@
         "duration": "5 weeks"
       },
       "sogand": {
-        "description": "A personal portfolio website presenting the work and perspective of a UX/UI and Product Designer.",
+        "description": "A personal portfolio website for a UX/UI and Product Designer. The website presents selected projects, design process, and product perspective through a clear, modern, and visually focused experience.",
         "imageAlt": "Homepage of Sogand's UX/UI and Product Design portfolio",
-        "implementation": "Created as a focused portfolio experience that gives Sogand's profile, design work and product perspective a clear visual hierarchy.",
+        "implementation": "The website was built with Next.js, React, TypeScript, and Tailwind CSS. The implementation focused on clear visual hierarchy, responsive design, smooth navigation, and purposeful animations using Framer Motion. The content and projects were structured to make the design work easy to explore while keeping the overall experience personal.",
         "duration": "4 months"
       },
       "elPolloLoco": {
