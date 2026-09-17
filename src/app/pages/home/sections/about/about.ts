@@ -1,8 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { TranslatePipe } from '@ngx-translate/core';
 
 import { CtaLink } from '../../../../shared/ui/cta-link/cta-link';
-import type { AvailabilityCard } from './about.model';
+import type { AboutParagraph, AvailabilityCard } from './about.model';
 
 @Component({
   selector: 'app-about',
@@ -11,6 +11,24 @@ import type { AvailabilityCard } from './about.model';
   styleUrl: './about.css',
 })
 export class About {
+  protected readonly isBiographyExpanded = signal(false);
+
+  /** Always visible; the remaining paragraphs sit behind the read-more toggle. */
+  protected readonly leadParagraphs: readonly AboutParagraph[] = [
+    { id: 'introduction', key: 'about.paragraphs.introduction' },
+    { id: 'origin', key: 'about.paragraphs.origin' },
+  ];
+
+  protected readonly additionalParagraphs: readonly AboutParagraph[] = [
+    { id: 'academic', key: 'about.paragraphs.academic' },
+    { id: 'focus', key: 'about.paragraphs.focus' },
+    { id: 'personal', key: 'about.paragraphs.personal' },
+  ];
+
+  protected toggleBiography(): void {
+    this.isBiographyExpanded.update((expanded) => !expanded);
+  }
+
   protected readonly availabilityCards: readonly AvailabilityCard[] = [
     {
       id: 'cologne',

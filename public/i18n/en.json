@@ -50,8 +50,16 @@
     "eyebrow": "Who's Kamyar?",
     "heading": "About me",
     "paragraphs": {
-      "introduction": "I’m Kamyar, a full-stack developer based near Cologne. With a background in design, I approach software from both a technical and a user perspective.",
-      "values": "I’m interested in building products that are not only well engineered, but also intuitive to use. My main interests are modern software architecture and practical ways to integrate AI into real-world applications."
+      "introduction": "I'm Kamyar, a Software Developer with around three years of experience in software development.",
+      "origin": "My connection with computers started long before I began programming. As a kid, I spent a lot of time playing games on my PC, but I was also curious about what was happening behind everything I saw on the screen. That curiosity eventually made me want to do more than simply use computers. I wanted to create things with them.",
+      "academic": "My academic journey started in architecture, where I was especially interested in digital tools, 3D modeling, and the connection between technology and creativity. Over time, I realized that I wanted to explore software development more deeply.",
+      "focus": "I started with web development and a strong focus on frontend. Today, I am expanding into backend development, software architecture, and AI-powered products. What keeps me interested is that there is always something new to learn, understand, and improve.",
+      "personal": "When I'm not coding, I enjoy gaming, spending time with my family and my cat, or going for a run. Running helps me clear my head, and it is often where new ideas begin."
+    },
+    "toggle": {
+      "expand": "Read more",
+      "collapse": "Show less",
+      "aria": "Full biography"
     },
     "cta": "Let’s talk",
     "availabilityAria": "Work availability",

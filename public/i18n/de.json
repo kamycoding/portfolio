@@ -50,8 +50,16 @@
     "eyebrow": "Wer ist Kamyar?",
     "heading": "Über mich",
     "paragraphs": {
-      "introduction": "Ich bin Kamyar und arbeite als Full-Stack-Entwickler in der Nähe von Köln. Durch meinen Design-Hintergrund betrachte ich Software nicht nur aus technischer Sicht, sondern auch aus der Perspektive der Menschen, die sie nutzen.",
-      "values": "Mein besonderes Interesse gilt moderner Softwarearchitektur und sinnvollen Einsatzmöglichkeiten von KI in realen Anwendungen."
+      "introduction": "Ich bin Kamyar, Software Developer mit rund drei Jahren Erfahrung in der Softwareentwicklung.",
+      "origin": "Meine Verbindung zu Computern begann schon lange vor dem Programmieren. Als Kind habe ich viel Zeit am PC verbracht und leidenschaftlich gerne gespielt. Gleichzeitig wollte ich immer verstehen, was hinter dem passiert, was ich auf dem Bildschirm sehe. Genau diese Neugier hat mich irgendwann dazu gebracht, nicht nur Computer zu benutzen, sondern selbst etwas mit ihnen zu erschaffen.",
+      "academic": "Mein akademischer Weg begann in der Architektur. Auch dort haben mich besonders digitale Werkzeuge, 3D-Modellierung und die Verbindung zwischen Technologie und Kreativität interessiert. Mit der Zeit wurde mir klar, dass ich mich intensiver mit Softwareentwicklung beschäftigen möchte.",
+      "focus": "Ich begann mit Web Development und einem starken Fokus auf Frontend. Heute erweitere ich meinen Fokus auf Backend Development, Softwarearchitektur und AI-basierte Produkte. Was mich an diesem Bereich besonders fasziniert, ist, dass es immer etwas Neues zu lernen, zu verstehen und zu verbessern gibt.",
+      "personal": "Wenn ich nicht programmiere, spiele ich gerne, verbringe Zeit mit meiner Familie und meiner Katze oder gehe laufen. Beim Laufen bekomme ich den Kopf frei und oft entstehen dabei neue Ideen."
+    },
+    "toggle": {
+      "expand": "Mehr lesen",
+      "collapse": "Weniger anzeigen",
+      "aria": "Vollständige Biografie"
     },
     "cta": "Lass uns sprechen",
     "availabilityAria": "Verfügbarkeit",
