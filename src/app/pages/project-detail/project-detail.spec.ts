@@ -54,20 +54,14 @@ describe('ProjectDetail', () => {
     expect(getRouteElement<HTMLHeadingElement>('h1').textContent).toContain('Heldio');
     expect(harness.routeNativeElement?.querySelector('.project-detail__badge')).toBeNull();
     expect(title.getTitle()).toBe('Heldio | KamyCoding');
-
-    await harness.navigateByUrl('/projects/dabubble', ProjectDetail);
-
-    expect(getRouteElement<HTMLHeadingElement>('h1').textContent).toContain('DABubble');
-    expect(harness.routeNativeElement?.querySelector('app-brand-stamp')).not.toBeNull();
-    expect(title.getTitle()).toBe('DABubble | KamyCoding');
   });
 
   it('links to projects in the intended cyclic order', async () => {
     await harness.navigateByUrl('/projects/join', ProjectDetail);
 
-    expect(getRouteElement<HTMLAnchorElement>('.project-detail__next').getAttribute('href')).toBe(
-      '/projects/sogand-personal-website',
-    );
+    const nextProjectLink = getRouteElement<HTMLAnchorElement>('.project-detail__next');
+    expect(nextProjectLink.getAttribute('href')).toBe('/projects/sogand-personal-website');
+    expect(nextProjectLink.closest('.project-detail__showcase')).not.toBeNull();
 
     await harness.navigateByUrl('/projects/sogand-personal-website', ProjectDetail);
 

@@ -31,13 +31,53 @@
       </header>
 
       <div class="flex flex-col gap-6 text-base leading-normal min-[360px]:text-lg lg:text-xl">
-        <p>
-          {{ 'about.paragraphs.introduction' | translate }}
-        </p>
+        @for (paragraph of leadParagraphs; track paragraph.id) {
+          <p>{{ paragraph.key | translate }}</p>
+        }
 
-        <p>
-          {{ 'about.paragraphs.values' | translate }}
-        </p>
+        <div
+          id="about-biography"
+          class="about__collapsible"
+          [class.about__collapsible--expanded]="isBiographyExpanded()"
+          [attr.aria-hidden]="isBiographyExpanded() ? null : 'true'"
+          [attr.inert]="isBiographyExpanded() ? null : ''"
+        >
+          <div class="about__collapsible-inner flex flex-col gap-6">
+            @for (paragraph of additionalParagraphs; track paragraph.id) {
+              <p>{{ paragraph.key | translate }}</p>
+            }
+          </div>
+        </div>
+
+        <button
+          type="button"
+          class="about__toggle self-start"
+          [attr.aria-expanded]="isBiographyExpanded()"
+          aria-controls="about-biography"
+          (click)="toggleBiography()"
+        >
+          <span>
+            {{
+              (isBiographyExpanded() ? 'about.toggle.collapse' : 'about.toggle.expand') | translate
+            }}
+          </span>
+
+          <svg
+            class="about__toggle-chevron"
+            viewBox="0 0 24 24"
+            width="18"
+            height="18"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+            focusable="false"
+          >
+            <path d="m6 9 6 6 6-6" />
+          </svg>
+        </button>
       </div>
 
       <app-cta-link

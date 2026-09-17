@@ -50,8 +50,16 @@
     "eyebrow": "Wer ist Kamyar?",
     "heading": "Über mich",
     "paragraphs": {
-      "introduction": "Ich bin Kamyar und arbeite als Full-Stack-Entwickler in der Nähe von Köln. Durch meinen Design-Hintergrund betrachte ich Software nicht nur aus technischer Sicht, sondern auch aus der Perspektive der Menschen, die sie nutzen.",
-      "values": "Mein besonderes Interesse gilt moderner Softwarearchitektur und sinnvollen Einsatzmöglichkeiten von KI in realen Anwendungen."
+      "introduction": "Ich bin Kamyar, Software Developer mit rund drei Jahren Erfahrung in der Softwareentwicklung.",
+      "origin": "Meine Verbindung zu Computern begann schon lange vor dem Programmieren. Als Kind habe ich viel Zeit am PC verbracht und leidenschaftlich gerne gespielt. Gleichzeitig wollte ich immer verstehen, was hinter dem passiert, was ich auf dem Bildschirm sehe. Genau diese Neugier hat mich irgendwann dazu gebracht, nicht nur Computer zu benutzen, sondern selbst etwas mit ihnen zu erschaffen.",
+      "academic": "Mein akademischer Weg begann in der Architektur. Auch dort haben mich besonders digitale Werkzeuge, 3D-Modellierung und die Verbindung zwischen Technologie und Kreativität interessiert. Mit der Zeit wurde mir klar, dass ich mich intensiver mit Softwareentwicklung beschäftigen möchte.",
+      "focus": "Ich begann mit Web Development und einem starken Fokus auf Frontend. Heute erweitere ich meinen Fokus auf Backend Development, Softwarearchitektur und AI-basierte Produkte. Was mich an diesem Bereich besonders fasziniert, ist, dass es immer etwas Neues zu lernen, zu verstehen und zu verbessern gibt.",
+      "personal": "Wenn ich nicht programmiere, spiele ich gerne, verbringe Zeit mit meiner Familie und meiner Katze oder gehe laufen. Beim Laufen bekomme ich den Kopf frei und oft entstehen dabei neue Ideen."
+    },
+    "toggle": {
+      "expand": "Mehr lesen",
+      "collapse": "Weniger anzeigen",
+      "aria": "Vollständige Biografie"
     },
     "cta": "Lass uns sprechen",
     "availabilityAria": "Verfügbarkeit",
@@ -64,7 +72,7 @@
   "skills": {
     "eyebrow": "Mein Stack",
     "heading": "Skillset",
-    "description": "Ich arbeite mit Angular, React, TypeScript und Node.js und entwickle damit moderne, wartbare Webanwendungen. Dabei arbeite ich gerne im gesamten Stack, löse praxisnahe Probleme und erweitere meine Fähigkeiten kontinuierlich durch reale Projekte.",
+    "description": "Ich entwickle moderne und wartbare Webprodukte mit Angular, React, TypeScript und Node.js. Dabei arbeite ich gerne über den gesamten Stack hinweg, löse reale Probleme und verwandle Ideen in durchdachte digitale Produkte.",
     "listAria": "Technologien und Werkzeuge",
     "peel": {
       "revealAria": "Technologien anzeigen, die ich lernen möchte",
@@ -79,38 +87,32 @@
     "introduction": "Entdecke ausgewählte Projekte, die meinen Ansatz für responsive, benutzerfreundliche Oberflächen und wartbaren Code zeigen.",
     "featured": "Ausgewähltes Projekt",
     "details": "Projektdetails",
-    "plannedStack": "Geplanter Stack",
+    "currentStack": "Aktueller Stack",
     "technologiesAria": "Verwendete Technologien für {{project}}",
     "items": {
       "heldio": {
-        "description": "Ein Produktkonzept für kontextbezogenes Sprachenlernen, ausgerichtet an praktischen Bedürfnissen im Alltag.",
+        "description": "Heldio ist eine KI-gestützte Plattform für kontextbezogenes Sprachenlernen. Sie verwandelt konkrete Lernziele und den persönlichen Kontext in einen individuellen Lernpfad mit gezielten Übungen, Feedback und sichtbarem Fortschritt.",
         "imageAlt": "Produkt-Dashboard von Heldio für kontextbezogenes Sprachenlernen",
-        "implementation": "Ein Produktkonzept, das untersucht, wie kontextbezogene Lektionen, gezielte Übungen und sichtbarer Lernfortschritt das Sprachenlernen in Alltagssituationen unterstützen können.",
-        "duration": "Nicht angegeben"
+        "implementation": "Der MVP bildet den gesamten Lernprozess ab: Ziel und Kontext erfassen, gezielte Rückfragen stellen, einen Lernplan erstellen, relevante Fähigkeiten üben, Feedback geben und Fortschritt verfolgen. Ich verantworte Produktkonzept, MVP-Scope, Roadmap und technische Architektur. Die responsive Webplattform wird mit Next.js, React, TypeScript, Tailwind CSS, NestJS und PostgreSQL entwickelt.",
+        "duration": "Seit 2026"
       },
       "join": {
-        "description": "Eine responsive Kanban-Anwendung zur Aufgabenverwaltung mit Kontoanmeldung, Gastzugang, Kontaktverwaltung, Aufgabenworkflows und einem intuitiven Drag-and-drop-Board.",
+        "description": "Join ist eine responsive Kanban-Anwendung zur Organisation von Aufgaben und Workflows. Nutzer können Aufgaben erstellen, verwalten und per Drag and Drop zwischen verschiedenen Status verschieben. Zusätzlich bietet die Anwendung Benutzerkonten, Gastzugang und eine integrierte Kontaktverwaltung.",
         "imageAlt": "Kanban-Dashboard der Aufgabenverwaltung Join",
-        "implementation": "Als kollaboratives Teamprojekt mit wiederverwendbaren Angular-22-Komponenten, reaktivem State-Management mit RxJS, Drag-and-drop über Angular CDK sowie Supabase-Authentifizierung und PostgreSQL-Persistenz für Kontakte und Aufgaben umgesetzt.",
+        "implementation": "Das Projekt wurde als kollaborative Teamarbeit mit Angular 22, TypeScript, SCSS und Supabase umgesetzt. Ich war hauptsächlich für die Kontaktverwaltung verantwortlich und entwickelte Funktionen zum Erstellen, Bearbeiten, Löschen und Gruppieren von Kontakten sowie die zugehörigen Detailansichten und Validierungen. Supabase übernimmt Authentifizierung und PostgreSQL-Persistenz, während Angular CDK und RxJS für interaktive Workflows und reaktive Datenverarbeitung eingesetzt werden.",
         "duration": "5 Wochen"
       },
       "sogand": {
-        "description": "Eine persönliche Portfolio-Website, die die Arbeit und Perspektive einer UX/UI- und Produktdesignerin präsentiert.",
+        "description": "Eine persönliche Portfolio-Website für eine UX/UI- und Product Designerin. Die Website präsentiert Projekte, Arbeitsweise und Designperspektive in einer klaren, modernen und visuell fokussierten Struktur.",
         "imageAlt": "Startseite von Sogands Portfolio für UX/UI- und Produktdesign",
-        "implementation": "Als fokussiertes Portfolio-Erlebnis umgesetzt, das Sogands Profil, Designarbeiten und Produktperspektive in einer klaren visuellen Hierarchie präsentiert.",
+        "implementation": "Die Website wurde mit Next.js, React, TypeScript und Tailwind CSS umgesetzt. Der Fokus lag auf einer klaren visuellen Hierarchie, responsivem Design, flüssiger Navigation und gezielten Animationen mit Framer Motion. Inhalte und Projekte wurden so strukturiert, dass die Designarbeit schnell erfassbar und gleichzeitig persönlich präsentiert wird.",
         "duration": "4 Monate"
       },
       "elPolloLoco": {
-        "description": "Ein objektorientiertes Jump-and-Run-Spiel. Hilf Pepe, Münzen und Tabasco-Salsa zu sammeln, um gegen das verrückte Huhn anzutreten.",
+        "description": "El Pollo Loco ist ein browserbasiertes Jump-and-Run-Spiel, in dem der Spieler Pepe durch eine Wüstenwelt steuert, Münzen und Tabasco-Flaschen sammelt und sich verschiedenen Gegnern stellt.",
         "imageAlt": "Wüstenszene aus El Pollo Loco mit Pepe",
-        "implementation": "Kurzer Text über meine Rolle oder den Workflow in diesem Projekt. Er zeigt, wie ich mein Wissen strukturiert und selbstständig oder im Team eingesetzt habe.",
+        "implementation": "Das Spiel wurde mit objektorientiertem JavaScript, HTML und CSS umgesetzt. Spielfiguren, Gegner und Objekte sind in wiederverwendbaren Klassen strukturiert. Bewegungen, Animationen, Kollisionen und die zentrale Spiellogik werden direkt im Browser gesteuert.",
         "duration": "3 Wochen"
-      },
-      "dabubble": {
-        "description": "Dieser Slack-Klon erleichtert die Kommunikation und Zusammenarbeit im Team mit einer intuitiven Oberfläche, Echtzeitnachrichten und übersichtlichen Channels.",
-        "imageAlt": "Team-Messaging-Oberfläche von DABubble",
-        "implementation": "Kurzer Text über meine Rolle oder den Workflow in diesem Projekt. Er zeigt, wie ich mein Wissen strukturiert und selbstständig oder im Team eingesetzt habe.",
-        "duration": "4 Wochen"
       }
     }
   },
@@ -149,10 +151,10 @@
   },
   "contact": {
     "eyebrow": "Kontakt",
-    "heading": "Bereit für eine\nZusammenarbeit?",
+    "heading": "Lass uns etwas Sinnvolles bauen.",
     "paragraphs": {
-      "projects": "Ich bin immer offen für spannende Projekte, neue Möglichkeiten und Ideen, bei denen gute technische Umsetzung und eine starke User Experience zusammenkommen.",
-      "invitation": "Wenn du denkst, dass meine Full-Stack-Erfahrung gut zu deinem Projekt oder Team passt, freue ich mich, von dir zu hören."
+      "projects": "Ich bin offen für spannende Projekte, neue Möglichkeiten und Zusammenarbeit, bei der durchdachte Entwicklung und eine starke User Experience zusammenkommen.",
+      "invitation": "Wenn du einen Entwickler suchst, der Ideen gerne in gut durchdachte digitale Produkte verwandelt, freue ich mich, von dir zu hören."
     },
     "fields": {
       "name": {

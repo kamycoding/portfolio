@@ -63,6 +63,84 @@
   white-space: nowrap;
 }
 
+/*
+ * Animates on grid-template-rows so the panel expands to its natural height
+ * without a hard-coded max-height.
+ */
+.about__collapsible {
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  transition:
+    grid-template-rows 420ms cubic-bezier(0.2, 0.8, 0.2, 1),
+    opacity 260ms ease-out;
+}
+
+.about__collapsible--expanded {
+  grid-template-rows: 1fr;
+  opacity: 1;
+  transition:
+    grid-template-rows 420ms cubic-bezier(0.2, 0.8, 0.2, 1),
+    opacity 320ms ease-out 120ms;
+}
+
+.about__collapsible-inner {
+  overflow: hidden;
+  min-height: 0;
+}
+
+/* Keeps the paragraph gap from doubling up while the panel is closed. */
+.about__collapsible:not(.about__collapsible--expanded) .about__collapsible-inner > :first-child {
+  margin-block-start: 0;
+}
+
+.about__toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  cursor: pointer;
+  font: inherit;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.2;
+  transition: opacity 180ms ease-out;
+}
+
+.about__toggle > span {
+  position: relative;
+  padding-block-end: 2px;
+  background-image: linear-gradient(currentColor, currentColor);
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 100% 1px;
+  transition: background-size 220ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.about__toggle:hover > span,
+.about__toggle:focus-visible > span {
+  background-size: 0 1px;
+  background-position: 100% 100%;
+}
+
+.about__toggle-chevron {
+  flex: none;
+  transition: transform 300ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.about__toggle[aria-expanded='true'] .about__toggle-chevron {
+  transform: rotate(180deg);
+}
+
+.about__toggle:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+
 .about__cta {
   --cta-font-size: 16px;
   --cta-min-width: 110px;
@@ -76,6 +154,10 @@
   .about__cta {
     --cta-font-size: 18px;
     --cta-min-width: 126px;
+  }
+
+  .about__toggle {
+    font-size: 18px;
   }
 }
 
@@ -114,6 +196,10 @@
     --cta-min-width: 156px;
   }
 
+  .about__toggle {
+    font-size: 20px;
+  }
+
   .availability-card[data-variant='yellow'],
   .availability-card[data-variant='orange'] {
     height: 34.052cqw;
@@ -140,5 +226,15 @@
 @media (min-width: 90rem) {
   .about-section {
     min-height: clamp(49.125rem, 50vw, 60rem);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .about__collapsible,
+  .about__collapsible--expanded,
+  .about__toggle,
+  .about__toggle > span,
+  .about__toggle-chevron {
+    transition: none;
   }
 }

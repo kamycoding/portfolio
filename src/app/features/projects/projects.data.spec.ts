@@ -6,11 +6,10 @@ describe('project data helpers', () => {
     expect(getProjectBySlug('join')?.title).toBe('Join');
     expect(getProjectBySlug('sogand-personal-website')?.title).toBe('Portfolio Website');
     expect(getProjectBySlug('el-pollo-loco')?.title).toBe('El Pollo Loco');
-    expect(getProjectBySlug('dabubble')?.title).toBe('DABubble');
   });
 
   it('provides complete detail copy and duration for every project', () => {
-    for (const slug of ['heldio', 'join', 'sogand-personal-website', 'el-pollo-loco', 'dabubble']) {
+    for (const slug of ['heldio', 'join', 'sogand-personal-website', 'el-pollo-loco']) {
       const project = getProjectBySlug(slug);
 
       expect(project?.descriptionKey).toMatch(/^projects\.items\./);
@@ -28,7 +27,6 @@ describe('project data helpers', () => {
       'El Pollo Loco',
     ]);
     expect(HOMEPAGE_PROJECTS[0].variant).toBe('featured');
-    expect(HOMEPAGE_PROJECTS.map((project) => project.title)).not.toContain('DABubble');
   });
 
   it('returns undefined for an unsupported slug', () => {
@@ -74,7 +72,7 @@ describe('project data helpers', () => {
       'NestJS',
       'PostgreSQL',
     ]);
-    expect(project?.technologiesLabelKey).toBe('projects.plannedStack');
+    expect(project?.technologiesLabelKey).toBe('projects.currentStack');
     expect(project?.githubUrl).toBeUndefined();
     expect(project?.liveUrl).toBe('https://heldio.app/');
   });
@@ -141,7 +139,6 @@ describe('project data helpers', () => {
     expect(getNextProject('heldio').slug).toBe('join');
     expect(getNextProject('join').slug).toBe('sogand-personal-website');
     expect(getNextProject('sogand-personal-website').slug).toBe('el-pollo-loco');
-    expect(getNextProject('el-pollo-loco').slug).toBe('dabubble');
-    expect(getNextProject('dabubble').slug).toBe('heldio');
+    expect(getNextProject('el-pollo-loco').slug).toBe('heldio');
   });
 });

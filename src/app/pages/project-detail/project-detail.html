@@ -14,21 +14,6 @@
         <span>{{ 'projectDetail.back' | translate }}</span>
       </a>
 
-      @if (nextProject(); as nextProject) {
-        <a
-          class="project-detail__next"
-          [routerLink]="['/projects', nextProject.slug]"
-          [attr.aria-label]="'projectDetail.nextAria' | translate: { project: nextProject.title }"
-        >
-          <span>{{ 'projectDetail.next' | translate }}</span>
-          <img
-            src="/assets/project-detail/next-arrow.svg"
-            alt=""
-            aria-hidden="true"
-            draggable="false"
-          />
-        </a>
-      }
     </nav>
 
     <div class="project-detail__layout">
@@ -67,7 +52,13 @@
             >
               @for (technology of project.technologies; track technology.label) {
                 <li>
-                  <iconify-icon [attr.icon]="technology.icon" aria-hidden="true"></iconify-icon>
+                  <iconify-icon
+                    class="project-detail__technology-icon"
+                    [attr.icon]="technology.icon"
+                    width="20"
+                    height="20"
+                    aria-hidden="true"
+                  ></iconify-icon>
                   <span>{{ technology.label }}</span>
                 </li>
               }
@@ -107,6 +98,27 @@
             <app-cta-link [label]="'projectDetail.liveTest' | translate" [href]="liveUrl" />
           }
         </div>
+
+        @if (nextProject(); as nextProject) {
+          <nav
+            class="project-detail__next-navigation"
+            [attr.aria-label]="'projectDetail.navigationAria' | translate"
+          >
+            <a
+              class="project-detail__next"
+              [routerLink]="['/projects', nextProject.slug]"
+              [attr.aria-label]="'projectDetail.nextAria' | translate: { project: nextProject.title }"
+            >
+              <span>{{ 'projectDetail.next' | translate }}</span>
+              <img
+                src="/assets/project-detail/next-arrow.svg"
+                alt=""
+                aria-hidden="true"
+                draggable="false"
+              />
+            </a>
+          </nav>
+        }
       </section>
     </div>
   </main>

@@ -1,5 +1,5 @@
 export type ProjectSlug =
-  'heldio' | 'join' | 'sogand-personal-website' | 'el-pollo-loco' | 'dabubble';
+  'heldio' | 'join' | 'sogand-personal-website' | 'el-pollo-loco';
 
 export interface ProjectTechnology {
   readonly label: string;

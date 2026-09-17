@@ -50,8 +50,16 @@
     "eyebrow": "Who's Kamyar?",
     "heading": "About me",
     "paragraphs": {
-      "introduction": "I’m Kamyar, a full-stack developer based near Cologne. With a background in design, I approach software from both a technical and a user perspective.",
-      "values": "I’m interested in building products that are not only well engineered, but also intuitive to use. My main interests are modern software architecture and practical ways to integrate AI into real-world applications."
+      "introduction": "I'm Kamyar, a Software Developer with around three years of experience in software development.",
+      "origin": "My connection with computers started long before I began programming. As a kid, I spent a lot of time playing games on my PC, but I was also curious about what was happening behind everything I saw on the screen. That curiosity eventually made me want to do more than simply use computers. I wanted to create things with them.",
+      "academic": "My academic journey started in architecture, where I was especially interested in digital tools, 3D modeling, and the connection between technology and creativity. Over time, I realized that I wanted to explore software development more deeply.",
+      "focus": "I started with web development and a strong focus on frontend. Today, I am expanding into backend development, software architecture, and AI-powered products. What keeps me interested is that there is always something new to learn, understand, and improve.",
+      "personal": "When I'm not coding, I enjoy gaming, spending time with my family and my cat, or going for a run. Running helps me clear my head, and it is often where new ideas begin."
+    },
+    "toggle": {
+      "expand": "Read more",
+      "collapse": "Show less",
+      "aria": "Full biography"
     },
     "cta": "Let’s talk",
     "availabilityAria": "Work availability",
@@ -64,7 +72,7 @@
   "skills": {
     "eyebrow": "My stack",
     "heading": "Skill set",
-    "description": "I work with Angular, React, TypeScript, and Node.js to build modern, maintainable web applications. I enjoy working across the stack, solving real-world problems, and continuously improving through hands-on projects.",
+    "description": "I build modern, maintainable web products with Angular, React, TypeScript, and Node.js. I enjoy working across the stack, solving real problems, and turning ideas into thoughtful digital experiences.",
     "listAria": "Technologies and tools",
     "peel": {
       "revealAria": "Reveal technologies I am interested in learning",
@@ -79,38 +87,32 @@
     "introduction": "Take a look at selected projects that show my approach to responsive, user-friendly interfaces and maintainable code.",
     "featured": "Featured project",
     "details": "Project details",
-    "plannedStack": "Planned stack",
+    "currentStack": "Current stack",
     "technologiesAria": "Technologies used for {{project}}",
     "items": {
       "heldio": {
-        "description": "A product concept for contextual language learning, shaped around practical, real-life learning needs.",
+        "description": "Heldio is an AI-powered platform for contextual language learning. It turns real-world learning goals and personal context into a tailored learning path with targeted practice, feedback, and visible progress.",
         "imageAlt": "Heldio contextual language-learning product dashboard",
-        "implementation": "A product concept exploring how contextual lessons, focused practice and visible progress could support language learning for everyday situations.",
-        "duration": "Not specified"
+        "implementation": "The MVP covers the complete learning flow: capturing a goal and context, asking relevant follow-up questions, creating a learning plan, practicing relevant skills, providing feedback, and tracking progress. I lead the product concept, MVP scope, roadmap, and technical architecture. The responsive web platform is being built with Next.js, React, TypeScript, Tailwind CSS, NestJS, and PostgreSQL.",
+        "duration": "Since 2026"
       },
       "join": {
-        "description": "A responsive Kanban task management application with account authentication, guest access, contact management, task workflows, and an intuitive drag-and-drop board.",
+        "description": "Join is a responsive Kanban application for organizing tasks and workflows. Users can create and manage tasks and move them between different stages using drag and drop. The application also includes user accounts, guest access, and integrated contact management.",
         "imageAlt": "Join Kanban task management dashboard",
-        "implementation": "Built collaboratively as a team project with reusable Angular 22 components, reactive state management using RxJS, Angular CDK drag and drop, and Supabase authentication with PostgreSQL persistence for contacts and tasks.",
+        "implementation": "The project was built collaboratively using Angular 22, TypeScript, SCSS, and Supabase. My main responsibility was the contact management feature, including creating, editing, deleting, and grouping contacts, as well as building the related detail views and validation logic. Supabase handles authentication and PostgreSQL persistence, while Angular CDK and RxJS are used for interactive workflows and reactive data handling.",
         "duration": "5 weeks"
       },
       "sogand": {
-        "description": "A personal portfolio website presenting the work and perspective of a UX/UI and Product Designer.",
+        "description": "A personal portfolio website for a UX/UI and Product Designer. The website presents selected projects, design process, and product perspective through a clear, modern, and visually focused experience.",
         "imageAlt": "Homepage of Sogand's UX/UI and Product Design portfolio",
-        "implementation": "Created as a focused portfolio experience that gives Sogand's profile, design work and product perspective a clear visual hierarchy.",
+        "implementation": "The website was built with Next.js, React, TypeScript, and Tailwind CSS. The implementation focused on clear visual hierarchy, responsive design, smooth navigation, and purposeful animations using Framer Motion. The content and projects were structured to make the design work easy to explore while keeping the overall experience personal.",
         "duration": "4 months"
       },
       "elPolloLoco": {
-        "description": "Jump, run and throw game based on an object-oriented approach. Help Pepe find coins and tabasco salsa to fight the crazy hen.",
+        "description": "El Pollo Loco is a browser-based jump-and-run game where players guide Pepe through a desert world, collect coins and Tabasco bottles, and face different enemies along the way.",
         "imageAlt": "El Pollo Loco desert game scene with Pepe",
-        "implementation": "Short text that describes your role or the workflow for this specific project. Let a recruiter know more about your knowledge and ability to work independently or collaboratively in a structured way.",
+        "implementation": "The game was built with object-oriented JavaScript, HTML, and CSS. Characters, enemies, and game objects are structured into reusable classes, while movement, animations, collisions, and the core game logic are handled directly in the browser.",
         "duration": "3 weeks"
-      },
-      "dabubble": {
-        "description": "This Slack clone transforms team communication and collaboration with an intuitive interface, real-time messaging, and clear channel organization.",
-        "imageAlt": "DABubble team messaging interface",
-        "implementation": "Short text that describes your role or the workflow for this specific project. Let a recruiter know more about your knowledge and ability to work independently or collaboratively in a structured way.",
-        "duration": "4 weeks"
       }
     }
   },
@@ -149,10 +151,10 @@
   },
   "contact": {
     "eyebrow": "Contact me",
-    "heading": "Ready to work\ntogether?",
+    "heading": "Let’s build something meaningful.",
     "paragraphs": {
-      "projects": "I’m always open to thoughtful projects, new opportunities, and ideas where good engineering and strong user experience come together.",
-      "invitation": "If you think my full-stack experience could be a good fit, I’d be happy to hear from you."
+      "projects": "I’m open to interesting projects, new opportunities, and collaborations where thoughtful engineering and a strong user experience come together.",
+      "invitation": "If you’re looking for a developer who enjoys turning ideas into well-crafted digital products, I’d be glad to hear from you."
     },
     "fields": {
       "name": {

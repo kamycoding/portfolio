@@ -29,13 +29,12 @@ describe('Projects', () => {
       'Portfolio Website',
       'El Pollo Loco',
     ]);
-    expect(host.textContent).not.toContain('DABubble');
     expect(cards[0].classList).toContain('projects__card--featured');
     expect(cards[0].querySelector('.projects__badge')?.getAttribute('alt')).toBe(
       'Featured project',
     );
     expect(cards[0].querySelector('.projects__technology-label')?.textContent).toContain(
-      'Planned stack',
+      'Current stack',
     );
     expect(cards.every((card) => !card.textContent?.includes('projects.items.'))).toBe(true);
 
@@ -83,9 +82,9 @@ describe('Projects', () => {
       'Ausgewähltes Projekt',
     );
     expect(host.querySelector('.projects__technology-label')?.textContent).toContain(
-      'Geplanter Stack',
+      'Aktueller Stack',
     );
     expect(host.textContent).toContain('kontextbezogenes Sprachenlernen');
-    expect(host.textContent).toContain('UX/UI- und Produktdesignerin');
+    expect(host.textContent).toContain('UX/UI- und Product Designerin');
   });
 });
