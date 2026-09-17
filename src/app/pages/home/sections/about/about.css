@@ -14,10 +14,8 @@
   flex: none;
 }
 
-.availability-card[data-variant='yellow'],
-.availability-card[data-variant='orange'] {
+.availability-card[data-variant='yellow'] {
   z-index: 3;
-  height: 44.202cqw;
 }
 
 .availability-card[data-variant='blue'] {
@@ -27,6 +25,11 @@
 
 .availability-card[data-variant='orange'] {
   z-index: 1;
+}
+
+.availability-card[data-variant='yellow'],
+.availability-card[data-variant='orange'] {
+  height: 44.202cqw;
 }
 
 .availability-card:not(:last-child) {
