@@ -67,7 +67,13 @@
             >
               @for (technology of project.technologies; track technology.label) {
                 <li>
-                  <iconify-icon [attr.icon]="technology.icon" aria-hidden="true"></iconify-icon>
+                  <iconify-icon
+                    class="project-detail__technology-icon"
+                    [attr.icon]="technology.icon"
+                    width="20"
+                    height="20"
+                    aria-hidden="true"
+                  ></iconify-icon>
                   <span>{{ technology.label }}</span>
                 </li>
               }
@@ -80,7 +86,10 @@
         class="project-detail__showcase"
         [attr.aria-label]="'projectDetail.previewAria' | translate: { project: project.title }"
       >
-        <figure class="project-detail__preview">
+        <figure
+          class="project-detail__preview"
+          [class.project-detail__preview--frameless]="project.slug === 'sogand-personal-website'"
+        >
           <img
             class="project-detail__preview-image"
             [src]="project.imageSrc"
