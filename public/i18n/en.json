@@ -109,9 +109,9 @@
         "duration": "4 months"
       },
       "elPolloLoco": {
-        "description": "Jump, run and throw game based on an object-oriented approach. Help Pepe find coins and tabasco salsa to fight the crazy hen.",
+        "description": "El Pollo Loco is a browser-based jump-and-run game where players guide Pepe through a desert world, collect coins and Tabasco bottles, and face different enemies along the way.",
         "imageAlt": "El Pollo Loco desert game scene with Pepe",
-        "implementation": "Short text that describes your role or the workflow for this specific project. Let a recruiter know more about your knowledge and ability to work independently or collaboratively in a structured way.",
+        "implementation": "The game was built with object-oriented JavaScript, HTML, and CSS. Characters, enemies, and game objects are structured into reusable classes, while movement, animations, collisions, and the core game logic are handled directly in the browser.",
         "duration": "3 weeks"
       }
     }

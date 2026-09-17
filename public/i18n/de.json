@@ -109,9 +109,9 @@
         "duration": "4 Monate"
       },
       "elPolloLoco": {
-        "description": "Ein objektorientiertes Jump-and-Run-Spiel. Hilf Pepe, Münzen und Tabasco-Salsa zu sammeln, um gegen das verrückte Huhn anzutreten.",
+        "description": "El Pollo Loco ist ein browserbasiertes Jump-and-Run-Spiel, in dem der Spieler Pepe durch eine Wüstenwelt steuert, Münzen und Tabasco-Flaschen sammelt und sich verschiedenen Gegnern stellt.",
         "imageAlt": "Wüstenszene aus El Pollo Loco mit Pepe",
-        "implementation": "Kurzer Text über meine Rolle oder den Workflow in diesem Projekt. Er zeigt, wie ich mein Wissen strukturiert und selbstständig oder im Team eingesetzt habe.",
+        "implementation": "Das Spiel wurde mit objektorientiertem JavaScript, HTML und CSS umgesetzt. Spielfiguren, Gegner und Objekte sind in wiederverwendbaren Klassen strukturiert. Bewegungen, Animationen, Kollisionen und die zentrale Spiellogik werden direkt im Browser gesteuert.",
         "duration": "3 Wochen"
       }
     }
