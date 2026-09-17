@@ -103,20 +103,6 @@ export const PORTFOLIO_PROJECTS = [
     variant: 'standard',
     showOnHomepage: true,
   },
-  {
-    slug: 'dabubble',
-    title: 'DABubble',
-    descriptionKey: 'projects.items.dabubble.description',
-    imageSrc: '/assets/projects/dabubble.webp',
-    imageWidth: 560,
-    imageHeight: 399,
-    imageAltKey: 'projects.items.dabubble.imageAlt',
-    implementationDetailsKey: 'projects.items.dabubble.implementation',
-    durationKey: 'projects.items.dabubble.duration',
-    technologies: [TECHNOLOGIES.javascript, TECHNOLOGIES.html, TECHNOLOGIES.css],
-    variant: 'standard',
-    showOnHomepage: false,
-  },
 ] as const satisfies readonly PortfolioProject[];
 
 export const HOMEPAGE_PROJECTS: readonly PortfolioProject[] = PORTFOLIO_PROJECTS.filter(

@@ -105,12 +105,6 @@
         "imageAlt": "Wüstenszene aus El Pollo Loco mit Pepe",
         "implementation": "Kurzer Text über meine Rolle oder den Workflow in diesem Projekt. Er zeigt, wie ich mein Wissen strukturiert und selbstständig oder im Team eingesetzt habe.",
         "duration": "3 Wochen"
-      },
-      "dabubble": {
-        "description": "Dieser Slack-Klon erleichtert die Kommunikation und Zusammenarbeit im Team mit einer intuitiven Oberfläche, Echtzeitnachrichten und übersichtlichen Channels.",
-        "imageAlt": "Team-Messaging-Oberfläche von DABubble",
-        "implementation": "Kurzer Text über meine Rolle oder den Workflow in diesem Projekt. Er zeigt, wie ich mein Wissen strukturiert und selbstständig oder im Team eingesetzt habe.",
-        "duration": "4 Wochen"
       }
     }
   },

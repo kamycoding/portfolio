@@ -54,12 +54,6 @@ describe('ProjectDetail', () => {
     expect(getRouteElement<HTMLHeadingElement>('h1').textContent).toContain('Heldio');
     expect(harness.routeNativeElement?.querySelector('.project-detail__badge')).toBeNull();
     expect(title.getTitle()).toBe('Heldio | KamyCoding');
-
-    await harness.navigateByUrl('/projects/dabubble', ProjectDetail);
-
-    expect(getRouteElement<HTMLHeadingElement>('h1').textContent).toContain('DABubble');
-    expect(harness.routeNativeElement?.querySelector('app-brand-stamp')).not.toBeNull();
-    expect(title.getTitle()).toBe('DABubble | KamyCoding');
   });
 
   it('links to projects in the intended cyclic order', async () => {

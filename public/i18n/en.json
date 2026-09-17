@@ -105,12 +105,6 @@
         "imageAlt": "El Pollo Loco desert game scene with Pepe",
         "implementation": "Short text that describes your role or the workflow for this specific project. Let a recruiter know more about your knowledge and ability to work independently or collaboratively in a structured way.",
         "duration": "3 weeks"
-      },
-      "dabubble": {
-        "description": "This Slack clone transforms team communication and collaboration with an intuitive interface, real-time messaging, and clear channel organization.",
-        "imageAlt": "DABubble team messaging interface",
-        "implementation": "Short text that describes your role or the workflow for this specific project. Let a recruiter know more about your knowledge and ability to work independently or collaboratively in a structured way.",
-        "duration": "4 weeks"
       }
     }
   },

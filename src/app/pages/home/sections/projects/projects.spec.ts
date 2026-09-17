@@ -29,7 +29,6 @@ describe('Projects', () => {
       'Portfolio Website',
       'El Pollo Loco',
     ]);
-    expect(host.textContent).not.toContain('DABubble');
     expect(cards[0].classList).toContain('projects__card--featured');
     expect(cards[0].querySelector('.projects__badge')?.getAttribute('alt')).toBe(
       'Featured project',
