@@ -32,16 +32,33 @@ describe('Contact', () => {
 
   it('shows validation only after blur and keeps Send disabled while invalid', () => {
     const name = getControl<HTMLInputElement>('#contact-name');
+    const email = getControl<HTMLInputElement>('#contact-email');
+    const message = getControl<HTMLTextAreaElement>('#contact-message');
     const submit = getControl<HTMLButtonElement>('.contact-form__submit');
 
     setValue(name, 'A');
+    setValue(email, 'not-an-email');
+    setValue(message, 'short');
+
     expect(fixture.nativeElement.textContent).not.toContain('Oops!');
+    expect(fixture.nativeElement.querySelectorAll('.contact-field__error')).toHaveLength(0);
     expect(submit.disabled).toBe(true);
 
     name.dispatchEvent(new Event('blur'));
     fixture.detectChanges();
 
     expect(fixture.nativeElement.textContent).toContain('Oops! It seems your name is missing.');
+    expect(fixture.nativeElement.querySelector('#contact-email-error')).toBeNull();
+    expect(fixture.nativeElement.querySelector('#contact-message-error')).toBeNull();
+  });
+
+  it('shows all validation feedback after an invalid submission', () => {
+    submitForm();
+
+    expect(fixture.nativeElement.querySelector('#contact-name-error')).not.toBeNull();
+    expect(fixture.nativeElement.querySelector('#contact-email-error')).not.toBeNull();
+    expect(fixture.nativeElement.querySelector('#contact-message-error')).not.toBeNull();
+    expect(fixture.nativeElement.textContent).toContain('Please accept the privacy policy.');
   });
 
   it('keeps an invalid value separate from its placeholder and validation message', () => {

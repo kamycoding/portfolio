@@ -41,6 +41,17 @@
   line-height: 1.2;
 }
 
+.contact-form .contact-field input:-webkit-autofill,
+.contact-form .contact-field input:-webkit-autofill:hover,
+.contact-form .contact-field input:-webkit-autofill:focus,
+.contact-form .contact-field textarea:-webkit-autofill,
+.contact-form .contact-field textarea:-webkit-autofill:hover,
+.contact-form .contact-field textarea:-webkit-autofill:focus {
+  box-shadow: 0 0 0 1000px var(--color-canvas) inset;
+  caret-color: var(--color-foreground);
+  -webkit-text-fill-color: var(--color-foreground);
+}
+
 ::placeholder {
   color: var(--color-foreground);
   opacity: 0.65;
