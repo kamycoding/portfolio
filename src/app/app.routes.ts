@@ -10,7 +10,7 @@ export const routes: Routes = [
   {
     path: '',
     component: Home,
-    title: 'KamyCoding',
+    title: 'Kamyar Zamanfar | Full-Stack Developer',
   },
   {
     path: 'legal-notice',
