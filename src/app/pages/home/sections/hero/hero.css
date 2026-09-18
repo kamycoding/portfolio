@@ -4,6 +4,7 @@
 
 .hero {
   position: relative;
+  min-height: 100vh;
   min-height: 100svh;
   overflow: hidden;
   background: var(--color-foreground);
@@ -33,6 +34,7 @@
   box-sizing: border-box;
   display: grid;
   width: 100%;
+  min-height: 100vh;
   min-height: 100svh;
   padding: clamp(72px, 12svh, 96px) 16px clamp(48px, 8svh, 64px);
   place-items: center;
