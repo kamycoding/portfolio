@@ -285,25 +285,21 @@
       ]
     },
     "backend": {
-      "heading": "4. Backend-Hosting – Apply.Build / Codebite Oy",
-      "intro": "Das Backend dieser Website wird über Apply.Build betrieben.",
-      "providerIntro": "Anbieter des Dienstes ist",
-      "country": "Finnland",
+      "heading": "4. Serverlose Verarbeitung von Kontaktanfragen – Netlify Functions",
+      "intro": "Über das Kontaktformular übermittelte Anfragen werden an den Endpunkt /api/contact gesendet und von einer serverlosen Netlify-Funktion (Netlify Functions) verarbeitet.",
       "beforeList": [
-        "Das Backend verarbeitet Anfragen, die insbesondere über das Kontaktformular an die Website gesendet werden.",
-        "Zur technischen Bereitstellung und Absicherung des Dienstes können Protokolldaten verarbeitet werden, insbesondere:"
+        "Die Funktion prüft Kontaktformular-Eingaben und leitet gültige Nachrichten zur E-Mail-Zustellung an Brevo weiter.",
+        "Zur Verarbeitung einer Anfrage erhält die Funktion die über das Kontaktformular übermittelten Daten:"
       ],
       "items": [
-        "IP-Adresse",
-        "HTTP-Header",
-        "Request-Pfad",
-        "Zeitstempel",
-        "technische Runtime- und Sicherheitsinformationen"
+        "Name",
+        "E-Mail-Adresse",
+        "Nachricht",
+        "technische Informationen, die für die Verarbeitung der Anfrage erforderlich sind"
       ],
       "afterList": [
-        "Diese Verarbeitung dient dem sicheren Betrieb, der Fehlerdiagnose und dem Schutz der Infrastruktur vor Missbrauch.",
-        "Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO.",
-        "Das berechtigte Interesse besteht in der sicheren, stabilen und zuverlässigen Bereitstellung der Backend-Infrastruktur."
+        "Diese Verarbeitung dient dem Empfang, der Prüfung und der Weiterleitung von Kontaktanfragen.",
+        "Weitere Informationen zum Website-Hosting durch Netlify finden Sie oben. Die Verarbeitung und Speicherung im Zusammenhang mit der E-Mail-Zustellung werden in den folgenden Abschnitten beschrieben."
       ]
     },
     "contactForm": {
@@ -423,8 +419,7 @@
       "intro": "Personenbezogene Daten werden nur an Dienstleister übermittelt, soweit dies für den Betrieb dieser Website und die Bearbeitung von Anfragen erforderlich ist.",
       "listIntro": "Hierzu gehören insbesondere",
       "items": [
-        "Netlify für das Frontend-Hosting",
-        "Codebite Oy / Apply.Build für das Backend-Hosting",
+        "Netlify für das Website-Hosting und die serverlose Verarbeitung von Kontaktanfragen",
         "Brevo für die technische E-Mail-Zustellung",
         "Zoho für die Speicherung und Verwaltung eingehender E-Mail-Kommunikation"
       ],

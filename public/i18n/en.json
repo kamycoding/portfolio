@@ -288,25 +288,21 @@
       ]
     },
     "backend": {
-      "heading": "4. Backend Hosting – Apply.Build / Codebite Oy",
-      "intro": "The backend of this website is operated using Apply.Build.",
-      "providerIntro": "The service is provided by",
-      "country": "Finland",
+      "heading": "4. Serverless Contact Processing – Netlify Functions",
+      "intro": "Requests submitted through the contact form are sent to the /api/contact endpoint and processed by a Netlify serverless function (Netlify Functions).",
       "beforeList": [
-        "The backend processes requests sent to the website, in particular requests submitted through the contact form.",
-        "For the technical operation and security of the service, technical log data may be processed, including:"
+        "The function validates contact-form submissions and forwards valid messages to Brevo for email delivery.",
+        "To process a request, the function receives the data submitted through the contact form:"
       ],
       "items": [
-        "IP address",
-        "HTTP headers",
-        "request path",
-        "timestamp",
-        "runtime and security information"
+        "name",
+        "email address",
+        "message",
+        "technical information required to process the request"
       ],
       "afterList": [
-        "This processing serves to operate the infrastructure securely, diagnose technical problems and protect it against misuse.",
-        "The legal basis is Article 6(1)(f) GDPR.",
-        "The legitimate interest is the secure, stable and reliable operation of the backend infrastructure."
+        "This processing serves to receive, validate and forward contact requests.",
+        "Further information on website hosting by Netlify is provided above. The processing and storage involved in email delivery are described in the following sections."
       ]
     },
     "contactForm": {
@@ -426,8 +422,7 @@
       "intro": "Personal data is disclosed to service providers only to the extent necessary to operate the website and process requests.",
       "listIntro": "These providers currently include",
       "items": [
-        "Netlify for frontend hosting",
-        "Codebite Oy / Apply.Build for backend hosting",
+        "Netlify for website hosting and serverless contact processing",
         "Brevo for technical email delivery",
         "Zoho for storage and management of email communications"
       ],
