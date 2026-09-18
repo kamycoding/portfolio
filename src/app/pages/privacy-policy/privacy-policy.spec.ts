@@ -30,10 +30,14 @@ describe('PrivacyPolicy', () => {
 
     expect(fixture.nativeElement.querySelector('h1')?.textContent).toBe('Privacy Policy');
     expect(content).toContain('3. Website Hosting – Netlify');
-    expect(content).toContain('Codebite Oy');
+    expect(content).toContain('4. Serverless Contact Processing');
+    expect(content).toContain('sent to the /api/contact endpoint');
+    expect(content).toContain('processed by a Netlify serverless function (Netlify Functions).');
     expect(content).toContain('7. Email Delivery via Brevo');
     expect(content).toContain('Zoho Corporation B.V.');
     expect(content).toContain('18. Changes to this Privacy Policy');
+    expect(content).not.toContain('Codebite Oy');
+    expect(content).not.toContain('Apply.Build');
     expect(headings).toHaveLength(18);
     expect(emailLink?.textContent).toBe('contact@kamycoding.com');
   });

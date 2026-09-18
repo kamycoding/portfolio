@@ -51,14 +51,6 @@
   <section>
     <h2>{{ 'privacyPolicy.backend.heading' | translate }}</h2>
     <p>{{ 'privacyPolicy.backend.intro' | translate }}</p>
-    <p>{{ 'privacyPolicy.backend.providerIntro' | translate }}:</p>
-    <address>
-      Codebite Oy<br />
-      Business ID: FI-31350249<br />
-      Tyynylaavankuja 2 B35<br />
-      Helsinki<br />
-      {{ 'privacyPolicy.backend.country' | translate }}
-    </address>
     @for (paragraph of 'privacyPolicy.backend.beforeList' | translate; track $index) {
       <p>{{ paragraph }}</p>
     }
