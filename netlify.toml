@@ -1,14 +1,12 @@
+# No publish dir: Netlify's Next.js runtime detects and sets it.
 [build]
-  command = "npm run build"
-  publish = "dist/portfolio/browser"
+  command = "pnpm build"
+
+[build.environment]
+  NODE_VERSION = "24"
 
 [[redirects]]
   from = "/api/contact"
   to = "/.netlify/functions/contact"
   status = 200
   force = true
-
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200

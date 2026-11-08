@@ -1,0 +1,9 @@
+User-Agent: *
+Allow: /
+
+# Sitemap locations
+Sitemap: https://shadcnstudio.com/sitemap.xml
+
+# Disallow specific paths
+Disallow: /private/*
+Disallow: /*?*                        # Disallow URLs with a query string
