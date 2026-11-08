@@ -90,6 +90,7 @@ function sanitizeNetworkDiagnostics(error: unknown): EmailNetworkDiagnostics {
   const code = readDiagnosticString(error, 'code');
   const causeCode = readDiagnosticString(cause, 'code');
   const syscall = readDiagnosticString(error, 'syscall') ?? readDiagnosticString(cause, 'syscall');
+
   const hostname =
     readDiagnosticString(error, 'hostname') ?? readDiagnosticString(cause, 'hostname');
 
@@ -108,6 +109,7 @@ async function sendContactEmail(
 ): Promise<void> {
   const environment = functionEnvironmentSchema.parse(dependencies.environment);
   const abortController = new AbortController();
+
   const timeout = setTimeout(
     () => abortController.abort(),
     environment.BREVO_REQUEST_TIMEOUT_MS,

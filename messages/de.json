@@ -1,0 +1,38 @@
+{
+  "common": {
+    "skip": "Zum Inhalt springen"
+  },
+  "hero": {
+    "comment": "// full-stack developer, köln",
+    "headline": {
+      "line1": "Ich baue Web-Produkte.",
+      "line2": "Von der Idee bis zum Deploy."
+    }
+  },
+  "sections": {
+    "work": {
+      "eyebrow": "// ausgewählte Projekte",
+      "title": "Dinge, die ich gebaut <soft>und am meisten daraus gelernt habe.</soft>"
+    },
+    "about": {
+      "eyebrow": "// über mich",
+      "title": "Architekt von Haus aus. <soft>Entwickler aus Überzeugung.</soft>"
+    },
+    "stack": {
+      "eyebrow": "// stack und leistungen",
+      "title": "Womit ich arbeite <soft>und wobei ich helfen kann.</soft>"
+    },
+    "contact": {
+      "eyebrow": "// kontakt",
+      "title": "Lass uns <soft>etwas Gutes bauen.</soft>"
+    }
+  },
+  "notFound": {
+    "code": "Fehler 404",
+    "heading": "Seite nicht gefunden",
+    "description": "Die gesuchte Seite existiert nicht oder wurde möglicherweise verschoben.",
+    "navigationAria": "Navigation der Fehlerseite",
+    "home": "Zurück zur Startseite",
+    "projects": "Projekte ansehen"
+  }
+}

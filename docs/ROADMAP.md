@@ -1,60 +1,55 @@
 # Portfolio v2 roadmap
 
 Branch: `redesign/v2`. One phase, one commit. Kamyar commits and pushes.
+Design reference: `docs/design/DESIGN.md` and `docs/design/prototype/`.
 
-## Phase 1: Bring in the v2 source
-- Remove the Angular app from the branch (it stays safe in tag `v1.0.0`).
-- Keep `.git`, the Netlify contact function and anything Netlify needs.
-- Copy in the personalized Zolt source and these docs.
-- `pnpm install`, `pnpm dev`, `pnpm build` must all work.
-- Commit: `feat: start v2 on Next.js (Zolt based)`
+## Phase 1: Bring in the v2 source (done)
+Next.js, pnpm, Netlify config.
 
-## Phase 2: Legal pages
-- Port the Impressum (`/legal-notice`) and privacy policy (`/privacy-policy`) from v1, text as it is (English).
-- Keep the v1 URLs, store the text as MDX so German can be added per locale later.
-- Link both pages in the footer.
-- Commit: `feat: add legal notice and privacy policy`
+## Phase 2a: Foundation
+- Add the design spec and prototype to `docs/design/` (reference only, not built).
+- ADR 0003: replace the Zolt UI with the custom editor design.
+- Remove the Zolt sections and components that the new design does not use.
+- Tokens in `globals.css` (dark and light), Geist fonts, theme switching without a flash.
+- next-intl with `en` and `de` from the start, so every later phase ships both languages (ADR 0004).
+- Commit: `feat: add design foundation`
 
-## Phase 3: Contact form
-- Connect the v2 contact form to the existing Netlify function (Brevo) via `/api/contact`.
-- Fields as in v1: name, email, message, privacy checkbox, honeypot. Remove the template service select.
-- One shared zod schema in `src/lib/contact/` for the form and the function, remove `server/`.
-- Checkbox text: "I have read the privacy policy" (matches the legal basis in the policy).
-- Inline success and error status (`aria-live`), English only until Phase 7.
-- Local testing with `netlify dev` (pinned via `pnpm dlx`), secrets from the linked Netlify site, `.env.example` without values.
-- Re-enable the function tests with Vitest, add schema tests.
-- Commit: `feat: connect contact form to Netlify function`
+## Phase 2b: Layout shell
+- Top bar with file tabs, rulers, status bar, breadcrumbs, footer.
+- Commit: `feat: add layout shell`
 
-## Phase 4: Clean up
-- Delete unused template images, pages and components.
-- Remove template files that do not belong here (documentation.html, hire-us.html, vercel.json, template README and CHANGELOG).
-- Write a real README for the portfolio.
-- `pnpm lint` and `pnpm check-types` pass.
-- Commit: `chore: remove unused template code`
+## Phase 3: Hero
+Editor panel with tabs and hover cards, terminal, typed headline, status row, dot grid, ticker, the cat component.
 
-## Phase 5: Content check
-- Confirm every date, title and text with Kamyar.
-- Add missing photos (personal photos, colleague avatars) if he provides them.
-- Decide the accent color (Zolt orange or brand color).
+## Phase 4: Work
+`ls -la` list, pointer preview, project drawer, line-drawing covers as SVG components.
 
-## Phase 6: Theme
-- Light and dark mode both polished (next-themes, toggle in the side dock).
-- Respect the system setting on first visit, remember the choice.
-- Brand colors as CSS tokens so both modes share one palette.
-- Update the privacy policy for the stored theme choice (local storage).
+## Phase 5: About
+Markdown text, facts, ASCII portrait with lens, git log experience, reviews.
 
-## Phase 7: English and German
-- Add next-intl with `/en` and `/de`, reuse the translations from v1.
-- Language switch in the navigation, all UI copy and case studies in both languages.
-- Translate the contact form (labels, validation, status) and the legal pages.
-- Update the privacy policy if next-intl sets a locale cookie.
+## Phase 6: Stack
+JSON tree, commit heatmap, services.
 
-## Phase 8: Quality
-- Accessibility pass: keyboard, focus, contrast, reduced motion.
-- Lighthouse and SEO: metadata, Open Graph image, sitemap.
-- Set `NEXT_PUBLIC_APP_URL` (canonical URLs and JSON-LD currently render as `undefined/...`).
-- Netlify Deploy Preview of the branch, test on mobile.
+## Phase 7: Legal pages
+`/legal-notice` and `/privacy-policy`, text ported from v1 as it is, in the new design. Privacy policy updated for theme and language storage.
 
-## Phase 9: Release
-- Update CHANGELOG, merge into `main` via pull request.
-- Tag `v2.0.0` and create the GitHub release (Kamyar runs the commands).
+## Phase 8: Contact form
+- Shared zod schema in `src/lib/contact/contact-schema.ts`, used by the form and the Netlify function.
+- Form as `sendMessage({ ... })`, TypeScript-style errors, honeypot, privacy checkbox ("I have read the privacy policy").
+- Posts to `/api/contact` (existing Netlify function with Brevo and rate limit).
+- `.env.example`, `dev:netlify` script with a pinned netlify-cli, vitest back on.
+
+## Phase 9: Global interactions
+Intro build log, command palette, keyboard shortcuts, custom cursor.
+
+## Phase 10: Quality
+- Accessibility pass in both themes and both languages, reduced motion.
+- Lighthouse, metadata, Open Graph image, sitemap, `NEXT_PUBLIC_APP_URL` (currently undefined, canonical URLs break).
+- Netlify Deploy Preview of the branch, test on real phones.
+
+## Phase 11: Release
+Update CHANGELOG, merge to `main` via pull request, tag `v2.0.0`, GitHub release.
+
+## Open questions for Kamyar
+- Join: really 5 weeks? Designer portfolio: 4 months? El Pollo Loco: 3 weeks? All years 2026?
+- Developer Akademie start date.

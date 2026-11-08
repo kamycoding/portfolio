@@ -47,6 +47,7 @@ describe('Netlify contact function', () => {
     expect(fetchMock).toHaveBeenCalledOnce();
 
     const [, requestInit] = fetchMock.mock.calls[0] ?? [];
+
     expect(JSON.parse(String(requestInit?.body))).toEqual({
       sender: {
         name: 'Portfolio Contact Form',
@@ -66,6 +67,7 @@ describe('Netlify contact function', () => {
   it('returns 400 for an invalid payload without calling Brevo', async () => {
     const fetchMock = vi.fn<typeof fetch>();
     const handler = createContactHandler({ environment, fetch: fetchMock });
+
     const response = await handler(
       contactRequest({ ...validContactRequest, email: 'not-an-email' }),
     );
@@ -81,6 +83,7 @@ describe('Netlify contact function', () => {
   it('returns fake success for a populated honeypot without calling Brevo', async () => {
     const fetchMock = vi.fn<typeof fetch>();
     const handler = createContactHandler({ environment, fetch: fetchMock });
+
     const response = await handler(
       contactRequest({ ...validContactRequest, company: 'Bot Company' }),
     );
@@ -91,11 +94,13 @@ describe('Netlify contact function', () => {
 
   it('returns the generic 502 for a Brevo provider response error', async () => {
     const logError = vi.fn();
+
     const handler = createContactHandler({
       environment,
       fetch: vi.fn<typeof fetch>().mockResolvedValue(new Response(null, { status: 503 })),
       logError,
     });
+
     const response = await handler(contactRequest(validContactRequest));
 
     expect(response.status).toBe(502);
@@ -117,12 +122,15 @@ describe('Netlify contact function', () => {
       apiKey: environment.BREVO_API_KEY,
       requestBody: validContactRequest,
     });
+
     const logError = vi.fn();
+
     const handler = createContactHandler({
       environment,
       fetch: vi.fn<typeof fetch>().mockRejectedValue(new TypeError('fetch failed', { cause })),
       logError,
     });
+
     const response = await handler(contactRequest(validContactRequest));
     const responseBody = await response.json();
 
@@ -140,6 +148,7 @@ describe('Netlify contact function', () => {
     });
 
     const serializedOutput = JSON.stringify([responseBody, logError.mock.calls]);
+
     expect(serializedOutput).not.toContain(environment.BREVO_API_KEY);
     expect(serializedOutput).not.toContain(validContactRequest.name);
     expect(serializedOutput).not.toContain(validContactRequest.email);
@@ -148,12 +157,14 @@ describe('Netlify contact function', () => {
 
   it('aborts a stalled Brevo request and returns the generic 502', async () => {
     const logError = vi.fn();
+
     const fetchMock = vi.fn<typeof fetch>((_input, init) => {
       return new Promise<Response>((_resolve, reject) => {
         init?.signal?.addEventListener(
           'abort',
           () => {
             const error = new Error('Request aborted.');
+
             error.name = 'AbortError';
             reject(error);
           },
@@ -161,11 +172,13 @@ describe('Netlify contact function', () => {
         );
       });
     });
+
     const handler = createContactHandler({
       environment: { ...environment, BREVO_REQUEST_TIMEOUT_MS: '5' },
       fetch: fetchMock,
       logError,
     });
+
     const response = await handler(contactRequest(validContactRequest));
 
     expect(response.status).toBe(502);

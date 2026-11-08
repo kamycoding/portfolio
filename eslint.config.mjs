@@ -18,7 +18,9 @@ const eslintConfig = defineConfig([
     'build/**',
     'next-env.d.ts',
     'eslint.config.mjs',
-    '**/*.css'
+    '**/*.css',
+    // Design prototype is reference only, not part of the app.
+    'docs/**'
   ]),
   {
     plugins: {

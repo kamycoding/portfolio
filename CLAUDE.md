@@ -7,13 +7,15 @@ Guidance for Claude Code in this repository. Read this first, every session.
 Personal portfolio of Kamyar Zamanfar, full-stack developer near Cologne. Live at kamycoding.com, deployed on Netlify from `main`.
 
 - v1 (Angular) is frozen at tag `v1.0.0`. Never touch that tag.
-- v2 is built on the branch `redesign/v2`, based on the free Zolt template by shadcn/studio (MIT). See `docs/adr/0001-migrate-angular-to-nextjs.md`.
+- v2 is built on the branch `redesign/v2`. It started from the free Zolt template by shadcn/studio (MIT, see `docs/adr/0001-migrate-angular-to-nextjs.md`); the UI is now a custom editor design (see `docs/adr/0003-custom-editor-design.md`).
+- The design spec is `docs/design/DESIGN.md`, the approved prototype is in `docs/design/prototype/` (reference only, never imported). Brand: kamycoding.
+- English and German from the start, routing in `docs/adr/0004-locale-routing.md`.
 - The portfolio has no separate backend. See `docs/adr/0002-no-separate-backend.md`.
 - The step-by-step plan lives in `docs/ROADMAP.md`. Work only on the current phase.
 
 ## Stack
 
-Next.js 16 (App Router), React 19, TypeScript, Tailwind CSS v4, shadcn/ui, Motion, React Three Fiber (3D ID card), MDX case studies, next-themes. Package manager: pnpm.
+Next.js 16 (App Router), React 19, TypeScript, Tailwind CSS v4 (design tokens in `src/app/globals.css`), next-intl, next-themes, Geist fonts, zod. Package manager: pnpm (pinned in `package.json`).
 
 ```bash
 pnpm install
@@ -47,5 +49,5 @@ pnpm check-types
 
 ## Licensing
 
-- Zolt is MIT: keep `LICENSE.md` and the credit line in the footer.
-- The 3D lanyard card is based on React Bits (MIT + Commons Clause). Fine for a personal portfolio, do not resell it.
+- Zolt is MIT: keep `LICENSE.md` and a short credit line in the footer while files derived from Zolt remain (ADR 0003). Check in Phase 11 whether both can go.
+- `LICENSE` is Kamyar's own: MIT for the source code, with a content exclusion notice. Keep it.

@@ -1,0 +1,38 @@
+{
+  "common": {
+    "skip": "Skip to content"
+  },
+  "hero": {
+    "comment": "// full-stack developer, cologne",
+    "headline": {
+      "line1": "I build web products.",
+      "line2": "From idea to deploy."
+    }
+  },
+  "sections": {
+    "work": {
+      "eyebrow": "// selected work",
+      "title": "Things I built <soft>and learned the most from.</soft>"
+    },
+    "about": {
+      "eyebrow": "// about",
+      "title": "Architect by training. <soft>Developer by choice.</soft>"
+    },
+    "stack": {
+      "eyebrow": "// stack and services",
+      "title": "What I work with <soft>and where I can help.</soft>"
+    },
+    "contact": {
+      "eyebrow": "// contact",
+      "title": "Let's build <soft>something good.</soft>"
+    }
+  },
+  "notFound": {
+    "code": "Error 404",
+    "heading": "Page not found",
+    "description": "The page you’re looking for doesn’t exist or may have moved.",
+    "navigationAria": "Not found page navigation",
+    "home": "Back to homepage",
+    "projects": "View projects"
+  }
+}
