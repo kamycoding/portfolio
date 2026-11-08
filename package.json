@@ -1,6 +1,6 @@
 {
-  "name": "shadcn-nextjs-zolt-landing-page",
-  "version": "1.0.0",
+  "name": "kamycoding-portfolio",
+  "version": "2.0.0-alpha.0",
   "private": true,
   "packageManager": "pnpm@12.18.0",
   "scripts": {
@@ -10,7 +10,9 @@
     "lint": "eslint",
     "lint:fix": "eslint --fix",
     "format": "prettier --write \"src/**/*.{js,jsx,ts,tsx}\"",
-    "check-types": "tsc --noEmit"
+    "check-types": "tsc --noEmit",
+    "test": "vitest run --passWithNoTests",
+    "prepare": "husky"
   },
   "dependencies": {
     "clsx": "2.1.1",
@@ -24,6 +26,8 @@
     "zod": "4.4.3"
   },
   "devDependencies": {
+    "@commitlint/cli": "21.2.4",
+    "@commitlint/config-conventional": "21.2.4",
     "@stylistic/eslint-plugin": "5.6.1",
     "@tailwindcss/postcss": "4.1.18",
     "@types/node": "22.19.3",
@@ -32,9 +36,12 @@
     "eslint": "9.39.2",
     "eslint-config-next": "16.1.1",
     "eslint-config-prettier": "10.1.8",
+    "husky": "9.1.7",
+    "lint-staged": "17.6.0",
     "prettier": "3.7.4",
     "prettier-plugin-tailwindcss": "0.7.2",
     "tailwindcss": "4.1.18",
-    "typescript": "5.9.3"
+    "typescript": "5.9.3",
+    "vitest": "5.0.5"
   }
 }

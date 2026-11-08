@@ -1,6 +1,12 @@
-Content exclusion notice
+This repository contains two kinds of material under two different terms:
+Part 1 covers the source code, Part 2 covers the content.
 
-The MIT License below applies to the source code in this repository only. Unless explicitly stated otherwise, it does not grant permission to use, reproduce, distribute, modify, or create derivative works from personal photographs; KamyCoding branding and logos; portfolio text and copy; personal biography or content; project screenshots; custom design artwork; original portfolio visual assets; or third-party assets. Third-party assets remain subject to their respective owners' licenses and rights.
+
+PART 1: SOURCE CODE (MIT License)
+
+The source code in this repository (application code, configuration, scripts
+and tests) is licensed under the MIT License. It does not cover the content
+described in Part 2.
 
 MIT License
 
@@ -23,3 +29,31 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
+
+PART 2: CONTENT (All rights reserved)
+
+Copyright (c) 2026 Kamyar Zamanfar. All rights reserved.
+
+The following content is not licensed under the MIT License. It may not be
+used, copied, reproduced, distributed, modified or used to create derivative
+works without prior written permission:
+
+- Texts and copy, wherever they are stored (for example messages/*.json and
+  the content of the legal pages), including biography, project descriptions
+  and reviews
+- Photos and portraits
+- The visual design of the site, including the design spec and prototype in
+  docs/design/
+- Illustrations, including the line-drawing project covers
+- The cat character and its animations
+- The KamyCoding name, brand and logos
+
+For permission, contact contact@kamycoding.com.
+
+
+THIRD-PARTY MATERIAL
+
+Logos and trademarks of third-party technologies belong to their respective
+owners. Code derived from the Zolt template by shadcn/studio remains under its
+own MIT License, see LICENSE.md.

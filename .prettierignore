@@ -1,0 +1,4 @@
+# Generated or reference-only files that Prettier must never rewrite.
+pnpm-lock.yaml
+.next/
+docs/design/prototype/

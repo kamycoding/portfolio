@@ -6,7 +6,7 @@ Design reference: `docs/design/DESIGN.md` and `docs/design/prototype/`.
 ## Phase 1: Bring in the v2 source (done)
 Next.js, pnpm, Netlify config.
 
-## Phase 2a: Foundation
+## Phase 2a: Foundation (done)
 - Add the design spec and prototype to `docs/design/` (reference only, not built).
 - ADR 0003: replace the Zolt UI with the custom editor design.
 - Remove the Zolt sections and components that the new design does not use.
@@ -14,7 +14,16 @@ Next.js, pnpm, Netlify config.
 - next-intl with `en` and `de` from the start, so every later phase ships both languages (ADR 0004).
 - Commit: `feat: add design foundation`
 
-## Phase 2b: Layout shell
+## Phase 2b: Repo hygiene
+- `LICENSE` in two parts: code under MIT, content (texts, photos, design, illustrations, the cat) all rights reserved. Keep `LICENSE.md` from Zolt (ADR 0003).
+- Complete `README.md`, `CHANGELOG.md` (Keep a Changelog, 1.0.0 and Unreleased), `.nvmrc` with 24.
+- Vitest with `pnpm test` (`--passWithNoTests`), the contact function tests come back in Phase 8.
+- GitHub Actions CI: frozen install, lint, check-types, test, build. Dependabot for npm and actions.
+- `SECURITY.md`, `public/.well-known/security.txt`, PR and issue templates, `CONTRIBUTING.md`, `CODE_OF_CONDUCT.md`, `CODEOWNERS`.
+- commitlint (Conventional Commits) and a pre-commit hook with husky and lint-staged.
+- Commit: `chore: add repo hygiene`
+
+## Phase 2c: Layout shell
 - Top bar with file tabs, rulers, status bar, breadcrumbs, footer.
 - Commit: `feat: add layout shell`
 
@@ -46,6 +55,7 @@ Intro build log, command palette, keyboard shortcuts, custom cursor.
 - Accessibility pass in both themes and both languages, reduced motion.
 - Lighthouse, metadata, Open Graph image, sitemap, `NEXT_PUBLIC_APP_URL` (currently undefined, canonical URLs break).
 - Netlify Deploy Preview of the branch, test on real phones.
+- Upgrade ESLint 9 to 10 (9.39.2 is deprecated), check that `eslint-config-next` and the plugins support it.
 
 ## Phase 11: Release
 Update CHANGELOG, merge to `main` via pull request, tag `v2.0.0`, GitHub release.

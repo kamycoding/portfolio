@@ -1,9 +1,7 @@
 # No publish dir: Netlify's Next.js runtime detects and sets it.
 [build]
   command = "pnpm build"
-
-[build.environment]
-  NODE_VERSION = "24"
+# Node version comes from .nvmrc, the single source for local, CI and Netlify.
 
 [[redirects]]
   from = "/api/contact"

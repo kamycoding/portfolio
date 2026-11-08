@@ -23,6 +23,7 @@ pnpm dev          # http://localhost:3000
 pnpm build
 pnpm lint
 pnpm check-types
+pnpm test         # Vitest
 ```
 
 ## Working rules (non-negotiable)

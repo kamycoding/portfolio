@@ -1,0 +1,58 @@
+# Changelog
+
+All notable changes to this project are documented in this file.
+
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+## [Unreleased]
+
+Version 2 is in development on the `redesign/v2` branch.
+
+### Added
+
+- Next.js 16 with React 19, TypeScript and Tailwind CSS v4, built with pnpm.
+- Custom editor design: design spec and approved prototype in `docs/design/` (ADR 0003).
+- Design tokens for the dark and light theme, Geist fonts, theme switching without a flash.
+- English and German with next-intl: English at `/`, German at `/de`, browser language detection (ADR 0004).
+- Localized 404 page.
+- Repository hygiene: GitHub Actions CI, Dependabot, Vitest, commitlint and pre-commit hooks, security policy, `security.txt`, issue and pull request templates, contributing guide and code of conduct.
+
+### Changed
+
+- The license now has two parts: source code under MIT, content all rights reserved.
+
+### Removed
+
+- The Angular application (preserved at tag `v1.0.0`).
+- The separate Express server. The contact form stays a Netlify Function (ADR 0002).
+
+## [1.0.0] - 2026-11-08
+
+First stable release of kamycoding.com, built with Angular and deployed on Netlify. It serves as the baseline before the v2 redesign.
+
+### Added
+
+- Single-page portfolio with hero, projects, experience, skills and contact sections.
+- Internationalization in English and German, switchable at runtime.
+- Contact form with validation on the client and on the server.
+- Legal pages: legal notice (`/legal-notice`) and privacy policy (`/privacy-policy`).
+- Responsive layout for mobile, tablet and desktop.
+- Serverless endpoint `POST /api/contact` running as a Netlify Function.
+- Transactional email delivery through the Brevo API, with the sender set as reply-to.
+- Strict request validation with a zod schema; unknown fields are rejected.
+- Typed environment configuration, validated at startup.
+- 15 second timeout on outgoing requests, with network, timeout and provider errors handled separately.
+- Logs contain allow-listed diagnostics only, never API keys or personal data.
+
+### Security
+
+- Rate limiting: 5 requests per 3 minutes per IP.
+- Honeypot field against automated spam.
+- No tracking, analytics or third-party scripts.
+
+### Tests
+
+- Unit tests for the contact function with Vitest (success, validation, honeypot, provider errors, network errors, timeout, method handling, rate limit config).
+
+[Unreleased]: https://github.com/kamycoding/portfolio/compare/v1.0.0...HEAD
+[1.0.0]: https://github.com/kamycoding/portfolio/releases/tag/v1.0.0
