@@ -31,8 +31,9 @@ Next.js, pnpm, Netlify config.
 - `security.txt` expires 2027-10-31, lists GitHub private reporting; `SECURITY.md` matches.
 - ESLint rule `react/no-danger` as an error.
 
-## Phase 2d: Layout shell
+## Phase 2d: Layout shell (done)
 - Top bar with file tabs, rulers, status bar, breadcrumbs, footer.
+- `Ctrl K` button waits for Phase 9, `cat:` in the status bar for Phase 3. The footer keeps the Zolt credit while Zolt-derived config files remain (ADR 0003).
 - Commit: `feat: add layout shell`
 
 ## Phase 3: Hero
@@ -77,7 +78,7 @@ Intro build log, command palette, keyboard shortcuts, custom cursor.
 - Netlify runtime switch to Next.js: done early in the UI, before the first v2 Deploy Preview (`netlify.toml` sets `publish = ".next"`). The Deploy Preview log must show Node 24 and pnpm 12.18.0; fallback: `PNPM_VERSION=12.18.0` in the UI.
 - `HUSKY = "0"` for Netlify builds (done in 2c, `netlify.toml`).
 - CI: decide whether to pin `ubuntu-24.04` or keep `ubuntu-latest` (it moves to Ubuntu 26).
-- Verify that CodeQL default setup still runs now that full-length SHA pinning is required.
+- CodeQL default setup runs with full-length SHA pinning required (verified on Deploy Preview PR #54).
 - Serve unknown URLs from a static 404 instead of the dynamic `[...rest]` catch-all, which runs a function per request.
 - Review `shamefully-hoist=true` in `.npmrc` (a Zolt default) and remove it if nothing depends on it.
 - Decide on HSTS `preload` (all subdomains are HTTPS: www, join, elpolloloco).
@@ -88,6 +89,7 @@ Update CHANGELOG, merge to `main` via pull request, tag `v2.0.0`, GitHub release
 - Unlock auto publishing in Netlify (the v1 production deploy is locked) right after merging v2 into main.
 - Turn Dependabot security updates back on.
 - After the release, check that the `Canonical` and `Policy` URLs in `security.txt` resolve.
+- After the release, check which HSTS header kamycoding.com sends (on netlify.app, Netlify's own header wins) and decide whether to set it explicitly in `netlify.toml`.
 - Note: the required status check on `main` is tied to the CI job name "Lint, types, test, build". Renaming the job blocks all merges.
 
 ## Open questions for Kamyar

@@ -15,6 +15,7 @@ Version 2 is in development on the `redesign/v2` branch.
 - Design tokens for the dark and light theme, Geist fonts, theme switching without a flash.
 - English and German with next-intl: English at `/`, German at `/de`, browser language detection (ADR 0004).
 - Localized 404 page.
+- Layout shell: top bar with file tabs as navigation, scroll progress, theme toggle and language switch; rulers with crosshair (desktop); status bar with branch, current file, line and Cologne time; sticky breadcrumbs per section; footer.
 - Repository hygiene: GitHub Actions CI, Dependabot, Vitest, commitlint and pre-commit hooks, security policy, `security.txt`, issue and pull request templates, contributing guide and code of conduct.
 
 ### Changed
