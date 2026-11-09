@@ -27,6 +27,8 @@ const eslintConfig = defineConfig([
       '@stylistic': stylistic
     },
     rules: {
+      // No raw HTML: React text rendering is the XSS defence, see docs/adr/0005-csp-strategy.md
+      'react/no-danger': 'error',
       'react/display-name': 'off',
       'react/no-children-prop': 'off',
       '@next/next/no-img-element': 'off',
