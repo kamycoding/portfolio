@@ -41,7 +41,7 @@ Editor panel with tabs and hover cards, terminal, typed headline, status row, do
 - The terminal renders input and output as text only, never as HTML (ADR 0005, `react/no-danger`).
 - The `G W` and `C` key hints on the hero buttons work once the shortcuts arrive in Phase 9. Typing and fade-ins start after the intro then.
 
-## Phase 4: Work
+## Phase 4: Work (done)
 `ls -la` list, pointer preview, project drawer, line-drawing covers as SVG components.
 
 ## Phase 5: About
@@ -94,5 +94,4 @@ Update CHANGELOG, merge to `main` via pull request, tag `v2.0.0`, GitHub release
 - Note: the required status check on `main` is tied to the CI job name "Lint, types, test, build". Renaming the job blocks all merges.
 
 ## Open questions for Kamyar
-- Join: really 5 weeks? Designer portfolio: 4 months? El Pollo Loco: 3 weeks? All years 2026?
 - Developer Akademie start date.
