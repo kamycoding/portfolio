@@ -1,10 +1,10 @@
 <div align="center">
 
-<img src="docs/media/og-image.webp" alt="kamycoding: I build web products. From idea to deploy. Kamyar Zamanfar, kamycoding.com" width="720">
+<img src="docs/media/og-image.webp" alt="kamycoding: Kamyar Zamanfar, Full-Stack Developer, kamycoding.com" width="720">
 
 # kamycoding.com
 
-I build web products. From idea to deploy.
+Kamyar Zamanfar, Full-Stack Developer.
 
 [Website](https://kamycoding.com) · [v1.0.0 release](https://github.com/kamycoding/portfolio/releases/tag/v1.0.0) · [LinkedIn](https://www.linkedin.com/in/kamyarzamanfar)
 
@@ -18,34 +18,42 @@ I build web products. From idea to deploy.
 Personal portfolio of Kamyar Zamanfar, full-stack developer near Cologne.
 
 <p align="center">
-  <img src="docs/media/hero-dark.webp" alt="Hero section in the dark theme: typed headline, editor panel with kamyar.ts, terminal and the cat" width="49%">
-  <img src="docs/media/hero-light.webp" alt="The same hero section in the light theme" width="49%">
+  <img src="docs/media/hero-dark.webp" alt="Hero in Dark Modern: name and role, editor panel with kamyar.ts, terminal and the cat" width="49%">
+  <img src="docs/media/hero-light.webp" alt="The same hero in Light Modern" width="49%">
+</p>
+
+<p align="center">
+  <img src="docs/media/hero-blueprint.webp" alt="The hero editor with the slider halfway: the build on the left, the measured blueprint on the right" width="49%">
 </p>
 
 ## Concept
 
-The whole site is designed as a code editor. Each section is a file (`index.tsx`, `work.tsx`, `about.md`, `stack.json`, `contact.ts`) with file tabs, rulers, breadcrumbs and a status bar. The page builds itself with a `pnpm build` log on load, and the contact form is written as a function call. It ships in English and German, in a dark and a light theme, as static pages.
+The whole site is designed as a code editor. Each section is a file (`index.tsx`, `work.tsx`, `about.md`, `stack.json`, `contact.ts`) with file tabs, rulers, breadcrumbs and a status bar. The page builds itself with a `pnpm build` log on load, and the contact form is written as a function call. It ships in English and German, in four VS Code color themes, as static pages.
 
 ## Features
 
-- Hero with a typed headline, an editor panel with TypeScript-style hover cards and a terminal with 13 commands
+- Hero with the name and role, an editor panel with TypeScript-style hover cards and a slider between a live-measured blueprint and the build, played as the entrance after the intro
+- Terminal with 11 commands, a modern prompt and ghost suggestions, including `ls projects`, `git log`, `blueprint` and `theme`
+- Color themes from VS Code: Dark Modern, Light Modern, Monokai and Solarized Dark, chosen in a Color Theme picker (`T`, the top bar or the status bar) with live preview; the default follows the system
 - Project list as `ls -la` with a pointer preview and a README drawer per project; line-drawing covers as SVG components
-- About as Markdown with an ASCII portrait, experience as a `git log` and reviews as pull request approvals
-- Stack as a foldable JSON tree, a GitHub contribution heatmap refreshed daily and services as functions
+- About as Markdown with an ASCII portrait, experience as a `git log` and reviews as GitHub-style pull request reviews with line-drawn avatars and an approval summary
+- Stack as a VS Code style explorer (folders per group, technologies as files), a GitHub contributions grid for the last 52 weeks refreshed daily, and services as functions
 - Contact form as `sendMessage({ ... })` with TypeScript-style errors, validated by the same schema in the browser and in the Netlify function
+- Footer with a large "kamycoding" line drawing that draws itself once, with the cat lying on its "m"
 - Command palette (`Ctrl K` / `⌘ K`), keyboard shortcuts, a custom cursor, and a cat that wakes up
+- Version in the top bar and the intro, read from `package.json`
 - Legal notice and privacy policy in both languages
 
 ## Tech stack
 
-| Area | Tools |
-| --- | --- |
-| Framework | Next.js 16 (App Router, static generation), React 19, TypeScript |
-| Styling | Tailwind CSS v4 with design tokens, CSS Modules, Geist fonts |
-| Content | next-intl (English at `/`, German at `/de`), next-themes |
-| Validation and tests | zod (shared schema), Vitest |
-| Hosting | Netlify CDN, Netlify Functions, Brevo for email delivery |
-| Tooling | pnpm, ESLint, Prettier, husky, lint-staged, commitlint, GitHub Actions |
+| Area                 | Tools                                                                  |
+| -------------------- | ---------------------------------------------------------------------- |
+| Framework            | Next.js 16 (App Router, static generation), React 19, TypeScript       |
+| Styling              | Tailwind CSS v4 with design tokens, CSS Modules, Geist fonts           |
+| Content              | next-intl (English at `/`, German at `/de`), next-themes               |
+| Validation and tests | zod (shared schema), Vitest                                            |
+| Hosting              | Netlify CDN, Netlify Functions, Brevo for email delivery               |
+| Tooling              | pnpm, ESLint, Prettier, husky, lint-staged, commitlint, GitHub Actions |
 
 ## Architecture
 
@@ -60,15 +68,15 @@ flowchart LR
 
 The site has no separate backend ([ADR 0002](docs/adr/0002-no-separate-backend.md)). The only server code is the contact function: it accepts JSON from the own origin only, checks the size, validates with the shared schema, uses a honeypot and Netlify's rate limit, and logs one line per request without personal data.
 
-| Folder | Contents |
-| --- | --- |
-| `src/app/` | Routes and layouts per locale, design tokens, metadata, sitemap, Open Graph images |
-| `src/components/` | Sections (`hero`, `work`, `about`, `stack`, `contact`, `legal`) and the editor shell |
-| `src/content/` | Projects, experience, reviews, stack and services in English and German |
-| `src/hooks/`, `src/lib/` | Small shared stores and helpers, the contact schema |
-| `src/i18n/`, `src/proxy.ts` | Locale routing and detection ([ADR 0004](docs/adr/0004-locale-routing.md)) |
-| `messages/` | UI copy in English and German |
-| `netlify/` | The contact function and its tests |
+| Folder                      | Contents                                                                             |
+| --------------------------- | ------------------------------------------------------------------------------------ |
+| `src/app/`                  | Routes and layouts per locale, design tokens, metadata, sitemap, Open Graph images   |
+| `src/components/`           | Sections (`hero`, `work`, `about`, `stack`, `contact`, `legal`) and the editor shell |
+| `src/content/`              | Projects, experience, reviews, stack and services in English and German              |
+| `src/hooks/`, `src/lib/`    | Small shared stores and helpers, the contact schema                                  |
+| `src/i18n/`, `src/proxy.ts` | Locale routing and detection ([ADR 0004](docs/adr/0004-locale-routing.md))           |
+| `messages/`                 | UI copy in English and German                                                        |
+| `netlify/`                  | The contact function and its tests                                                   |
 
 ## Getting started
 
@@ -81,16 +89,16 @@ pnpm install           # also installs the git hooks
 pnpm dev               # http://localhost:3000
 ```
 
-| Script | What it does |
-| --- | --- |
-| `pnpm dev` | Development server with hot reload |
-| `pnpm build` | Production build, after refreshing the GitHub contributions |
-| `pnpm contributions:update` | Refresh `src/content/contributions.json` (needs `GITHUB_CONTRIBUTIONS_TOKEN`) |
-| `pnpm start` | Serve the production build (security headers are active here) |
-| `pnpm lint` / `pnpm lint:fix` | ESLint, with automatic fixes |
-| `pnpm format` | Prettier on `src/` |
-| `pnpm check-types` | TypeScript check without emitting files |
-| `pnpm test` | Vitest, single run (app and contact function) |
+| Script                        | What it does                                                                  |
+| ----------------------------- | ----------------------------------------------------------------------------- |
+| `pnpm dev`                    | Development server with hot reload                                            |
+| `pnpm build`                  | Production build, after refreshing the GitHub contributions                   |
+| `pnpm contributions:update`   | Refresh `src/content/contributions.json` (needs `GITHUB_CONTRIBUTIONS_TOKEN`) |
+| `pnpm start`                  | Serve the production build (security headers are active here)                 |
+| `pnpm lint` / `pnpm lint:fix` | ESLint, with automatic fixes                                                  |
+| `pnpm format`                 | Prettier on `src/`                                                            |
+| `pnpm check-types`            | TypeScript check without emitting files                                       |
+| `pnpm test`                   | Vitest, single run (app and contact function)                                 |
 
 The contact function needs the variables in [`.env.example`](.env.example), set per deploy context in Netlify. There is no local Netlify setup: the function is covered by tests, and the form is tested end to end on Deploy Previews.
 
@@ -103,7 +111,7 @@ Commits follow [Conventional Commits](https://www.conventionalcommits.org/). Git
 - CI on every push and pull request: frozen install, lint, type check, tests and build, with actions pinned to full commit SHAs
 - CodeQL code scanning, Dependabot, secret scanning with push protection
 - Enforced Content Security Policy and security headers ([ADR 0005](docs/adr/0005-csp-strategy.md))
-- Accessibility: keyboard access everywhere, visible focus, reduced motion respected, contrast tuned to WCAG AA
+- Accessibility: keyboard access everywhere, visible focus, reduced motion respected, text contrast at WCAG AA in every color theme
 - [`security.txt`](public/.well-known/security.txt) and a [security policy](SECURITY.md) for private reports
 
 ## Architecture decisions
@@ -120,7 +128,7 @@ The design spec and the approved prototype are in [`docs/design/`](docs/design/)
 ## Versions
 
 - v1 (Angular) is preserved at [`v1.0.0`](https://github.com/kamycoding/portfolio/releases/tag/v1.0.0).
-- v2 is built on the `redesign/v2` branch and goes live with v2.0.0. Changes are listed in the [changelog](CHANGELOG.md).
+- v2 went live with [`v2.0.0`](https://github.com/kamycoding/portfolio/releases/tag/v2.0.0). The current release is [`v2.2.0`](docs/release-notes/v2.2.0.md). Changes are listed in the [changelog](CHANGELOG.md).
 
 ## License
 
