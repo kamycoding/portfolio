@@ -9,9 +9,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 ### Changed
 
 - The stack section is two blocks: the stack as a VS Code style explorer (folders per group, technologies as files, real names on hover and focus) and a full-width GitHub contributions grid for the last 52 weeks with a reveal wave, a pulse on today and a stats line.
-
-### Changed
-
+- The footer closes with a large "kamycoding" line drawing that draws itself once, the cat lying on its "m", and an `// EOF` line with the commit, version and build date.
 - The top bar and the intro show the version from `package.json` (`v2.1`, `2.1.0`) instead of a hardcoded `2.0`, so they follow every release.
 - `@types/node` follows the Node 24 runtime (`24.19.2`, was `22.19.3`).
 - Dependabot no longer proposes major updates of `@types/node`; they are raised together with the Node version.

@@ -110,7 +110,8 @@
     "legalNotice": "Legal notice",
     "privacyPolicy": "Privacy policy",
     "builtWith": "Next.js, TypeScript, Tailwind CSS. Hosted on Netlify.",
-    "credit": "Started from the Zolt template by shadcn/studio (MIT)."
+    "credit": "Started from the Zolt template by shadcn/studio (MIT).",
+    "build": "built {date}"
   },
   "cat": {
     "wake": "Wake the cat",
