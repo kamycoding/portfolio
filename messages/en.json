@@ -160,11 +160,15 @@
     },
     "reviews": {
       "eyebrow": "// pull request #1: hire kamyar",
-      "title": "3 approvals. <soft>0 changes requested.</soft>",
+      "title": "{count} approvals. <soft>0 changes requested.</soft>",
       "approved": "approved these changes",
       "teamProject": "team project",
       "clientProject": "client project",
-      "linkedin": "LinkedIn profile of {name}"
+      "linkedin": "LinkedIn profile of {name}",
+      "header": "reviews",
+      "count": "{count, plural, one {# approval} other {# approvals}}",
+      "changes": "0 changes requested",
+      "badge": "Approved"
     }
   },
   "stack": {
