@@ -11,11 +11,13 @@ const listeners = new Set<() => void>()
 const notify = () => listeners.forEach(listener => listener())
 
 export const setReady = () => {
+  // Set every time: a language switch re-renders <html>, which drops both classes while the store is still ready.
+  document.documentElement.classList.add('js', 'ready')
+
   if (ready) return
 
   ready = true
   run++
-  document.documentElement.classList.add('ready')
   notify()
 }
 

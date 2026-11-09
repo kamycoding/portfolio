@@ -68,6 +68,9 @@ const Segments = ({ segments }: Readonly<{ segments: readonly Segment[] }>) =>
 
 let replay: (() => void) | null = null
 
+// Switching the language remounts the layout without a page load; the intro plays once per load, like the prototype.
+let playedThisLoad = false
+
 // Command palette "Replay intro" (prototype boot(true)).
 export const replayIntro = () => replay?.()
 
@@ -79,7 +82,7 @@ const Boot = () => {
   const [compiled, setCompiled] = useState<string | null>(null)
   const [progress, setProgress] = useState(0)
   const [readyIn, setReadyIn] = useState<string | null>(null)
-  const [done, setDone] = useState(false)
+  const [done, setDone] = useState(() => playedThisLoad)
   const [forced, setForced] = useState(false)
   const timers = useRef<number[]>([])
   const startedAt = useRef(0)
@@ -156,7 +159,11 @@ const Boot = () => {
     }
 
     // Reduced motion skips the intro; the overlay is already hidden by CSS, so there is no flash.
-    const start = window.setTimeout(() => (prefersReducedMotion() ? finish() : play()), 0)
+    const skip = playedThisLoad || prefersReducedMotion()
+
+    playedThisLoad = true
+
+    const start = window.setTimeout(() => (skip ? finish() : play()), 0)
 
     return () => {
       replay = null
