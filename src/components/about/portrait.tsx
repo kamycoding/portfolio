@@ -187,7 +187,7 @@ const Portrait = () => {
         onPointerLeave={onPointerLeave}
       >
         <canvas ref={canvasRef} aria-hidden='true' />
-        <img ref={photoRef} src='/portrait.webp' alt={t('alt')} width={639} height={960} />
+        <img ref={photoRef} src='/portrait.webp' alt={t('alt')} width={639} height={960} loading='lazy' />
       </div>
       <figcaption className={styles.cap}>
         <span>portrait.webp 639×960</span>

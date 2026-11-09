@@ -111,6 +111,7 @@ const About = async () => {
                         {ICON[name] && (
                           <img
                             src={`/stack/${ICON[name]}.svg`}
+                            loading='lazy'
                             alt=''
                             width={14}
                             height={14}

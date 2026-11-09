@@ -150,6 +150,7 @@ const WorkList = () => {
                           <img
                             key={name}
                             src={`/stack/${ICON[name]}.svg`}
+                            loading='lazy'
                             alt=''
                             width={16}
                             height={16}
