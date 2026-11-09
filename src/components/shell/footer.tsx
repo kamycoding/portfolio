@@ -35,7 +35,7 @@ const Footer = async () => {
 
           <div>
             <h2 className={headingClass}>{t('pages')}</h2>
-            <ul className='grid gap-2.5'>
+            <ul className='grid gap-2.5 text-[14.5px]'>
               {SECTIONS.filter(section => section.id !== 'index').map(section => (
                 <li key={section.id}>
                   <Link href={`/#${section.id}`} className={linkClass}>
@@ -48,7 +48,7 @@ const Footer = async () => {
 
           <div>
             <h2 className={headingClass}>{t('elsewhere')}</h2>
-            <ul className='grid gap-2.5'>
+            <ul className='grid gap-2.5 text-[14.5px]'>
               {ELSEWHERE.map(item => (
                 <li key={item.label}>
                   <a
@@ -65,7 +65,7 @@ const Footer = async () => {
 
           <div>
             <h2 className={headingClass}>{t('legal')}</h2>
-            <ul className='grid gap-2.5'>
+            <ul className='grid gap-2.5 text-[14.5px]'>
               <li>
                 <Link href='/legal-notice' className={linkClass}>
                   {t('legalNotice')}

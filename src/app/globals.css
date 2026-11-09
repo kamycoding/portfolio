@@ -107,6 +107,8 @@
 
 @layer base {
   html {
+    /* The prototype keeps the browser default; Tailwind's 1.5 would make unstyled text taller. */
+    line-height: normal;
     scroll-behavior: smooth;
     scroll-padding-top: calc(var(--top) + var(--ruler) + 8px);
   }
