@@ -51,8 +51,9 @@ Markdown text, facts, ASCII portrait with lens, git log experience, reviews.
 JSON tree, commit heatmap, services.
 - Heatmap data comes from `git log v1.0.0` (168 commits, 23 Jul to 18 Sep 2026); the stats are computed from it.
 
-## Phase 7: Legal pages
+## Phase 7: Legal pages (done)
 `/legal-notice` and `/privacy-policy`, text ported from v1 as it is, in the new design. Privacy policy updated for theme and language storage.
+- Section 10 of the privacy policy is new: it describes the `NEXT_LOCALE` cookie and the `theme` key in Local Storage instead of v1's `kamycoding.language` key. Kamyar reviews the wording.
 
 ## Phase 8: Contact form
 - Shared zod schema in `src/lib/contact/contact-schema.ts`, used by the form and the Netlify function.
@@ -88,6 +89,7 @@ Intro build log, command palette, keyboard shortcuts, custom cursor.
 
 ## Phase 11: Release
 Update CHANGELOG, merge to `main` via pull request, tag `v2.0.0`, GitHub release.
+- Set the "Last updated" date of the privacy policy (still 10 August 2026 from v1) to the date the new section 10 goes live; Kamyar gives the date. The legal notice keeps its date.
 - Unlock auto publishing in Netlify (the v1 production deploy is locked) right after merging v2 into main.
 - Turn Dependabot security updates back on.
 - After the release, check that the `Canonical` and `Policy` URLs in `security.txt` resolve.
