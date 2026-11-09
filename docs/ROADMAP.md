@@ -96,9 +96,17 @@ Intro build log, command palette, keyboard shortcuts, custom cursor.
 - HSTS `preload`: not now (decided in Phase 10); revisit after the Phase 11 check of the HSTS header on kamycoding.com.
 - Real phones and the secret scanning extras: Kamyar.
 
+## Phase 10b: Fixes before release (done)
+- Language switch keeps the reading position and English always uses `/`; one switch for buttons, palette, `L` and the terminal.
+- Terminal reprints its intro in the new language; hero status row shows "Open to work" and the Cologne time only.
+- Reviewers link to their LinkedIn profiles; `downlevelIteration` removed from `tsconfig.json`.
+- Contrast: `--faint` and `--com` (both themes) and light `--str` reach 4.5:1 (closes the contrast item above).
+- README rewritten for v2 with screenshots in `docs/media/`.
+- The `/en` URL item above is fixed.
+
 ## Phase 11: Release
 Update CHANGELOG, merge to `main` via pull request, tag `v2.0.0`, GitHub release.
-- Set the "Last updated" date of the privacy policy (still 10 August 2026 from v1) to the date the new section 10 goes live; Kamyar gives the date. The legal notice keeps its date.
+- Done: privacy policy "Last updated" set to 9 November 2026 / 9. November 2026; the legal notice keeps 10 August 2026.
 - Unlock auto publishing in Netlify (the v1 production deploy is locked) right after merging v2 into main.
 - Turn Dependabot security updates back on.
 - Replace the full-access production `BREVO_API_KEY` with a restricted key (transactional emails only).

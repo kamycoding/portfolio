@@ -6,7 +6,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
-Version 2 is in development on the `redesign/v2` branch.
+## [2.0.0] - 2026-11-09
+
+A full rebuild of kamycoding.com in Next.js. The site is designed as a code editor: each section is a file, with a terminal, a command palette, line-drawing project covers and a cat. It ships in English and German, in a dark and a light theme, as static pages on Netlify. The contact form stays a Netlify Function with Brevo, now with a shared schema, stricter request checks and privacy-safe logging.
 
 ### Added
 
@@ -28,31 +30,37 @@ Version 2 is in development on the `redesign/v2` branch.
 - Metadata per language with canonical and language alternates, Open Graph and Twitter tags, a generated Open Graph image per language, a sitemap, and `noindex` for the legal pages.
 - The contact function logs every request in one line without personal data, including rejected requests.
 - Repository hygiene: GitHub Actions CI, Dependabot, Vitest, commitlint and pre-commit hooks, security policy, `security.txt`, issue and pull request templates, contributing guide and code of conduct.
+- Reviewer names link to their LinkedIn profiles.
+- README for v2 with screenshots, architecture diagram and setup guide.
 
 ### Changed
 
 - The license now has two parts: source code under MIT, content all rights reserved.
 - Privacy policy section 10 describes the language cookie and the theme setting of v2 instead of the v1 language key in Local Storage.
 - Contact function: accepts only JSON (`415`), refuses other origins (`403`) and bodies above 10 KB (`413`), rejects control characters in the name, and caps the Brevo timeout at 8 seconds.
-- The Content Security Policy is enforced (was Report-Only) and upgrades insecure requests.
 - Accessibility: visible labels are part of the accessible names of the brand link, palette button, cats and status bar buttons; the hero tooltip only has its role while it has content.
 - Decorative icons and the portrait load lazily, so the page no longer preloads 21 images.
 - The intro plays once per page load and no longer replays after a language switch.
 - CI runs on `ubuntu-24.04`; the `.npmrc` with `shamefully-hoist` is removed.
+- A language switch keeps the reading position (same section and offset, the top stays the top), and English always uses `/` (no `/en`).
+- The terminal reprints its intro in the new language after a switch and keeps the visitor's own commands.
+- The hero status row shows "Open to work" and the Cologne time only.
+- Small text colors (`--faint`, `--com`, light `--str`) reach WCAG AA contrast (4.5:1) in both themes.
+- Privacy policy updated on 9 November 2026.
+
+### Security
+
+- Upgraded Next.js to 16.4.2 and zod to 4.6.7, refreshed stale transitive dependencies. `pnpm audit` reports no known vulnerabilities in production dependencies.
+- Security headers for production builds: Content Security Policy (enforced, with `upgrade-insecure-requests`), HSTS, `X-Content-Type-Options`, `X-Frame-Options`, `Referrer-Policy`, `Permissions-Policy` and `Cross-Origin-Opener-Policy` (ADR 0005).
+- Removed the `X-Powered-By` header and set the `Secure` flag on the language cookie.
+- `.gitignore` covers every environment file and the Netlify CLI folder.
+- `security.txt` and the security policy list GitHub private vulnerability reporting next to email.
+- ESLint forbids `dangerouslySetInnerHTML`.
 
 ### Removed
 
 - The Angular application (preserved at tag `v1.0.0`).
 - The separate Express server. The contact form stays a Netlify Function (ADR 0002).
-
-### Security
-
-- Upgraded Next.js to 16.4.2 and zod to 4.6.7, refreshed stale transitive dependencies. `pnpm audit` reports no known vulnerabilities in production dependencies.
-- Security headers for production builds: Content Security Policy (Report-Only for now), HSTS, `X-Content-Type-Options`, `X-Frame-Options`, `Referrer-Policy`, `Permissions-Policy` and `Cross-Origin-Opener-Policy` (ADR 0005).
-- Removed the `X-Powered-By` header and set the `Secure` flag on the language cookie.
-- `.gitignore` covers every environment file and the Netlify CLI folder.
-- `security.txt` and the security policy list GitHub private vulnerability reporting next to email.
-- ESLint forbids `dangerouslySetInnerHTML`.
 
 ## [1.0.0] - 2026-11-08
 
@@ -82,5 +90,6 @@ First stable release of kamycoding.com, built with Angular and deployed on Netli
 
 - Unit tests for the contact function with Vitest (success, validation, honeypot, provider errors, network errors, timeout, method handling, rate limit config).
 
-[Unreleased]: https://github.com/kamycoding/portfolio/compare/v1.0.0...HEAD
+[Unreleased]: https://github.com/kamycoding/portfolio/compare/v2.0.0...HEAD
+[2.0.0]: https://github.com/kamycoding/portfolio/compare/v1.0.0...v2.0.0
 [1.0.0]: https://github.com/kamycoding/portfolio/releases/tag/v1.0.0
