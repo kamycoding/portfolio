@@ -17,7 +17,6 @@
     "now": {
       "label": "Status",
       "open": "Offen für Jobs",
-      "building": "Heldio-MVP",
       "city": "Köln"
     },
     "scroll": "scrollen, um den Quellcode zu lesen",
@@ -164,7 +163,8 @@
       "title": "3 Approvals. <soft>0 Änderungswünsche.</soft>",
       "approved": "hat die Änderungen freigegeben",
       "teamProject": "Teamprojekt",
-      "clientProject": "Kundenprojekt"
+      "clientProject": "Kundenprojekt",
+      "linkedin": "LinkedIn-Profil von {name}"
     }
   },
   "stack": {

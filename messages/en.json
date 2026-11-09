@@ -17,7 +17,6 @@
     "now": {
       "label": "Status",
       "open": "Open to work",
-      "building": "Heldio MVP",
       "city": "Cologne"
     },
     "scroll": "scroll to read the source",
@@ -164,7 +163,8 @@
       "title": "3 approvals. <soft>0 changes requested.</soft>",
       "approved": "approved these changes",
       "teamProject": "team project",
-      "clientProject": "client project"
+      "clientProject": "client project",
+      "linkedin": "LinkedIn profile of {name}"
     }
   },
   "stack": {

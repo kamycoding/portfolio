@@ -1,6 +1,7 @@
 // Reviews as pull request approvals, from the approved prototype (docs/design/prototype/app.js REVIEWS).
 export type Review = Readonly<{
   name: string
+  linkedin: string
   initials: string
   accent: 'kw' | 'prop' | 'str'
   role: string
@@ -12,6 +13,7 @@ export type Review = Readonly<{
 export const REVIEWS: readonly Review[] = [
   {
     name: 'Max Belich',
+    linkedin: 'https://www.linkedin.com/in/max-belich-6b844b424/',
     initials: 'MB',
     accent: 'kw',
     role: 'Full Stack Developer',
@@ -21,6 +23,7 @@ export const REVIEWS: readonly Review[] = [
   },
   {
     name: 'Tobias Illner',
+    linkedin: 'https://www.linkedin.com/in/tobias-illner/',
     initials: 'TI',
     accent: 'prop',
     role: 'Full Stack Developer',
@@ -30,6 +33,7 @@ export const REVIEWS: readonly Review[] = [
   },
   {
     name: 'Sogand Asari',
+    linkedin: 'https://www.linkedin.com/in/sogandasari/',
     initials: 'SA',
     accent: 'str',
     role: 'Product Designer',

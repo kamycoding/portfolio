@@ -317,6 +317,19 @@
   font-weight: 500;
 }
 
+.reviewer {
+  color: var(--text);
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  text-underline-offset: 3px;
+  transition: text-decoration-color 0.15s;
+}
+
+.reviewer:hover,
+.reviewer:focus-visible {
+  text-decoration-color: currentColor;
+}
+
 .reviewHead span {
   font:
     400 11.5px var(--font-geist-mono),

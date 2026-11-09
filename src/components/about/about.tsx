@@ -144,7 +144,12 @@ const About = async () => {
                   {review.initials}
                 </span>
                 <div>
-                  <b>{review.name}</b> <span>{t('reviews.approved')}</span>
+                  {/* Named by the hidden text only, so screen readers do not hear the name twice. */}
+                  <a href={review.linkedin} target='_blank' rel='noopener noreferrer' className={styles.reviewer}>
+                    <b aria-hidden='true'>{review.name}</b>
+                    <span className='sr-only'>{t('reviews.linkedin', { name: review.name })}</span>
+                  </a>{' '}
+                  <span>{t('reviews.approved')}</span>
                 </div>
               </div>
               <blockquote>{review[locale]}</blockquote>
