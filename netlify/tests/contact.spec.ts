@@ -469,5 +469,54 @@ describe('Netlify contact function', () => {
       })
       expect(logInfo).not.toHaveBeenCalled()
     })
+
+    it.each([
+      {
+        reason: 'method',
+        status: 405,
+        request: () => new Request('https://kamycoding.com/api/contact', { method: 'GET' })
+      },
+      {
+        reason: 'content-type',
+        status: 415,
+        request: () =>
+          new Request('https://kamycoding.com/api/contact', {
+            method: 'POST',
+            headers: { 'content-type': 'text/plain' },
+            body: JSON.stringify(validContactRequest)
+          })
+      },
+      {
+        reason: 'origin',
+        status: 403,
+        request: () =>
+          new Request('https://kamycoding.com/api/contact', {
+            method: 'POST',
+            headers: { 'content-type': 'application/json', origin: 'https://evil.example' },
+            body: JSON.stringify(validContactRequest)
+          })
+      },
+      {
+        reason: 'size',
+        status: 413,
+        request: () => contactRequest({ ...validContactRequest, message: 'x'.repeat(10_001) })
+      }
+    ])('logs a $status rejection with its reason only', async ({ reason, status, request }) => {
+      const logInfo = vi.fn()
+      const logError = vi.fn()
+      const handler = createContactHandler({ environment, fetch: vi.fn<typeof fetch>(), logInfo, logError })
+
+      const response = await handler(request())
+
+      expect(response.status).toBe(status)
+      expect(logInfo).toHaveBeenCalledExactlyOnceWith('Contact request rejected.', {
+        category: 'rejected',
+        status,
+        reason
+      })
+      expect(logError).not.toHaveBeenCalled()
+
+      for (const value of [...personalData, 'evil.example']) expect(logged(logInfo, logError)).not.toContain(value)
+    })
   })
 })

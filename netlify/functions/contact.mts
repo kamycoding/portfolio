@@ -219,23 +219,30 @@ export function createContactHandler(
 ): (request: Request) => Promise<Response> {
   const dependencies = { ...defaultDependencies, ...dependencyOverrides }
 
+  // One log line per rejected request: status and reason only, never header or body values.
+  const reject = (status: number, reason: string, message: string, headers?: HeadersInit) => {
+    dependencies.logInfo('Contact request rejected.', { category: 'rejected', status, reason })
+
+    return jsonResponse({ success: false, message }, status, headers)
+  }
+
   return async (request: Request): Promise<Response> => {
     if (request.method !== 'POST') {
-      return jsonResponse({ success: false, message: 'Method not allowed.' }, 405, { allow: 'POST' })
+      return reject(405, 'method', 'Method not allowed.', { allow: 'POST' })
     }
 
     if (!isJsonRequest(request)) {
-      return jsonResponse({ success: false, message: 'Unsupported media type.' }, 415)
+      return reject(415, 'content-type', 'Unsupported media type.')
     }
 
     if (isCrossOrigin(request)) {
-      return jsonResponse({ success: false, message: 'Cross-origin requests are not allowed.' }, 403)
+      return reject(403, 'origin', 'Cross-origin requests are not allowed.')
     }
 
     const rawBody = await readLimitedBody(request)
 
     if (rawBody === undefined) {
-      return jsonResponse({ success: false, message: 'Request body too large.' }, 413)
+      return reject(413, 'size', 'Request body too large.')
     }
 
     let requestBody: unknown
