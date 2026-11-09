@@ -50,6 +50,7 @@ const JsonTree = () => {
               <button
                 type='button'
                 className={styles.toggle}
+                data-cursor='fold'
                 aria-expanded={!closed}
                 aria-label={t('foldGroup', { group })}
                 onClick={() => toggle(group)}

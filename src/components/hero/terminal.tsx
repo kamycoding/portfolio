@@ -306,6 +306,7 @@ const Terminal = () => {
       {/* Clicking anywhere in the terminal focuses the prompt, unless the visitor is selecting text. */}
       <div
         ref={bodyRef}
+        data-cursor='text'
         className={styles.tpBody}
         onClick={() => {
           if (!window.getSelection()?.toString()) inputRef.current?.focus({ preventScroll: true })

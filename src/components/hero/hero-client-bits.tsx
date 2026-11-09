@@ -13,7 +13,7 @@ export const CopyEmailButton = () => {
   const tCommon = useTranslations('common')
 
   return (
-    <button type='button' className={ui.btn} onClick={() => void copyEmail(tCommon('copied'))}>
+    <button type='button' className={ui.btn} data-cursor='copy' onClick={() => void copyEmail(tCommon('copied'))}>
       <span>{t('copyEmail')}</span>
       <span className={ui.key}>C</span>
     </button>

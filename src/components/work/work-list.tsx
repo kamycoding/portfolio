@@ -124,6 +124,7 @@ const WorkList = () => {
                 type='button'
                 data-index={index}
                 data-cover-lift=''
+                data-cursor='open'
                 aria-haspopup='dialog'
                 className={styles.rowButton}
                 onClick={event => open(index, event.currentTarget)}

@@ -10,8 +10,10 @@ import { hasLocale, NextIntlClientProvider } from 'next-intl'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { ThemeProvider } from 'next-themes'
 
+import Boot from '@/components/shell/boot'
+import CommandPalette from '@/components/shell/command-palette'
+import Cursor from '@/components/shell/cursor'
 import Footer from '@/components/shell/footer'
-import ReadyGate from '@/components/shell/ready-gate'
 import Rulers from '@/components/shell/rulers'
 import StatusBar from '@/components/shell/status-bar'
 import Toast from '@/components/shell/toast'
@@ -68,6 +70,9 @@ const LocaleLayout = async ({ children, params }: LocaleLayoutProps) => {
             >
               {t('skip')}
             </a>
+
+            {/* Static in the HTML, so it covers the page from the first paint until the build log ends. */}
+            <Boot />
             <TopBar />
             <Rulers />
 
@@ -80,7 +85,8 @@ const LocaleLayout = async ({ children, params }: LocaleLayoutProps) => {
             {/* Netlify sets BRANCH at build time; local builds show main. */}
             <StatusBar branch={process.env.BRANCH ?? 'main'} />
             <Toast />
-            <ReadyGate />
+            <CommandPalette />
+            <Cursor />
           </ThemeProvider>
         </NextIntlClientProvider>
       </body>

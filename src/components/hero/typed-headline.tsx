@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react'
 
-import { useReady } from '@/hooks/use-ready'
+import { useIntroRun, useReady } from '@/hooks/use-ready'
 import { prefersReducedMotion } from '@/lib/actions'
 import { cn } from '@/lib/utils'
 
@@ -14,19 +14,20 @@ type TypedHeadlineProps = Readonly<{
   className?: string
 }>
 
-// Typed once per page load; after a language switch the headline appears instantly, like the prototype.
-let typedBefore = false
+// Typed once per intro (also after "Replay intro"); after a language switch it appears instantly, like the prototype.
+let typedRun = 0
 
 const TypedHeadline = ({ line1, line2, className }: TypedHeadlineProps) => {
   const ready = useReady()
+  const run = useIntroRun()
 
   // null renders the full text (server HTML, reduced motion, later visits).
   const [count, setCount] = useState<number | null>(null)
 
   useEffect(() => {
-    if (!ready || typedBefore || prefersReducedMotion()) return
+    if (!ready || run <= typedRun || prefersReducedMotion()) return
 
-    typedBefore = true
+    typedRun = run
 
     const total = line1.length + line2.length
     let index = 0
@@ -44,7 +45,7 @@ const TypedHeadline = ({ line1, line2, className }: TypedHeadlineProps) => {
     timer = window.setTimeout(step, 0)
 
     return () => window.clearTimeout(timer)
-  }, [ready, line1, line2])
+  }, [ready, run, line1, line2])
 
   const typed = count ?? line1.length + line2.length
   const first = line1.slice(0, Math.min(typed, line1.length))

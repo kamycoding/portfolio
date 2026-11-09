@@ -1,0 +1,125 @@
+/* Custom cursor from the prototype (style.css: .mcur). Only for a fine pointer that can hover. */
+.cur {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 200;
+  display: none;
+  pointer-events: none;
+}
+
+:global(html.has-cur) .cur {
+  display: block;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  :global(html.has-cur),
+  :global(html.has-cur) :global(*) {
+    cursor: none !important;
+  }
+}
+
+.dot {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 6px;
+  height: 6px;
+  margin: -3px 0 0 -3px;
+  border-radius: 50%;
+  background: var(--text);
+  transition:
+    width 0.2s,
+    height 0.2s,
+    margin 0.2s,
+    border-radius 0.2s,
+    background 0.2s,
+    opacity 0.2s;
+}
+
+.ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 32px;
+  height: 32px;
+  margin: -16px 0 0 -16px;
+  border: 1px solid color-mix(in srgb, var(--kw) 70%, transparent);
+  border-radius: 50%;
+  transition:
+    width 0.25s cubic-bezier(0.2, 0.7, 0.2, 1),
+    height 0.25s cubic-bezier(0.2, 0.7, 0.2, 1),
+    margin 0.25s cubic-bezier(0.2, 0.7, 0.2, 1),
+    background 0.25s,
+    border-color 0.25s,
+    opacity 0.2s,
+    border-radius 0.25s;
+}
+
+.label {
+  position: absolute;
+  top: calc(100% - 6px);
+  left: calc(100% - 6px);
+  padding: 2px 7px;
+  border-radius: 6px;
+  background: var(--kw);
+  font:
+    500 10.5px var(--font-geist-mono),
+    monospace;
+  color: var(--bg);
+  white-space: nowrap;
+  opacity: 0;
+  transform: translateY(-3px);
+  transition:
+    opacity 0.15s,
+    transform 0.15s;
+}
+
+.label:empty {
+  display: none;
+}
+
+.link .ring {
+  width: 46px;
+  height: 46px;
+  margin: -23px 0 0 -23px;
+  border-color: var(--kw);
+  background: color-mix(in srgb, var(--kw) 14%, transparent);
+}
+
+.link .label {
+  opacity: 1;
+  transform: none;
+}
+
+.link .dot {
+  background: var(--kw);
+}
+
+.text .ring {
+  opacity: 0;
+}
+
+.text .dot {
+  width: 2px;
+  height: 20px;
+  margin: -10px 0 0 -1px;
+  border-radius: 1px;
+  background: var(--kw);
+}
+
+.down .ring {
+  width: 24px;
+  height: 24px;
+  margin: -12px 0 0 -12px;
+}
+
+.down.link .ring {
+  width: 38px;
+  height: 38px;
+  margin: -19px 0 0 -19px;
+}
+
+.hidden {
+  opacity: 0;
+}

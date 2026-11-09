@@ -4,6 +4,9 @@ import { useTranslations } from 'next-intl'
 
 import LanguageSwitch from '@/components/shell/language-switch'
 import ThemeToggle from '@/components/shell/theme-toggle'
+import ui from '@/components/ui/ui.module.css'
+import { useModKey } from '@/hooks/use-mod-key'
+import { openPalette } from '@/hooks/use-palette'
 import { useScrollSpy } from '@/hooks/use-scroll-spy'
 import { Link, usePathname } from '@/i18n/navigation'
 import { getPage, SECTIONS } from '@/lib/sections'
@@ -11,6 +14,8 @@ import { cn } from '@/lib/utils'
 
 const TopBar = () => {
   const t = useTranslations('nav')
+  const tPalette = useTranslations('palette')
+  const modKey = useModKey()
   const { activeId, progress } = useScrollSpy()
 
   // On a legal page its own file is the open tab, so no section tab is active.
@@ -75,6 +80,15 @@ const TopBar = () => {
       </nav>
 
       <div className='border-hair flex flex-none items-center gap-1.5 border-l px-2 sm:gap-2 sm:px-3.5'>
+        <button
+          type='button'
+          className={ui.chip}
+          aria-label={tPalette('open')}
+          aria-keyshortcuts='Control+K Meta+K'
+          onClick={openPalette}
+        >
+          <span>{modKey}</span> K
+        </button>
         <ThemeToggle variant='icon' />
         <LanguageSwitch />
       </div>

@@ -6,6 +6,7 @@ import { useTranslations } from 'next-intl'
 
 import Cat from '@/components/cat/cat'
 import { useCat } from '@/hooks/use-cat'
+import { useIntroRun } from '@/hooks/use-ready'
 import { cn } from '@/lib/utils'
 
 import {
@@ -47,6 +48,8 @@ const HeroEditor = () => {
   const { awake, wakes } = useCat()
   const [doc, setDoc] = useState<Doc>('kamyar')
   const [animate, setAnimate] = useState(() => !shownBefore)
+  const run = useIntroRun()
+  const [seenRun, setSeenRun] = useState(run)
   const [tip, setTip] = useState<Tip | null>(null)
   const [tipOpen, setTipOpen] = useState(false)
   const [cursor, setCursor] = useState('Ln 1, Col 1')
@@ -58,6 +61,13 @@ const HeroEditor = () => {
   useEffect(() => {
     shownBefore = true
   }, [])
+
+  // A replayed intro writes the code in again (prototype typeCode); the run in the line keys restarts the animation.
+  if (run !== seenRun) {
+    setSeenRun(run)
+
+    if (run > 1) setAnimate(true)
+  }
 
   const comments: Comments = {
     role: t('comments.role'),
@@ -143,11 +153,18 @@ const HeroEditor = () => {
         <div className={styles.edPath}>{current.path}</div>
       </div>
 
-      <div id={panelId} role='tabpanel' aria-label={current.file} className={styles.code} onMouseMove={onCodeMouseMove}>
+      <div
+        id={panelId}
+        role='tabpanel'
+        aria-label={current.file}
+        className={styles.code}
+        data-cursor='text'
+        onMouseMove={onCodeMouseMove}
+      >
         {/* The cat line's key changes on every wake-up, which restarts its flash animation. */}
         {lines.map((tokens, index) => (
           <div
-            key={index === CAT_LINE ? `${index}-${wakes}` : index}
+            key={index === CAT_LINE ? `${run}-${index}-${wakes}` : `${run}-${index}`}
             data-line={index}
             className={cn(
               styles.line,
