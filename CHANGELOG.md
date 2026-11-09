@@ -6,6 +6,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+## [2.1.0] - 2026-11-09
+
+### Changed
+
+- The stack heatmap shows the real GitHub contributions of kamycoding for the last 17 weeks, with GitHub's own levels, instead of the static v1 commits. The data is fetched at build time and refreshed daily; a committed snapshot is the fallback (ADR 0006).
+
 ## [2.0.0] - 2026-11-09
 
 A full rebuild of kamycoding.com in Next.js. The site is designed as a code editor: each section is a file, with a terminal, a command palette, line-drawing project covers and a cat. It ships in English and German, in a dark and a light theme, as static pages on Netlify. The contact form stays a Netlify Function with Brevo, now with a shared schema, stricter request checks and privacy-safe logging.
@@ -90,6 +96,7 @@ First stable release of kamycoding.com, built with Angular and deployed on Netli
 
 - Unit tests for the contact function with Vitest (success, validation, honeypot, provider errors, network errors, timeout, method handling, rate limit config).
 
-[Unreleased]: https://github.com/kamycoding/portfolio/compare/v2.0.0...HEAD
+[Unreleased]: https://github.com/kamycoding/portfolio/compare/v2.1.0...HEAD
+[2.1.0]: https://github.com/kamycoding/portfolio/compare/v2.0.0...v2.1.0
 [2.0.0]: https://github.com/kamycoding/portfolio/compare/v1.0.0...v2.0.0
 [1.0.0]: https://github.com/kamycoding/portfolio/releases/tag/v1.0.0
