@@ -68,7 +68,7 @@ JSON tree, commit heatmap, services.
   - Reject control characters (line breaks) in `name`.
   - Set `BREVO_REQUEST_TIMEOUT_MS` below the Netlify function time limit of the plan.
   - Reject bodies above about 10 KB with `413` before parsing.
-  - Done: `415`, `403` for another `Origin` (own host or `x-forwarded-host`), control characters, timeout capped at 8 s, `413`. Check on the Deploy Preview that a real form post is not answered with `403`.
+  - Done: `415`, `403` for another `Origin` (own host or `x-forwarded-host`), control characters, timeout capped at 8 s, `413`. Checked on the Deploy Preview: a real form post is accepted and delivered.
 - Separate restricted `BREVO_API_KEY` (transactional emails only) is set for the Deploy Preview context. Replace the full-access production key with a restricted one at release (Phase 11).
 
 ## Phase 9: Global interactions (done)
@@ -76,23 +76,25 @@ Intro build log, command palette, keyboard shortcuts, custom cursor.
 - The intro plays on every load, is skipped with reduced motion and without JavaScript, and releases the first-paint choreography when it ends. "Replay intro" in the palette plays it again.
 - The `G W` and `C` key hints on the hero buttons work now.
 
-## Phase 10: Quality
-- Accessibility pass in both themes and both languages, reduced motion.
-- Full visual sweep against the prototype: Phases 8 and 9 were compared in detail only for the main new elements.
-- On the legal pages, the prefetch of the home page adds image preload hints for the ticker icons that are not used (console warning). Check `prefetch` on the shell links or the ticker images.
-- Lighthouse, metadata, Open Graph image, sitemap, `NEXT_PUBLIC_APP_URL` (currently undefined, canonical URLs break).
-- Netlify Deploy Preview of the branch, test on real phones.
-- Upgrade ESLint 9 to 10 (9.39.2 is deprecated), check that `eslint-config-next` and the plugins support it.
-- minimatch 10.x moderate via typescript-eslint, clears with the ESLint 10 / typescript-eslint upgrade; check pnpm audit then.
-- Enforce the CSP: check a Deploy Preview with `curl -I` and the browser console, then switch from Report-Only and add `upgrade-insecure-requests` (ADR 0005).
-- Netlify runtime switch to Next.js: done early in the UI, before the first v2 Deploy Preview (`netlify.toml` sets `publish = ".next"`). The Deploy Preview log must show Node 24 and pnpm 12.18.0; fallback: `PNPM_VERSION=12.18.0` in the UI.
-- `HUSKY = "0"` for Netlify builds (done in 2c, `netlify.toml`).
-- CI: decide whether to pin `ubuntu-24.04` or keep `ubuntu-latest` (it moves to Ubuntu 26).
-- CodeQL default setup runs with full-length SHA pinning required (verified on Deploy Preview PR #54).
-- Serve unknown URLs from a static 404 instead of the dynamic `[...rest]` catch-all, which runs a function per request.
-- Review `shamefully-hoist=true` in `.npmrc` (a Zolt default) and remove it if nothing depends on it.
-- Decide on HSTS `preload` (all subdomains are HTTPS: www, join, elpolloloco).
-- Optional: secret scanning for non-provider patterns and validity checks.
+## Phase 10: Quality (done)
+- Fidelity sweep against the prototype at 1440, 1000 and 390 px, both themes, both languages: hero, work, about and stack match to 1 px; remaining differences are approved deviations (footer wordmark and credit, privacy label wrap). Intro, cursor states, palette and contact outputs compared in detail.
+- Accessibility: one `h1` per page, ordered headings, landmarks, named controls, visible focus on every Tab stop. Fixed: the empty hero tooltip had no name, and five controls had an `aria-label` that left out their visible text (WCAG 2.5.3). Focused contact inputs pass 1.4.11 (underline 8.1:1 dark, 5.8:1 light).
+- Lighthouse 13.5.0 (local production build): performance 99 to 100 desktop and 90 to 92 mobile, best practices 100, accessibility 97 after the fixes, SEO 92 (canonical only flagged on localhost). The intro does not change LCP (3.4 s mobile with and without it).
+- Metadata per language, canonical and `hreflang` alternates on `https://kamycoding.com` (a constant in `src/lib/site.ts`, `NEXT_PUBLIC_APP_URL` is no longer needed), Open Graph and Twitter tags, a generated Open Graph image per language, `sitemap.xml` (home only), `robots.txt` with the sitemap. Legal pages are `noindex, follow` and not in the sitemap. Manifest renamed to kamycoding.
+- CSP enforced with `upgrade-insecure-requests` (ADR 0005). Kamyar checks the Report-Only preview console before pushing.
+- ESLint stays on 9: `eslint-plugin-react` (up to `^9.7`), `eslint-plugin-jsx-a11y` and `eslint-plugin-import` (up to `^9`), all used by `eslint-config-next`, do not support ESLint 10 yet. All 9.x versions are marked unsupported. The remaining `pnpm audit` finding is the moderate minimatch issue in typescript-eslint (dev only); it needs ESLint 10 or an override.
+- CI runner pinned to `ubuntu-24.04`. `.npmrc` removed (`shamefully-hoist` and `auto-install-peers` were not needed).
+- Static 404 tried and reverted: with `dynamicParams = false` unknown URLs got the English root 404 without the shell. The `[...rest]` catch-all stays.
+- Image preload hints removed (lazy decorative icons and portrait), which also removes the console warning on the legal pages. The prefetch of the home page still preloads its CSS there (one warning, Next.js behaviour).
+- Contact function logs early rejections (405, 415, 403, 413) with status and reason.
+- The intro no longer replays when the language is switched (the layout remounts without a page load).
+- Netlify: functions run on `nodejs24.x` with `@netlify/plugin-nextjs` 5.16.6; Kamyar checks the build log lines for Node 24 and pnpm 12.18.0.
+
+### Open after Phase 10
+- Contrast: `--faint` and `--com` reach only 2.7 to 3.1:1 for small text in both themes (WCAG 1.4.3 needs 4.5:1); light `--str` is 4.1 to 4.7:1. These are prototype colors; changing them is a design decision.
+- After a client-side switch to German, switching back to English leaves `/en` in the address bar (redirects to `/` on reload, canonical unaffected). From Phase 2d, in the language routing.
+- HSTS `preload`: not now (decided in Phase 10); revisit after the Phase 11 check of the HSTS header on kamycoding.com.
+- Real phones and the secret scanning extras: Kamyar.
 
 ## Phase 11: Release
 Update CHANGELOG, merge to `main` via pull request, tag `v2.0.0`, GitHub release.

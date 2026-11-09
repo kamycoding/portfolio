@@ -25,6 +25,8 @@ Version 2 is in development on the `redesign/v2` branch.
 - Contact (`contact.ts`): direct links and a `sendMessage({ ... })` form with TypeScript-style errors, a honeypot, a privacy checkbox, `Ctrl`/`⌘ Enter` to send and an output panel; a second cat sits on the form.
 - Shared contact schema for the form and the Netlify function; the function tests run again with Vitest.
 - Intro build log on every load, command palette (`Ctrl K` / `⌘ K`), keyboard shortcuts (`G` plus a letter, `C`, `T`, `L`, `M`, `?`) and a custom cursor with action labels.
+- Metadata per language with canonical and language alternates, Open Graph and Twitter tags, a generated Open Graph image per language, a sitemap, and `noindex` for the legal pages.
+- The contact function logs every request in one line without personal data, including rejected requests.
 - Repository hygiene: GitHub Actions CI, Dependabot, Vitest, commitlint and pre-commit hooks, security policy, `security.txt`, issue and pull request templates, contributing guide and code of conduct.
 
 ### Changed
@@ -32,6 +34,11 @@ Version 2 is in development on the `redesign/v2` branch.
 - The license now has two parts: source code under MIT, content all rights reserved.
 - Privacy policy section 10 describes the language cookie and the theme setting of v2 instead of the v1 language key in Local Storage.
 - Contact function: accepts only JSON (`415`), refuses other origins (`403`) and bodies above 10 KB (`413`), rejects control characters in the name, and caps the Brevo timeout at 8 seconds.
+- The Content Security Policy is enforced (was Report-Only) and upgrades insecure requests.
+- Accessibility: visible labels are part of the accessible names of the brand link, palette button, cats and status bar buttons; the hero tooltip only has its role while it has content.
+- Decorative icons and the portrait load lazily, so the page no longer preloads 21 images.
+- The intro plays once per page load and no longer replays after a language switch.
+- CI runs on `ubuntu-24.04`; the `.npmrc` with `shamefully-hoist` is removed.
 
 ### Removed
 
