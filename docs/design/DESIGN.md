@@ -55,11 +55,14 @@ Project accents: Heldio `--kw`, Join `--prop`, Designer portfolio `--str`, El Po
 ## Sections
 
 ### Hero (`index.tsx`)
-- Comment line, headline typed once after the intro (two lines, second line muted), lede, CTAs (`See my work`, `Copy email`, GitHub, LinkedIn icon buttons), status row (`Open to work | building Heldio MVP | learning Django | Cologne time`).
-- Right: editor panel with tabs `kamyar.ts` and `types.ts` (switchable), syntax-highlighted object, hover cards on properties (TypeScript-style), `Ln, Col` readout, blinking caret.
-- Terminal under the editor with real commands: `help`, `whoami`, `ls`, `open <section>`, `projects`, `stack`, `contact`, `cat`, `theme`, `lang`, `date`, `clear`, `sudo hire-kamyar`. History with arrow keys, Tab completion.
+Concept "Blueprint ⇄ Build": everything starts as a plan (architecture background), so the hero shows the editor as a technical drawing that turns into the real UI.
+- Left: only the name `Kamyar Zamanfar` as the H1 (large, tight tracking, letters rise in once after the intro, wraps only between the two words) and the role `Full-Stack Developer` in mono, typed in with the blinking caret. The same two lines feed the OG image. No lede, buttons, social icons, status row, scroll hint or ticker.
+- Right: editor panel with the cat, tabs `kamyar.ts` and `types.ts` (switchable), syntax-highlighted object, hover cards on properties (TypeScript-style), `Ln, Col` readout, blinking caret, terminal below.
+- Blueprint layer (decorative, `aria-hidden`): thin outlines of the editor, terminal, code lines and cat, drawn from the real layout. Dimension lines with arrows show live px values (measured with `ResizeObserver`). Title block: PROJECT kamycoding.com, SCALE 1:1, SHEET 01/05 (from the section list), DATE (build date).
+- Plan/build slider: a handle over the editor, build on the left, plan on the right (`clip-path`). Accessible slider (`role="slider"`, arrows, Page keys, Home/End, Escape or double click resets, value "Plan 40 percent"). Rests on the build. The tilt pauses while dragging; keyboard focus inside the editor brings the build back.
+- Entrance: after every intro (also "Replay intro") the hero starts as the plan and builds from left to right in about 1.5s. Not replayed on a language switch. Reduced motion shows the build directly.
+- Terminal: prompt `~/kamycoding main ✓ ❯` (the chevron turns red after a failed command), inline ghost suggestion (Tab or Right Arrow accepts, nothing on an empty prompt), history with Up/Down, Ctrl+L clears, Ctrl+C cancels the line. Commands: `help`, `whoami`, `ls` and `ls projects` (clickable: sections scroll, projects open their README drawer), `git log` (real contribution stats), `blueprint`, `theme [dark|light]`, `lang [de|en]`, `contact` (scrolls to the form and focuses it), `pet cat`, `clear`, `sudo hire-kamyar`. Output is announced politely; nothing takes focus or scrolls the page on load.
 - Dot grid background, lights up under the cursor. Editor tilts slightly toward the mouse (max 5deg).
-- Tech ticker strip below the hero.
 
 ### The cat
 One SVG component, used on the hero editor and on the contact form. States: asleep (breathing, `z z`, tail swing), purr on long hover (`prrr`), awake on click (stretch, eyes open, pupils follow the mouse, `Meow`, code line `status: "awake"`), back to sleep after 7s. State is shared (one store), shown in the status bar.
@@ -98,7 +101,7 @@ Outlined `kamycoding.com` wordmark, page links, elsewhere links, legal links, co
 
 ## Accessibility (must keep)
 - Skip link, landmarks, visible focus (`--kw` outline), real buttons and links.
-- `prefers-reduced-motion`: no intro, no typing, no tilt, no lag, no ticker.
+- `prefers-reduced-motion`: no intro, no typing, no tilt, no lag, no blueprint entrance.
 - Color contrast checked in both themes.
 - Hover-only content also reachable by keyboard (hover cards on focus, drawer from the list).
 - Custom cursor only for `(hover: hover) and (pointer: fine)`.

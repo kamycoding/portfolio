@@ -9,9 +9,6 @@
       "line1": "Kamyar Zamanfar",
       "line2": "Full-Stack Developer"
     },
-    "now": {
-      "city": "Cologne"
-    },
     "blueprint": {
       "slider": "Plan and build",
       "value": "Plan {value} percent",
@@ -43,15 +40,24 @@
     },
     "terminal": {
       "label": "Terminal. Type help to see commands.",
-      "help": "<b>help</b>       this list\n<b>whoami</b>     who is this\n<b>ls</b>         files on this site\n<b>open</b> work   jump to work, about, stack or contact\n<b>projects</b>   what I built\n<b>stack</b>      what I use\n<b>contact</b>    copy my email\n<b>cat</b>        wake the cat\n<b>theme</b>, <b>lang</b>, <b>date</b>, <b>clear</b>",
+      "help": "<b>help</b>                this list\n<b>whoami</b>              who is this\n<b>ls</b> [projects]       sections and projects, clickable\n<b>git log</b>             GitHub contributions\n<b>blueprint</b>           switch between plan and build\n<b>theme</b> [dark|light]  switch the theme\n<b>lang</b> [de|en]        switch the language\n<b>contact</b>             jump to the contact form\n<b>pet cat</b>             wake the cat\n<b>clear</b>               clear the terminal",
       "whoami": "<b>Kamyar Zamanfar</b>, full-stack developer near Cologne.\nTypeScript, React, Next.js, Node. Co-founder of Heldio.",
-      "openUsage": "usage: open work | about | stack | contact",
-      "copied": "copied",
+      "lsMissing": "ls: cannot access '{path}': No such file or directory",
+      "gitUsage": "usage: git log",
+      "gitLog": {
+        "total": "{count, plural, one {<b>#</b> contribution} other {<b>#</b> contributions}}, {period}",
+        "stats": "best day <b>{best}</b> · longest streak <b>{streak, plural, one {# day} other {# days}}</b> · <b>{days}</b> active days"
+      },
+      "blueprintOn": "plan view: {value} percent plan. drag the handle, or run blueprint again.",
+      "blueprintOff": "build view.",
+      "themeUsage": "usage: theme [dark|light]",
+      "langUsage": "usage: lang [de|en]",
+      "petUsage": "usage: pet cat",
       "cat": "meow. it is awake now, for a bit.",
       "sudo": "[sudo] permission granted. opening contact.ts ...",
       "sudoNo": "nice try. try: sudo hire-kamyar",
       "tryHelp": "type help",
-      "hint": "type help, or try: sudo hire-kamyar"
+      "hint": "type help, or try: blueprint"
     }
   },
   "sections": {

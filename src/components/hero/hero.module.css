@@ -567,8 +567,15 @@
   gap: 8px;
 }
 
-.tpLine input {
+/* Input and ghost text share one box, so the suggestion lines up with what is typed. */
+.tpField {
+  position: relative;
   flex: 1;
+  min-width: 0;
+}
+
+.tpLine input {
+  width: 100%;
   min-width: 0;
   padding: 0;
   border: 0;
@@ -577,6 +584,37 @@
   font: inherit;
   color: var(--text);
   caret-color: var(--kw);
+}
+
+.ghost {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  color: var(--faint);
+  white-space: pre;
+  pointer-events: none;
+}
+
+.ghostTyped {
+  visibility: hidden;
+}
+
+/* Clickable names in the output (sections, projects, profile link). */
+.outLink {
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  color: var(--text);
+  text-decoration: underline;
+  text-decoration-color: var(--hair-3);
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+
+.outLink:hover,
+.outLink:focus-visible {
+  text-decoration-color: currentColor;
 }
 
 /* ---------- cat position on the editor ---------- */
