@@ -10,10 +10,10 @@ type NotFoundViewProps = Readonly<{
   homeHref: string
 }>
 
-// Shared by the localized 404 and the root 404, which has no locale context.
+// Shared by the localized 404 (inside the shell) and the root 404. The caller provides <main>.
 const NotFoundView = ({ copy, homeHref }: NotFoundViewProps) => {
   return (
-    <main id='main' className='mx-auto flex min-h-screen max-w-(--max) flex-col justify-center px-(--gutter)'>
+    <div className='mx-auto flex max-w-(--max) flex-col justify-center px-(--gutter) py-24'>
       <p className='text-com mb-4.5 font-mono text-[13px]'>{`// ${copy.code}`}</p>
       <h1 className='text-[clamp(32px,3.6vw,54px)] leading-[1.06] font-semibold tracking-[-0.035em]'>{copy.heading}</h1>
       <p className='text-muted mt-4.5 max-w-[56ch] text-[16.5px] leading-[1.65]'>{copy.description}</p>
@@ -31,7 +31,7 @@ const NotFoundView = ({ copy, homeHref }: NotFoundViewProps) => {
           {copy.projects}
         </a>
       </nav>
-    </main>
+    </div>
   )
 }
 

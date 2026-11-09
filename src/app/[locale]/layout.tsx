@@ -9,6 +9,10 @@ import { hasLocale, NextIntlClientProvider } from 'next-intl'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { ThemeProvider } from 'next-themes'
 
+import Footer from '@/components/shell/footer'
+import Rulers from '@/components/shell/rulers'
+import StatusBar from '@/components/shell/status-bar'
+import TopBar from '@/components/shell/top-bar'
 import { routing } from '@/i18n/routing'
 import { cn } from '@/lib/utils'
 
@@ -57,7 +61,17 @@ const LocaleLayout = async ({ children, params }: LocaleLayoutProps) => {
             >
               {t('skip')}
             </a>
-            {children}
+            <TopBar />
+            <Rulers />
+
+            {/* Room for the fixed top bar, rulers and status bar. */}
+            <div className='pt-[calc(var(--top)+var(--ruler))] pb-(--status) pl-(--ruler)'>
+              <main id='main'>{children}</main>
+              <Footer />
+            </div>
+
+            {/* Netlify sets BRANCH at build time; local builds show main. */}
+            <StatusBar branch={process.env.BRANCH ?? 'main'} />
           </ThemeProvider>
         </NextIntlClientProvider>
       </body>

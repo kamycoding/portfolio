@@ -13,7 +13,9 @@ const RootNotFound = () => {
   return (
     <html lang='en' className={cn(GeistSans.variable, GeistMono.variable)}>
       <body>
-        <NotFoundView copy={messages.notFound} homeHref='/' />
+        <main id='main' className='flex min-h-screen flex-col justify-center'>
+          <NotFoundView copy={messages.notFound} homeHref='/' />
+        </main>
       </body>
     </html>
   )

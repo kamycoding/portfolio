@@ -1,0 +1,75 @@
+'use client'
+
+import { useTranslations } from 'next-intl'
+
+import LanguageSwitch from '@/components/shell/language-switch'
+import ThemeToggle from '@/components/shell/theme-toggle'
+import { useScrollSpy } from '@/hooks/use-scroll-spy'
+import { Link } from '@/i18n/navigation'
+import { SECTIONS } from '@/lib/sections'
+import { cn } from '@/lib/utils'
+
+const TopBar = () => {
+  const t = useTranslations('nav')
+  const { activeId, progress } = useScrollSpy()
+
+  return (
+    <header className='border-hair bg-bg/84 fixed inset-x-0 top-0 z-40 flex h-(--top) items-stretch border-b backdrop-blur-md'>
+      <Link
+        href='/#index'
+        aria-label={t('home')}
+        className='border-hair flex flex-none items-center gap-2.5 border-r px-3 font-mono text-sm font-medium sm:px-5'
+      >
+        <span
+          aria-hidden='true'
+          className='border-text grid size-5.5 place-items-center rounded-md border-[1.5px] font-mono text-[10.5px] font-semibold tracking-[-0.04em]'
+        >
+          k/
+        </span>
+        <span className='hidden sm:inline'>kamycoding</span>
+        <span className='text-faint hidden text-[11.5px] font-normal lg:inline'>v2.0</span>
+      </Link>
+
+      <nav aria-label={t('main')} className='flex min-w-0 flex-1 overflow-x-auto [scrollbar-width:none]'>
+        {SECTIONS.map(section => {
+          const isActive = section.id === activeId
+
+          return (
+            <Link
+              key={section.id}
+              href={`/#${section.id}`}
+              aria-current={isActive ? 'location' : undefined}
+              className={cn(
+                'border-hair text-muted hover:text-text relative items-center gap-2 border-r px-4.5 font-mono text-[13px] whitespace-nowrap transition-colors',
+
+                // Small screens show only the active file, like a single open tab.
+                isActive
+                  ? 'bg-panel text-text after:bg-kw flex after:absolute after:inset-x-0 after:top-0 after:h-[1.5px]'
+                  : 'hidden lg:flex'
+              )}
+            >
+              <span aria-hidden='true' className={cn('size-1.75 flex-none rounded-[2px]', section.dot)} />
+              {section.file}
+              <span aria-hidden='true' className={cn('text-faint ml-0.5 text-[11px]', !isActive && 'opacity-0')}>
+                ×
+              </span>
+            </Link>
+          )
+        })}
+      </nav>
+
+      <div className='border-hair flex flex-none items-center gap-1.5 border-l px-2 sm:gap-2 sm:px-3.5'>
+        <ThemeToggle variant='icon' />
+        <LanguageSwitch />
+      </div>
+
+      <div
+        aria-hidden='true'
+        className='bg-kw absolute -bottom-px left-0 h-px transition-[width] duration-100 ease-linear'
+        style={{ width: `${progress * 100}%` }}
+      />
+    </header>
+  )
+}
+
+export default TopBar
