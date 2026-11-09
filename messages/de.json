@@ -459,5 +459,72 @@
       "label": "Stand",
       "date": "10. August 2026"
     }
+  },
+  "contact": {
+    "intro": "Du suchst einen Entwickler für dein Team oder ein Freelance-Projekt? Schreib mir ein paar Zeilen. Ich antworte meistens innerhalb eines Tages.",
+    "where": "Troisdorf bei Köln",
+    "placeholders": {
+      "name": "\"Dein Name\"",
+      "email": "\"du@firma.de\"",
+      "message": "\"Woran arbeitest du gerade?\""
+    },
+    "privacy": "Ich habe die <link>Datenschutzerklärung</link> gelesen",
+    "hint": "alle Felder sind Pflicht",
+    "send": "sendMessage() ausführen",
+    "honeypot": "Dieses Feld bitte leer lassen",
+    "errors": {
+      "name": "name: mindestens 2 Zeichen erwartet",
+      "email": "email: keine gültige E-Mail-Adresse",
+      "message": "message: mindestens 10 Zeichen erwartet",
+      "privacyAccepted": "privacyAccepted: bitte die Datenschutzerklärung bestätigen"
+    },
+    "out": {
+      "idle": "// output",
+      "fail": "✕ 1 Problem gefunden. Bitte die Felder oben prüfen.",
+      "fails": "✕ {count} Probleme gefunden. Bitte die Felder oben prüfen.",
+      "success": "✓ Vielen Dank! Deine Nachricht wurde gesendet.",
+      "error": "✕ Deine Nachricht konnte nicht gesendet werden. Bitte versuche es gleich noch einmal.",
+      "rateLimited": "✕ Zu viele Nachrichten in kurzer Zeit. Bitte versuche es in ein paar Minuten noch einmal."
+    }
+  },
+  "boot": {
+    "key": "beliebige Taste",
+    "skip": "Intro überspringen"
+  },
+  "palette": {
+    "open": "Befehlsmenü öffnen",
+    "label": "Befehlsmenü",
+    "placeholder": "Befehl eingeben oder suchen",
+    "navigate": "navigieren",
+    "run": "ausführen",
+    "close": "schließen",
+    "empty": "Kein passender Befehl",
+    "groups": {
+      "nav": "Navigation",
+      "actions": "Aktionen",
+      "links": "Links"
+    },
+    "cmd": {
+      "work": "Zu den Projekten",
+      "about": "Über mich",
+      "stack": "Zum Stack",
+      "contact": "Zum Kontakt",
+      "top": "Nach oben",
+      "mail": "E-Mail kopieren",
+      "theme": "Theme wechseln",
+      "lang": "Switch to English",
+      "cat": "Katze wecken",
+      "replay": "Intro erneut abspielen",
+      "gh": "GitHub öffnen",
+      "li": "LinkedIn öffnen"
+    }
+  },
+  "cursor": {
+    "go": "go",
+    "open": "öffnen",
+    "copy": "kopieren",
+    "run": "run",
+    "pet": "streicheln",
+    "fold": "fold"
   }
 }

@@ -11,12 +11,15 @@ import styles from './cat.module.css'
 
 type CatProps = Readonly<{
   className?: string
+
+  // Both cats share one state, so only the first one announces its bubble to screen readers.
+  announce?: boolean
 }>
 
 // From the prototype: a hover longer than this purrs instead of waking the cat.
 const PURR_DELAY_MS = 650
 
-const Cat = ({ className }: CatProps) => {
+const Cat = ({ className, announce = true }: CatProps) => {
   const t = useTranslations('cat')
   const { awake, wakes, bubble, bubbleVisible } = useCat()
   const [purring, setPurring] = useState(false)
@@ -89,6 +92,7 @@ const Cat = ({ className }: CatProps) => {
     <div className={cn(styles.wrap, className)} data-shell-ui=''>
       <button
         type='button'
+        data-cursor='pet'
         aria-label={awake ? t('awakeLabel') : t('wake')}
         onClick={onWake}
         onPointerEnter={onPointerEnter}
@@ -149,7 +153,11 @@ const Cat = ({ className }: CatProps) => {
         </svg>
       </button>
 
-      <div aria-live='polite' className={cn(styles.meow, bubbleVisible && styles.show)}>
+      <div
+        aria-live={announce ? 'polite' : undefined}
+        aria-hidden={announce ? undefined : true}
+        className={cn(styles.meow, bubbleVisible && styles.show)}
+      >
         {bubble === 'meow' ? t('meow') : 'prrr'}
       </div>
     </div>

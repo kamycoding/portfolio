@@ -451,5 +451,72 @@
       "label": "Last updated",
       "date": "August 10, 2026"
     }
+  },
+  "contact": {
+    "intro": "Looking for a developer for your team or a freelance project? Write me a few lines. I usually answer within a day.",
+    "where": "Troisdorf, near Cologne",
+    "placeholders": {
+      "name": "\"Your name\"",
+      "email": "\"you@company.com\"",
+      "message": "\"What are you working on?\""
+    },
+    "privacy": "I have read the <link>privacy policy</link>",
+    "hint": "all fields are required",
+    "send": "Run sendMessage()",
+    "honeypot": "Leave this field empty",
+    "errors": {
+      "name": "name: expected at least 2 characters",
+      "email": "email: not a valid email address",
+      "message": "message: expected at least 10 characters",
+      "privacyAccepted": "privacyAccepted: please confirm the privacy policy"
+    },
+    "out": {
+      "idle": "// output",
+      "fail": "✕ 1 problem found. Fix the fields above.",
+      "fails": "✕ {count} problems found. Fix the fields above.",
+      "success": "✓ Thank you! Your message has been sent.",
+      "error": "✕ Your message could not be sent. Please try again in a moment.",
+      "rateLimited": "✕ Too many messages in a short time. Please try again in a few minutes."
+    }
+  },
+  "boot": {
+    "key": "press any key",
+    "skip": "skip intro"
+  },
+  "palette": {
+    "open": "Open command menu",
+    "label": "Command menu",
+    "placeholder": "Type a command or search",
+    "navigate": "navigate",
+    "run": "run",
+    "close": "close",
+    "empty": "No matching command",
+    "groups": {
+      "nav": "Navigate",
+      "actions": "Actions",
+      "links": "Links"
+    },
+    "cmd": {
+      "work": "Go to work",
+      "about": "Go to about",
+      "stack": "Go to stack",
+      "contact": "Go to contact",
+      "top": "Back to top",
+      "mail": "Copy email",
+      "theme": "Toggle theme",
+      "lang": "Auf Deutsch wechseln",
+      "cat": "Wake the cat",
+      "replay": "Replay intro",
+      "gh": "Open GitHub",
+      "li": "Open LinkedIn"
+    }
+  },
+  "cursor": {
+    "go": "go",
+    "open": "open",
+    "copy": "copy",
+    "run": "run",
+    "pet": "pet",
+    "fold": "fold"
   }
 }
