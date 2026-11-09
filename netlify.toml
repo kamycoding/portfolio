@@ -1,7 +1,12 @@
-# No publish dir: Netlify's Next.js runtime detects and sets it.
 [build]
   command = "pnpm build"
+  # Set here so a leftover v1 value in the Netlify UI cannot break v2 builds.
+  publish = ".next"
 # Node version comes from .nvmrc, the single source for local, CI and Netlify.
+
+[build.environment]
+  # Git hooks are for local commits only.
+  HUSKY = "0"
 
 [[redirects]]
   from = "/api/contact"

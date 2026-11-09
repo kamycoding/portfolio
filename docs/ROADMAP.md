@@ -62,6 +62,7 @@ JSON tree, commit heatmap, services.
   - Reject control characters (line breaks) in `name`.
   - Set `BREVO_REQUEST_TIMEOUT_MS` below the Netlify function time limit of the plan.
   - Reject bodies above about 10 KB with `413` before parsing.
+- Add a separate `BREVO_API_KEY` test key for the Deploy Preview context in Netlify. Until then, previews answer `502` on `/api/contact` (the production key is set for Production only).
 
 ## Phase 9: Global interactions
 Intro build log, command palette, keyboard shortcuts, custom cursor.
@@ -73,7 +74,8 @@ Intro build log, command palette, keyboard shortcuts, custom cursor.
 - Upgrade ESLint 9 to 10 (9.39.2 is deprecated), check that `eslint-config-next` and the plugins support it.
 - minimatch 10.x moderate via typescript-eslint, clears with the ESLint 10 / typescript-eslint upgrade; check pnpm audit then.
 - Enforce the CSP: check a Deploy Preview with `curl -I` and the browser console, then switch from Report-Only and add `upgrade-insecure-requests` (ADR 0005).
-- Netlify: switch the runtime to Next.js and clear the publish directory before the first v2 Deploy Preview; set `HUSKY = "0"` for Netlify builds.
+- Netlify runtime switch to Next.js: done early in the UI, before the first v2 Deploy Preview (`netlify.toml` sets `publish = ".next"`). The Deploy Preview log must show Node 24 and pnpm 12.18.0; fallback: `PNPM_VERSION=12.18.0` in the UI.
+- `HUSKY = "0"` for Netlify builds (done in 2c, `netlify.toml`).
 - CI: decide whether to pin `ubuntu-24.04` or keep `ubuntu-latest` (it moves to Ubuntu 26).
 - Verify that CodeQL default setup still runs now that full-length SHA pinning is required.
 - Serve unknown URLs from a static 404 instead of the dynamic `[...rest]` catch-all, which runs a function per request.
@@ -83,6 +85,7 @@ Intro build log, command palette, keyboard shortcuts, custom cursor.
 
 ## Phase 11: Release
 Update CHANGELOG, merge to `main` via pull request, tag `v2.0.0`, GitHub release.
+- Unlock auto publishing in Netlify (the v1 production deploy is locked) right after merging v2 into main.
 - Turn Dependabot security updates back on.
 - After the release, check that the `Canonical` and `Policy` URLs in `security.txt` resolve.
 - Note: the required status check on `main` is tied to the CI job name "Lint, types, test, build". Renaming the job blocks all merges.
