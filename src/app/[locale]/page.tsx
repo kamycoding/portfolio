@@ -4,14 +4,15 @@ import { setRequestLocale } from 'next-intl/server'
 import About from '@/components/about/about'
 import Hero from '@/components/hero/hero'
 import Section, { SectionHeading } from '@/components/shell/section'
+import Stack from '@/components/stack/stack'
 import Work from '@/components/work/work'
 
 type HomePageProps = Readonly<{
   params: Promise<{ locale: string }>
 }>
 
-// Sections still waiting for their phase (stack: 6, contact: 8).
-const PLACEHOLDERS = ['stack', 'contact'] as const
+// Sections still waiting for their phase (contact: 8).
+const PLACEHOLDERS = ['contact'] as const
 
 const HomePage = async ({ params }: HomePageProps) => {
   const { locale } = await params
@@ -24,6 +25,7 @@ const HomePage = async ({ params }: HomePageProps) => {
       <Hero />
       <Work />
       <About />
+      <Stack />
 
       {PLACEHOLDERS.map(id => (
         <Section key={id} id={id}>
