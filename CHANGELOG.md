@@ -16,6 +16,8 @@ Version 2 is in development on the `redesign/v2` branch.
 - English and German with next-intl: English at `/`, German at `/de`, browser language detection (ADR 0004).
 - Localized 404 page.
 - Layout shell: top bar with file tabs as navigation, scroll progress, theme toggle and language switch; rulers with crosshair (desktop); status bar with branch, current file, line and Cologne time; sticky breadcrumbs per section; footer.
+- Hero (`index.tsx`): typed headline, CTAs, now row with Cologne time, editor with `kamyar.ts` and `types.ts` tabs and TypeScript-style hover cards, terminal with 13 commands, history and Tab completion, dot grid with pointer spotlight, editor tilt, tech ticker.
+- The cat: sleeps, purrs on a long hover, wakes on click with eyes that follow the pointer; its state shows in the status bar.
 - Repository hygiene: GitHub Actions CI, Dependabot, Vitest, commitlint and pre-commit hooks, security policy, `security.txt`, issue and pull request templates, contributing guide and code of conduct.
 
 ### Changed

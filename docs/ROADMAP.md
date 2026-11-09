@@ -36,9 +36,10 @@ Next.js, pnpm, Netlify config.
 - `Ctrl K` button waits for Phase 9, `cat:` in the status bar for Phase 3. The footer keeps the Zolt credit while Zolt-derived config files remain (ADR 0003).
 - Commit: `feat: add layout shell`
 
-## Phase 3: Hero
+## Phase 3: Hero (done)
 Editor panel with tabs and hover cards, terminal, typed headline, status row, dot grid, ticker, the cat component.
 - The terminal renders input and output as text only, never as HTML (ADR 0005, `react/no-danger`).
+- The `G W` and `C` key hints on the hero buttons work once the shortcuts arrive in Phase 9. Typing and fade-ins start after the intro then.
 
 ## Phase 4: Work
 `ls -la` list, pointer preview, project drawer, line-drawing covers as SVG components.
