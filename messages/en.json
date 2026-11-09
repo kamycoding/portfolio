@@ -1,12 +1,58 @@
 {
   "common": {
-    "skip": "Skip to content"
+    "skip": "Skip to content",
+    "copied": "email copied to clipboard"
   },
   "hero": {
     "comment": "// full-stack developer, cologne",
     "headline": {
       "line1": "I build web products.",
       "line2": "From idea to deploy."
+    },
+    "lede": "I trained as an architect, so I care about <strong>structure, details and the people</strong> who use what I build. Today I work across the stack with TypeScript, React, Next.js and Node, and I co-founded <strong>Heldio</strong>, an AI platform for language learning.",
+    "cta": {
+      "work": "See my work",
+      "copyEmail": "Copy email"
+    },
+    "now": {
+      "label": "Status",
+      "open": "Open to work",
+      "building": "Heldio MVP",
+      "city": "Cologne"
+    },
+    "scroll": "scroll to read the source",
+    "editor": {
+      "filesLabel": "Open files",
+      "problems": "0 problems",
+      "comments": {
+        "role": "// frontend first",
+        "building": "// AI language learning",
+        "background": "// plans → pull requests",
+        "cat": "// do not wake",
+        "awake": "// meow",
+        "types": "// optional? no."
+      },
+      "tips": {
+        "role": "Started in frontend with React and Next.js, now building end to end with Node and PostgreSQL.",
+        "based": "Troisdorf, near Cologne. Remote or on site.",
+        "stack": "What I use every day. The full list is in stack.json below.",
+        "building": "Co-founder and frontend developer. Goal, plan, practice, feedback.",
+        "background": "Master's in architecture, then co-founded Tarahimo, 2022 to 2024.",
+        "openTo": "Full-time roles and freelance projects, remote or near Cologne.",
+        "cat": "Owns the keyboard. Click the cat above the editor."
+      }
+    },
+    "terminal": {
+      "label": "Terminal. Type help to see commands.",
+      "help": "<b>help</b>       this list\n<b>whoami</b>     who is this\n<b>ls</b>         files on this site\n<b>open</b> work   jump to work, about, stack or contact\n<b>projects</b>   what I built\n<b>stack</b>      what I use\n<b>contact</b>    copy my email\n<b>cat</b>        wake the cat\n<b>theme</b>, <b>lang</b>, <b>date</b>, <b>clear</b>",
+      "whoami": "<b>Kamyar Zamanfar</b>, full-stack developer near Cologne.\nTypeScript, React, Next.js, Node. Co-founder of Heldio.",
+      "openUsage": "usage: open work | about | stack | contact",
+      "copied": "copied",
+      "cat": "meow. it is awake now, for a bit.",
+      "sudo": "[sudo] permission granted. opening contact.ts ...",
+      "sudoNo": "nice try. try: sudo hire-kamyar",
+      "tryHelp": "type help",
+      "hint": "type help, or try: sudo hire-kamyar"
     }
   },
   "sections": {
@@ -66,5 +112,12 @@
     "privacyPolicy": "Privacy policy",
     "builtWith": "Next.js, TypeScript, Tailwind CSS. Hosted on Netlify.",
     "credit": "Started from the Zolt template by shadcn/studio (MIT)."
+  },
+  "cat": {
+    "wake": "Wake the cat",
+    "awakeLabel": "The cat is awake",
+    "asleep": "asleep",
+    "awake": "awake",
+    "meow": "Meow"
   }
 }

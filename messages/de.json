@@ -1,12 +1,58 @@
 {
   "common": {
-    "skip": "Zum Inhalt springen"
+    "skip": "Zum Inhalt springen",
+    "copied": "E-Mail in die Zwischenablage kopiert"
   },
   "hero": {
     "comment": "// full-stack developer, köln",
     "headline": {
       "line1": "Ich baue Web-Produkte.",
       "line2": "Von der Idee bis zum Deploy."
+    },
+    "lede": "Ich habe Architektur studiert. Deshalb sind mir <strong>Struktur, Details und die Menschen</strong> wichtig, die nutzen, was ich baue. Heute arbeite ich über den ganzen Stack mit TypeScript, React, Next.js und Node. Außerdem habe ich <strong>Heldio</strong> mitgegründet, eine KI-Plattform zum Sprachenlernen.",
+    "cta": {
+      "work": "Projekte ansehen",
+      "copyEmail": "E-Mail kopieren"
+    },
+    "now": {
+      "label": "Status",
+      "open": "Offen für Jobs",
+      "building": "Heldio-MVP",
+      "city": "Köln"
+    },
+    "scroll": "scrollen, um den Quellcode zu lesen",
+    "editor": {
+      "filesLabel": "Geöffnete Dateien",
+      "problems": "0 Probleme",
+      "comments": {
+        "role": "// erst Frontend",
+        "building": "// KI-Sprachenlernen",
+        "background": "// Pläne → Pull Requests",
+        "cat": "// nicht wecken",
+        "awake": "// miau",
+        "types": "// optional? nein."
+      },
+      "tips": {
+        "role": "Angefangen im Frontend mit React und Next.js, heute End-to-End mit Node und PostgreSQL.",
+        "based": "Troisdorf bei Köln. Remote oder vor Ort.",
+        "stack": "Was ich täglich nutze. Die ganze Liste steht weiter unten in stack.json.",
+        "building": "Mitgründer und Frontend-Entwickler. Ziel, Plan, Übung, Feedback.",
+        "background": "Master in Architektur, danach Mitgründer von Tarahimo, 2022 bis 2024.",
+        "openTo": "Festanstellung und Freelance-Projekte, remote oder rund um Köln.",
+        "cat": "Gehört die Tastatur. Klick auf die Katze über dem Editor."
+      }
+    },
+    "terminal": {
+      "label": "Terminal. Tippe help, um die Befehle zu sehen.",
+      "help": "<b>help</b>       diese Liste\n<b>whoami</b>     wer ist das\n<b>ls</b>         Dateien dieser Seite\n<b>open</b> work   springt zu work, about, stack oder contact\n<b>projects</b>   was ich gebaut habe\n<b>stack</b>      womit ich arbeite\n<b>contact</b>    E-Mail kopieren\n<b>cat</b>        Katze wecken\n<b>theme</b>, <b>lang</b>, <b>date</b>, <b>clear</b>",
+      "whoami": "<b>Kamyar Zamanfar</b>, Full-Stack-Entwickler bei Köln.\nTypeScript, React, Next.js, Node. Mitgründer von Heldio.",
+      "openUsage": "Nutzung: open work | about | stack | contact",
+      "copied": "kopiert",
+      "cat": "miau. sie ist jetzt wach, für kurz.",
+      "sudo": "[sudo] Zugriff erlaubt. Öffne contact.ts ...",
+      "sudoNo": "netter Versuch. Probier: sudo hire-kamyar",
+      "tryHelp": "tippe help",
+      "hint": "tippe help, oder probier: sudo hire-kamyar"
     }
   },
   "sections": {
@@ -66,5 +112,12 @@
     "privacyPolicy": "Datenschutz",
     "builtWith": "Next.js, TypeScript, Tailwind CSS. Gehostet bei Netlify.",
     "credit": "Basiert ursprünglich auf dem Zolt-Template von shadcn/studio (MIT)."
+  },
+  "cat": {
+    "wake": "Katze wecken",
+    "awakeLabel": "Die Katze ist wach",
+    "asleep": "schläft",
+    "awake": "wach",
+    "meow": "Miau"
   }
 }
