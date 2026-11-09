@@ -16,7 +16,8 @@ concurrency:
 jobs:
   check:
     name: Lint, types, test, build
-    runs-on: ubuntu-latest
+    # Pinned so the move to a new Ubuntu happens on purpose, not when GitHub changes ubuntu-latest.
+    runs-on: ubuntu-24.04
     timeout-minutes: 15
     env:
       # Git hooks are for local commits only.
