@@ -6,6 +6,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+### Changed
+
+- The top bar and the intro show the version from `package.json` (`v2.1`, `2.1.0`) instead of a hardcoded `2.0`, so they follow every release.
+- `@types/node` follows the Node 24 runtime (`24.19.2`, was `22.19.3`).
+- Dependabot no longer proposes major updates of `@types/node`; they are raised together with the Node version.
+
 ## [2.1.0] - 2026-11-09
 
 ### Changed

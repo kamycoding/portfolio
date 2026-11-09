@@ -13,7 +13,12 @@ import { Link, usePathname } from '@/i18n/navigation'
 import { getPage, SECTIONS } from '@/lib/sections'
 import { cn } from '@/lib/utils'
 
-const TopBar = () => {
+// versionLabel is "v2.1", from package.json (src/lib/version.ts).
+type TopBarProps = Readonly<{
+  versionLabel: string
+}>
+
+const TopBar = ({ versionLabel }: TopBarProps) => {
   const t = useTranslations('nav')
   const tPalette = useTranslations('palette')
   const modKey = useModKey()
@@ -39,11 +44,11 @@ const TopBar = () => {
           k/
         </span>
         <span className='max-sm:sr-only'>kamycoding</span>
-        <span className='text-faint hidden text-[11.5px] font-normal lg:inline'>v2.0</span>
+        <span className='text-faint hidden text-[11.5px] font-normal lg:inline'>{versionLabel}</span>
         <span className='sr-only'>, {t('home')}</span>
       </Link>
 
-      <nav aria-label={t('main')} className='flex min-w-0 flex-1 overflow-x-auto [scrollbar-width:none]'>
+      <nav aria-label={t('main')} className='flex min-w-0 flex-1 [scrollbar-width:none] overflow-x-auto'>
         {SECTIONS.map(section => {
           const isActive = !page && section.id === activeId
 
