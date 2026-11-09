@@ -3,6 +3,7 @@ import type { ReactNode } from 'react'
 import type { Locale } from 'next-intl'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 
+import Hero from '@/components/hero/hero'
 import Breadcrumb from '@/components/shell/breadcrumb'
 import { SECTIONS } from '@/lib/sections'
 
@@ -22,18 +23,9 @@ const HomePage = async ({ params }: HomePageProps) => {
 
   return (
     <>
-      {/* Placeholder content: the real sections replace it in Phases 3 to 8. */}
-      <section
-        id='index'
-        data-file='index.tsx'
-        className='mx-auto flex min-h-[calc(100vh-var(--top)-var(--ruler)-var(--status))] max-w-(--max) flex-col justify-center px-(--gutter) py-16'
-      >
-        <p className='text-com mb-5.5 font-mono text-[13px]'>{t('hero.comment')}</p>
-        <h1 className='max-w-[16ch] text-[clamp(40px,4.9vw,78px)] leading-[1.03] font-semibold tracking-[-0.042em]'>
-          {t('hero.headline.line1')}
-          <span className='text-muted block'>{t('hero.headline.line2')}</span>
-        </h1>
-      </section>
+      <Hero />
+
+      {/* Placeholder content: the real sections replace it in Phases 4 to 8. */}
 
       {SECTIONS.map(section =>
         section.crumb === null ? null : (
