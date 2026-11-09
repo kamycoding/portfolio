@@ -32,7 +32,7 @@ const calendar = (days: readonly [date: string, count: number, level: string][])
 })
 
 const VALID = calendar([
-  ['2026-07-19', 7, 'FOURTH_QUARTILE'],
+  ['2025-11-16', 7, 'FOURTH_QUARTILE'],
   ['2026-07-20', 2, 'FIRST_QUARTILE'],
   ['2026-08-05', 12, 'FOURTH_QUARTILE'],
   ['2026-11-09', 0, 'NONE']
@@ -42,18 +42,24 @@ const respond = (body: unknown, status = 200) =>
   vi.fn<typeof fetch>().mockResolvedValue(new Response(JSON.stringify(body), { status }))
 
 describe('contributionWindow', () => {
-  it('ends today and starts on the Monday 16 weeks before the current week', () => {
-    expect(contributionWindow(NOW)).toEqual({ start: '2026-07-20', end: '2026-11-09' })
+  it('ends today and starts on the Monday 51 weeks before the current week', () => {
+    expect(contributionWindow(NOW)).toEqual({ start: '2025-11-17', end: '2026-11-09' })
+  })
+
+  it('stays within one year, the limit of a GitHub contributions query', () => {
+    const { start, end } = contributionWindow(new Date('2026-11-15T23:00:00Z'))
+
+    expect((Date.parse(end) - Date.parse(start)) / 86_400_000).toBeLessThan(365)
   })
 
   it('treats Sunday as the last day of the week', () => {
-    expect(contributionWindow(new Date('2026-11-15T23:00:00Z'))).toEqual({ start: '2026-07-20', end: '2026-11-15' })
+    expect(contributionWindow(new Date('2026-11-15T23:00:00Z'))).toEqual({ start: '2025-11-17', end: '2026-11-15' })
   })
 })
 
 describe('parseCalendar', () => {
   it("keeps only the window's days and maps GitHub's levels to 0 to 4", () => {
-    expect(parseCalendar(VALID, '2026-07-20', '2026-11-09')).toEqual([
+    expect(parseCalendar(VALID, '2025-11-17', '2026-11-09')).toEqual([
       { date: '2026-07-20', count: 2, level: 1 },
       { date: '2026-08-05', count: 12, level: 4 },
       { date: '2026-11-09', count: 0, level: 0 }
@@ -75,7 +81,7 @@ describe('fetchSnapshot', () => {
       ok: true,
       snapshot: {
         user: 'kamycoding',
-        start: '2026-07-20',
+        start: '2025-11-17',
         end: '2026-11-09',
         fetchedAt: '2026-11-09T03:00:00.000Z',
         days: [
@@ -93,7 +99,7 @@ describe('fetchSnapshot', () => {
     expect(new Headers(init?.headers).get('authorization')).toBe('bearer test-token')
     expect(body).toEqual({
       query: CALENDAR_QUERY,
-      variables: { login: 'kamycoding', from: '2026-07-20T00:00:00Z', to: '2026-11-09T23:59:59Z' }
+      variables: { login: 'kamycoding', from: '2025-11-17T00:00:00Z', to: '2026-11-09T23:59:59Z' }
     })
   })
 
