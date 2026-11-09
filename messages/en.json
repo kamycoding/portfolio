@@ -87,7 +87,7 @@
   },
   "nav": {
     "main": "Main",
-    "home": "kamycoding, home"
+    "home": "home"
   },
   "theme": {
     "toggle": "Toggle theme",
@@ -518,5 +518,9 @@
     "run": "run",
     "pet": "pet",
     "fold": "fold"
+  },
+  "meta": {
+    "title": "Kamyar Zamanfar, full-stack developer",
+    "description": "Full-stack developer near Cologne. TypeScript, React, Next.js and Node. Co-founder of Heldio."
   }
 }

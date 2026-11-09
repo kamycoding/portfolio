@@ -87,7 +87,7 @@
   },
   "nav": {
     "main": "Hauptnavigation",
-    "home": "kamycoding, Startseite"
+    "home": "Startseite"
   },
   "theme": {
     "toggle": "Farbschema wechseln",
@@ -526,5 +526,9 @@
     "run": "run",
     "pet": "streicheln",
     "fold": "fold"
+  },
+  "meta": {
+    "title": "Kamyar Zamanfar, Full-Stack-Entwickler",
+    "description": "Full-Stack-Entwickler bei Köln. TypeScript, React, Next.js, Node. Mitgründer von Heldio."
   }
 }

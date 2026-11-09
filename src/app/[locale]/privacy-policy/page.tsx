@@ -3,6 +3,7 @@ import type { Locale } from 'next-intl'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 
 import PrivacyPolicy from '@/components/legal/privacy-policy'
+import { pageMetadata } from '@/lib/site'
 
 type PrivacyPolicyPageProps = Readonly<{
   params: Promise<{ locale: string }>
@@ -12,7 +13,11 @@ export const generateMetadata = async ({ params }: PrivacyPolicyPageProps): Prom
   const { locale } = await params
   const t = await getTranslations({ locale: locale as Locale, namespace: 'legal' })
 
-  return { title: t('privacyTitle') }
+  // The legal notice holds a home address, so both legal pages stay out of search results (links are still followed).
+  return {
+    ...pageMetadata({ locale, path: '/privacy-policy', title: t('privacyTitle') }),
+    robots: { index: false, follow: true }
+  }
 }
 
 const PrivacyPolicyPage = async ({ params }: PrivacyPolicyPageProps) => {

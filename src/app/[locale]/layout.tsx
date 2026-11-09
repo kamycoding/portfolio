@@ -6,7 +6,7 @@ import Script from 'next/script'
 
 import { GeistMono } from 'geist/font/mono'
 import { GeistSans } from 'geist/font/sans'
-import { hasLocale, NextIntlClientProvider } from 'next-intl'
+import { hasLocale, type Locale, NextIntlClientProvider } from 'next-intl'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { ThemeProvider } from 'next-themes'
 
@@ -19,6 +19,7 @@ import StatusBar from '@/components/shell/status-bar'
 import Toast from '@/components/shell/toast'
 import TopBar from '@/components/shell/top-bar'
 import { routing } from '@/i18n/routing'
+import { pageMetadata, SITE_URL } from '@/lib/site'
 import { cn } from '@/lib/utils'
 
 import '../globals.css'
@@ -30,17 +31,24 @@ type LocaleLayoutProps = Readonly<{
 
 export const generateStaticParams = () => routing.locales.map(locale => ({ locale }))
 
-// English for both locales until the metadata pass in Phase 10.
-export const metadata: Metadata = {
-  title: 'Kamyar Zamanfar, full-stack developer',
-  description: 'Full-stack developer near Cologne. TypeScript, React, Next.js and Node. Co-founder of Heldio.',
-  icons: {
-    icon: [
-      { url: '/favicon.ico', sizes: '48x48' },
-      { url: '/favicon.svg', type: 'image/svg+xml' },
-      { url: '/favicon-96x96.png', sizes: '96x96', type: 'image/png' }
-    ],
-    apple: '/apple-touch-icon.png'
+const ICONS: Metadata['icons'] = {
+  icon: [
+    { url: '/favicon.ico', sizes: '48x48' },
+    { url: '/favicon.svg', type: 'image/svg+xml' },
+    { url: '/favicon-96x96.png', sizes: '96x96', type: 'image/png' }
+  ],
+  apple: '/apple-touch-icon.png'
+}
+
+// Title and description per language; the Open Graph image comes from opengraph-image.tsx next to this file.
+export const generateMetadata = async ({ params }: Pick<LocaleLayoutProps, 'params'>): Promise<Metadata> => {
+  const { locale } = await params
+  const t = await getTranslations({ locale: locale as Locale, namespace: 'meta' })
+
+  return {
+    metadataBase: new URL(SITE_URL),
+    ...pageMetadata({ locale, title: t('title'), description: t('description') }),
+    icons: ICONS
   }
 }
 
