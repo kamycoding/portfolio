@@ -96,7 +96,7 @@ const drawAscii = (photo: HTMLImageElement, canvas: HTMLCanvasElement) => {
   const blurData = blurredContext.getImageData(0, 0, cols, rows).data
   const font = getComputedStyle(document.documentElement).getPropertyValue('--font-geist-mono').trim() || 'monospace'
 
-  context.fillStyle = '#0A0E1A'
+  context.fillStyle = '#141414'
   context.fillRect(0, 0, box.width, box.height)
   context.font = `500 8.4px ${font}`
   context.textBaseline = 'top'
@@ -112,7 +112,7 @@ const drawAscii = (photo: HTMLImageElement, canvas: HTMLCanvasElement) => {
 
       if (char === ' ') continue
 
-      context.fillStyle = `rgba(230,232,238,${(0.3 + value * 0.7).toFixed(2)})`
+      context.fillStyle = `rgba(230,230,230,${(0.3 + value * 0.7).toFixed(2)})`
       context.fillText(char, x * CELL_W, y * CELL_H)
     }
   }

@@ -4,31 +4,32 @@
 @custom-variant dark (&:where([data-theme='dark'], [data-theme='dark'] *));
 
 /*
- * Design tokens, copied from docs/design/prototype/style.css.
- * Dark is the default, light overrides it. next-themes sets data-theme on <html>.
- * Changed from the prototype for WCAG AA (4.5:1 for small text): --faint and --com in both themes, light --str.
+ * Design tokens. Dark is the default, light overrides it. next-themes sets data-theme on <html>.
+ * Dark follows VS Code "Dark Modern" (neutral greys) with Dark+ syntax colors; light is from the prototype.
+ * Lightened for WCAG AA (4.5:1 on every dark surface up to --panel-3): dark --faint, --com, --err.
+ * Light keeps its earlier AA fixes: --faint, --com and --str.
  */
 :root {
-  --bg: #0b1020;
-  --bg-2: #0d1326;
-  --panel: #0f1528;
-  --panel-2: #131a30;
-  --panel-3: #18203a;
-  --text: #e6e8ee;
-  --muted: #8a91a6;
-  --faint: #7a829a;
-  --hair: rgba(230, 232, 238, 0.08);
-  --hair-2: rgba(230, 232, 238, 0.14);
-  --hair-3: rgba(230, 232, 238, 0.28);
-  --kw: #9aa8ff;
-  --str: #f5b754;
-  --prop: #7fd1b9;
-  --num: #f28f79;
-  --com: #7a829a;
-  --ok: #7fd1b9;
-  --err: #f2797b;
-  --kw-a: rgba(154, 168, 255, 0.12);
-  --str-a: rgba(245, 183, 84, 0.14);
+  --bg: #181818;
+  --bg-2: #181818;
+  --panel: #1f1f1f;
+  --panel-2: #252526;
+  --panel-3: #2a2d2e;
+  --text: #cccccc;
+  --muted: #9d9d9d;
+  --faint: #949494;
+  --hair: #2b2b2b;
+  --hair-2: #3c3c3c;
+  --hair-3: #555555;
+  --kw: #569cd6;
+  --str: #ce9178;
+  --prop: #9cdcfe;
+  --num: #b5cea8;
+  --com: #70a15a;
+  --ok: #4ec9b0;
+  --err: #f36666;
+  --kw-a: rgba(86, 156, 214, 0.14);
+  --str-a: rgba(206, 145, 120, 0.14);
   --shadow: 0 30px 80px -30px rgba(0, 0, 0, 0.65);
   --ruler: 22px;
   --top: 56px;
