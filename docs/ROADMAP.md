@@ -44,7 +44,7 @@ Editor panel with tabs and hover cards, terminal, typed headline, status row, do
 ## Phase 4: Work (done)
 `ls -la` list, pointer preview, project drawer, line-drawing covers as SVG components.
 
-## Phase 5: About
+## Phase 5: About (done)
 Markdown text, facts, ASCII portrait with lens, git log experience, reviews.
 
 ## Phase 6: Stack
@@ -93,5 +93,7 @@ Update CHANGELOG, merge to `main` via pull request, tag `v2.0.0`, GitHub release
 - After the release, check which HSTS header kamycoding.com sends (on netlify.app, Netlify's own header wins) and decide whether to set it explicitly in `netlify.toml`.
 - Note: the required status check on `main` is tied to the CI job name "Lint, types, test, build". Renaming the job blocks all merges.
 
-## Open questions for Kamyar
-- Developer Akademie start date.
+## Answered questions
+- Project durations and years (Join 5 weeks, Designer portfolio 4 months, El Pollo Loco 3 weeks, all 2026): confirmed as in the prototype.
+- Reviews and facts in the about section: real and confirmed.
+- Developer Akademie start date: 31 March 2026, intensive course "Softwareentwickler, Schwerpunkt Web-Anwendungen". The prototype shows no start date, so the git log keeps "ongoing" / "laufend"; use "since March 2026" / "seit März 2026" only where a start date is shown.

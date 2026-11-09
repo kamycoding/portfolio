@@ -42,7 +42,7 @@ pnpm test         # Vitest
 - Name: Kamyar Zamanfar. Role: Full-stack developer. Based near Cologne, Germany.
 - Background: architecture degree, then software development.
 - Heldio: co-founder and frontend developer, AI platform for contextual language learning.
-- Developer Akademie: full-stack and AI software developer training. Front-end certificate on 18 Sep 2026, other modules ongoing.
+- Developer Akademie: full-stack and AI software developer training, intensive course "Softwareentwickler, Schwerpunkt Web-Anwendungen", started 31 March 2026. Front-end certificate on 18 Sep 2026, other modules ongoing.
 - OsifyAI: freelance frontend developer, Jun 2025 to Nov 2025.
 - Tarahimo: co-founder, Oct 2022 to Aug 2024.
 - Links: github.com/kamycoding, linkedin.com/in/kamyarzamanfar, contact@kamycoding.com.
