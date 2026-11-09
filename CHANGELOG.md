@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+## [2.2.0] - 2026-11-09
+
 ### Changed
 
 - The stack section is two blocks: the stack as a VS Code style explorer (folders per group, technologies as files, real names on hover and focus) and a full-width GitHub contributions grid for the last 52 weeks with a reveal wave, a pulse on today and a stats line.
@@ -107,7 +109,8 @@ First stable release of kamycoding.com, built with Angular and deployed on Netli
 
 - Unit tests for the contact function with Vitest (success, validation, honeypot, provider errors, network errors, timeout, method handling, rate limit config).
 
-[Unreleased]: https://github.com/kamycoding/portfolio/compare/v2.1.0...HEAD
+[Unreleased]: https://github.com/kamycoding/portfolio/compare/v2.2.0...HEAD
+[2.2.0]: https://github.com/kamycoding/portfolio/compare/v2.1.0...v2.2.0
 [2.1.0]: https://github.com/kamycoding/portfolio/compare/v2.0.0...v2.1.0
 [2.0.0]: https://github.com/kamycoding/portfolio/compare/v1.0.0...v2.0.0
 [1.0.0]: https://github.com/kamycoding/portfolio/releases/tag/v1.0.0

@@ -4,9 +4,11 @@ Branch: `redesign/v2`. One phase, one commit. Kamyar commits and pushes.
 Design reference: `docs/design/DESIGN.md` and `docs/design/prototype/`.
 
 ## Phase 1: Bring in the v2 source (done)
+
 Next.js, pnpm, Netlify config.
 
 ## Phase 2a: Foundation (done)
+
 - Add the design spec and prototype to `docs/design/` (reference only, not built).
 - ADR 0003: replace the Zolt UI with the custom editor design.
 - Remove the Zolt sections and components that the new design does not use.
@@ -15,6 +17,7 @@ Next.js, pnpm, Netlify config.
 - Commit: `feat: add design foundation`
 
 ## Phase 2b: Repo hygiene (done)
+
 - `LICENSE` in two parts: code under MIT, content (texts, photos, design, illustrations, the cat) all rights reserved. Keep `LICENSE.md` from Zolt (ADR 0003).
 - Complete `README.md`, `CHANGELOG.md` (Keep a Changelog, 1.0.0 and Unreleased), `.nvmrc` with 24.
 - Vitest with `pnpm test` (`--passWithNoTests`), the contact function tests come back in Phase 8.
@@ -24,6 +27,7 @@ Next.js, pnpm, Netlify config.
 - Commit: `chore: add repo hygiene`
 
 ## Phase 2c: Security baseline
+
 - Upgrade `next` and `eslint-config-next` to 16.4.2 and `zod` to 4.6.7, refresh stale transitive versions in the lockfile (done: `dd21ed9`).
 - Security headers in `next.config.ts`, production only: CSP as Report-Only, HSTS, `nosniff`, `X-Frame-Options`, `Referrer-Policy`, `Permissions-Policy`, COOP (ADR 0005).
 - `poweredByHeader: false`, `Secure` flag on the `NEXT_LOCALE` cookie.
@@ -32,30 +36,40 @@ Next.js, pnpm, Netlify config.
 - ESLint rule `react/no-danger` as an error.
 
 ## Phase 2d: Layout shell (done)
+
 - Top bar with file tabs, rulers, status bar, breadcrumbs, footer.
 - `Ctrl K` button waits for Phase 9, `cat:` in the status bar for Phase 3. The footer keeps the Zolt credit while Zolt-derived config files remain (ADR 0003).
 - Commit: `feat: add layout shell`
 
 ## Phase 3: Hero (done)
+
 Editor panel with tabs and hover cards, terminal, typed headline, status row, dot grid, ticker, the cat component.
+
 - The terminal renders input and output as text only, never as HTML (ADR 0005, `react/no-danger`).
 - The `G W` and `C` key hints on the hero buttons work once the shortcuts arrive in Phase 9. Typing and fade-ins start after the intro then.
 
 ## Phase 4: Work (done)
+
 `ls -la` list, pointer preview, project drawer, line-drawing covers as SVG components.
 
 ## Phase 5: About (done)
+
 Markdown text, facts, ASCII portrait with lens, git log experience, reviews.
 
 ## Phase 6: Stack (done)
+
 JSON tree, commit heatmap, services.
+
 - Heatmap data comes from `git log v1.0.0` (168 commits, 23 Jul to 18 Sep 2026); the stats are computed from it.
 
 ## Phase 7: Legal pages (done)
+
 `/legal-notice` and `/privacy-policy`, text ported from v1 as it is, in the new design. Privacy policy updated for theme and language storage.
+
 - Section 10 of the privacy policy is new: it describes the `NEXT_LOCALE` cookie and the `theme` key in Local Storage instead of v1's `kamycoding.language` key. Kamyar reviews the wording.
 
 ## Phase 8: Contact form (done)
+
 - Shared schema in `src/lib/contact/contact-schema.ts` (`zod/mini`, about 7 KB gzipped in the browser), used by the form and the Netlify function.
 - Form as `sendMessage({ ... })`, TypeScript-style errors, honeypot, privacy checkbox ("I have read the privacy policy").
 - Posts to `/api/contact` (existing Netlify function with Brevo and rate limit).
@@ -72,11 +86,14 @@ JSON tree, commit heatmap, services.
 - Separate restricted `BREVO_API_KEY` (transactional emails only) is set for the Deploy Preview context. Replace the full-access production key with a restricted one at release (Phase 11).
 
 ## Phase 9: Global interactions (done)
+
 Intro build log, command palette, keyboard shortcuts, custom cursor.
+
 - The intro plays on every load, is skipped with reduced motion and without JavaScript, and releases the first-paint choreography when it ends. "Replay intro" in the palette plays it again.
 - The `G W` and `C` key hints on the hero buttons work now.
 
 ## Phase 10: Quality (done)
+
 - Fidelity sweep against the prototype at 1440, 1000 and 390 px, both themes, both languages: hero, work, about and stack match to 1 px; remaining differences are approved deviations (footer wordmark and credit, privacy label wrap). Intro, cursor states, palette and contact outputs compared in detail.
 - Accessibility: one `h1` per page, ordered headings, landmarks, named controls, visible focus on every Tab stop. Fixed: the empty hero tooltip had no name, and five controls had an `aria-label` that left out their visible text (WCAG 2.5.3). Focused contact inputs pass 1.4.11 (underline 8.1:1 dark, 5.8:1 light).
 - Lighthouse 13.5.0 (local production build): performance 99 to 100 desktop and 90 to 92 mobile, best practices 100, accessibility 97 after the fixes, SEO 92 (canonical only flagged on localhost). The intro does not change LCP (3.4 s mobile with and without it).
@@ -91,12 +108,14 @@ Intro build log, command palette, keyboard shortcuts, custom cursor.
 - Netlify: functions run on `nodejs24.x` with `@netlify/plugin-nextjs` 5.16.6; Kamyar checks the build log lines for Node 24 and pnpm 12.18.0.
 
 ### Open after Phase 10
+
 - Contrast: `--faint` and `--com` reach only 2.7 to 3.1:1 for small text in both themes (WCAG 1.4.3 needs 4.5:1); light `--str` is 4.1 to 4.7:1. These are prototype colors; changing them is a design decision.
 - After a client-side switch to German, switching back to English leaves `/en` in the address bar (redirects to `/` on reload, canonical unaffected). From Phase 2d, in the language routing.
 - HSTS `preload`: not now (decided in Phase 10); revisit after the Phase 11 check of the HSTS header on kamycoding.com.
 - Real phones and the secret scanning extras: Kamyar.
 
 ## Phase 10b: Fixes before release (done)
+
 - Language switch keeps the reading position and English always uses `/`; one switch for buttons, palette, `L` and the terminal.
 - Terminal reprints its intro in the new language; hero status row shows "Open to work" and the Cologne time only.
 - Reviewers link to their LinkedIn profiles; `downlevelIteration` removed from `tsconfig.json`.
@@ -105,7 +124,9 @@ Intro build log, command palette, keyboard shortcuts, custom cursor.
 - The `/en` URL item above is fixed.
 
 ## Phase 11: Release
+
 Update CHANGELOG, merge to `main` via pull request, tag `v2.0.0`, GitHub release.
+
 - Done: privacy policy "Last updated" set to 9 November 2026 / 9. November 2026; the legal notice keeps 10 August 2026.
 - Unlock auto publishing in Netlify (the v1 production deploy is locked) right after merging v2 into main.
 - Turn Dependabot security updates back on.
@@ -114,9 +135,11 @@ Update CHANGELOG, merge to `main` via pull request, tag `v2.0.0`, GitHub release
 - After the release, check which HSTS header kamycoding.com sends (on netlify.app, Netlify's own header wins) and decide whether to set it explicitly in `netlify.toml`.
 - Note: the required status check on `main` is tied to the CI job name "Lint, types, test, build". Renaming the job blocks all merges.
 
-## Phase 12: GitHub contribution heatmap (v2.1.0)
+## Phase 12: GitHub contribution heatmap (v2.1.0, done)
+
 The stack heatmap shows the real GitHub contributions of kamycoding instead of the static v1 commits (ADR 0006).
-- Fetched at build time from the GitHub GraphQL API: 17 weeks ending the current week, GitHub's own levels, "contributions" / "Beiträge".
+
+- Fetched at build time from the GitHub GraphQL API: the last 52 weeks (17 weeks until v2.2.0), GitHub's own levels, "contributions" / "Beiträge".
 - `src/content/contributions.json` is the committed snapshot and the fallback; the build never fails on the API.
 - Token `GITHUB_CONTRIBUTIONS_TOKEN` in Netlify as a secret for Production only (default scopes on the free plan); previews and Dependabot pull requests use the snapshot.
 - Daily rebuild through `.github/workflows/refresh-contributions.yml` and a Netlify build hook (`NETLIFY_BUILD_HOOK_URL` secret).
@@ -124,6 +147,7 @@ The stack heatmap shows the real GitHub contributions of kamycoding instead of t
 - Maintenance: renew the token before it expires (at most one year); refresh the committed snapshot now and then with `pnpm contributions:update`.
 
 ## Answered questions
+
 - Project durations and years (Join 5 weeks, Designer portfolio 4 months, El Pollo Loco 3 weeks, all 2026): confirmed as in the prototype.
 - Reviews and facts in the about section: real and confirmed.
 - Developer Akademie start date: 31 March 2026, intensive course "Softwareentwickler, Schwerpunkt Web-Anwendungen". The prototype shows no start date, so the git log keeps "ongoing" / "laufend"; use "since March 2026" / "seit März 2026" only where a start date is shown.
