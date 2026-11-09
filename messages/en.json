@@ -139,5 +139,32 @@
       "prev": "previous project",
       "next": "next project"
     }
+  },
+  "about": {
+    "body": {
+      "p1": "I started in architecture. Designing buildings taught me to think in systems, to care about details and to keep the people who use a space in mind. 3D tools pulled me into software, and I stayed.",
+      "p2": "Today I'm a <b>full-stack developer</b> near Cologne. I build web products with TypeScript, React, Next.js and Node, and I'm adding Python and Django on the backend. I co-founded <b>Heldio</b>, where AI turns a learner's real goal into a personal path.",
+      "p3": "I like small teams, readable code and products people actually use. I'm at my best when design and engineering sit at the same table."
+    },
+    "facts": {
+      "languages": "languages spoken",
+      "projects": "projects shipped",
+      "commits": "commits since July"
+    },
+    "portrait": {
+      "alt": "Portrait of Kamyar Zamanfar wearing headphones",
+      "reveal": "render image",
+      "hide": "show ascii"
+    },
+    "log": {
+      "title": "How I got here, <soft>one commit at a time.</soft>"
+    },
+    "reviews": {
+      "eyebrow": "// pull request #1: hire kamyar",
+      "title": "3 approvals. <soft>0 changes requested.</soft>",
+      "approved": "approved these changes",
+      "teamProject": "team project",
+      "clientProject": "client project"
+    }
   }
 }
