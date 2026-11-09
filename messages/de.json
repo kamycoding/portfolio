@@ -160,11 +160,15 @@
     },
     "reviews": {
       "eyebrow": "// pull request #1: kamyar einstellen",
-      "title": "3 Approvals. <soft>0 Änderungswünsche.</soft>",
+      "title": "{count} Approvals. <soft>0 Änderungswünsche.</soft>",
       "approved": "hat die Änderungen freigegeben",
       "teamProject": "Teamprojekt",
       "clientProject": "Kundenprojekt",
-      "linkedin": "LinkedIn-Profil von {name}"
+      "linkedin": "LinkedIn-Profil von {name}",
+      "header": "reviews",
+      "count": "{count, plural, one {# Approval} other {# Approvals}}",
+      "changes": "0 Änderungswünsche",
+      "badge": "Freigegeben"
     }
   },
   "stack": {

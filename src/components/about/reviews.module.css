@@ -1,0 +1,337 @@
+/* Reviews as GitHub-style pull request reviews: summary bar, review cards, line-drawn avatars. */
+.reviews {
+  margin-top: 120px;
+}
+
+/* ---------- summary bar ---------- */
+.bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 36px;
+  padding: 10px 14px;
+  border: 1px solid var(--hair-2);
+  border-radius: 10px;
+  background: var(--panel-2);
+  font:
+    400 12.5px var(--font-geist-mono),
+    monospace;
+  color: var(--muted);
+}
+
+.barTitle,
+.barStatus {
+  display: inline-flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.barTitle {
+  color: var(--text);
+}
+
+.barTitle svg {
+  width: 15px;
+  height: 15px;
+  color: var(--muted);
+}
+
+.counter {
+  display: inline-grid;
+  place-items: center;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 6px;
+  border-radius: 10px;
+  background: var(--hair-2);
+  font-size: 11.5px;
+}
+
+.barStatus {
+  gap: 6px;
+  color: var(--ok);
+}
+
+.barStatus svg {
+  width: 14px;
+  height: 14px;
+}
+
+.barChanges {
+  color: var(--faint);
+}
+
+/* ---------- review cards ---------- */
+.list {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+  margin-top: 18px;
+}
+
+.review {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--hair-2);
+  border-radius: 12px;
+  background: var(--panel);
+}
+
+.top {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  padding: 16px;
+  border-bottom: 1px solid var(--hair);
+  border-radius: 12px 12px 0 0;
+  background: var(--panel-2);
+}
+
+.who {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.reviewer {
+  display: inline-flex;
+  gap: 6px;
+  align-items: baseline;
+  width: fit-content;
+  font-size: 15px;
+  color: var(--text);
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  text-underline-offset: 3px;
+  transition: text-decoration-color 0.15s;
+}
+
+.reviewer b {
+  font-weight: 500;
+}
+
+.reviewer:hover,
+.reviewer:focus-visible {
+  text-decoration-color: currentColor;
+}
+
+.external {
+  font-size: 12px;
+  color: var(--faint);
+  transition:
+    color 0.15s,
+    transform 0.15s;
+}
+
+.reviewer:hover .external,
+.reviewer:focus-visible .external {
+  color: var(--text);
+  transform: translate(1px, -1px);
+}
+
+.role {
+  font-size: 13.5px;
+  color: var(--muted);
+}
+
+.context {
+  font:
+    400 11.5px var(--font-geist-mono),
+    monospace;
+  color: var(--faint);
+}
+
+/* The review event line, as GitHub shows it above an approving comment. */
+.event {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 10px;
+  align-items: center;
+  padding: 14px 16px 0;
+  font:
+    400 12px var(--font-geist-mono),
+    monospace;
+  color: var(--muted);
+}
+
+.check {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  border: 1px solid color-mix(in srgb, var(--ok) 45%, transparent);
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--ok) 14%, var(--panel));
+  color: var(--ok);
+}
+
+.check svg {
+  width: 12px;
+  height: 12px;
+}
+
+.eventText {
+  flex: 1;
+  min-width: 0;
+}
+
+.badge {
+  padding: 2px 9px;
+  border: 1px solid color-mix(in srgb, var(--ok) 45%, transparent);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--ok) 10%, transparent);
+  font-weight: 500;
+  font-size: 11.5px;
+  color: var(--ok);
+}
+
+.comment {
+  position: relative;
+  flex: 1;
+  margin: 14px 16px 16px;
+  padding: 14px 16px 16px;
+  border: 1px solid var(--hair-2);
+  border-radius: 8px;
+  background: var(--bg-2);
+  font-size: 15.5px;
+  line-height: 1.65;
+  color: var(--text);
+}
+
+/* Timeline connector up into the check; it starts behind the opaque check, so wrapped event text cannot leave a gap. */
+.comment::before {
+  content: '';
+  position: absolute;
+  top: -29px;
+  left: 10px;
+  width: 1px;
+  height: 28px;
+  background: var(--hair-2);
+}
+
+/* ---------- avatar ---------- */
+.avatar {
+  --c: var(--kw);
+
+  display: block;
+  flex: none;
+  width: 56px;
+  height: 56px;
+  overflow: hidden;
+  border: 1px solid var(--hair-2);
+  border-radius: 50%;
+  background:
+    radial-gradient(70% 55% at 50% 100%, color-mix(in srgb, var(--c) 30%, transparent), transparent 75%), var(--bg-2);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--c) 14%, transparent);
+  color: var(--text);
+}
+
+.avatar[data-accent='prop'] {
+  --c: var(--prop);
+}
+
+.avatar[data-accent='str'] {
+  --c: var(--str);
+}
+
+.avatar svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.fill {
+  fill: var(--panel);
+}
+
+.hair {
+  fill: var(--panel-3);
+}
+
+.face {
+  transform-box: view-box;
+  transform-origin: 32px 46px;
+}
+
+.eyes {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+/* A small nod and blink when the review is hovered or its link is focused. */
+@media (prefers-reduced-motion: no-preference) {
+  .review:hover .face,
+  .review:focus-within .face {
+    animation: nod 0.9s ease-in-out;
+  }
+
+  .review:hover .eyes,
+  .review:focus-within .eyes {
+    animation: blink 0.45s ease-in-out 0.15s;
+  }
+}
+
+@keyframes nod {
+  0%,
+  100% {
+    transform: none;
+  }
+
+  35% {
+    transform: rotate(4deg) translateY(0.8px);
+  }
+
+  70% {
+    transform: rotate(-1.5deg);
+  }
+}
+
+@keyframes blink {
+  0%,
+  100% {
+    transform: none;
+  }
+
+  50% {
+    transform: scaleY(0.1);
+  }
+}
+
+/* ---------- responsive (same breakpoint as before) ---------- */
+@media (max-width: 1100px) {
+  .list {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 560px) {
+  .barChanges {
+    display: none;
+  }
+
+  .top {
+    gap: 12px;
+    padding: 14px;
+  }
+
+  .avatar {
+    width: 44px;
+    height: 44px;
+  }
+
+  .event {
+    padding: 12px 14px 0;
+  }
+
+  .comment {
+    margin: 12px 14px 14px;
+    padding: 12px 14px 14px;
+    font-size: 15px;
+  }
+}

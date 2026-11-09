@@ -2,7 +2,9 @@
 export type Review = Readonly<{
   name: string
   linkedin: string
-  initials: string
+
+  // Generic line-drawn character, not a likeness of the reviewer; the pairing is arbitrary.
+  avatar: 'glasses' | 'beanie' | 'headphones'
   accent: 'kw' | 'prop' | 'str'
   role: string
   context: 'teamProject' | 'clientProject'
@@ -14,7 +16,7 @@ export const REVIEWS: readonly Review[] = [
   {
     name: 'Max Belich',
     linkedin: 'https://www.linkedin.com/in/max-belich-6b844b424/',
-    initials: 'MB',
+    avatar: 'glasses',
     accent: 'kw',
     role: 'Full Stack Developer',
     context: 'teamProject',
@@ -24,7 +26,7 @@ export const REVIEWS: readonly Review[] = [
   {
     name: 'Tobias Illner',
     linkedin: 'https://www.linkedin.com/in/tobias-illner/',
-    initials: 'TI',
+    avatar: 'beanie',
     accent: 'prop',
     role: 'Full Stack Developer',
     context: 'teamProject',
@@ -34,7 +36,7 @@ export const REVIEWS: readonly Review[] = [
   {
     name: 'Sogand Asari',
     linkedin: 'https://www.linkedin.com/in/sogandasari/',
-    initials: 'SA',
+    avatar: 'headphones',
     accent: 'str',
     role: 'Product Designer',
     context: 'clientProject',

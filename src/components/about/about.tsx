@@ -1,16 +1,16 @@
-import type { CSSProperties, ReactNode } from 'react'
+import type { ReactNode } from 'react'
 
 import { getLocale, getTranslations } from 'next-intl/server'
 
 import Section, { HEADING_CLASS, SectionHeading } from '@/components/shell/section'
 import ui from '@/components/ui/ui.module.css'
 import { COMMITS } from '@/content/experience'
-import { REVIEWS } from '@/content/reviews'
 import { ICON, INVERT_ON_DARK } from '@/content/stack'
 import { cn } from '@/lib/utils'
 
 import CountUp from './count-up'
 import Portrait from './portrait'
+import Reviews from './reviews'
 
 import styles from './about.module.css'
 
@@ -27,7 +27,7 @@ const markdownBold = (chunks: ReactNode) => (
 
 const soft = (chunks: ReactNode) => <span className='text-muted'>{chunks}</span>
 
-// about.md in the prototype: text with facts, ASCII portrait, experience as git log, reviews as PR approvals.
+// about.md in the prototype: text with facts, ASCII portrait, experience as git log, reviews as PR reviews.
 const About = async () => {
   const t = await getTranslations('about')
   const locale = (await getLocale()) === 'de' ? 'de' : 'en'
@@ -129,40 +129,7 @@ const About = async () => {
         })}
       </div>
 
-      <div className={styles.reviews}>
-        <p className='text-com mb-4.5 font-mono text-[13px]'>{t('reviews.eyebrow')}</p>
-        <h2 className={HEADING_CLASS}>{t.rich('reviews.title', { soft })}</h2>
-        <div className={styles.reviewList}>
-          {REVIEWS.map(review => (
-            <article key={review.name} className={styles.review} data-shell-ui=''>
-              <div className={styles.reviewHead}>
-                <span
-                  aria-hidden='true'
-                  className={styles.avatar}
-                  style={{ background: `var(--${review.accent})` } as CSSProperties}
-                >
-                  {review.initials}
-                </span>
-                <div>
-                  {/* Named by the hidden text only, so screen readers do not hear the name twice. */}
-                  <a href={review.linkedin} target='_blank' rel='noopener noreferrer' className={styles.reviewer}>
-                    <b aria-hidden='true'>{review.name}</b>
-                    <span className='sr-only'>{t('reviews.linkedin', { name: review.name })}</span>
-                  </a>{' '}
-                  <span>{t('reviews.approved')}</span>
-                </div>
-              </div>
-              <blockquote>{review[locale]}</blockquote>
-              <div className={styles.reviewFoot}>
-                <span>
-                  {review.role}, {t(`reviews.${review.context}`)}
-                </span>
-                <span className={styles.approved}>✓ approved</span>
-              </div>
-            </article>
-          ))}
-        </div>
-      </div>
+      <Reviews />
     </Section>
   )
 }
