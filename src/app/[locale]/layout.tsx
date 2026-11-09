@@ -2,6 +2,7 @@ import type { ReactNode } from 'react'
 
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
+import Script from 'next/script'
 
 import { GeistMono } from 'geist/font/mono'
 import { GeistSans } from 'geist/font/sans'
@@ -10,8 +11,10 @@ import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { ThemeProvider } from 'next-themes'
 
 import Footer from '@/components/shell/footer'
+import ReadyGate from '@/components/shell/ready-gate'
 import Rulers from '@/components/shell/rulers'
 import StatusBar from '@/components/shell/status-bar'
+import Toast from '@/components/shell/toast'
 import TopBar from '@/components/shell/top-bar'
 import { routing } from '@/i18n/routing'
 import { cn } from '@/lib/utils'
@@ -52,6 +55,10 @@ const LocaleLayout = async ({ children, params }: LocaleLayoutProps) => {
   return (
     <html lang={locale} className={cn(GeistSans.variable, GeistMono.variable)} suppressHydrationWarning>
       <body>
+        {/* Marks JavaScript as available before first paint, so first-paint fades only hide content when they can run. */}
+        <Script id='js-flag' strategy='beforeInteractive'>
+          {`document.documentElement.classList.add('js')`}
+        </Script>
         <NextIntlClientProvider>
           {/* next-themes sets data-theme in a blocking script before first paint, so there is no flash. */}
           <ThemeProvider attribute='data-theme' defaultTheme='system' themes={['dark', 'light']} storageKey='theme'>
@@ -72,6 +79,8 @@ const LocaleLayout = async ({ children, params }: LocaleLayoutProps) => {
 
             {/* Netlify sets BRANCH at build time; local builds show main. */}
             <StatusBar branch={process.env.BRANCH ?? 'main'} />
+            <Toast />
+            <ReadyGate />
           </ThemeProvider>
         </NextIntlClientProvider>
       </body>
