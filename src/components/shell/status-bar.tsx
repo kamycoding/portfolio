@@ -1,10 +1,10 @@
 'use client'
 
-import { useSyncExternalStore } from 'react'
-
 import { useTranslations } from 'next-intl'
 
 import ThemeToggle from '@/components/shell/theme-toggle'
+import { useCat, wakeCat } from '@/hooks/use-cat'
+import { useCologneTime } from '@/hooks/use-cologne-time'
 import { useScrollSpy } from '@/hooks/use-scroll-spy'
 import { getSection } from '@/lib/sections'
 
@@ -12,28 +12,10 @@ type StatusBarProps = Readonly<{
   branch: string
 }>
 
-const cologneTime = new Intl.DateTimeFormat('de-DE', {
-  hour: '2-digit',
-  minute: '2-digit',
-  timeZone: 'Europe/Berlin'
-})
-
-const subscribeToClock = (onChange: () => void) => {
-  const timer = window.setInterval(onChange, 15_000)
-
-  return () => window.clearInterval(timer)
-}
-
-// The server cannot know the visitor's time, so it renders a placeholder and the browser fills it in.
-const useCologneTime = () =>
-  useSyncExternalStore(
-    subscribeToClock,
-    () => cologneTime.format(new Date()),
-    () => '--:--'
-  )
-
 const StatusBar = ({ branch }: StatusBarProps) => {
   const t = useTranslations('status')
+  const tCat = useTranslations('cat')
+  const { awake } = useCat()
   const { activeId, line } = useScrollSpy()
   const time = useCologneTime()
 
@@ -51,6 +33,14 @@ const StatusBar = ({ branch }: StatusBarProps) => {
         <span className='hidden lg:inline'>LF</span>
         <span className='hidden sm:inline'>Ln {line}</span>
         <ThemeToggle variant='status' className='hidden lg:inline' />
+        <button
+          type='button'
+          onClick={wakeCat}
+          aria-label={awake ? tCat('awakeLabel') : tCat('wake')}
+          className='hover:text-text hidden lg:inline'
+        >
+          cat: <span className='text-text'>{awake ? tCat('awake') : tCat('asleep')}</span>
+        </button>
         <span>
           {t('city')} <time>{time}</time>
         </span>
