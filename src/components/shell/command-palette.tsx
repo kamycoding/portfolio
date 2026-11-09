@@ -27,6 +27,7 @@ const SECTION_KEYS: Readonly<Record<string, SectionId>> = {
   c: 'contact',
   g: 'index'
 }
+
 const G_WINDOW_MS = 900
 
 // Ctrl or Cmd K opens a command list; single keys run the same actions outside of text fields.
