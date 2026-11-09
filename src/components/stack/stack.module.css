@@ -104,11 +104,16 @@
   letter-spacing: -0.02em;
 }
 
-.actHead span {
+.actHead a {
   font:
     400 12px var(--font-geist-mono),
     monospace;
   color: var(--faint);
+  transition: color 0.15s;
+}
+
+.actHead a:hover {
+  color: var(--text);
 }
 
 .months {
@@ -158,6 +163,12 @@
 .cells:focus-visible .active {
   outline: 1px solid var(--text);
   outline-offset: 1px;
+}
+
+.future,
+.future:hover {
+  outline: none;
+  background: transparent;
 }
 
 .l1 {

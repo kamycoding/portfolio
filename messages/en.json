@@ -171,15 +171,16 @@
     "fold": "click ▾ to fold",
     "foldGroup": "fold {group}",
     "heat": {
-      "label": "Commits per day",
-      "total": "{count, plural, one {# commit} other {# commits}}",
-      "tip": "{count, plural, one {# commit} other {# commits}} on {date}",
+      "label": "Contributions per day",
+      "total": "{count, plural, one {# contribution} other {# contributions}}",
+      "tip": "{count, plural, one {# contribution} other {# contributions}} on {date}",
       "mon": "Mon",
       "wed": "Wed",
       "fri": "Fri",
-      "note": "v1 of this site, Jul to Sep 2026",
+      "note": "{period} on GitHub",
       "less": "less",
-      "more": "more"
+      "more": "more",
+      "to": "to"
     },
     "stats": {
       "best": "best day",
