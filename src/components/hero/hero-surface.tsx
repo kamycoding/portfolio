@@ -1,7 +1,8 @@
 'use client'
 
-import { type PointerEvent, type ReactNode, useRef } from 'react'
+import { type PointerEvent, type ReactNode, useEffect, useRef } from 'react'
 
+import { getBlueprint, subscribeBlueprint } from '@/hooks/use-blueprint'
 import { prefersReducedMotion } from '@/lib/actions'
 import { cn } from '@/lib/utils'
 
@@ -12,6 +13,7 @@ type HeroSurfaceProps = Readonly<{
 }>
 
 // The dot grid lights up under the pointer and the editor leans toward it (max 5deg), as in the prototype.
+// The tilt pauses while the plan/build slider is dragged, so the handle stays under the pointer.
 const HeroSurface = ({ children }: HeroSurfaceProps) => {
   const sectionRef = useRef<HTMLElement>(null)
   const frame = useRef(0)
@@ -30,7 +32,7 @@ const HeroSurface = ({ children }: HeroSurfaceProps) => {
     section.style.setProperty('--mx', `${last.current.x - box.left}px`)
     section.style.setProperty('--my', `${last.current.y - box.top}px`)
 
-    if (!editor || window.innerWidth <= 980) return
+    if (!editor || window.innerWidth <= 980 || getBlueprint().dragging) return
 
     const editorBox = editor.getBoundingClientRect()
     const dx = (last.current.x - (editorBox.left + editorBox.width / 2)) / window.innerWidth
@@ -39,6 +41,20 @@ const HeroSurface = ({ children }: HeroSurfaceProps) => {
     editor.style.setProperty('--ry', `${(dx * 5).toFixed(2)}deg`)
     editor.style.setProperty('--rx', `${(-dy * 4).toFixed(2)}deg`)
   }
+
+  // Straightens the editor as soon as a drag starts.
+  useEffect(
+    () =>
+      subscribeBlueprint(() => {
+        if (!getBlueprint().dragging) return
+
+        const editor = sectionRef.current?.querySelector<HTMLElement>('[data-hero-editor]')
+
+        editor?.style.setProperty('--rx', '0deg')
+        editor?.style.setProperty('--ry', '0deg')
+      }),
+    []
+  )
 
   const onPointerMove = (event: PointerEvent<HTMLElement>) => {
     if (event.pointerType !== 'mouse' || prefersReducedMotion()) return

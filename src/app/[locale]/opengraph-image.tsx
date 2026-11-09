@@ -17,12 +17,12 @@ export const generateStaticParams = () => routing.locales.map(locale => ({ local
 
 // Dark theme tokens from globals.css; the image has no CSS variables.
 const COLOR = {
-  bg: '#0b1020',
-  text: '#e6e8ee',
-  muted: '#8a91a6',
-  com: '#5b6278',
-  kw: '#9aa8ff',
-  hair: 'rgba(230, 232, 238, 0.14)'
+  bg: '#181818',
+  text: '#cccccc',
+  muted: '#9d9d9d',
+  com: '#70a15a',
+  kw: '#569cd6',
+  hair: '#3c3c3c'
 }
 
 const font = (file: string) => readFile(join(process.cwd(), 'node_modules/geist/dist/fonts', file))

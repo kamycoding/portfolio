@@ -10,3 +10,13 @@ export const versionLabel = (version: string) => {
 
   return `v${major}.${minor}`
 }
+
+type BuildEnv = Readonly<Record<string, string | undefined>>
+
+// Build facts, baked into the static pages at build time; the hero blueprint's title block shows the date.
+// Netlify sets COMMIT_REF during builds; local builds have none and show "dev". Server only.
+export const buildInfo = (env: BuildEnv = process.env, now = new Date()) => ({
+  commit: env.COMMIT_REF?.trim().slice(0, 7) || 'dev',
+  version: versionLabel(APP_VERSION),
+  date: now.toISOString().slice(0, 10)
+})

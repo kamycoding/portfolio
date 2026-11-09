@@ -1,4 +1,4 @@
-/* Hero styles from the prototype (style.css: hero, editor, ticker, hero upgrades, hero polish, status row). */
+/* Hero styles: name and role, editor, terminal (prototype style.css: hero, editor, hero upgrades). */
 
 /* ---------- section, dot grid and pointer spotlight ---------- */
 .section {
@@ -43,141 +43,68 @@
   padding: 64px var(--gutter) 72px;
 }
 
-/* ---------- left column ---------- */
-.comment {
-  margin-bottom: 22px;
-  font:
-    400 13px var(--font-geist-mono),
-    monospace;
-  color: var(--com);
+/* ---------- left column: name and role ---------- */
+.intro {
+  min-width: 0;
+  container-type: inline-size;
 }
 
+/* Sized to its column, so "Zamanfar" fits from 390px phones up to the widest desktop. */
 .h1 {
   font-weight: 600;
-  font-size: clamp(34px, 3.8vw, 58px);
-  line-height: 1.03;
-  letter-spacing: -0.042em;
+  font-size: clamp(44px, 18cqi, 120px);
+  line-height: 0.95;
+  letter-spacing: -0.045em;
 }
 
-.soft {
+/* Words never break inside; the name wraps only between first and last name. */
+.word {
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.letter {
+  display: inline-block;
+  transition:
+    opacity 0.6s cubic-bezier(0.2, 0.7, 0.2, 1),
+    transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1);
+  transition-delay: calc(0.06s + var(--i, 0) * 0.035s);
+}
+
+/* Letters rise in once the intro releases the page, like the .rv choreography. */
+:global(.js:not(.ready)) .letter {
+  opacity: 0;
+  transform: translateY(0.3em);
+  transition: none;
+}
+
+.role {
+  margin-top: 26px;
+  font:
+    400 clamp(15px, 1.35vw, 19px) var(--font-geist-mono),
+    monospace;
   color: var(--muted);
 }
 
 .caret {
   display: inline-block;
-  width: 0.07em;
-  height: 0.8em;
-  margin-left: 0.07em;
-  vertical-align: -0.03em;
+  width: 0.55em;
+  height: 1.1em;
+  margin-left: 0.15em;
+  vertical-align: -0.2em;
   background: var(--kw);
   animation: blink 1.1s steps(1) infinite;
 }
 
-.lede {
-  max-width: 50ch;
-  margin-top: 28px;
-  font-size: 17px;
-  line-height: 1.65;
-  color: var(--muted);
-}
-
-.lede strong {
-  font-weight: 500;
-  color: var(--text);
-}
-
-.ctas {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-  margin-top: 36px;
-}
-
-.separator {
-  align-self: center;
-  width: 1px;
-  height: 26px;
-  margin: 0 4px;
-  background: var(--hair-2);
-}
-
-.now {
-  display: flex;
-  flex-wrap: nowrap;
-  width: fit-content;
-  max-width: 100%;
-  margin-top: 40px;
-  overflow: hidden;
-  border: 1px solid var(--hair-2);
-  border-radius: 12px;
-  background: color-mix(in srgb, var(--panel) 60%, transparent);
-  list-style: none;
-}
-
-.now li {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  height: 40px;
-  padding: 0 13px;
-  border-right: 1px solid var(--hair);
-  font:
-    400 12.5px var(--font-geist-mono),
-    monospace;
-  color: var(--text);
-  white-space: nowrap;
-}
-
-.now li:last-child {
-  border-right: 0;
-}
-
-.now .k {
-  color: var(--faint);
-}
-
-.now .ok {
-  color: var(--ok);
-}
-
-.pulse {
-  flex: none;
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: var(--ok);
-  box-shadow: 0 0 0 0 color-mix(in srgb, var(--ok) 50%, transparent);
-  animation: pulse 2.4s infinite;
-}
-
-.scrollhint {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  width: fit-content;
-  margin-top: 48px;
-  font:
-    400 12px var(--font-geist-mono),
-    monospace;
-  color: var(--faint);
-}
-
-.scrollhint i {
-  display: block;
-  width: 1px;
-  height: 28px;
-  background: linear-gradient(var(--faint), transparent);
-  animation: drip 2.2s ease-in-out infinite;
-}
-
 /* ---------- editor ---------- */
+/* Tilt wrapper. --bx is the clip edge between build and plan, --hx the handle position (set by the slider store). */
 .editor {
+  --bx: calc(100% + 400px);
+  --hx: 100%;
+  --fl: -400px;
+
   position: relative;
   min-width: 0;
-  border: 1px solid var(--hair-2);
-  border-radius: 14px;
-  background: var(--panel);
-  box-shadow: var(--shadow);
   transform: perspective(1600px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
   transition:
     transform 0.5s cubic-bezier(0.2, 0.7, 0.2, 1),
@@ -189,6 +116,165 @@
 :global(.js:not(.ready)) .editor {
   opacity: 0;
   transform: perspective(1600px) translateY(10px);
+}
+
+/* The real editor (build layer). The polygon bleeds past the frame so the cat and the shadow are not cut,
+   and clipped parts take no clicks. */
+.frame {
+  position: relative;
+  border: 1px solid var(--hair-2);
+  border-radius: 14px;
+  background: var(--panel);
+  box-shadow: var(--shadow);
+  clip-path: polygon(var(--fl) -400px, var(--bx) -400px, var(--bx) calc(100% + 400px), var(--fl) calc(100% + 400px));
+}
+
+/* ---------- blueprint layer ---------- */
+.blueprint {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  clip-path: polygon(
+    var(--bx) -400px,
+    calc(100% + 400px) -400px,
+    calc(100% + 400px) calc(100% + 400px),
+    var(--bx) calc(100% + 400px)
+  );
+}
+
+.bpSvg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  overflow: visible;
+  fill: none;
+  stroke: var(--kw);
+  stroke-width: 1;
+}
+
+.bpPaper {
+  fill: color-mix(in srgb, var(--kw) 5%, transparent);
+}
+
+.bpHidden {
+  stroke-dasharray: 4 4;
+  opacity: 0.6;
+}
+
+.bpCode {
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  opacity: 0.5;
+}
+
+.bpCat {
+  vector-effect: non-scaling-stroke;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.bpDim line,
+.bpExt {
+  stroke-width: 0.8;
+}
+
+.bpExt {
+  opacity: 0.6;
+}
+
+.bpArrow {
+  fill: var(--kw);
+  stroke: none;
+}
+
+/* The bg-coloured stroke behind each number keeps it readable where it crosses a line. */
+.bpDim text,
+.bpBlock text {
+  font:
+    400 10px var(--font-geist-mono),
+    monospace;
+  fill: var(--kw);
+  stroke: none;
+}
+
+.bpDim text {
+  paint-order: stroke;
+  stroke: var(--bg);
+  stroke-width: 4px;
+  stroke-linejoin: round;
+}
+
+.bpBlock rect {
+  fill: var(--bg-2);
+}
+
+.bpBlock line {
+  stroke-width: 0.8;
+}
+
+.bpBlock .bpLabel {
+  font-size: 7.5px;
+  letter-spacing: 0.08em;
+  fill: var(--faint);
+}
+
+/* ---------- plan/build handle ---------- */
+.handle {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: var(--hx);
+  z-index: 7;
+  width: 0;
+  pointer-events: none;
+}
+
+.handleLine {
+  position: absolute;
+  top: -12px;
+  bottom: -12px;
+  left: -0.5px;
+  width: 1px;
+  background: var(--kw);
+  opacity: 0.35;
+  transition: opacity 0.2s;
+}
+
+.editor:hover .handleLine,
+.handle:focus-within .handleLine {
+  opacity: 1;
+}
+
+.grip {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border: 1px solid var(--kw);
+  border-radius: 50%;
+  background: var(--panel);
+  color: var(--kw);
+  box-shadow: 0 6px 18px -8px rgba(0, 0, 0, 0.45);
+  cursor: ew-resize;
+  pointer-events: auto;
+  touch-action: none;
+  transform: translate(-50%, -50%);
+}
+
+/* A 46px touch target around the 30px grip. */
+.grip::before {
+  content: '';
+  position: absolute;
+  inset: -8px;
+  border-radius: 50%;
+}
+
+.grip svg {
+  width: 14px;
+  height: 14px;
 }
 
 .edHead {
@@ -481,8 +567,15 @@
   gap: 8px;
 }
 
-.tpLine input {
+/* Input and ghost text share one box, so the suggestion lines up with what is typed. */
+.tpField {
+  position: relative;
   flex: 1;
+  min-width: 0;
+}
+
+.tpLine input {
+  width: 100%;
   min-width: 0;
   padding: 0;
   border: 0;
@@ -493,47 +586,41 @@
   caret-color: var(--kw);
 }
 
+.ghost {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  color: var(--faint);
+  white-space: pre;
+  pointer-events: none;
+}
+
+.ghostTyped {
+  visibility: hidden;
+}
+
+/* Clickable names in the output (sections, projects, profile link). */
+.outLink {
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  color: var(--text);
+  text-decoration: underline;
+  text-decoration-color: var(--hair-3);
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+
+.outLink:hover,
+.outLink:focus-visible {
+  text-decoration-color: currentColor;
+}
+
 /* ---------- cat position on the editor ---------- */
 .cat {
   top: -66px;
   right: 175px;
-}
-
-/* ---------- ticker ---------- */
-.ticker {
-  display: flex;
-  align-items: center;
-  height: 46px;
-  overflow: hidden;
-  border-top: 1px solid var(--hair);
-  border-bottom: 1px solid var(--hair);
-  mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
-}
-
-.track {
-  display: flex;
-  gap: 44px;
-  font:
-    400 13px var(--font-geist-mono),
-    monospace;
-  color: var(--muted);
-  white-space: nowrap;
-  animation: tick 48s linear infinite;
-}
-
-.ticker:hover .track {
-  animation-play-state: paused;
-}
-
-.track span {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.track img {
-  width: 16px;
-  height: 16px;
 }
 
 /* ---------- responsive (prototype breakpoints) ---------- */
@@ -558,7 +645,6 @@
 }
 
 @media (max-width: 560px) {
-  .separator,
   .hideSmall {
     display: none;
   }
@@ -566,16 +652,14 @@
   .tpBody {
     height: 140px;
   }
-
-  /* Two items now (status and Cologne time), so one row of two equal cells. */
-  .now {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    width: 100%;
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {
+  :global(.js:not(.ready)) .letter {
+    opacity: 1;
+    transform: none;
+  }
+
   :global(.js:not(.ready)) .editor,
   .editor {
     opacity: 1;
@@ -603,42 +687,5 @@
 
   100% {
     background: transparent;
-  }
-}
-
-@keyframes pulse {
-  70% {
-    box-shadow: 0 0 0 8px transparent;
-  }
-
-  100% {
-    box-shadow: 0 0 0 0 transparent;
-  }
-}
-
-@keyframes drip {
-  0% {
-    transform: scaleY(0);
-    transform-origin: top;
-  }
-
-  50% {
-    transform: scaleY(1);
-    transform-origin: top;
-  }
-
-  51% {
-    transform-origin: bottom;
-  }
-
-  100% {
-    transform: scaleY(0);
-    transform-origin: bottom;
-  }
-}
-
-@keyframes tick {
-  to {
-    transform: translateX(-50%);
   }
 }

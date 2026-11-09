@@ -6,4 +6,3 @@ import snapshot from './contributions.json'
 export const CONTRIBUTIONS = snapshot as ContributionSnapshot
 
 export const PROFILE_URL = 'https://github.com/kamycoding'
-export const PROFILE_LABEL = 'github.com/kamycoding'

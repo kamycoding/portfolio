@@ -1,10 +1,11 @@
 'use client'
 
-import { type KeyboardEvent, type PointerEvent, useRef, useState } from 'react'
+import { type KeyboardEvent, type PointerEvent, useEffect, useEffectEvent, useRef, useState } from 'react'
 
 import { useLocale } from 'next-intl'
 
 import { PROJECTS } from '@/content/projects'
+import { onOpenProject } from '@/hooks/use-project-drawer'
 import { ICON, INVERT_ON_DARK } from '@/content/stack'
 import { prefersReducedMotion } from '@/lib/actions'
 import { cn } from '@/lib/utils'
@@ -69,12 +70,17 @@ const WorkList = () => {
     setPreviewShown(false)
   }
 
-  const open = (index: number, button: HTMLButtonElement) => {
+  const open = (index: number, button: HTMLElement) => {
     hidePreview()
     opener.current = button
     setClosing(false)
     setOpenIndex(index)
   }
+
+  // `ls projects` in the hero terminal opens the same drawer.
+  const onRequest = useEffectEvent((index: number, button: HTMLElement) => open(index, button))
+
+  useEffect(() => onOpenProject((index, button) => onRequest(index, button)), [])
 
   const close = () => {
     if (openIndex === null || closing) return

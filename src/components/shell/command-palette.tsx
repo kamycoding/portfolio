@@ -7,16 +7,18 @@ import { useTheme } from 'next-themes'
 
 import { replayIntro } from '@/components/shell/boot'
 import { wakeCat } from '@/hooks/use-cat'
-import { closePalette, isPaletteOpen, openPalette, usePaletteOpen } from '@/hooks/use-palette'
+import { closePalette, isPaletteOpen, openPalette, openThemePicker, usePalette } from '@/hooks/use-palette'
 import { isReady } from '@/hooks/use-ready'
 import { useSwitchLocale } from '@/hooks/use-switch-locale'
 import { useRouter } from '@/i18n/navigation'
 import { copyEmail, goToSection } from '@/lib/actions'
 import type { SectionId } from '@/lib/sections'
+import { getTheme, THEMES } from '@/lib/themes'
 
 import styles from './palette.module.css'
 
-type Command = Readonly<{ label: string; keys: string; run: () => void }>
+// In the theme picker, preview names the theme an item shows while it is selected with the arrow keys.
+type Command = Readonly<{ label: string; keys: string; run: () => void; preview?: string }>
 
 type Group = Readonly<{ title: string; commands: readonly Command[] }>
 
@@ -31,16 +33,44 @@ const SECTION_KEYS: Readonly<Record<string, SectionId>> = {
 
 const G_WINDOW_MS = 900
 
+const filterGroups = (groups: readonly Group[], query: string) => {
+  const needle = query.trim().toLowerCase()
+
+  return groups
+    .map(group => ({
+      ...group,
+      commands: group.commands.filter(command => command.label.toLowerCase().includes(needle))
+    }))
+    .filter(group => group.commands.length > 0)
+}
+
 // Ctrl or Cmd K opens a command list; single keys run the same actions outside of text fields.
+// In theme mode it is the Color Theme picker: arrows preview, Enter keeps, Escape restores, like VS Code.
 const CommandPalette = () => {
   const t = useTranslations('palette')
   const tCommon = useTranslations('common')
   const switchLocale = useSwitchLocale()
   const router = useRouter()
-  const { resolvedTheme, setTheme } = useTheme()
-  const open = usePaletteOpen()
+  const { theme, resolvedTheme, setTheme } = useTheme()
+  const { open, mode, session } = usePalette()
   const [query, setQuery] = useState('')
   const [selected, setSelected] = useState(0)
+  const [seenSession, setSeenSession] = useState(session)
+
+  // The theme setting (maybe "system") and the shown theme when the picker opened, for Escape and the check mark.
+  const [original, setOriginal] = useState({ setting: 'system', shown: 'dark' })
+  const picking = mode === 'themes'
+
+  // Every opening starts fresh; the picker preselects the theme that is shown right now.
+  if (session !== seenSession) {
+    const shown = getTheme(resolvedTheme).id
+
+    setSeenSession(session)
+    setQuery('')
+    setSelected(mode === 'themes' ? THEMES.findIndex(item => item.id === shown) : 0)
+    setOriginal({ setting: theme ?? 'system', shown })
+  }
+
   const inputRef = useRef<HTMLInputElement>(null)
   const gPressedAt = useRef(0)
   const listId = useId()
@@ -53,7 +83,6 @@ const CommandPalette = () => {
 
   const actions = {
     copy: () => void copyEmail(tCommon('copied')),
-    theme: () => setTheme(resolvedTheme === 'dark' ? 'light' : 'dark'),
     language: () => switchLocale(),
     link: (url: string) => window.open(url, '_blank', 'noopener')
   }
@@ -73,7 +102,7 @@ const CommandPalette = () => {
       title: t('groups.actions'),
       commands: [
         { label: t('cmd.mail'), keys: 'C', run: actions.copy },
-        { label: t('cmd.theme'), keys: 'T', run: actions.theme },
+        { label: t('cmd.theme'), keys: 'T', run: openThemePicker },
         { label: t('cmd.lang'), keys: 'L', run: actions.language },
         { label: t('cmd.cat'), keys: 'M', run: wakeCat },
         { label: t('cmd.replay'), keys: 'R', run: replayIntro }
@@ -88,21 +117,29 @@ const CommandPalette = () => {
     }
   ]
 
-  const needle = query.trim().toLowerCase()
-
-  const visible = groups
-    .map(group => ({
-      ...group,
-      commands: group.commands.filter(command => command.label.toLowerCase().includes(needle))
+  // Light themes first, then dark, as VS Code groups them. THEMES is in the same order, so indexes match.
+  const themeGroups: readonly Group[] = (['light', 'dark'] as const).map(scheme => ({
+    title: t(`themes.${scheme}`),
+    commands: THEMES.filter(item => item.scheme === scheme).map(item => ({
+      label: item.name,
+      keys: item.id === original.shown ? '✓' : '',
+      run: () => setTheme(item.id),
+      preview: item.id
     }))
-    .filter(group => group.commands.length > 0)
+  }))
 
+  const visible = filterGroups(picking ? themeGroups : groups, query)
   const flat = visible.flatMap(group => group.commands)
 
+  const preview = (command: Command | undefined) => {
+    if (command?.preview) setTheme(command.preview)
+  }
+
+  // Closing without a choice puts the theme back, including "follow the system".
   const close = () => {
+    if (picking) setTheme(original.setting)
+
     closePalette()
-    setQuery('')
-    setSelected(0)
   }
 
   const runCommand = (index: number) => {
@@ -110,8 +147,14 @@ const CommandPalette = () => {
 
     if (!command) return
 
-    close()
+    closePalette()
     command.run()
+  }
+
+  const select = (index: number) => {
+    setSelected(index)
+
+    if (picking) preview(flat[index])
   }
 
   // Focus moves into the palette and back to where it was, like the prototype.
@@ -160,7 +203,7 @@ const CommandPalette = () => {
 
       if (key === 'g') gPressedAt.current = Date.now()
       else if (key === 'c') actions.copy()
-      else if (key === 't') actions.theme()
+      else if (key === 't') openThemePicker()
       else if (key === 'l') actions.language()
       else if (key === 'm') wakeCat()
       else if (key === '?') openPalette()
@@ -178,10 +221,10 @@ const CommandPalette = () => {
 
     if (event.key === 'ArrowDown') {
       event.preventDefault()
-      setSelected(current => (current + 1) % count)
+      select((selected + 1) % count)
     } else if (event.key === 'ArrowUp') {
       event.preventDefault()
-      setSelected(current => (current - 1 + count) % count)
+      select((selected - 1 + count) % count)
     } else if (event.key === 'Enter') {
       event.preventDefault()
       runCommand(selected)
@@ -199,7 +242,7 @@ const CommandPalette = () => {
     <div
       role='dialog'
       aria-modal='true'
-      aria-label={t('label')}
+      aria-label={picking ? t('themes.label') : t('label')}
       className={styles.backdrop}
       data-shell-ui=''
       onClick={event => {
@@ -215,14 +258,17 @@ const CommandPalette = () => {
             aria-expanded='true'
             aria-controls={listId}
             aria-activedescendant={flat.length > 0 ? `${listId}-${selected}` : undefined}
-            aria-label={t('placeholder')}
-            placeholder={t('placeholder')}
+            aria-label={picking ? t('themes.placeholder') : t('placeholder')}
+            placeholder={picking ? t('themes.placeholder') : t('placeholder')}
             autoComplete='off'
             spellCheck={false}
             value={query}
             onChange={event => {
               setQuery(event.target.value)
               setSelected(0)
+
+              // Like VS Code, the first match is previewed while filtering themes.
+              if (picking) preview(filterGroups(themeGroups, event.target.value)[0]?.commands[0])
             }}
             onKeyDown={onInputKeyDown}
           />
@@ -230,7 +276,7 @@ const CommandPalette = () => {
         <ul id={listId} role='listbox' className={styles.list}>
           {visible.length === 0 && (
             <li role='presentation' className={styles.empty}>
-              {t('empty')}
+              {picking ? t('themes.empty') : t('empty')}
             </li>
           )}
           {visible.map(group => (
@@ -251,7 +297,7 @@ const CommandPalette = () => {
                       onClick={() => runCommand(position)}
                     >
                       {command.label}
-                      <kbd>{command.keys}</kbd>
+                      {command.keys && <kbd>{command.keys}</kbd>}
                     </li>
                   )
                 })}
@@ -260,9 +306,9 @@ const CommandPalette = () => {
           ))}
         </ul>
         <div className={styles.foot} aria-hidden='true'>
-          <span>↑↓ {t('navigate')}</span>
-          <span>↵ {t('run')}</span>
-          <span>esc {t('close')}</span>
+          <span>↑↓ {picking ? t('themes.preview') : t('navigate')}</span>
+          <span>↵ {picking ? t('themes.select') : t('run')}</span>
+          <span>esc {picking ? t('themes.restore') : t('close')}</span>
         </div>
       </div>
     </div>

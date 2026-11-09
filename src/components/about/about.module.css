@@ -74,8 +74,8 @@
   border: 1px solid var(--hair-2);
   border-radius: 12px;
 
-  /* The ASCII art is light on dark in both themes, like the prototype. */
-  background: #0a0e1a;
+  /* The ASCII art is light on dark in both themes, like the prototype; kept in sync with portrait.tsx. */
+  background: #141414;
   cursor: crosshair;
 }
 

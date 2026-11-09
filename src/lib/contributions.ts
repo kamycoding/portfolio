@@ -5,7 +5,7 @@ import { z } from 'zod'
 
 export const GITHUB_USER = 'kamycoding'
 export const GITHUB_GRAPHQL_URL = 'https://api.github.com/graphql'
-export const WEEKS = 17
+export const WEEKS = 52
 export const FETCH_TIMEOUT_MS = 10_000
 
 const DAY_MS = 86_400_000
@@ -24,13 +24,16 @@ export type ContributionSnapshot = Readonly<{
 
 const isoDate = (time: number) => new Date(time).toISOString().slice(0, 10)
 
-// 17 weeks of Monday-first columns, the last one being the current week. `end` is today, so later days stay empty.
+// Monday of the first of `weeks` Monday-first columns, the last column holding `end` (UTC midnight).
+export const firstMonday = (end: number, weeks: number) =>
+  end - (((new Date(end).getUTCDay() + 6) % 7) + (weeks - 1) * 7) * DAY_MS
+
+// 52 weeks ending the current week: at most 364 days, inside GitHub's one-year limit per query.
+// `end` is today, so later days stay empty.
 export const contributionWindow = (now: Date) => {
   const today = Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate())
-  const sinceMonday = (new Date(today).getUTCDay() + 6) % 7
-  const start = today - (sinceMonday + (WEEKS - 1) * 7) * DAY_MS
 
-  return { start: isoDate(start), end: isoDate(today) }
+  return { start: isoDate(firstMonday(today, WEEKS)), end: isoDate(today) }
 }
 
 export const CALENDAR_QUERY = `query($login: String!, $from: DateTime!, $to: DateTime!) {
@@ -96,8 +99,7 @@ type FetchSnapshotInput = Readonly<{
 }>
 
 export type FetchResult =
-  | Readonly<{ ok: true; snapshot: ContributionSnapshot }>
-  | Readonly<{ ok: false; reason: string }>
+  Readonly<{ ok: true; snapshot: ContributionSnapshot }> | Readonly<{ ok: false; reason: string }>
 
 // Never throws: every failure becomes a reason, and the build keeps the committed snapshot.
 export const fetchSnapshot = async ({ token, now, fetch }: FetchSnapshotInput): Promise<FetchResult> => {

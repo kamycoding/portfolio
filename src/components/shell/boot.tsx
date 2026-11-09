@@ -166,12 +166,16 @@ const Boot = ({ version }: BootProps) => {
       play()
     }
 
+    // Decided when the intro really starts: Strict Mode clears this timeout once in dev, and that run must not count.
     // Reduced motion skips the intro; the overlay is already hidden by CSS, so there is no flash.
-    const skip = playedThisLoad || prefersReducedMotion()
+    const start = window.setTimeout(() => {
+      const skip = playedThisLoad || prefersReducedMotion()
 
-    playedThisLoad = true
+      playedThisLoad = true
 
-    const start = window.setTimeout(() => (skip ? finish() : play()), 0)
+      if (skip) finish()
+      else play()
+    }, 0)
 
     return () => {
       replay = null

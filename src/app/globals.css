@@ -1,34 +1,36 @@
 @import 'tailwindcss';
 
-/* `dark:` follows the theme attribute set by next-themes, not the OS setting. */
-@custom-variant dark (&:where([data-theme='dark'], [data-theme='dark'] *));
+/* `dark:` follows the theme attribute set by next-themes, not the OS setting. Monokai and Solarized count as dark. */
+@custom-variant dark (&:where([data-theme='dark'], [data-theme='dark'] *, [data-theme='monokai'], [data-theme='monokai'] *, [data-theme='solarized-dark'], [data-theme='solarized-dark'] *));
 
 /*
- * Design tokens, copied from docs/design/prototype/style.css.
- * Dark is the default, light overrides it. next-themes sets data-theme on <html>.
- * Changed from the prototype for WCAG AA (4.5:1 for small text): --faint and --com in both themes, light --str.
+ * Design tokens, one block per VS Code color theme (src/lib/themes.ts). Dark Modern is the default; next-themes
+ * sets data-theme on <html>. Colors are the themes' real editor and syntax colors, with lightness adjusted where
+ * needed for WCAG AA: text, muted, faint and comment reach 4.5:1 on every surface, syntax colors on the surfaces
+ * code sits on (page, terminal, editor). The adjusted values are listed per block.
  */
+/* Dark Modern with Dark+ syntax, the default. AA: --faint from #8b8b8b, --com from #6a9955, --err from #f14c4c. */
 :root {
-  --bg: #0b1020;
-  --bg-2: #0d1326;
-  --panel: #0f1528;
-  --panel-2: #131a30;
-  --panel-3: #18203a;
-  --text: #e6e8ee;
-  --muted: #8a91a6;
-  --faint: #7a829a;
-  --hair: rgba(230, 232, 238, 0.08);
-  --hair-2: rgba(230, 232, 238, 0.14);
-  --hair-3: rgba(230, 232, 238, 0.28);
-  --kw: #9aa8ff;
-  --str: #f5b754;
-  --prop: #7fd1b9;
-  --num: #f28f79;
-  --com: #7a829a;
-  --ok: #7fd1b9;
-  --err: #f2797b;
-  --kw-a: rgba(154, 168, 255, 0.12);
-  --str-a: rgba(245, 183, 84, 0.14);
+  --bg: #181818;
+  --bg-2: #181818;
+  --panel: #1f1f1f;
+  --panel-2: #252526;
+  --panel-3: #2a2d2e;
+  --text: #cccccc;
+  --muted: #9d9d9d;
+  --faint: #949494;
+  --hair: #2b2b2b;
+  --hair-2: #3c3c3c;
+  --hair-3: #555555;
+  --kw: #569cd6;
+  --str: #ce9178;
+  --prop: #9cdcfe;
+  --num: #b5cea8;
+  --com: #70a15a;
+  --ok: #4ec9b0;
+  --err: #f36666;
+  --kw-a: rgba(86, 156, 214, 0.14);
+  --str-a: rgba(206, 145, 120, 0.14);
   --shadow: 0 30px 80px -30px rgba(0, 0, 0, 0.65);
   --ruler: 22px;
   --top: 56px;
@@ -38,29 +40,83 @@
   color-scheme: dark;
 }
 
+/* Light Modern with Light+ syntax. AA: --faint from #6e7681, --num from #098658, --ok from #267f99, --err from #e51400. */
 [data-theme='light'] {
-  --bg: #f5f6fa;
-  --bg-2: #eff1f6;
+  --bg: #f8f8f8;
+  --bg-2: #f8f8f8;
   --panel: #ffffff;
-  --panel-2: #f7f8fb;
-  --panel-3: #eef0f6;
-  --text: #121729;
-  --muted: #596079;
-  --faint: #666d85;
-  --hair: rgba(18, 23, 41, 0.08);
-  --hair-2: rgba(18, 23, 41, 0.13);
-  --hair-3: rgba(18, 23, 41, 0.26);
-  --kw: #4d58cf;
-  --str: #9f5f00;
-  --prop: #0b7f66;
-  --num: #c0452c;
-  --com: #666d85;
-  --ok: #0b7f66;
-  --err: #c9373a;
-  --kw-a: rgba(77, 88, 207, 0.09);
-  --str-a: rgba(168, 100, 0, 0.1);
-  --shadow: 0 30px 70px -34px rgba(18, 23, 41, 0.28);
+  --panel-2: #f8f8f8;
+  --panel-3: #f2f2f2;
+  --text: #3b3b3b;
+  --muted: #616161;
+  --faint: #676e79;
+  --hair: #e5e5e5;
+  --hair-2: #cecece;
+  --hair-3: #aaaaaa;
+  --kw: #0000ff;
+  --str: #a31515;
+  --prop: #001080;
+  --num: #098155;
+  --com: #008000;
+  --ok: #247a93;
+  --err: #e21400;
+  --kw-a: rgba(0, 0, 255, 0.07);
+  --str-a: rgba(163, 21, 21, 0.08);
+  --shadow: 0 30px 70px -34px rgba(0, 0, 0, 0.2);
   color-scheme: light;
+}
+
+/* Monokai. AA: --faint from #90908a, --com from #88846f, --kw from #f92672, --err from #f14c4c. */
+[data-theme='monokai'] {
+  --bg: #1e1f1c;
+  --bg-2: #1e1f1c;
+  --panel: #272822;
+  --panel-2: #34352f;
+  --panel-3: #3e3d32;
+  --text: #f8f8f2;
+  --muted: #ccccc7;
+  --faint: #a8a8a3;
+  --hair: #34352f;
+  --hair-2: #414339;
+  --hair-3: #75715e;
+  --kw: #fa4b8a;
+  --str: #e6db74;
+  --prop: #66d9ef;
+  --num: #ae81ff;
+  --com: #aba898;
+  --ok: #a6e22e;
+  --err: #f25d5d;
+  --kw-a: rgba(250, 75, 138, 0.14);
+  --str-a: rgba(230, 219, 116, 0.12);
+  --shadow: 0 30px 80px -30px rgba(0, 0, 0, 0.6);
+  color-scheme: dark;
+}
+
+/* Solarized Dark. AA: --text from #93a1a1 and --muted from #839496 (raised further to keep the hierarchy),
+   --faint and --com from #586e75, --prop from #268bd2, --num from #d33682, --err from #dc322f. */
+[data-theme='solarized-dark'] {
+  --bg: #00212b;
+  --bg-2: #00212b;
+  --panel: #002b36;
+  --panel-2: #073642;
+  --panel-3: #073642;
+  --text: #b8c1c1;
+  --muted: #a0adaf;
+  --faint: #879da5;
+  --hair: #0b3b47;
+  --hair-2: #1a5361;
+  --hair-3: #2f6b79;
+  --kw: #859900;
+  --str: #2aa198;
+  --prop: #3094da;
+  --num: #dd649f;
+  --com: #879da5;
+  --ok: #2aa198;
+  --err: #e56663;
+  --kw-a: rgba(133, 153, 0, 0.16);
+  --str-a: rgba(42, 161, 152, 0.14);
+  --shadow: 0 30px 80px -30px rgba(0, 0, 0, 0.6);
+  color-scheme: dark;
 }
 
 /* The rulers are desktop only, so they take no space below 981px. */

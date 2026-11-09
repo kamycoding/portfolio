@@ -6,20 +6,17 @@
   "hero": {
     "comment": "// full-stack developer, köln",
     "headline": {
-      "line1": "Ich baue Web-Produkte.",
-      "line2": "Von der Idee bis zum Deploy."
+      "line1": "Kamyar Zamanfar",
+      "line2": "Full-Stack Developer"
     },
-    "lede": "Ich habe Architektur studiert. Deshalb sind mir <strong>Struktur, Details und die Menschen</strong> wichtig, die nutzen, was ich baue. Heute arbeite ich über den ganzen Stack mit TypeScript, React, Next.js und Node. Außerdem habe ich <strong>Heldio</strong> mitgegründet, eine KI-Plattform zum Sprachenlernen.",
-    "cta": {
-      "work": "Projekte ansehen",
-      "copyEmail": "E-Mail kopieren"
+    "blueprint": {
+      "slider": "Plan und Umsetzung",
+      "value": "Plan {value} Prozent",
+      "project": "PROJEKT",
+      "scale": "MASSSTAB",
+      "sheet": "BLATT",
+      "date": "DATUM"
     },
-    "now": {
-      "label": "Status",
-      "open": "Offen für Jobs",
-      "city": "Köln"
-    },
-    "scroll": "scrollen, um den Quellcode zu lesen",
     "editor": {
       "filesLabel": "Geöffnete Dateien",
       "problems": "0 Probleme",
@@ -43,15 +40,24 @@
     },
     "terminal": {
       "label": "Terminal. Gib help ein, um alle Befehle zu sehen.",
-      "help": "<b>help</b>       diese Liste\n<b>whoami</b>     wer ist das\n<b>ls</b>         Dateien dieser Seite\n<b>open</b> work   springt zu work, about, stack oder contact\n<b>projects</b>   was ich gebaut habe\n<b>stack</b>      womit ich arbeite\n<b>contact</b>    E-Mail kopieren\n<b>cat</b>        Katze wecken\n<b>theme</b>, <b>lang</b>, <b>date</b>, <b>clear</b>",
+      "help": "<b>help</b>                 diese Liste\n<b>whoami</b>               wer ist das\n<b>ls</b> [projects]        Bereiche und Projekte, klickbar\n<b>git log</b>              GitHub-Beiträge\n<b>blueprint</b>            zwischen Plan und Umsetzung wechseln\n<b>theme</b> [list|<name>]  Farbdesign wechseln\n<b>lang</b> [de|en]         Sprache wechseln\n<b>contact</b>              zum Kontaktformular springen\n<b>pet cat</b>              Katze wecken\n<b>clear</b>                Terminal leeren",
       "whoami": "<b>Kamyar Zamanfar</b>, Full-Stack-Entwickler bei Köln.\nTypeScript, React, Next.js, Node. Mitgründer von Heldio.",
-      "openUsage": "Nutzung: open work | about | stack | contact",
-      "copied": "kopiert",
+      "lsMissing": "ls: Zugriff auf '{path}' nicht möglich: Datei oder Verzeichnis nicht gefunden",
+      "gitUsage": "Nutzung: git log",
+      "gitLog": {
+        "total": "{count, plural, one {<b>#</b> Beitrag} other {<b>#</b> Beiträge}}, {period}",
+        "stats": "bester Tag <b>{best}</b> · längste Serie <b>{streak, plural, one {# Tag} other {# Tage}}</b> · <b>{days}</b> aktive Tage"
+      },
+      "blueprintOn": "Planansicht: {value} Prozent Plan. Zieh den Griff oder tippe blueprint noch einmal.",
+      "blueprintOff": "Umsetzung.",
+      "themeUsage": "Nutzung: theme [list|<name>], zum Beispiel: theme monokai",
+      "langUsage": "Nutzung: lang [de|en]",
+      "petUsage": "Nutzung: pet cat",
       "cat": "miau. sie ist jetzt wach, für kurz.",
       "sudo": "[sudo] Zugriff erlaubt. Öffne contact.ts ...",
       "sudoNo": "netter Versuch. Probier: sudo hire-kamyar",
       "tryHelp": "tippe help",
-      "hint": "tippe help, oder probier: sudo hire-kamyar"
+      "hint": "tippe help, oder probier: blueprint"
     }
   },
   "sections": {
@@ -89,9 +95,7 @@
     "home": "Startseite"
   },
   "theme": {
-    "toggle": "Farbschema wechseln",
-    "dark": "dunkel",
-    "light": "hell"
+    "picker": "Farbdesign"
   },
   "language": {
     "label": "Sprache"
@@ -109,7 +113,6 @@
     "legal": "// rechtliches",
     "legalNotice": "Impressum",
     "privacyPolicy": "Datenschutz",
-    "builtWith": "Next.js, TypeScript, Tailwind CSS. Gehostet bei Netlify.",
     "credit": "Basiert ursprünglich auf dem Zolt-Template von shadcn/studio (MIT)."
   },
   "cat": {
@@ -172,11 +175,14 @@
     }
   },
   "stack": {
-    "fold": "▾ klicken zum Einklappen",
-    "foldGroup": "{group} einklappen",
+    "explorer": {
+      "title": "Explorer: Stack",
+      "hint": "Ordner anklicken zum Einklappen",
+      "files": "{count, plural, one {Datei} other {Dateien}}",
+      "file": "{name} ({file})"
+    },
     "heat": {
       "label": "Beiträge pro Tag",
-      "total": "{count, plural, one {# Beitrag} other {# Beiträge}}",
       "tip": "{count, plural, one {# Beitrag} other {# Beiträge}} am {date}",
       "mon": "Mo",
       "wed": "Mi",
@@ -187,9 +193,10 @@
       "to": "bis"
     },
     "stats": {
-      "best": "bester Tag",
-      "streak": "Tage am Stück",
-      "days": "aktive Tage"
+      "total": "{count, plural, one {<b>#</b> Beitrag} other {<b>#</b> Beiträge}}",
+      "best": "bester Tag <b>{count}</b>",
+      "streak": "{count, plural, one {<b>#</b> Tag am Stück} other {<b>#</b> Tage am Stück}}",
+      "days": "{count, plural, one {<b>#</b> aktiver Tag} other {<b>#</b> aktive Tage}}"
     }
   },
   "legal": {
@@ -516,12 +523,22 @@
       "contact": "Zum Kontakt",
       "top": "Nach oben",
       "mail": "E-Mail kopieren",
-      "theme": "Theme wechseln",
+      "theme": "Farbdesign",
       "lang": "Switch to English",
       "cat": "Katze wecken",
       "replay": "Intro erneut abspielen",
       "gh": "GitHub öffnen",
       "li": "LinkedIn öffnen"
+    },
+    "themes": {
+      "label": "Farbdesign",
+      "placeholder": "Farbdesign auswählen",
+      "light": "helle Designs",
+      "dark": "dunkle Designs",
+      "empty": "Kein passendes Design",
+      "preview": "Vorschau",
+      "select": "auswählen",
+      "restore": "zurücksetzen"
     }
   },
   "cursor": {

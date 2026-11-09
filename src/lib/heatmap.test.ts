@@ -70,6 +70,26 @@ describe('buildHeatmap', () => {
     ])
   })
 
+  it('keeps month labels apart at the edges of the grid', () => {
+    const labels = (end: string) =>
+      buildHeatmap({ ...SNAPSHOT, end, days: [] }, 3).months.flatMap((date, week) => (date ? [[week, date]] : []))
+
+    // Monday 1 June starts week 1, so week 0 (25 May) stays unlabelled.
+    expect(labels('2026-06-10')).toEqual([[1, '2026-06-01']])
+
+    // Monday 1 June is the last column, which has no room for a label.
+    expect(labels('2026-06-03')).toEqual([[0, '2026-05-18']])
+  })
+
+  it('counts 52 weeks back from the end, also for a snapshot with a shorter range', () => {
+    const year = buildHeatmap(SNAPSHOT, 52)
+
+    expect(year.cells).toHaveLength(52 * 7)
+    expect(year.cells[0].date).toBe('2025-11-17')
+    expect(year.cells.at(-1)?.date).toBe('2026-11-15')
+    expect(year.total).toBe(36)
+  })
+
   it('shows an empty grid for a snapshot without days', () => {
     const empty = buildHeatmap({ ...SNAPSHOT, days: [] }, 17)
 

@@ -90,7 +90,7 @@ const TopBar = ({ versionLabel }: TopBarProps) => {
       </nav>
 
       <div className='border-hair flex flex-none items-center gap-1.5 border-l px-2 sm:gap-2 sm:px-3.5'>
-        <button type='button' className={ui.chip} aria-keyshortcuts='Control+K Meta+K' onClick={openPalette}>
+        <button type='button' className={ui.chip} aria-keyshortcuts='Control+K Meta+K' onClick={() => openPalette()}>
           <span className='sr-only'>{tPalette('open')}, </span>
           <span>{modKey}</span> K
         </button>

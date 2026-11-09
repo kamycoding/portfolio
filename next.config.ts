@@ -38,6 +38,9 @@ const nextConfig: NextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
 
+  // next dev would otherwise write an AGENTS.md into the repo root on every start; the repo keeps its own CLAUDE.md.
+  agentRules: false,
+
   // Production only: the dev server needs eval for hot reload, which a CSP would flag.
   async headers() {
     if (process.env.NODE_ENV !== 'production') return []

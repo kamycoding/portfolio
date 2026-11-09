@@ -1,4 +1,4 @@
-// Refreshes src/content/contributions.json from GitHub before `next build` (docs/adr/0006-github-contributions-at-build-time.md).
+// Refreshes src/content/contributions.json (52 weeks, see WEEKS) from GitHub before `next build` (docs/adr/0006-github-contributions-at-build-time.md).
 // Any failure keeps the committed snapshot and exits 0, so the build never breaks. The token is never printed.
 import { writeFile } from 'node:fs/promises'
 
