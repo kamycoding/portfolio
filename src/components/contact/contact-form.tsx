@@ -259,11 +259,12 @@ const ContactForm = () => {
           </label>
         </FieldRow>
 
+        {/* Honeypot, sent as "company". A neutral name and display: none keep browser autofill out of it. */}
         <div className={styles.honeypot} aria-hidden='true'>
           <label>
             {t('honeypot')}
             <input
-              name='company'
+              name='hp_contact'
               tabIndex={-1}
               autoComplete='off'
               value={values.company}

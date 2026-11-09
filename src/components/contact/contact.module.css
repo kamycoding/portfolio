@@ -249,14 +249,9 @@
   border-color: var(--err);
 }
 
-/* Honeypot: off screen, out of the tab order and hidden from screen readers. */
+/* Honeypot: browsers do not autofill fields that are not displayed; bots posting the raw form still fill it. */
 .honeypot {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
-  clip-path: inset(50%);
-  white-space: nowrap;
+  display: none;
 }
 
 /* ---------- run bar and output ---------- */

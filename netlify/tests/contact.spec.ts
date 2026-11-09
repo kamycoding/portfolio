@@ -360,4 +360,114 @@ describe('Netlify contact function', () => {
       expect(fetchMock).not.toHaveBeenCalled()
     })
   })
+
+  describe('privacy-safe logging', () => {
+    const personalData = [validContactRequest.name, validContactRequest.email, validContactRequest.message]
+
+    const logged = (logInfo: ReturnType<typeof vi.fn>, logError: ReturnType<typeof vi.fn>) =>
+      JSON.stringify([logInfo.mock.calls, logError.mock.calls])
+
+    it('logs one line for a triggered honeypot, without the submitted values', async () => {
+      const fetchMock = vi.fn<typeof fetch>()
+      const logInfo = vi.fn()
+      const logError = vi.fn()
+      const handler = createContactHandler({ environment, fetch: fetchMock, logInfo, logError })
+
+      const response = await handler(contactRequest({ ...validContactRequest, company: 'Acme GmbH' }))
+
+      expect(response.status).toBe(200)
+      expect(fetchMock).not.toHaveBeenCalled()
+      expect(logInfo).toHaveBeenCalledExactlyOnceWith('Contact honeypot triggered.', { category: 'honeypot' })
+      expect(logError).not.toHaveBeenCalled()
+
+      for (const value of [...personalData, 'Acme GmbH']) expect(logged(logInfo, logError)).not.toContain(value)
+    })
+
+    it('logs which rule failed, not the value', async () => {
+      const logInfo = vi.fn()
+      const handler = createContactHandler({ environment, fetch: vi.fn<typeof fetch>(), logInfo })
+
+      await handler(contactRequest({ ...validContactRequest, email: 'secret-not-an-email', message: 'short' }))
+
+      expect(logInfo).toHaveBeenCalledExactlyOnceWith('Contact validation failed.', {
+        category: 'validation',
+        rules: [
+          { field: 'email', rule: 'invalid_format' },
+          { field: 'message', rule: 'too_small' }
+        ]
+      })
+      expect(JSON.stringify(logInfo.mock.calls)).not.toContain('secret-not-an-email')
+    })
+
+    it('logs invalid JSON as a validation failure', async () => {
+      const logInfo = vi.fn()
+      const handler = createContactHandler({ environment, fetch: vi.fn<typeof fetch>(), logInfo })
+
+      await handler(
+        new Request('https://kamycoding.com/api/contact', {
+          method: 'POST',
+          headers: { 'content-type': 'application/json' },
+          body: '{"name": '
+        })
+      )
+
+      expect(logInfo).toHaveBeenCalledExactlyOnceWith('Contact validation failed.', {
+        category: 'validation',
+        rules: [{ field: 'body', rule: 'json' }]
+      })
+    })
+
+    it("logs Brevo's messageId when the email is accepted", async () => {
+      const fetchMock = vi
+        .fn<typeof fetch>()
+        .mockResolvedValue(Response.json({ messageId: '<202611091200.123@smtp-relay.mailin.fr>' }, { status: 201 }))
+
+      const logInfo = vi.fn()
+      const logError = vi.fn()
+      const handler = createContactHandler({ environment, fetch: fetchMock, logInfo, logError })
+
+      const response = await handler(contactRequest(validContactRequest))
+
+      expect(response.status).toBe(200)
+      expect(logInfo).toHaveBeenCalledExactlyOnceWith('Contact email accepted by Brevo.', {
+        category: 'accepted',
+        messageId: '<202611091200.123@smtp-relay.mailin.fr>'
+      })
+      expect(logError).not.toHaveBeenCalled()
+
+      for (const value of personalData) expect(logged(logInfo, logError)).not.toContain(value)
+    })
+
+    it('still answers 200 when Brevo sends no messageId', async () => {
+      const logInfo = vi.fn()
+
+      const handler = createContactHandler({
+        environment,
+        fetch: vi.fn<typeof fetch>().mockResolvedValue(new Response(null, { status: 201 })),
+        logInfo
+      })
+
+      expect((await handler(contactRequest(validContactRequest))).status).toBe(200)
+      expect(logInfo).toHaveBeenCalledExactlyOnceWith('Contact email accepted by Brevo.', { category: 'accepted' })
+    })
+
+    it('logs one error line with the Brevo status code', async () => {
+      const logInfo = vi.fn()
+      const logError = vi.fn()
+
+      const handler = createContactHandler({
+        environment,
+        fetch: vi.fn<typeof fetch>().mockResolvedValue(new Response('{}', { status: 401 })),
+        logInfo,
+        logError
+      })
+
+      expect((await handler(contactRequest(validContactRequest))).status).toBe(502)
+      expect(logError).toHaveBeenCalledExactlyOnceWith('Contact email delivery failed.', {
+        category: 'provider-response',
+        providerStatus: 401
+      })
+      expect(logInfo).not.toHaveBeenCalled()
+    })
+  })
 })

@@ -55,6 +55,7 @@ interface ContactFunctionDependencies {
   readonly environment: Record<string, string | undefined>
   readonly fetch: typeof globalThis.fetch
   readonly logError: (message: string, diagnostics: object) => void
+  readonly logInfo: (message: string, details: object) => void
 }
 
 const defaultDependencies: ContactFunctionDependencies = {
@@ -65,7 +66,8 @@ const defaultDependencies: ContactFunctionDependencies = {
       }
     ).process?.env ?? {},
   fetch: globalThis.fetch,
-  logError: console.error
+  logError: console.error,
+  logInfo: console.info
 }
 
 function jsonResponse(body: object, status: number, headers?: HeadersInit): Response {
@@ -146,10 +148,19 @@ function sanitizeNetworkDiagnostics(error: unknown): EmailNetworkDiagnostics {
   }
 }
 
+// Brevo answers { messageId } on success; a missing or odd body only drops the id from the log.
+async function readMessageId(response: Response): Promise<string | undefined> {
+  try {
+    return readDiagnosticString(await response.json(), 'messageId')
+  } catch {
+    return undefined
+  }
+}
+
 async function sendContactEmail(
   input: { readonly name: string; readonly email: string; readonly message: string },
   dependencies: ContactFunctionDependencies
-): Promise<void> {
+): Promise<string | undefined> {
   const environment = functionEnvironmentSchema.parse(dependencies.environment)
   const abortController = new AbortController()
 
@@ -186,6 +197,8 @@ async function sendContactEmail(
     if (!response.ok) {
       throw new EmailDeliveryError('provider-response', response.status)
     }
+
+    return await readMessageId(response)
   } catch (error: unknown) {
     if (error instanceof EmailDeliveryError) {
       throw error
@@ -230,21 +243,36 @@ export function createContactHandler(
     try {
       requestBody = JSON.parse(rawBody)
     } catch {
+      dependencies.logInfo('Contact validation failed.', {
+        category: 'validation',
+        rules: [{ field: 'body', rule: 'json' }]
+      })
+
       return jsonResponse({ success: false, message: INVALID_MESSAGE }, 400)
     }
 
     const result = contactRequestSchema.safeParse(requestBody)
 
+    // Logs only which field broke which rule, never the submitted values.
     if (!result.success) {
+      const rules = result.error.issues.map(issue => ({ field: String(issue.path[0] ?? 'body'), rule: issue.code }))
+
+      dependencies.logInfo('Contact validation failed.', { category: 'validation', rules })
+
       return jsonResponse({ success: false, message: INVALID_MESSAGE }, 400)
     }
 
+    // Bots get the normal success answer, so they learn nothing; the log keeps the request visible.
     if (result.data.company.trim().length > 0) {
+      dependencies.logInfo('Contact honeypot triggered.', { category: 'honeypot' })
+
       return jsonResponse({ success: true, message: SUCCESS_MESSAGE }, 200)
     }
 
+    let messageId: string | undefined
+
     try {
-      await sendContactEmail(
+      messageId = await sendContactEmail(
         {
           name: result.data.name,
           email: result.data.email,
@@ -266,6 +294,11 @@ export function createContactHandler(
 
       return jsonResponse({ success: false, message: DELIVERY_ERROR_MESSAGE }, 502)
     }
+
+    dependencies.logInfo('Contact email accepted by Brevo.', {
+      category: 'accepted',
+      ...(messageId === undefined ? {} : { messageId })
+    })
 
     return jsonResponse({ success: true, message: SUCCESS_MESSAGE }, 200)
   }
