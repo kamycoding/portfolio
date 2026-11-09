@@ -7,15 +7,16 @@ import { useTheme } from 'next-themes'
 
 import { wakeCat } from '@/hooks/use-cat'
 import { useReady } from '@/hooks/use-ready'
+import { useSwitchLocale } from '@/hooks/use-switch-locale'
 import { PROJECTS } from '@/content/projects'
 import { STACK } from '@/content/stack'
-import { usePathname, useRouter } from '@/i18n/navigation'
 import { copyEmail, EMAIL, goToSection, prefersReducedMotion } from '@/lib/actions'
 import { cn } from '@/lib/utils'
 
 import styles from './hero.module.css'
 
-type Line = Readonly<{ id: number; kind: 'cmd' | 'out'; content: ReactNode }>
+// Intro lines are marked, so a language switch can reprint them without touching the visitor's own commands.
+type Line = Readonly<{ id: number; kind: 'cmd' | 'out'; content: ReactNode; intro?: boolean }>
 
 // Command list for Tab completion, as in the prototype.
 const COMMANDS = [
@@ -51,6 +52,7 @@ const PROMPT = '~/kamycoding $'
 let savedLines: Line[] = []
 let nextId = 1
 let introDone = false
+let introLocale: string | null = null
 const history: string[] = []
 let historyIndex = 0
 const listeners = new Set<() => void>()
@@ -73,8 +75,7 @@ const Terminal = () => {
   const tHero = useTranslations('hero')
   const tCommon = useTranslations('common')
   const locale = useLocale()
-  const router = useRouter()
-  const pathname = usePathname()
+  const switchLocale = useSwitchLocale()
   const { resolvedTheme, setTheme } = useTheme()
   const ready = useReady()
 
@@ -191,7 +192,7 @@ const Terminal = () => {
         const next = locale === 'en' ? 'de' : 'en'
 
         print(`lang: ${next}`)
-        router.replace(`${pathname}${window.location.hash}`, { locale: next })
+        switchLocale(next)
 
         return
       }
@@ -224,16 +225,42 @@ const Terminal = () => {
     }
   }
 
+  // "whoami" with its answer and the hint, in the current language.
+  const introLines = (): Line[] => [
+    {
+      id: nextId++,
+      kind: 'cmd',
+      intro: true,
+      content: (
+        <>
+          <span className={styles.prompt}>{PROMPT}</span> whoami
+        </>
+      )
+    },
+    { id: nextId++, kind: 'out', intro: true, content: t.rich('whoami', { b: bold }) },
+    { id: nextId++, kind: 'out', intro: true, content: <span className={styles.dim}>{t('hint')}</span> }
+  ]
+
+  // After a language switch the intro is printed again in the new language; the visitor's lines stay.
+  useEffect(() => {
+    if (!introDone || introLocale === null || introLocale === locale) return
+
+    introLocale = locale
+    setLines([...introLines(), ...savedLines.filter(line => !line.intro)])
+
+    // introLines only reads the current translations, so the switch is the only trigger.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [locale])
+
   // The prototype types "whoami" once, after the intro.
   useEffect(() => {
     if (!ready || introDone || savedLines.length > 0) return
 
-    introDone = true
-
     const finish = () => {
+      introDone = true
+      introLocale = locale
       setInput('')
-      run('whoami')
-      print(<span className={styles.dim}>{t('hint')}</span>)
+      setLines([...savedLines, ...introLines()])
     }
 
     if (prefersReducedMotion()) {

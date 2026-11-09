@@ -2,14 +2,15 @@
 
 import { type KeyboardEvent as ReactKeyboardEvent, useEffect, useId, useRef, useState } from 'react'
 
-import { useLocale, useTranslations } from 'next-intl'
+import { useTranslations } from 'next-intl'
 import { useTheme } from 'next-themes'
 
 import { replayIntro } from '@/components/shell/boot'
 import { wakeCat } from '@/hooks/use-cat'
 import { closePalette, isPaletteOpen, openPalette, usePaletteOpen } from '@/hooks/use-palette'
 import { isReady } from '@/hooks/use-ready'
-import { usePathname, useRouter } from '@/i18n/navigation'
+import { useSwitchLocale } from '@/hooks/use-switch-locale'
+import { useRouter } from '@/i18n/navigation'
 import { copyEmail, goToSection } from '@/lib/actions'
 import type { SectionId } from '@/lib/sections'
 
@@ -34,8 +35,7 @@ const G_WINDOW_MS = 900
 const CommandPalette = () => {
   const t = useTranslations('palette')
   const tCommon = useTranslations('common')
-  const locale = useLocale()
-  const pathname = usePathname()
+  const switchLocale = useSwitchLocale()
   const router = useRouter()
   const { resolvedTheme, setTheme } = useTheme()
   const open = usePaletteOpen()
@@ -54,7 +54,7 @@ const CommandPalette = () => {
   const actions = {
     copy: () => void copyEmail(tCommon('copied')),
     theme: () => setTheme(resolvedTheme === 'dark' ? 'light' : 'dark'),
-    language: () => router.replace(`${pathname}${window.location.hash}`, { locale: locale === 'en' ? 'de' : 'en' }),
+    language: () => switchLocale(),
     link: (url: string) => window.open(url, '_blank', 'noopener')
   }
 

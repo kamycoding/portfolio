@@ -7,6 +7,7 @@ import ThemeToggle from '@/components/shell/theme-toggle'
 import ui from '@/components/ui/ui.module.css'
 import { useModKey } from '@/hooks/use-mod-key'
 import { openPalette } from '@/hooks/use-palette'
+import { useRestoreLocalePosition } from '@/hooks/use-switch-locale'
 import { useScrollSpy } from '@/hooks/use-scroll-spy'
 import { Link, usePathname } from '@/i18n/navigation'
 import { getPage, SECTIONS } from '@/lib/sections'
@@ -16,6 +17,9 @@ const TopBar = () => {
   const t = useTranslations('nav')
   const tPalette = useTranslations('palette')
   const modKey = useModKey()
+
+  // The top bar lives in the layout that a language switch remounts, so it puts the visitor back in place.
+  useRestoreLocalePosition()
   const { activeId, progress } = useScrollSpy()
 
   // On a legal page its own file is the open tab, so no section tab is active.

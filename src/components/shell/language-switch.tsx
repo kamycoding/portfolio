@@ -2,21 +2,13 @@
 
 import { useLocale, useTranslations } from 'next-intl'
 
-import { usePathname, useRouter } from '@/i18n/navigation'
+import { useSwitchLocale } from '@/hooks/use-switch-locale'
 import { routing } from '@/i18n/routing'
 
 const LanguageSwitch = () => {
   const t = useTranslations('language')
   const locale = useLocale()
-  const pathname = usePathname()
-  const router = useRouter()
-
-  const switchTo = (next: (typeof routing.locales)[number]) => {
-    if (next === locale) return
-
-    // Keep the current section (#work, #about, ...) when switching the language.
-    router.replace(`${pathname}${window.location.hash}`, { locale: next })
-  }
+  const switchTo = useSwitchLocale()
 
   return (
     <div
