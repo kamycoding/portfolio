@@ -9,6 +9,10 @@ updates:
     groups:
       minor-and-patch:
         update-types: [minor, patch]
+    # @types/node follows the Node major in .nvmrc; it is raised by hand together with the runtime.
+    ignore:
+      - dependency-name: '@types/node'
+        update-types: ['version-update:semver-major']
     # Prefixes keep Dependabot commits valid Conventional Commits.
     commit-message:
       prefix: chore(deps)
