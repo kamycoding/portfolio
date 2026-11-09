@@ -6,23 +6,6 @@ export const STACK = {
   tools: ['Git', 'GitHub', 'Figma', 'VS Code']
 } as const
 
-// Ticker order from the prototype.
-export const TICKER = [
-  'TypeScript',
-  'React',
-  'Next.js',
-  'Node.js',
-  'NestJS',
-  'PostgreSQL',
-  'Angular',
-  'Tailwind CSS',
-  'Supabase',
-  'Python',
-  'Django',
-  'Figma',
-  'Git'
-] as const
-
 // Icon file in public/stack/ per technology.
 export const ICON: Readonly<Record<string, string>> = {
   TypeScript: 'typescript',

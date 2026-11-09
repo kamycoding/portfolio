@@ -320,7 +320,7 @@ const Terminal = () => {
   }
 
   return (
-    <div className={styles.tp}>
+    <div className={styles.tp} data-bp='terminal'>
       <div className={styles.tpHead}>
         <span className={cn(styles.tpTab, styles.tpTabOn)}>TERMINAL</span>
         <span className={styles.tpTab}>

@@ -9,12 +9,16 @@
       "line1": "Kamyar Zamanfar",
       "line2": "Full-Stack Developer"
     },
-    "cta": {
-      "work": "See my work",
-      "copyEmail": "Copy email"
-    },
     "now": {
       "city": "Cologne"
+    },
+    "blueprint": {
+      "slider": "Plan and build",
+      "value": "Plan {value} percent",
+      "project": "PROJECT",
+      "scale": "SCALE",
+      "sheet": "SHEET",
+      "date": "DATE"
     },
     "editor": {
       "filesLabel": "Open files",

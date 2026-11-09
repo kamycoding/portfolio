@@ -7,6 +7,8 @@ import { useTranslations } from 'next-intl'
 import { purrCat, useCat, wakeCat } from '@/hooks/use-cat'
 import { cn } from '@/lib/utils'
 
+import { CAT_OUTLINE } from './cat-paths'
+
 import styles from './cat.module.css'
 
 type CatProps = Readonly<{
@@ -113,20 +115,17 @@ const Cat = ({ className, announce = true }: CatProps) => {
           <text className={cn(styles.zz, styles.zzSmall)} x='71' y='11'>
             z
           </text>
-          <path className={styles.tail} d='M112 66 C123 70 125 84 119 94 C115 101 120 107 127 103' />
+          <path className={styles.tail} d={CAT_OUTLINE.tail} />
 
           {/* The key restarts the stretch animation on every wake-up. */}
           <g key={wakes} className={cn(styles.bodyG, wakes > 0 && styles.stretch)}>
             <g className={styles.breathe}>
-              <path className={styles.fill} d='M34 70 C30 52 44 40 66 38 C90 36 112 44 116 62 L117 70 Z' />
+              <path className={styles.fill} d={CAT_OUTLINE.body} />
               <path className={styles.stripe} d='M78 41 q4 6 2 12 M90 43 q4 6 1 12 M101 48 q3 5 0 10' />
             </g>
-            <path className={styles.ear} d='M21 37 L23 17 L36 28' />
-            <path className={cn(styles.ear, styles.earRight)} d='M43 28 L56 17 L57 37' />
-            <path
-              className={styles.fill}
-              d='M18 46 C14 32 26 25 39 25 C53 25 62 32 60 46 C58 58 48 62 39 62 C28 62 20 58 18 46Z'
-            />
+            <path className={styles.ear} d={CAT_OUTLINE.earLeft} />
+            <path className={cn(styles.ear, styles.earRight)} d={CAT_OUTLINE.earRight} />
+            <path className={styles.fill} d={CAT_OUTLINE.head} />
             <path d='M25.5 22.5 l2.5 5 M53 22.5 l-2.5 5' strokeWidth='1.1' opacity='.6' />
             <g className={styles.shut}>
               <path d='M27 43 q4 3 8 0' />
@@ -145,8 +144,8 @@ const Cat = ({ className, announce = true }: CatProps) => {
             <path d='M37.4 49 l1.6 1.7 l1.6 -1.7 Z' fill='currentColor' strokeWidth='1' />
             <path d='M39 50.8 q-1.8 2.8 -4 1.4 M39 50.8 q1.8 2.8 4 1.4' strokeWidth='1.2' />
             <path d='M22 50 l-11 -2.5 M22 53 l-11 1.5 M56 50 l11 -2.5 M56 53 l11 1.5' strokeWidth='1' opacity='.7' />
-            <path className={styles.fill} d='M29.5 66 C27.5 75 39 77 39.5 67' />
-            <path className={styles.fill} d='M44.5 66 C42.5 75 54 77 54.5 67' />
+            <path className={styles.fill} d={CAT_OUTLINE.pawLeft} />
+            <path className={styles.fill} d={CAT_OUTLINE.pawRight} />
             <path d='M32 73 v1.6 M35 73.6 v1.6 M47 73 v1.6 M50 73.6 v1.6' strokeWidth='1' opacity='.55' />
           </g>
         </svg>

@@ -1,5 +1,7 @@
 import { getTranslations } from 'next-intl/server'
 
+import { buildInfo } from '@/lib/version'
+
 import HeroEditor from './hero-editor'
 import HeroSurface from './hero-surface'
 import TypedHeadline from './typed-headline'
@@ -17,7 +19,7 @@ const Hero = async () => {
           <TypedHeadline name={t('headline.line1')} role={t('headline.line2')} />
         </div>
 
-        <HeroEditor />
+        <HeroEditor buildDate={buildInfo().date} />
       </div>
     </HeroSurface>
   )

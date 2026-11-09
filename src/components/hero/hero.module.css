@@ -97,13 +97,14 @@
 }
 
 /* ---------- editor ---------- */
+/* Tilt wrapper. --bx is the clip edge between build and plan, --hx the handle position (set by the slider store). */
 .editor {
+  --bx: calc(100% + 400px);
+  --hx: 100%;
+  --fl: -400px;
+
   position: relative;
   min-width: 0;
-  border: 1px solid var(--hair-2);
-  border-radius: 14px;
-  background: var(--panel);
-  box-shadow: var(--shadow);
   transform: perspective(1600px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
   transition:
     transform 0.5s cubic-bezier(0.2, 0.7, 0.2, 1),
@@ -115,6 +116,165 @@
 :global(.js:not(.ready)) .editor {
   opacity: 0;
   transform: perspective(1600px) translateY(10px);
+}
+
+/* The real editor (build layer). The polygon bleeds past the frame so the cat and the shadow are not cut,
+   and clipped parts take no clicks. */
+.frame {
+  position: relative;
+  border: 1px solid var(--hair-2);
+  border-radius: 14px;
+  background: var(--panel);
+  box-shadow: var(--shadow);
+  clip-path: polygon(var(--fl) -400px, var(--bx) -400px, var(--bx) calc(100% + 400px), var(--fl) calc(100% + 400px));
+}
+
+/* ---------- blueprint layer ---------- */
+.blueprint {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  clip-path: polygon(
+    var(--bx) -400px,
+    calc(100% + 400px) -400px,
+    calc(100% + 400px) calc(100% + 400px),
+    var(--bx) calc(100% + 400px)
+  );
+}
+
+.bpSvg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  overflow: visible;
+  fill: none;
+  stroke: var(--kw);
+  stroke-width: 1;
+}
+
+.bpPaper {
+  fill: color-mix(in srgb, var(--kw) 5%, transparent);
+}
+
+.bpHidden {
+  stroke-dasharray: 4 4;
+  opacity: 0.6;
+}
+
+.bpCode {
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  opacity: 0.5;
+}
+
+.bpCat {
+  vector-effect: non-scaling-stroke;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.bpDim line,
+.bpExt {
+  stroke-width: 0.8;
+}
+
+.bpExt {
+  opacity: 0.6;
+}
+
+.bpArrow {
+  fill: var(--kw);
+  stroke: none;
+}
+
+/* The bg-coloured stroke behind each number keeps it readable where it crosses a line. */
+.bpDim text,
+.bpBlock text {
+  font:
+    400 10px var(--font-geist-mono),
+    monospace;
+  fill: var(--kw);
+  stroke: none;
+}
+
+.bpDim text {
+  paint-order: stroke;
+  stroke: var(--bg);
+  stroke-width: 4px;
+  stroke-linejoin: round;
+}
+
+.bpBlock rect {
+  fill: var(--bg-2);
+}
+
+.bpBlock line {
+  stroke-width: 0.8;
+}
+
+.bpBlock .bpLabel {
+  font-size: 7.5px;
+  letter-spacing: 0.08em;
+  fill: var(--faint);
+}
+
+/* ---------- plan/build handle ---------- */
+.handle {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: var(--hx);
+  z-index: 7;
+  width: 0;
+  pointer-events: none;
+}
+
+.handleLine {
+  position: absolute;
+  top: -12px;
+  bottom: -12px;
+  left: -0.5px;
+  width: 1px;
+  background: var(--kw);
+  opacity: 0.35;
+  transition: opacity 0.2s;
+}
+
+.editor:hover .handleLine,
+.handle:focus-within .handleLine {
+  opacity: 1;
+}
+
+.grip {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border: 1px solid var(--kw);
+  border-radius: 50%;
+  background: var(--panel);
+  color: var(--kw);
+  box-shadow: 0 6px 18px -8px rgba(0, 0, 0, 0.45);
+  cursor: ew-resize;
+  pointer-events: auto;
+  touch-action: none;
+  transform: translate(-50%, -50%);
+}
+
+/* A 46px touch target around the 30px grip. */
+.grip::before {
+  content: '';
+  position: absolute;
+  inset: -8px;
+  border-radius: 50%;
+}
+
+.grip svg {
+  width: 14px;
+  height: 14px;
 }
 
 .edHead {
