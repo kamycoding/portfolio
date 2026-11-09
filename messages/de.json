@@ -166,5 +166,25 @@
       "teamProject": "Teamprojekt",
       "clientProject": "Kundenprojekt"
     }
+  },
+  "stack": {
+    "fold": "▾ klicken zum Einklappen",
+    "foldGroup": "{group} einklappen",
+    "heat": {
+      "label": "Commits pro Tag",
+      "total": "{count, plural, one {# Commit} other {# Commits}}",
+      "tip": "{count, plural, one {# Commit} other {# Commits}} am {date}",
+      "mon": "Mo",
+      "wed": "Mi",
+      "fri": "Fr",
+      "note": "v1 dieser Seite, Jul bis Sep 2026",
+      "less": "weniger",
+      "more": "mehr"
+    },
+    "stats": {
+      "best": "bester Tag",
+      "streak": "Tage am Stück",
+      "days": "aktive Tage"
+    }
   }
 }

@@ -166,5 +166,25 @@
       "teamProject": "team project",
       "clientProject": "client project"
     }
+  },
+  "stack": {
+    "fold": "click ▾ to fold",
+    "foldGroup": "fold {group}",
+    "heat": {
+      "label": "Commits per day",
+      "total": "{count, plural, one {# commit} other {# commits}}",
+      "tip": "{count, plural, one {# commit} other {# commits}} on {date}",
+      "mon": "Mon",
+      "wed": "Wed",
+      "fri": "Fri",
+      "note": "v1 of this site, Jul to Sep 2026",
+      "less": "less",
+      "more": "more"
+    },
+    "stats": {
+      "best": "best day",
+      "streak": "day streak",
+      "days": "active days"
+    }
   }
 }

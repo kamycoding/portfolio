@@ -1,4 +1,4 @@
-// Stack data from the approved prototype (docs/design/prototype/app.js). Phase 6 builds the JSON tree from it.
+// Stack groups from the approved prototype (docs/design/prototype/app.js), shown as the stack.json tree.
 export const STACK = {
   frontend: ['TypeScript', 'JavaScript', 'React', 'Next.js', 'Angular', 'RxJS', 'Tailwind CSS', 'Sass', 'HTML', 'CSS'],
   backend: ['Node.js', 'NestJS', 'PostgreSQL', 'Supabase'],
@@ -23,7 +23,7 @@ export const TICKER = [
   'Git'
 ] as const
 
-// Icon file in public/stack/ per technology. Phase 6 adds the icons only the JSON tree uses (GitHub, VS Code).
+// Icon file in public/stack/ per technology.
 export const ICON: Readonly<Record<string, string>> = {
   TypeScript: 'typescript',
   JavaScript: 'javascript',
@@ -43,7 +43,9 @@ export const ICON: Readonly<Record<string, string>> = {
   Python: 'python',
   Django: 'django',
   Figma: 'figma',
-  Git: 'git'
+  Git: 'git',
+  GitHub: 'github',
+  'VS Code': 'vscode'
 }
 
 // Black logos that need inverting on the dark theme.
