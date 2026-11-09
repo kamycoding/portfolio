@@ -26,6 +26,15 @@ Version 2 is in development on the `redesign/v2` branch.
 - The Angular application (preserved at tag `v1.0.0`).
 - The separate Express server. The contact form stays a Netlify Function (ADR 0002).
 
+### Security
+
+- Upgraded Next.js to 16.4.2 and zod to 4.6.7, refreshed stale transitive dependencies. `pnpm audit` reports no known vulnerabilities in production dependencies.
+- Security headers for production builds: Content Security Policy (Report-Only for now), HSTS, `X-Content-Type-Options`, `X-Frame-Options`, `Referrer-Policy`, `Permissions-Policy` and `Cross-Origin-Opener-Policy` (ADR 0005).
+- Removed the `X-Powered-By` header and set the `Secure` flag on the language cookie.
+- `.gitignore` covers every environment file and the Netlify CLI folder.
+- `security.txt` and the security policy list GitHub private vulnerability reporting next to email.
+- ESLint forbids `dangerouslySetInnerHTML`.
+
 ## [1.0.0] - 2026-11-08
 
 First stable release of kamycoding.com, built with Angular and deployed on Netlify. It serves as the baseline before the v2 redesign.
