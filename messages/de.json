@@ -43,7 +43,7 @@
       }
     },
     "terminal": {
-      "label": "Terminal. Tippe help, um die Befehle zu sehen.",
+      "label": "Terminal. Gib help ein, um alle Befehle zu sehen.",
       "help": "<b>help</b>       diese Liste\n<b>whoami</b>     wer ist das\n<b>ls</b>         Dateien dieser Seite\n<b>open</b> work   springt zu work, about, stack oder contact\n<b>projects</b>   was ich gebaut habe\n<b>stack</b>      womit ich arbeite\n<b>contact</b>    E-Mail kopieren\n<b>cat</b>        Katze wecken\n<b>theme</b>, <b>lang</b>, <b>date</b>, <b>clear</b>",
       "whoami": "<b>Kamyar Zamanfar</b>, Full-Stack-Entwickler bei Köln.\nTypeScript, React, Next.js, Node. Mitgründer von Heldio.",
       "openUsage": "Nutzung: open work | about | stack | contact",
