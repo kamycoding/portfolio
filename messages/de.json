@@ -110,7 +110,8 @@
     "legalNotice": "Impressum",
     "privacyPolicy": "Datenschutz",
     "builtWith": "Next.js, TypeScript, Tailwind CSS. Gehostet bei Netlify.",
-    "credit": "Basiert ursprünglich auf dem Zolt-Template von shadcn/studio (MIT)."
+    "credit": "Basiert ursprünglich auf dem Zolt-Template von shadcn/studio (MIT).",
+    "build": "gebaut am {date}"
   },
   "cat": {
     "wake": "Katze wecken",
@@ -172,11 +173,14 @@
     }
   },
   "stack": {
-    "fold": "▾ klicken zum Einklappen",
-    "foldGroup": "{group} einklappen",
+    "explorer": {
+      "title": "Explorer: Stack",
+      "hint": "Ordner anklicken zum Einklappen",
+      "files": "{count, plural, one {Datei} other {Dateien}}",
+      "file": "{name} ({file})"
+    },
     "heat": {
       "label": "Beiträge pro Tag",
-      "total": "{count, plural, one {# Beitrag} other {# Beiträge}}",
       "tip": "{count, plural, one {# Beitrag} other {# Beiträge}} am {date}",
       "mon": "Mo",
       "wed": "Mi",
@@ -187,9 +191,10 @@
       "to": "bis"
     },
     "stats": {
-      "best": "bester Tag",
-      "streak": "Tage am Stück",
-      "days": "aktive Tage"
+      "total": "{count, plural, one {<b>#</b> Beitrag} other {<b>#</b> Beiträge}}",
+      "best": "bester Tag <b>{count}</b>",
+      "streak": "{count, plural, one {<b>#</b> Tag am Stück} other {<b>#</b> Tage am Stück}}",
+      "days": "{count, plural, one {<b>#</b> aktiver Tag} other {<b>#</b> aktive Tage}}"
     }
   },
   "legal": {

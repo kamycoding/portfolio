@@ -2,6 +2,7 @@
 
 - Status: Accepted
 - Date: 2026-11-09
+- Amended: 2026-11-09, the range grew from 17 to 52 weeks when the heatmap became a full-width block.
 
 ## Context
 
@@ -24,13 +25,14 @@ Constraints from earlier decisions:
 
 Option 3.
 
-- `pnpm build` runs `scripts/fetch-contributions.ts` before `next build`. It asks the GitHub GraphQL API for the contribution calendar of `kamycoding`, 17 weeks ending the current week (Monday-first columns, as in the grid), with GitHub's own levels (`contributionLevel`).
+- `pnpm build` runs `scripts/fetch-contributions.ts` before `next build`. It asks the GitHub GraphQL API for the contribution calendar of `kamycoding`, 52 weeks ending the current week (Monday-first columns, as in the grid), with GitHub's own levels (`contributionLevel`). 52 columns cover at most 364 days, inside GitHub's limit of one year per query, so one request is enough.
 - The response is validated with zod and written to `src/content/contributions.json`. The pages read that file at build time.
 - **Fallback:** the committed `contributions.json` is the snapshot. Without a token, on an HTTP or GraphQL error, an unexpected response, an empty calendar, a network error or a 10 second timeout, the script keeps the snapshot, logs one warning and exits successfully. The build never fails because of GitHub.
 - **Token:** a fine-grained personal access token with access to public repositories only (read-only) and no permissions. It is stored in Netlify as a secret variable `GITHUB_CONTRIBUTIONS_TOKEN` for the **Production context only**. Deploy Previews and branch deploys, including Dependabot pull requests, do not get it and build from the snapshot, so the token never reaches builds of untrusted dependency updates. The script never prints it, and it never reaches the client bundle.
 - **Scopes:** the Netlify free plan cannot restrict a variable to the Builds scope, so the token also has the default Functions and Runtime scopes. Only the build script reads it; the contact function never reads or logs it. If the plan changes, limit it to Builds.
 - **Daily refresh:** `.github/workflows/refresh-contributions.yml` runs at 03:00 UTC and calls a Netlify build hook for `main`. The hook URL is the repository secret `NETLIFY_BUILD_HOOK_URL`. The workflow uses no third-party actions and has no token permissions.
 - The heatmap says "contributions" / "Beiträge", because GitHub counts commits, pull requests, issues and reviews.
+- The grid counts its weeks back from the snapshot's `end`, so a snapshot with a shorter range still lines up with the current week; its older weeks simply stay empty.
 
 ## Consequences
 

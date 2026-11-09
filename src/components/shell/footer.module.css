@@ -1,0 +1,82 @@
+/* Footer wordmark: a single-stroke line drawing in the style of the cat and the project covers. */
+.wordmark {
+  position: relative;
+}
+
+.letters {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+  stroke: var(--hair-3);
+
+  /* Strokes scale with the drawing, so narrow screens get a thicker line to stay visible. */
+  stroke-width: 2.2;
+}
+
+/* The dot of the "i" carries the accent, like the coloured dot in the old wordmark. */
+.letters .dot {
+  stroke: var(--kw);
+}
+
+/* Two classes, so the position wins over the cat's own fixed width. */
+.wordmark .cat {
+  top: var(--cat-top);
+  left: var(--cat-left);
+  width: var(--cat-width);
+}
+
+/* Draw-in: dash and opacity only, so nothing moves. pathLength="1" makes one dash cover each stroke. */
+.pending path {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+}
+
+.pending .cat {
+  opacity: 0;
+}
+
+.play path {
+  stroke-dasharray: 1;
+  animation: draw 0.7s ease-in-out both;
+  animation-delay: calc(var(--i, 0) * 70ms);
+}
+
+.play .cat {
+  animation: cat-in 0.5s ease-out 1.3s both;
+}
+
+@keyframes draw {
+  from {
+    stroke-dashoffset: 1;
+  }
+
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes cat-in {
+  from {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .play path,
+  .play .cat {
+    animation: none;
+  }
+}
+
+@media (max-width: 980px) {
+  .letters {
+    stroke-width: 3.2;
+  }
+}
+
+@media (max-width: 560px) {
+  .letters {
+    stroke-width: 5;
+  }
+}

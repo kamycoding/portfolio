@@ -77,8 +77,9 @@ One SVG component, used on the hero editor and on the contact form. States: asle
 - Reviews as pull request approvals.
 
 ### Stack (`stack.json`)
-- Foldable JSON tree with icons.
-- Commit heatmap from real data (`COMMITS_BY_DAY` in the prototype), tooltips, best day, streak, active days.
+Two stacked blocks, then the services.
+- Explorer ("Explorer: Stack"): the four groups as folders, side by side on desktop (two columns on tablets, one on phones). Each technology is a file with a fitting name and its icon (for example `next.config.ts`, `schema.sql`); the real name shows on hover and focus, always on touch screens, and is the accessible name. Folders collapse with a button (`aria-expanded`); files are one tab stop per folder, moved with the arrow keys.
+- GitHub contributions (`contributions.json`), full width: the last 52 weeks from real data (ADR 0006) in the site's `--kw` levels, month labels, less/more legend, profile link. Tooltips with date and count on hover and keyboard focus. One left-to-right reveal wave when the block first scrolls into view and a soft pulse on today's cell, both off with reduced motion. A comment-style stats line: total, best day, longest streak, active days. Phones scroll the grid inside the block, starting at the latest weeks.
 - Four services written as functions: `frontend()`, `fullstack()`, `mvp()`, `fromFigma()`.
 
 ### Contact (`contact.ts`)
