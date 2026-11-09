@@ -4,6 +4,7 @@ import Section, { SectionHeading } from '@/components/shell/section'
 import { ACTIVITY_REPO, COMMITS_BY_DAY, HEAT_START, HEAT_WEEKS } from '@/content/activity'
 import { SERVICES } from '@/content/services'
 import { buildHeatmap } from '@/lib/heatmap'
+import editor from '@/components/ui/editor.module.css'
 import { cn } from '@/lib/utils'
 
 import Heatmap from './heatmap'
@@ -36,17 +37,17 @@ const Stack = async () => {
       <SectionHeading id='stack' />
 
       <div className={styles.grid}>
-        <div className={styles.editor} data-shell-ui=''>
-          <div className={styles.edHead}>
-            <div className={styles.edTab}>
-              <span className={styles.badge}>{'{}'}</span>stack.json
+        <div className={editor.editor} data-shell-ui=''>
+          <div className={editor.edHead}>
+            <div className={editor.edTab}>
+              <span className={cn(editor.badge, editor.badgeJs)}>{'{}'}</span>stack.json
             </div>
-            <div className={styles.edPath}>{t('fold')}</div>
+            <div className={editor.edPath}>{t('fold')}</div>
           </div>
           <JsonTree />
         </div>
 
-        <div className={cn(styles.editor, styles.activity)} data-shell-ui=''>
+        <div className={cn(editor.editor, styles.activity)} data-shell-ui=''>
           <div className={styles.actHead}>
             <b>{t('heat.total', { count: heat.total })}</b>
             <span>{ACTIVITY_REPO}</span>
