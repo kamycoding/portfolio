@@ -22,12 +22,16 @@ Version 2 is in development on the `redesign/v2` branch.
 - About (`about.md`): Markdown-style text with counting facts, ASCII portrait with a lens that reveals the photo, experience as a `git log --graph`, reviews as pull request approvals.
 - Stack (`stack.json`): foldable JSON tree with icons, a commit heatmap of the v1 history (168 commits) with tooltips and keyboard navigation, services as functions.
 - Legal notice and privacy policy at `/legal-notice` and `/privacy-policy`, in English and German, shown as Markdown files in the editor shell.
+- Contact (`contact.ts`): direct links and a `sendMessage({ ... })` form with TypeScript-style errors, a honeypot, a privacy checkbox, `Ctrl`/`⌘ Enter` to send and an output panel; a second cat sits on the form.
+- Shared contact schema for the form and the Netlify function; the function tests run again with Vitest.
+- Intro build log on every load, command palette (`Ctrl K` / `⌘ K`), keyboard shortcuts (`G` plus a letter, `C`, `T`, `L`, `M`, `?`) and a custom cursor with action labels.
 - Repository hygiene: GitHub Actions CI, Dependabot, Vitest, commitlint and pre-commit hooks, security policy, `security.txt`, issue and pull request templates, contributing guide and code of conduct.
 
 ### Changed
 
 - The license now has two parts: source code under MIT, content all rights reserved.
 - Privacy policy section 10 describes the language cookie and the theme setting of v2 instead of the v1 language key in Local Storage.
+- Contact function: accepts only JSON (`415`), refuses other origins (`403`) and bodies above 10 KB (`413`), rejects control characters in the name, and caps the Brevo timeout at 8 seconds.
 
 ### Removed
 
