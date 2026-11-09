@@ -66,14 +66,6 @@ const Hero = async () => {
               <span>{t('now.open')}</span>
             </li>
             <li>
-              <span className={styles.k}>building</span>
-              {t('now.building')}
-            </li>
-            <li>
-              <span className={styles.k}>learning</span>
-              Django
-            </li>
-            <li>
               <span className={styles.k}>{t('now.city')}</span>
               <span>
                 <NowClock />

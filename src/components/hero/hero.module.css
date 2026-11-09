@@ -567,22 +567,11 @@
     height: 140px;
   }
 
+  /* Two items now (status and Cologne time), so one row of two equal cells. */
   .now {
     display: grid;
     grid-template-columns: 1fr 1fr;
     width: 100%;
-  }
-
-  .now li {
-    border-bottom: 1px solid var(--hair);
-  }
-
-  .now li:nth-child(2n) {
-    border-right: 0;
-  }
-
-  .now li:nth-last-child(-n + 2) {
-    border-bottom: 0;
   }
 }
 
