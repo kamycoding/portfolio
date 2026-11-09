@@ -6,6 +6,7 @@
 /*
  * Design tokens, copied from docs/design/prototype/style.css.
  * Dark is the default, light overrides it. next-themes sets data-theme on <html>.
+ * Changed from the prototype for WCAG AA (4.5:1 for small text): --faint and --com in both themes, light --str.
  */
 :root {
   --bg: #0b1020;
@@ -15,7 +16,7 @@
   --panel-3: #18203a;
   --text: #e6e8ee;
   --muted: #8a91a6;
-  --faint: #5b6278;
+  --faint: #7a829a;
   --hair: rgba(230, 232, 238, 0.08);
   --hair-2: rgba(230, 232, 238, 0.14);
   --hair-3: rgba(230, 232, 238, 0.28);
@@ -23,7 +24,7 @@
   --str: #f5b754;
   --prop: #7fd1b9;
   --num: #f28f79;
-  --com: #5b6278;
+  --com: #7a829a;
   --ok: #7fd1b9;
   --err: #f2797b;
   --kw-a: rgba(154, 168, 255, 0.12);
@@ -45,15 +46,15 @@
   --panel-3: #eef0f6;
   --text: #121729;
   --muted: #596079;
-  --faint: #8e94a8;
+  --faint: #666d85;
   --hair: rgba(18, 23, 41, 0.08);
   --hair-2: rgba(18, 23, 41, 0.13);
   --hair-3: rgba(18, 23, 41, 0.26);
   --kw: #4d58cf;
-  --str: #a86400;
+  --str: #9f5f00;
   --prop: #0b7f66;
   --num: #c0452c;
-  --com: #8e94a8;
+  --com: #666d85;
   --ok: #0b7f66;
   --err: #c9373a;
   --kw-a: rgba(77, 88, 207, 0.09);
