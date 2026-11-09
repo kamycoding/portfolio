@@ -47,8 +47,9 @@ Editor panel with tabs and hover cards, terminal, typed headline, status row, do
 ## Phase 5: About (done)
 Markdown text, facts, ASCII portrait with lens, git log experience, reviews.
 
-## Phase 6: Stack
+## Phase 6: Stack (done)
 JSON tree, commit heatmap, services.
+- Heatmap data comes from `git log v1.0.0` (168 commits, 23 Jul to 18 Sep 2026); the stats are computed from it.
 
 ## Phase 7: Legal pages
 `/legal-notice` and `/privacy-policy`, text ported from v1 as it is, in the new design. Privacy policy updated for theme and language storage.
@@ -97,3 +98,4 @@ Update CHANGELOG, merge to `main` via pull request, tag `v2.0.0`, GitHub release
 - Project durations and years (Join 5 weeks, Designer portfolio 4 months, El Pollo Loco 3 weeks, all 2026): confirmed as in the prototype.
 - Reviews and facts in the about section: real and confirmed.
 - Developer Akademie start date: 31 March 2026, intensive course "Softwareentwickler, Schwerpunkt Web-Anwendungen". The prototype shows no start date, so the git log keeps "ongoing" / "laufend"; use "since March 2026" / "seit März 2026" only where a start date is shown.
+- Heatmap note: "Jul to Sep 2026" / "Jul bis Sep 2026" is correct (v1 history starts 23 Jul); the "Jun" in the prototype was a mistake.
