@@ -1,0 +1,372 @@
+/* Contact styles from the prototype (style.css: contact, cat position). */
+.contact {
+  display: grid;
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+  gap: clamp(40px, 6vw, 96px);
+  align-items: start;
+  margin-top: 56px;
+}
+
+/* ---------- direct links ---------- */
+.direct {
+  display: grid;
+  margin-top: 36px;
+  overflow: hidden;
+  border: 1px solid var(--hair);
+  border-radius: 12px;
+}
+
+.direct > a,
+.direct > div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 15px 16px;
+  border-bottom: 1px solid var(--hair);
+  font-size: 15px;
+  transition: background 0.15s;
+}
+
+.direct > :last-child {
+  border: 0;
+}
+
+.direct > a:hover {
+  background: var(--kw-a);
+}
+
+.direct span {
+  font:
+    400 12px var(--font-geist-mono),
+    monospace;
+  color: var(--faint);
+}
+
+.direct .lead {
+  font: inherit;
+  color: var(--text);
+}
+
+.direct .arr {
+  font:
+    400 13px var(--font-geist-mono),
+    monospace;
+  color: var(--faint);
+}
+
+/* ---------- form ---------- */
+.form {
+  position: relative;
+}
+
+.cat {
+  top: -66px;
+  right: 175px;
+}
+
+.fcode {
+  padding: 18px 0 8px;
+  font:
+    400 14px/1 var(--font-geist-mono),
+    monospace;
+}
+
+.fl {
+  display: flex;
+  align-items: flex-start;
+  min-height: 36px;
+  padding-right: 18px;
+}
+
+.n {
+  flex: none;
+  width: 46px;
+  padding-right: 18px;
+  line-height: 36px;
+  text-align: right;
+  color: var(--faint);
+  user-select: none;
+}
+
+.c {
+  flex: 1;
+  min-width: 0;
+  line-height: 36px;
+  white-space: nowrap;
+}
+
+.field .c {
+  display: flex;
+  align-items: flex-start;
+  gap: 0;
+}
+
+.field label {
+  flex: none;
+  width: 12ch;
+  padding-left: 2ch;
+}
+
+.inp {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+}
+
+.kw {
+  color: var(--kw);
+}
+
+.prop {
+  color: var(--prop);
+}
+
+.pun {
+  color: var(--muted);
+}
+
+.inp input,
+.inp textarea {
+  width: 100%;
+  padding: 8px 2px 6px;
+  border: 0;
+  border-bottom: 1px dashed var(--hair-3);
+  border-radius: 0;
+  outline: none;
+  background: transparent;
+  font:
+    400 14px/1.4 var(--font-geist-mono),
+    monospace;
+  color: var(--str);
+  transition:
+    border-color 0.2s,
+    background 0.2s;
+}
+
+.inp textarea {
+  min-height: 110px;
+  line-height: 1.6;
+  resize: vertical;
+}
+
+.inp input::placeholder,
+.inp textarea::placeholder {
+  color: var(--faint);
+}
+
+.inp input:focus,
+.inp textarea:focus {
+  border-bottom: 1px solid var(--kw);
+  background: var(--kw-a);
+}
+
+/* TypeScript-style red squiggle under an invalid field. */
+.bad .inp input,
+.bad .inp textarea {
+  border-bottom: 1.5px solid transparent;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='6' height='3'%3E%3Cpath d='M0 3 L1.5 0 L3 3 L4.5 0 L6 3' fill='none' stroke='%23F2797B' stroke-width='.8'/%3E%3C/svg%3E");
+  background-position: bottom left;
+  background-repeat: repeat-x;
+  background-size: 6px 3px;
+}
+
+.err {
+  margin: 4px 0 4px calc(46px + 2ch);
+  font:
+    400 12px/1.5 var(--font-geist-mono),
+    monospace;
+  color: var(--err);
+  white-space: normal;
+}
+
+.err::before {
+  content: '✕ ';
+}
+
+.count {
+  display: block;
+  margin-top: 6px;
+  font:
+    400 10.5px var(--font-geist-mono),
+    monospace;
+  text-align: right;
+  color: var(--faint);
+}
+
+.checkRow {
+  padding-left: 2ch;
+}
+
+.check {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--com);
+  cursor: pointer;
+}
+
+.check input {
+  /* The prototype let flexbox squeeze the box into a thin bar next to the long label. */
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 15px;
+  height: 15px;
+  margin: 0;
+  padding: 0;
+  border: 1px solid var(--hair-3);
+  border-radius: 3px;
+  background: none;
+  appearance: none;
+}
+
+.check input:checked {
+  border-color: var(--kw);
+  background: var(--kw);
+}
+
+.check input:checked::after {
+  content: '';
+  width: 8px;
+  height: 4px;
+  border: solid var(--panel);
+  border-width: 0 0 1.6px 1.6px;
+  transform: rotate(-45deg) translate(1px, -1px);
+}
+
+.check a {
+  color: var(--muted);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.check a:hover {
+  color: var(--text);
+}
+
+.bad .check input {
+  border-color: var(--err);
+}
+
+/* Honeypot: browsers do not autofill fields that are not displayed; bots posting the raw form still fill it. */
+.honeypot {
+  display: none;
+}
+
+/* ---------- run bar and output ---------- */
+.runbar {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  border-top: 1px solid var(--hair);
+}
+
+.hint {
+  font:
+    400 11.5px var(--font-geist-mono),
+    monospace;
+  color: var(--faint);
+}
+
+.run {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  height: 40px;
+  padding: 0 16px;
+  border-radius: 9px;
+  background: var(--text);
+  font:
+    500 13.5px var(--font-geist-mono),
+    monospace;
+  color: var(--bg);
+  cursor: pointer;
+}
+
+.run:disabled {
+  opacity: 0.6;
+  cursor: progress;
+}
+
+.k {
+  font-weight: 400;
+  color: color-mix(in srgb, var(--bg) 55%, transparent);
+}
+
+.out {
+  min-height: 44px;
+  padding: 12px 16px;
+  border-top: 1px solid var(--hair);
+  border-radius: 0 0 14px 14px;
+  background: var(--bg-2);
+  font:
+    400 12.5px/1.8 var(--font-geist-mono),
+    monospace;
+  color: var(--muted);
+}
+
+.ok {
+  color: var(--ok);
+}
+
+.bad2 {
+  color: var(--err);
+}
+
+.dim {
+  color: var(--faint);
+}
+
+@media (max-width: 980px) {
+  .contact {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .form {
+    margin-top: 72px;
+  }
+
+  .cat {
+    top: -56px;
+    right: 40px;
+  }
+
+  .field label {
+    width: 9ch;
+    padding-left: 1ch;
+  }
+
+  .err {
+    margin-left: calc(46px + 1ch);
+  }
+}
+
+@media (max-width: 560px) {
+  .field .c {
+    flex-direction: column;
+  }
+
+  .field label {
+    width: auto;
+    line-height: 28px;
+  }
+
+  .inp {
+    width: 100%;
+  }
+
+  .err {
+    margin-left: 46px;
+  }
+
+  /* Wraps instead of running past the form edge; the German label is much longer. */
+  .field .check {
+    padding: 4px 0;
+    line-height: 1.5;
+    white-space: normal;
+  }
+}

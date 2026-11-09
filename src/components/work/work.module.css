@@ -1,0 +1,507 @@
+/* Work section from the prototype (style.css "work: ls -la" and "peek drawer"). --c is the project accent. */
+.ls {
+  margin-top: 56px;
+  border-top: 1px solid var(--hair-2);
+}
+
+.lsHead,
+.lsFoot {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 14px 0;
+  font:
+    400 12.5px var(--font-geist-mono),
+    monospace;
+  color: var(--muted);
+}
+
+.lsFoot {
+  border-top: 1px solid var(--hair-2);
+}
+
+.dim {
+  color: var(--faint);
+}
+
+.rows {
+  list-style: none;
+}
+
+.row {
+  border-top: 1px solid var(--hair);
+}
+
+.row:first-child {
+  border-top: 0;
+}
+
+.rowButton {
+  position: relative;
+  display: grid;
+  grid-template-columns: 100px minmax(0, 1.5fr) minmax(0, 1fr) 150px 28px;
+  gap: 24px;
+  align-items: center;
+  width: 100%;
+  padding: 26px 8px;
+  text-align: left;
+  transition:
+    background 0.25s,
+    padding 0.35s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.rowButton::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 2px;
+  background: var(--c);
+  transform: scaleY(0);
+  transition: transform 0.3s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.rowButton:hover,
+.rowButton:focus-visible {
+  padding-left: 20px;
+  background: var(--kw-a);
+}
+
+.rowButton:hover::before,
+.rowButton:focus-visible::before {
+  transform: scaleY(1);
+}
+
+.perm {
+  font:
+    400 12px var(--font-geist-mono),
+    monospace;
+  color: var(--faint);
+}
+
+.name {
+  overflow: hidden;
+  font-weight: 600;
+  font-size: clamp(24px, 2.6vw, 38px);
+  line-height: 1;
+  letter-spacing: -0.035em;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.name i {
+  font-weight: 400;
+  font-style: normal;
+  color: var(--faint);
+}
+
+.what {
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--muted);
+}
+
+.what b {
+  display: block;
+  margin-bottom: 4px;
+  font:
+    400 11.5px var(--font-geist-mono),
+    monospace;
+  color: var(--faint);
+}
+
+.meta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 8px;
+  font:
+    400 12px var(--font-geist-mono),
+    monospace;
+  color: var(--faint);
+}
+
+.icons {
+  display: flex;
+  gap: 6px;
+}
+
+.icons img {
+  width: 16px;
+  height: 16px;
+}
+
+.status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.status::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--c);
+}
+
+.go {
+  justify-self: end;
+  font:
+    400 18px var(--font-geist-mono),
+    monospace;
+  color: var(--faint);
+  transition:
+    transform 0.3s,
+    color 0.3s;
+}
+
+.rowButton:hover .go {
+  color: var(--text);
+  transform: translateX(4px);
+}
+
+.thumb {
+  display: none;
+}
+
+/* ---------- hover preview ---------- */
+.preview {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 30;
+  width: 380px;
+  overflow: hidden;
+  border: 1px solid var(--hair-2);
+  border-radius: 12px;
+  background: var(--panel);
+  box-shadow: var(--shadow);
+  opacity: 0;
+  scale: 0.96;
+  transition:
+    opacity 0.2s,
+    scale 0.2s;
+  pointer-events: none;
+}
+
+.previewShow {
+  opacity: 1;
+  scale: 1;
+}
+
+.preview .previewCover {
+  border: 0;
+  border-radius: 0;
+}
+
+/* ---------- drawer ---------- */
+.drawer {
+  position: fixed;
+  inset: 0;
+  z-index: 75;
+}
+
+.scrim {
+  position: absolute;
+  inset: 0;
+  background: color-mix(in srgb, var(--bg) 60%, transparent);
+  backdrop-filter: blur(3px);
+  animation: fade 0.25s ease;
+}
+
+.panel {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  bottom: 10px;
+  display: flex;
+  flex-direction: column;
+  width: min(760px, calc(100vw - 20px));
+  overflow: hidden;
+  border: 1px solid var(--hair-2);
+  border-radius: 16px;
+  background: var(--panel);
+  box-shadow: var(--shadow);
+  animation: slide 0.4s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.closing .panel {
+  animation: slideout 0.25s ease forwards;
+}
+
+.closing .scrim {
+  animation: fadeout 0.25s ease forwards;
+}
+
+.head {
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: space-between;
+  height: 48px;
+  padding-right: 10px;
+  border-bottom: 1px solid var(--hair);
+}
+
+.fileTab {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 100%;
+  padding: 0 16px;
+  border-right: 1px solid var(--hair);
+  border-radius: 16px 0 0 0;
+  background: var(--panel-2);
+  font:
+    400 12.5px var(--font-geist-mono),
+    monospace;
+  color: var(--text);
+  white-space: nowrap;
+}
+
+.badge {
+  padding: 1px 3px;
+  border-radius: 3px;
+  background: var(--prop);
+  font:
+    600 9px var(--font-geist-mono),
+    monospace;
+  letter-spacing: 0.02em;
+  color: var(--panel);
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.position {
+  margin-right: 6px;
+  font:
+    400 11.5px var(--font-geist-mono),
+    monospace;
+  color: var(--faint);
+}
+
+.body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 26px;
+  min-height: 0;
+  padding: 28px 32px 36px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.body > * {
+  flex: none;
+  animation: fadein 0.45s ease both;
+}
+
+.body > :nth-child(2) {
+  animation-delay: 0.04s;
+}
+
+.body > :nth-child(3) {
+  animation-delay: 0.08s;
+}
+
+.body > :nth-child(4) {
+  animation-delay: 0.12s;
+}
+
+.body > :nth-child(5) {
+  animation-delay: 0.16s;
+}
+
+.drawerCover {
+  border-radius: 12px;
+}
+
+.title {
+  font-weight: 600;
+  font-size: clamp(26px, 3vw, 36px);
+  line-height: 1.1;
+  letter-spacing: -0.035em;
+}
+
+.title span {
+  color: var(--muted);
+}
+
+.desc {
+  margin-top: 12px;
+  font-size: 16px;
+  line-height: 1.65;
+  color: var(--muted);
+}
+
+.kv {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  overflow: hidden;
+  border: 1px solid var(--hair);
+  border-radius: 10px;
+}
+
+.kv div {
+  padding: 12px 14px;
+  border-right: 1px solid var(--hair);
+}
+
+.kv div:last-child {
+  border: 0;
+}
+
+.kv dt {
+  font:
+    400 11px var(--font-geist-mono),
+    monospace;
+  color: var(--faint);
+}
+
+.kv dd {
+  margin-top: 6px;
+  font-size: 14px;
+  line-height: 1.35;
+  color: var(--text);
+}
+
+.notes {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+}
+
+.notes h4 {
+  margin-bottom: 8px;
+  font:
+    400 12px var(--font-geist-mono),
+    monospace;
+  color: var(--com);
+}
+
+.notes p {
+  font-size: 14.5px;
+  line-height: 1.65;
+  color: var(--muted);
+}
+
+.stackRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding-top: 20px;
+  border-top: 1px solid var(--hair);
+}
+
+/* ---------- small screens (prototype max-width 980px) ---------- */
+@media (max-width: 980px) {
+  .rowButton {
+    grid-template-columns: minmax(0, 1fr) 28px;
+    gap: 10px 16px;
+    padding: 22px 4px;
+  }
+
+  .perm,
+  .meta,
+  .desktopOnly {
+    display: none;
+  }
+
+  .what {
+    grid-row: 2;
+    grid-column: 1 / -1;
+  }
+
+  .go {
+    grid-row: 1;
+    grid-column: 2;
+  }
+
+  .thumb {
+    display: block;
+    grid-row: 3;
+    grid-column: 1 / -1;
+    aspect-ratio: 16 / 10;
+    margin-top: 6px;
+    overflow: hidden;
+    border: 1px solid var(--hair);
+    border-radius: 10px;
+  }
+
+  .preview {
+    display: none;
+  }
+
+  .kv {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .kv div:nth-child(2) {
+    border-right: 0;
+  }
+
+  .kv div:nth-child(-n + 2) {
+    border-bottom: 1px solid var(--hair);
+  }
+
+  .body {
+    padding: 22px 18px 30px;
+  }
+
+  .notes {
+    grid-template-columns: 1fr;
+  }
+
+  .panel {
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 100vw;
+    border-radius: 0;
+  }
+}
+
+@keyframes fade {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes fadeout {
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes slide {
+  from {
+    opacity: 0;
+    transform: translateX(40px);
+  }
+}
+
+@keyframes slideout {
+  to {
+    opacity: 0;
+    transform: translateX(40px);
+  }
+}
+
+@keyframes fadein {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+}

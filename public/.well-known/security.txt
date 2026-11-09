@@ -1,0 +1,6 @@
+Contact: mailto:contact@kamycoding.com
+Contact: https://github.com/kamycoding/portfolio/security/advisories/new
+Expires: 2027-10-31T00:00:00.000Z
+Preferred-Languages: en, de
+Canonical: https://kamycoding.com/.well-known/security.txt
+Policy: https://github.com/kamycoding/portfolio/blob/main/SECURITY.md

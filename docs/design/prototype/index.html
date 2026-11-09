@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kamyar Zamanfar, full-stack developer</title>
+<meta name="description" content="Full-stack developer near Cologne. TypeScript, React, Next.js and Node. Co-founder of Heldio.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<script>
+// Pick the theme before first paint so there is no flash.
+try{const t=localStorage.getItem("theme");document.documentElement.dataset.theme=t||(matchMedia("(prefers-color-scheme: light)").matches?"light":"dark")}catch(e){}
+</script>
+</head>
+<body>
+<a class="skiplink" href="#main" data-i18n="skip">Skip to content</a>
+
+<div id="boot" aria-hidden="true">
+  <div class="term" id="term"></div>
+  <div class="boot-foot"><span data-i18n="bootKey">press any key</span><button id="skipBoot" data-i18n="bootSkip">skip intro</button></div>
+</div>
+
+<header class="top">
+  <a class="brand" href="#index" aria-label="kamyar.dev, home"><i>k/</i><span class="bn">kamyar.dev</span> <span class="v">v2.0</span></a>
+  <nav class="tabs" aria-label="Main">
+    <a class="tab on" href="#index" data-sec="index"><span class="dot" style="background:var(--kw)"></span>index.tsx<span class="x" aria-hidden="true">×</span></a>
+    <a class="tab" href="#work" data-sec="work"><span class="dot" style="background:var(--str)"></span>work.tsx<span class="x" aria-hidden="true">×</span></a>
+    <a class="tab" href="#about" data-sec="about"><span class="dot" style="background:var(--prop)"></span>about.md<span class="x" aria-hidden="true">×</span></a>
+    <a class="tab" href="#stack" data-sec="stack"><span class="dot" style="background:var(--num)"></span>stack.json<span class="x" aria-hidden="true">×</span></a>
+    <a class="tab" href="#contact" data-sec="contact"><span class="dot" style="background:var(--muted)"></span>contact.ts<span class="x" aria-hidden="true">×</span></a>
+  </nav>
+  <div class="actions">
+    <button class="chip" id="openPal" aria-label="Open command menu" aria-keyshortcuts="Control+K Meta+K"><span id="modKey">⌘</span> K</button>
+    <button class="chip" id="themeBtn" aria-label="Toggle theme">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><circle cx="8" cy="8" r="3.2"/><path d="M8 1.5v1.6M8 12.9v1.6M1.5 8h1.6M12.9 8h1.6M3.4 3.4l1.1 1.1M11.5 11.5l1.1 1.1M3.4 12.6l1.1-1.1M11.5 4.5l1.1-1.1"/></svg>
+    </button>
+    <div class="seg" role="group" aria-label="Language">
+      <button data-lang="en" aria-pressed="true">EN</button><button data-lang="de" aria-pressed="false">DE</button>
+    </div>
+  </div>
+  <div class="progress-line" id="progress"></div>
+</header>
+
+<div class="corner"><span></span></div>
+<div class="ruler-x"><canvas id="rx"></canvas></div>
+<div class="ruler-y"><canvas id="ry"></canvas></div>
+<div class="mark x" id="mx"></div><div class="mark y" id="my"></div>
+<div class="cross v" id="cv"></div><div class="cross h" id="ch"></div><div class="coord" id="coord"></div>
+
+<main id="main">
+
+<!-- ================= index.tsx ================= -->
+<section id="index" data-file="index.tsx">
+  <div class="hero">
+    <div>
+      <p class="comment rv d1" data-i18n="heroComment">// full-stack developer, cologne</p>
+      <h1 class="rv d2" id="h1"><span class="sr" id="h1sr"></span><span aria-hidden="true" id="h1v"></span></h1>
+      <p class="lede rv d3" data-i18n-html="heroLede"></p>
+      <div class="ctas rv d4">
+        <a class="btn primary" href="#work"><span data-i18n="ctaWork">See my work</span><span class="k">G W</span></a>
+        <button class="btn" id="copyMail"><span data-i18n="ctaMail">Copy email</span><span class="k">C</span></button>
+        <span class="ctasep" aria-hidden="true"></span>
+        <a class="btn icon" href="https://github.com/kamycoding" target="_blank" rel="noopener" aria-label="GitHub"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg></a>
+        <a class="btn icon" href="https://www.linkedin.com/in/kamyarzamanfar" target="_blank" rel="noopener" aria-label="LinkedIn"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M0 1.15C0 .52.52 0 1.17 0h13.66C15.48 0 16 .52 16 1.15v13.7c0 .63-.52 1.15-1.17 1.15H1.17C.52 16 0 15.48 0 14.85V1.15zm4.94 12.24V6.17H2.54v7.22h2.4zM3.74 5.18c.84 0 1.36-.55 1.36-1.25-.02-.71-.52-1.25-1.34-1.25-.82 0-1.36.54-1.36 1.25 0 .7.52 1.25 1.33 1.25h.01zm4.91 8.21V9.36c0-.22.02-.43.08-.59.17-.43.57-.88 1.23-.88.87 0 1.22.66 1.22 1.63v3.87h2.4V9.25c0-2.22-1.18-3.25-2.77-3.25-1.28 0-1.84.7-2.16 1.2v.03h-.02l.02-.03V6.17h-2.4c.03.68 0 7.22 0 7.22h2.4z"/></svg></a>
+      </div>
+      <ul class="now rv d5" aria-label="Status">
+        <li class="ok"><span class="pulse"></span><span data-i18n="nowOpen">Open to work</span></li>
+        <li><span class="k">building</span><span data-i18n="gstBuild">Heldio MVP</span></li>
+        <li><span class="k">learning</span>Django</li>
+        <li><span class="k" data-i18n="gstBased">Cologne</span><span id="clock3">--:--</span></li>
+      </ul>
+      <a class="scrollhint rv d6" href="#work"><i></i><span data-i18n="scroll">scroll to read the source</span></a>
+    </div>
+
+    <div class="editor rv d3" id="heroEd">
+      <div class="cat" id="cat1" role="button" tabindex="0" aria-label="Wake the cat"></div>
+      <div class="meow" id="meow1"></div>
+      <div class="ed-head" role="tablist" aria-label="Open files">
+        <button class="ed-tab on" role="tab" aria-selected="true" data-doc="kamyar"><span class="badge">TS</span>kamyar.ts</button>
+        <button class="ed-tab" role="tab" aria-selected="false" data-doc="types"><span class="badge">TS</span>types.ts</button>
+        <div class="ed-path" id="edPath">src/people/kamyar.ts</div>
+      </div>
+      <div class="code" id="code" role="tabpanel" aria-label="kamyar.ts"></div>
+      <div class="ed-foot"><span><span class="ok">✓</span> <span data-i18n="problems">0 problems</span></span><span id="cursorPos">Ln 1, Col 1</span></div>
+      <div class="tp">
+        <div class="tp-head"><span class="tp-tab on">TERMINAL</span><span class="tp-tab">PROBLEMS <b>0</b></span><span class="tp-tab hide-s">OUTPUT</span><span class="tp-sh">zsh</span></div>
+        <div class="tp-body" id="tpBody">
+          <div id="tpOut" aria-live="polite"></div>
+          <label class="tp-line"><span class="pr">~/kamyar.dev <span class="kw">$</span></span><input id="tpIn" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Terminal. Type help to see commands."></label>
+        </div>
+      </div>
+      <div class="tip" id="tip" role="tooltip"></div>
+    </div>
+  </div>
+  <div class="ticker" aria-hidden="true"><div class="track" id="ticker"></div></div>
+</section>
+
+<!-- ================= work.tsx ================= -->
+<section id="work" class="file" data-file="work.tsx">
+  <div class="crumb"><div class="wrap" style="display:flex;justify-content:space-between;width:100%"><span class="path">src<span class="sep">›</span>app<span class="sep">›</span><b>work.tsx</b></span><span class="meta" data-i18n="workMeta">4 projects</span></div></div>
+  <div class="wrap sec">
+    <p class="eyebrow" data-i18n="workEyebrow">// selected work</p>
+    <h2 data-i18n-html="workTitle"></h2>
+    <p class="intro" data-i18n="workIntro"></p>
+
+    <div class="ls">
+      <div class="ls-head"><span><span class="dim">$</span> ls -la projects/</span><span class="dim" data-i18n="lsHint">hover to preview, click to open</span></div>
+      <ul class="rows" id="projRows"></ul>
+      <div class="ls-foot"><span class="dim">total 4</span><span class="dim" id="lsKeys">↑ ↓ enter</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= about.md ================= -->
+<section id="about" class="file" data-file="about.md">
+  <div class="crumb"><div class="wrap" style="display:flex;justify-content:space-between;width:100%"><span class="path">docs<span class="sep">›</span><b>about.md</b></span><span class="meta" data-i18n="aboutMeta">since 2022</span></div></div>
+  <div class="wrap sec">
+    <p class="eyebrow" data-i18n="aboutEyebrow">// about</p>
+    <h2 data-i18n-html="aboutTitle"></h2>
+
+    <div class="about">
+      <div class="md">
+        <div data-i18n-html="aboutBody"></div>
+        <div class="facts">
+          <div><b data-count="3">0</b><span data-i18n="f1">languages spoken</span></div>
+          <div><b data-count="4">0</b><span data-i18n="f2">projects shipped</span></div>
+          <div><b data-count="168">0</b><span data-i18n="f3">commits since July</span></div>
+        </div>
+      </div>
+      <figure class="portrait">
+        <div class="frame" id="frame">
+          <canvas id="ascii" aria-hidden="true"></canvas>
+          <img src="a/portrait.webp" alt="Portrait of Kamyar Zamanfar wearing headphones" id="photo" crossorigin="anonymous">
+          <div class="lens" id="lens"></div>
+        </div>
+        <figcaption class="cap"><span>portrait.webp  639×960</span><button id="revealBtn" data-i18n="reveal">render image</button></figcaption>
+      </figure>
+    </div>
+
+    <div class="log-h">
+      <div>
+        <p class="eyebrow">$ git log --graph --oneline</p>
+        <h2 data-i18n-html="logTitle"></h2>
+      </div>
+    </div>
+    <div class="gitlog" id="gitlog"></div>
+
+    <div class="reviews">
+      <p class="eyebrow" data-i18n="revEyebrow">// pull request #1: hire kamyar</p>
+      <h2 data-i18n-html="revTitle"></h2>
+      <div class="rv-list" id="reviews"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= stack.json ================= -->
+<section id="stack" class="file" data-file="stack.json">
+  <div class="crumb"><div class="wrap" style="display:flex;justify-content:space-between;width:100%"><span class="path">config<span class="sep">›</span><b>stack.json</b></span><span class="meta" data-i18n="stackMeta">valid json</span></div></div>
+  <div class="wrap sec">
+    <p class="eyebrow" data-i18n="stackEyebrow">// stack and services</p>
+    <h2 data-i18n-html="stackTitle"></h2>
+
+    <div class="stackgrid">
+      <div class="editor">
+        <div class="ed-head"><div class="ed-tab on"><span class="badge js">{}</span>stack.json</div><div class="ed-path" data-i18n="clickFold">click ▾ to fold</div></div>
+        <div class="code json" id="json"></div>
+      </div>
+      <div class="editor activity">
+        <div class="act-h"><b id="actTotal">168 commits</b><span>github.com/kamycoding/portfolio</span></div>
+        <div class="months" id="months"></div>
+        <div class="heat"><div class="days"><span></span><span data-i18n="mon">Mon</span><span></span><span data-i18n="wed">Wed</span><span></span><span data-i18n="fri">Fri</span><span></span></div><div class="cells" id="cells"></div></div>
+        <div class="legend"><span data-i18n="heatNote">v1 of this site, Jul to Sep 2026</span><span class="sw"><span data-i18n="less">less</span><i style="background:var(--panel-3)"></i><i style="background:color-mix(in srgb,var(--kw) 30%,var(--panel-3))"></i><i style="background:color-mix(in srgb,var(--kw) 55%,var(--panel-3))"></i><i style="background:color-mix(in srgb,var(--kw) 78%,var(--panel-3))"></i><i style="background:var(--kw)"></i><span data-i18n="more">more</span></span></div>
+        <div class="stats">
+          <div><b id="stBest">24</b><span data-i18n="stBest">best day</span></div>
+          <div><b id="stStreak">7</b><span data-i18n="stStreak">day streak</span></div>
+          <div><b id="stDays">20</b><span data-i18n="stDays">active days</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="services" id="services"></div>
+  </div>
+</section>
+
+<!-- ================= contact.ts ================= -->
+<section id="contact" class="file" data-file="contact.ts">
+  <div class="crumb"><div class="wrap" style="display:flex;justify-content:space-between;width:100%"><span class="path">src<span class="sep">›</span>api<span class="sep">›</span><b>contact.ts</b></span><span class="meta" data-i18n="contactMeta">POST /api/contact</span></div></div>
+  <div class="wrap sec">
+    <div class="contact">
+      <div>
+        <p class="eyebrow" data-i18n="contactEyebrow">// contact</p>
+        <h2 data-i18n-html="contactTitle"></h2>
+        <p class="intro" data-i18n="contactIntro"></p>
+        <div class="direct">
+          <a href="mailto:contact@kamycoding.com"><span style="font:inherit;color:var(--text)">contact@kamycoding.com</span><span class="arr">mail ↗</span></a>
+          <a href="https://www.linkedin.com/in/kamyarzamanfar" target="_blank" rel="noopener">LinkedIn<span class="arr">/in/kamyarzamanfar ↗</span></a>
+          <a href="https://github.com/kamycoding" target="_blank" rel="noopener">GitHub<span class="arr">/kamycoding ↗</span></a>
+          <div><span style="font:inherit;color:var(--text)" data-i18n="where">Troisdorf, near Cologne</span><span id="clock2">--:-- CET</span></div>
+        </div>
+      </div>
+
+      <form class="editor form" id="form" novalidate>
+        <div class="cat" id="cat2" role="button" tabindex="0" aria-label="Wake the cat"></div>
+        <div class="meow" id="meow2"></div>
+        <div class="ed-head"><div class="ed-tab on"><span class="badge">TS</span>contact.ts</div><div class="ed-path">sendMessage()</div></div>
+        <div class="fcode" id="fcode">
+          <div class="fl"><span class="n">1</span><span class="c"><span class="kw">await</span> sendMessage({</span></div>
+          <div class="fl field" data-f="name"><span class="n">2</span><span class="c"><label for="f-name"><span class="prop">name</span><span class="pun">:</span></label><span class="inp"><input id="f-name" name="name" autocomplete="name" maxlength="80" data-ph="namePh"></span></span></div>
+          <p class="err" id="e-name"></p>
+          <div class="fl field" data-f="email"><span class="n">3</span><span class="c"><label for="f-email"><span class="prop">email</span><span class="pun">:</span></label><span class="inp"><input id="f-email" name="email" type="email" autocomplete="email" maxlength="254" data-ph="emailPh"></span></span></div>
+          <p class="err" id="e-email"></p>
+          <div class="fl field" data-f="message"><span class="n">4</span><span class="c"><label for="f-message"><span class="prop">message</span><span class="pun">:</span></label><span class="inp"><textarea id="f-message" name="message" maxlength="2000" data-ph="msgPh"></textarea><span class="count" id="count">0 / 2000</span></span></span></div>
+          <p class="err" id="e-message"></p>
+          <div class="fl field" data-f="privacy"><span class="n">5</span><span class="c" style="padding-left:2ch"><label class="check"><input type="checkbox" id="f-privacy" name="privacyAccepted"><span data-i18n-html="privacy"></span></label></span></div>
+          <p class="err" id="e-privacy"></p>
+          <div class="fl"><span class="n">6</span><span class="c">})</span></div>
+        </div>
+        <div class="runbar">
+          <span class="mono" style="font-size:11.5px;color:var(--faint)" data-i18n="formHint">all fields are required</span>
+          <button class="run" type="submit" id="runBtn">▶ <span data-i18n="send">Run sendMessage()</span><span class="k" id="runKey">⌘ ↵</span></button>
+        </div>
+        <div class="out" id="out" aria-live="polite"><span class="dim">// output</span></div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ================= footer ================= -->
+<footer class="foot">
+  <div class="wrap">
+    <div class="wordmark" aria-hidden="true">kamyar<span>.</span>dev</div>
+    <div class="fcols">
+      <div><h4>// kamyar zamanfar</h4><p data-i18n="footAbout">Full-stack developer near Cologne. Designed and built this site myself. The cat reviewed it.</p></div>
+      <div><h4>// pages</h4><ul><li><a href="#work">work.tsx</a></li><li><a href="#about">about.md</a></li><li><a href="#stack">stack.json</a></li><li><a href="#contact">contact.ts</a></li></ul></div>
+      <div><h4>// elsewhere</h4><ul><li><a href="https://github.com/kamycoding" target="_blank" rel="noopener">GitHub ↗</a></li><li><a href="https://www.linkedin.com/in/kamyarzamanfar" target="_blank" rel="noopener">LinkedIn ↗</a></li><li><a href="mailto:contact@kamycoding.com">Email ↗</a></li></ul></div>
+      <div><h4>// legal</h4><ul><li><a href="#" data-i18n="imprint">Legal notice</a></li><li><a href="#" data-i18n="privacyLink">Privacy policy</a></li></ul></div>
+    </div>
+    <div class="legal"><span>© <span id="year">2026</span> Kamyar Zamanfar</span><span>Next.js, TypeScript, Tailwind CSS. Hosted on Netlify.</span></div>
+  </div>
+</footer>
+</main>
+
+<footer class="status" aria-label="Status bar">
+  <span>⎇ redesign/v2</span>
+  <span class="ok">✓ <span data-i18n="build">build passing</span></span>
+  <span class="hide-m cur" id="curFile">index.tsx</span>
+  <div class="r">
+    <span class="hide-m">UTF-8</span>
+    <span class="hide-m">LF</span>
+    <span id="scrollLn">Ln 1</span>
+    <button id="statusTheme" class="hide-m" aria-label="Toggle theme">◐ <span id="themeName">dark</span></button>
+    <button id="catStatus" class="hide-m" aria-label="Wake the cat">cat: <span id="catState">asleep</span></button>
+    <span>Cologne <span id="clock">--:--</span></span>
+  </div>
+</footer>
+
+<div id="pal" role="dialog" aria-modal="true" aria-label="Command menu">
+  <div class="pal">
+    <div class="ih"><span>›</span><input id="palIn" autocomplete="off" spellcheck="false" aria-controls="palList" aria-activedescendant=""></div>
+    <ul id="palList" role="listbox"></ul>
+    <div class="pf"><span>↑↓ <span data-i18n="pNav">navigate</span></span><span>↵ <span data-i18n="pRun">run</span></span><span>esc <span data-i18n="pClose">close</span></span></div>
+  </div>
+</div>
+<div class="hprev" id="hprev" aria-hidden="true"></div>
+<div id="drawer" hidden>
+  <div class="scrim" data-close></div>
+  <aside class="dpanel" role="dialog" aria-modal="true" aria-labelledby="dTitle" tabindex="-1">
+    <div class="dhead">
+      <div class="ed-tab on"><span class="badge md">MD</span><span id="dFile">README.md</span></div>
+      <div class="dnav"><span class="mono dim" id="dPos">1 / 4</span>
+        <button class="chip" data-step="-1" id="dPrev">↑</button><button class="chip" data-step="1" id="dNext">↓</button>
+        <button class="chip" data-close id="dClose">esc</button></div>
+    </div>
+    <div class="dbody" id="dBody"></div>
+  </aside>
+</div>
+<div class="toast" id="toast" role="status"></div>
+<div class="htip" id="htip"></div>
+
+<div class="mcur" id="cur" aria-hidden="true"><span class="mcur-ring"><span class="mcur-label"></span></span><span class="mcur-dot"></span></div>
+<script src="art.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

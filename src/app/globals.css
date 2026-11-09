@@ -1,0 +1,212 @@
+@import 'tailwindcss';
+
+/* `dark:` follows the theme attribute set by next-themes, not the OS setting. */
+@custom-variant dark (&:where([data-theme='dark'], [data-theme='dark'] *));
+
+/*
+ * Design tokens, copied from docs/design/prototype/style.css.
+ * Dark is the default, light overrides it. next-themes sets data-theme on <html>.
+ * Changed from the prototype for WCAG AA (4.5:1 for small text): --faint and --com in both themes, light --str.
+ */
+:root {
+  --bg: #0b1020;
+  --bg-2: #0d1326;
+  --panel: #0f1528;
+  --panel-2: #131a30;
+  --panel-3: #18203a;
+  --text: #e6e8ee;
+  --muted: #8a91a6;
+  --faint: #7a829a;
+  --hair: rgba(230, 232, 238, 0.08);
+  --hair-2: rgba(230, 232, 238, 0.14);
+  --hair-3: rgba(230, 232, 238, 0.28);
+  --kw: #9aa8ff;
+  --str: #f5b754;
+  --prop: #7fd1b9;
+  --num: #f28f79;
+  --com: #7a829a;
+  --ok: #7fd1b9;
+  --err: #f2797b;
+  --kw-a: rgba(154, 168, 255, 0.12);
+  --str-a: rgba(245, 183, 84, 0.14);
+  --shadow: 0 30px 80px -30px rgba(0, 0, 0, 0.65);
+  --ruler: 22px;
+  --top: 56px;
+  --status: 28px;
+  --gutter: clamp(24px, 5vw, 72px);
+  --max: 1320px;
+  color-scheme: dark;
+}
+
+[data-theme='light'] {
+  --bg: #f5f6fa;
+  --bg-2: #eff1f6;
+  --panel: #ffffff;
+  --panel-2: #f7f8fb;
+  --panel-3: #eef0f6;
+  --text: #121729;
+  --muted: #596079;
+  --faint: #666d85;
+  --hair: rgba(18, 23, 41, 0.08);
+  --hair-2: rgba(18, 23, 41, 0.13);
+  --hair-3: rgba(18, 23, 41, 0.26);
+  --kw: #4d58cf;
+  --str: #9f5f00;
+  --prop: #0b7f66;
+  --num: #c0452c;
+  --com: #666d85;
+  --ok: #0b7f66;
+  --err: #c9373a;
+  --kw-a: rgba(77, 88, 207, 0.09);
+  --str-a: rgba(168, 100, 0, 0.1);
+  --shadow: 0 30px 70px -34px rgba(18, 23, 41, 0.28);
+  color-scheme: light;
+}
+
+/* The rulers are desktop only, so they take no space below 981px. */
+@media (max-width: 980px) {
+  :root {
+    --ruler: 0px;
+  }
+}
+
+@theme inline {
+  /* Only design tokens exist as colors, so every utility works in both themes. */
+  --color-*: initial;
+  --color-bg: var(--bg);
+  --color-bg-2: var(--bg-2);
+  --color-panel: var(--panel);
+  --color-panel-2: var(--panel-2);
+  --color-panel-3: var(--panel-3);
+  --color-text: var(--text);
+  --color-muted: var(--muted);
+  --color-faint: var(--faint);
+  --color-hair: var(--hair);
+  --color-hair-2: var(--hair-2);
+  --color-hair-3: var(--hair-3);
+  --color-kw: var(--kw);
+  --color-str: var(--str);
+  --color-prop: var(--prop);
+  --color-num: var(--num);
+  --color-com: var(--com);
+  --color-ok: var(--ok);
+  --color-err: var(--err);
+  --color-kw-a: var(--kw-a);
+  --color-str-a: var(--str-a);
+
+  --shadow-panel: var(--shadow);
+
+  --font-sans: var(--font-geist-sans), system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+
+  /* Same breakpoints as the prototype (its max-width queries at 560, 980 and 1100px). */
+  --breakpoint-*: initial;
+  --breakpoint-sm: 561px;
+  --breakpoint-lg: 981px;
+  --breakpoint-xl: 1101px;
+}
+
+@layer base {
+  html {
+    /* The prototype keeps the browser default; Tailwind's 1.5 would make unstyled text taller. */
+    line-height: normal;
+    scroll-behavior: smooth;
+    scroll-padding-top: calc(var(--top) + var(--ruler) + 8px);
+  }
+
+  html,
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body {
+    min-height: 100vh;
+    overflow-x: hidden;
+    transition:
+      background-color 0.3s,
+      color 0.3s;
+  }
+
+  button {
+    cursor: pointer;
+  }
+
+  ::selection {
+    background: var(--kw-a);
+    color: var(--text);
+  }
+
+  :focus:not(:focus-visible) {
+    outline: none;
+  }
+
+  :focus-visible {
+    outline: 1.5px solid var(--kw);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+}
+
+/*
+ * First-paint choreography from the prototype: `.rv` elements rise in once the page is ready.
+ * Only applies when JavaScript runs (`html.js`), so content never stays hidden without it.
+ */
+@layer components {
+  .js .rv {
+    opacity: 0;
+    transform: translateY(10px);
+    transition:
+      opacity 0.6s cubic-bezier(0.2, 0.7, 0.2, 1),
+      transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+
+  .js.ready .rv {
+    opacity: 1;
+    transform: none;
+  }
+
+  .js.ready .rv.d1 {
+    transition-delay: 0.06s;
+  }
+
+  .js.ready .rv.d2 {
+    transition-delay: 0.14s;
+  }
+
+  .js.ready .rv.d3 {
+    transition-delay: 0.22s;
+  }
+
+  .js.ready .rv.d4 {
+    transition-delay: 0.3s;
+  }
+
+  .js.ready .rv.d5 {
+    transition-delay: 0.38s;
+  }
+
+  .js.ready .rv.d6 {
+    transition-delay: 0.5s;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .js .rv {
+    opacity: 1;
+    transform: none;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  html {
+    scroll-behavior: auto;
+  }
+}

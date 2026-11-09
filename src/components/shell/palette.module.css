@@ -1,0 +1,116 @@
+/* Command palette from the prototype (style.css: #pal, .pal). */
+.backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 14vh;
+  background: color-mix(in srgb, var(--bg) 55%, transparent);
+  backdrop-filter: blur(4px);
+}
+
+.pal {
+  width: min(580px, 92vw);
+  overflow: hidden;
+  border: 1px solid var(--hair-2);
+  border-radius: 14px;
+  background: var(--panel);
+  box-shadow: var(--shadow);
+  animation: pop 0.16s ease;
+}
+
+.ih {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 16px;
+  border-bottom: 1px solid var(--hair);
+}
+
+.ih span {
+  font:
+    400 13px var(--font-geist-mono),
+    monospace;
+  color: var(--kw);
+}
+
+.ih input {
+  flex: 1;
+  height: 52px;
+  border: 0;
+  outline: none;
+  background: none;
+  font:
+    400 15px var(--font-geist-sans),
+    sans-serif;
+  color: var(--text);
+}
+
+.list {
+  max-height: 360px;
+  padding: 4px 6px 8px;
+  overflow: auto;
+  list-style: none;
+}
+
+.group {
+  padding: 10px 18px 4px;
+  font:
+    400 11px var(--font-geist-mono),
+    monospace;
+  color: var(--faint);
+}
+
+.item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 12px;
+  border-radius: 8px;
+  font-size: 14px;
+  color: var(--muted);
+  cursor: pointer;
+}
+
+.item[aria-selected='true'] {
+  background: var(--panel-3);
+  color: var(--text);
+}
+
+.item kbd {
+  padding: 1px 5px;
+  border: 1px solid var(--hair-2);
+  border-radius: 4px;
+  font:
+    400 11px var(--font-geist-mono),
+    monospace;
+  color: var(--faint);
+}
+
+.foot {
+  display: flex;
+  gap: 16px;
+  padding: 8px 16px;
+  border-top: 1px solid var(--hair);
+  font:
+    400 11px var(--font-geist-mono),
+    monospace;
+  color: var(--faint);
+}
+
+.empty {
+  padding: 18px;
+  font:
+    400 13px var(--font-geist-mono),
+    monospace;
+  color: var(--faint);
+}
+
+@keyframes pop {
+  from {
+    opacity: 0;
+    transform: scale(0.98) translateY(-4px);
+  }
+}
