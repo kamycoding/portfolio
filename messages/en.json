@@ -168,11 +168,14 @@
     }
   },
   "stack": {
-    "fold": "click ▾ to fold",
-    "foldGroup": "fold {group}",
+    "explorer": {
+      "title": "Explorer: Stack",
+      "hint": "click a folder to collapse",
+      "files": "{count, plural, one {file} other {files}}",
+      "file": "{name} ({file})"
+    },
     "heat": {
       "label": "Contributions per day",
-      "total": "{count, plural, one {# contribution} other {# contributions}}",
       "tip": "{count, plural, one {# contribution} other {# contributions}} on {date}",
       "mon": "Mon",
       "wed": "Wed",
@@ -183,9 +186,10 @@
       "to": "to"
     },
     "stats": {
-      "best": "best day",
-      "streak": "day streak",
-      "days": "active days"
+      "total": "{count, plural, one {<b>#</b> contribution} other {<b>#</b> contributions}}",
+      "best": "best day <b>{count}</b>",
+      "streak": "{count, plural, one {<b>#</b> day streak} other {<b>#</b> day streak}}",
+      "days": "{count, plural, one {<b>#</b> active day} other {<b>#</b> active days}}"
     }
   },
   "legal": {
