@@ -1,8 +1,9 @@
 import { getLocale, getTranslations } from 'next-intl/server'
 
 import Section, { SectionHeading } from '@/components/shell/section'
-import { ACTIVITY_REPO, COMMITS_BY_DAY, HEAT_START, HEAT_WEEKS } from '@/content/activity'
+import { CONTRIBUTIONS, PROFILE_LABEL, PROFILE_URL } from '@/content/activity'
 import { SERVICES } from '@/content/services'
+import { periodText, WEEKS } from '@/lib/contributions'
 import { buildHeatmap } from '@/lib/heatmap'
 import editor from '@/components/ui/editor.module.css'
 import { cn } from '@/lib/utils'
@@ -14,11 +15,11 @@ import styles from './stack.module.css'
 
 const SWATCHES = [styles.l0, styles.l1, styles.l2, styles.l3, styles.l4] as const
 
-// stack.json in the prototype: foldable JSON tree, commit heatmap of v1, services as functions.
+// stack.json in the prototype: foldable JSON tree, GitHub contribution heatmap, services as functions.
 const Stack = async () => {
   const t = await getTranslations('stack')
   const locale = (await getLocale()) === 'de' ? 'de' : 'en'
-  const heat = buildHeatmap(COMMITS_BY_DAY, HEAT_START, HEAT_WEEKS)
+  const heat = buildHeatmap(CONTRIBUTIONS, WEEKS)
 
   // Same formats as the prototype; UTC because the dates are calendar days.
   const intlLocale = locale === 'de' ? 'de-DE' : 'en-GB'
@@ -27,6 +28,7 @@ const Stack = async () => {
 
   const cells = heat.cells.map(cell => ({
     level: cell.level,
+    future: cell.future,
     tip: t('heat.tip', { count: cell.count, date: dayFormat.format(Date.parse(cell.date)) })
   }))
 
@@ -50,7 +52,9 @@ const Stack = async () => {
         <div className={cn(editor.editor, styles.activity)} data-shell-ui=''>
           <div className={styles.actHead}>
             <b>{t('heat.total', { count: heat.total })}</b>
-            <span>{ACTIVITY_REPO}</span>
+            <a href={PROFILE_URL} target='_blank' rel='noopener noreferrer'>
+              {PROFILE_LABEL}
+            </a>
           </div>
           <Heatmap
             cells={cells}
@@ -59,7 +63,11 @@ const Stack = async () => {
             label={t('heat.label')}
           />
           <div className={styles.legend}>
-            <span>{t('heat.note')}</span>
+            <span>
+              {t('heat.note', {
+                period: periodText(CONTRIBUTIONS.start, CONTRIBUTIONS.end, intlLocale, t('heat.to'))
+              })}
+            </span>
             <span className={styles.swatches} aria-hidden='true'>
               <span>{t('heat.less')}</span>
               {SWATCHES.map(swatch => (

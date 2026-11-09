@@ -114,6 +114,15 @@ Update CHANGELOG, merge to `main` via pull request, tag `v2.0.0`, GitHub release
 - After the release, check which HSTS header kamycoding.com sends (on netlify.app, Netlify's own header wins) and decide whether to set it explicitly in `netlify.toml`.
 - Note: the required status check on `main` is tied to the CI job name "Lint, types, test, build". Renaming the job blocks all merges.
 
+## Phase 12: GitHub contribution heatmap (v2.1.0)
+The stack heatmap shows the real GitHub contributions of kamycoding instead of the static v1 commits (ADR 0006).
+- Fetched at build time from the GitHub GraphQL API: 17 weeks ending the current week, GitHub's own levels, "contributions" / "Beiträge".
+- `src/content/contributions.json` is the committed snapshot and the fallback; the build never fails on the API.
+- Token `GITHUB_CONTRIBUTIONS_TOKEN` in Netlify as a secret for Production only (default scopes on the free plan); previews and Dependabot pull requests use the snapshot.
+- Daily rebuild through `.github/workflows/refresh-contributions.yml` and a Netlify build hook (`NETLIFY_BUILD_HOOK_URL` secret).
+- The about fact "168 commits since July" stays unchanged.
+- Maintenance: renew the token before it expires (at most one year); refresh the committed snapshot now and then with `pnpm contributions:update`.
+
 ## Answered questions
 - Project durations and years (Join 5 weeks, Designer portfolio 4 months, El Pollo Loco 3 weeks, all 2026): confirmed as in the prototype.
 - Reviews and facts in the about section: real and confirmed.

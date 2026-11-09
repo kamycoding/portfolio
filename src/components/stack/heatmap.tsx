@@ -2,13 +2,13 @@
 
 import { type KeyboardEvent, useId, useRef, useState } from 'react'
 
-import type { HeatLevel } from '@/lib/heatmap'
+import type { ContributionLevel } from '@/lib/contributions'
 import { cn } from '@/lib/utils'
 
 import styles from './stack.module.css'
 
 type HeatmapProps = Readonly<{
-  cells: readonly Readonly<{ level: HeatLevel; tip: string }>[]
+  cells: readonly Readonly<{ level: ContributionLevel; tip: string; future: boolean }>[]
   months: readonly string[]
   days: readonly [mon: string, wed: string, fri: string]
   label: string
@@ -19,7 +19,7 @@ const LEVEL_CLASS = [undefined, styles.l1, styles.l2, styles.l3, styles.l4] as c
 // Arrow keys walk the grid: up and down by day, left and right by week.
 const STEP: Readonly<Record<string, number>> = { ArrowUp: -1, ArrowDown: 1, ArrowLeft: -7, ArrowRight: 7 }
 
-// Commit grid with the prototype's floating tooltip. Keyboard users get the same tooltip on the active day.
+// Contribution grid with the prototype's floating tooltip. Keyboard users get the same tooltip on the active day.
 const Heatmap = ({ cells, months, days, label }: HeatmapProps) => {
   const id = useId()
   const gridRef = useRef<HTMLDivElement>(null)
@@ -53,7 +53,8 @@ const Heatmap = ({ cells, months, days, label }: HeatmapProps) => {
   }
 
   const onKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
-    const last = cells.length - 1
+    // Days after today are empty placeholders, so the keys stop at today.
+    const last = cells.findLastIndex(cell => !cell.future)
     let next: number | undefined
 
     if (event.key in STEP) next = Math.min(last, Math.max(0, active + STEP[event.key]))
@@ -66,7 +67,7 @@ const Heatmap = ({ cells, months, days, label }: HeatmapProps) => {
     focusCell(next)
   }
 
-  // Keyboard focus starts on the first day with commits; a mouse click keeps the hover tooltip instead.
+  // Keyboard focus starts on the first day with contributions; a mouse click keeps the hover tooltip instead.
   const onFocus = () => {
     if (!gridRef.current?.matches(':focus-visible')) return
 
@@ -114,16 +115,20 @@ const Heatmap = ({ cells, months, days, label }: HeatmapProps) => {
           }}
           onMouseLeave={hideTip}
         >
-          {cells.map((cell, index) => (
-            <span
-              key={index}
-              id={`${id}-${index}`}
-              role='option'
-              aria-selected={index === active}
-              aria-label={cell.tip}
-              className={cn(styles.cell, LEVEL_CLASS[cell.level], index === active && styles.active)}
-            />
-          ))}
+          {cells.map((cell, index) =>
+            cell.future ? (
+              <span key={index} aria-hidden='true' className={cn(styles.cell, styles.future)} />
+            ) : (
+              <span
+                key={index}
+                id={`${id}-${index}`}
+                role='option'
+                aria-selected={index === active}
+                aria-label={cell.tip}
+                className={cn(styles.cell, LEVEL_CLASS[cell.level], index === active && styles.active)}
+              />
+            )
+          )}
         </div>
       </div>
       <span ref={tipRef} className={styles.tip} aria-hidden='true' />

@@ -171,15 +171,16 @@
     "fold": "▾ klicken zum Einklappen",
     "foldGroup": "{group} einklappen",
     "heat": {
-      "label": "Commits pro Tag",
-      "total": "{count, plural, one {# Commit} other {# Commits}}",
-      "tip": "{count, plural, one {# Commit} other {# Commits}} am {date}",
+      "label": "Beiträge pro Tag",
+      "total": "{count, plural, one {# Beitrag} other {# Beiträge}}",
+      "tip": "{count, plural, one {# Beitrag} other {# Beiträge}} am {date}",
       "mon": "Mo",
       "wed": "Mi",
       "fri": "Fr",
-      "note": "v1 dieser Seite, Jul bis Sep 2026",
+      "note": "{period} auf GitHub",
       "less": "weniger",
-      "more": "mehr"
+      "more": "mehr",
+      "to": "bis"
     },
     "stats": {
       "best": "bester Tag",

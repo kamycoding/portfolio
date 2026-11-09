@@ -1,0 +1,27 @@
+name: Refresh contributions
+
+# Rebuilds production once a day, so the stack heatmap shows current GitHub contributions (ADR 0006).
+on:
+  schedule:
+    - cron: '0 3 * * *'
+  workflow_dispatch:
+
+# Only calls a Netlify build hook; it needs no access to the repository.
+permissions: {}
+
+jobs:
+  rebuild:
+    name: Trigger Netlify build
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - name: Call the Netlify build hook
+        env:
+          NETLIFY_BUILD_HOOK_URL: ${{ secrets.NETLIFY_BUILD_HOOK_URL }}
+        run: |
+          if [ -z "$NETLIFY_BUILD_HOOK_URL" ]; then
+            echo "::warning::NETLIFY_BUILD_HOOK_URL is not set, nothing to trigger."
+            exit 0
+          fi
+          curl --fail --silent --show-error --max-time 30 -X POST -d '{}' "$NETLIFY_BUILD_HOOK_URL" > /dev/null
+          echo "Netlify build triggered."
