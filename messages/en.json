@@ -12,19 +12,23 @@
   "sections": {
     "work": {
       "eyebrow": "// selected work",
-      "title": "Things I built <soft>and learned the most from.</soft>"
+      "title": "Things I built <soft>and learned the most from.</soft>",
+      "meta": "4 projects"
     },
     "about": {
       "eyebrow": "// about",
-      "title": "Architect by training. <soft>Developer by choice.</soft>"
+      "title": "Architect by training. <soft>Developer by choice.</soft>",
+      "meta": "since 2022"
     },
     "stack": {
       "eyebrow": "// stack and services",
-      "title": "What I work with <soft>and where I can help.</soft>"
+      "title": "What I work with <soft>and where I can help.</soft>",
+      "meta": "valid json"
     },
     "contact": {
       "eyebrow": "// contact",
-      "title": "Let's build <soft>something good.</soft>"
+      "title": "Let's build <soft>something good.</soft>",
+      "meta": "POST /api/contact"
     }
   },
   "notFound": {
@@ -34,5 +38,33 @@
     "navigationAria": "Not found page navigation",
     "home": "Back to homepage",
     "projects": "View projects"
+  },
+  "nav": {
+    "main": "Main",
+    "home": "kamycoding, home"
+  },
+  "theme": {
+    "toggle": "Toggle theme",
+    "dark": "dark",
+    "light": "light"
+  },
+  "language": {
+    "label": "Language"
+  },
+  "status": {
+    "label": "Status bar",
+    "build": "build passing",
+    "city": "Cologne"
+  },
+  "footer": {
+    "aboutHeading": "// kamyar zamanfar",
+    "about": "Full-stack developer near Cologne. I designed and built this site myself. The cat reviewed it.",
+    "pages": "// pages",
+    "elsewhere": "// elsewhere",
+    "legal": "// legal",
+    "legalNotice": "Legal notice",
+    "privacyPolicy": "Privacy policy",
+    "builtWith": "Next.js, TypeScript, Tailwind CSS. Hosted on Netlify.",
+    "credit": "Started from the Zolt template by shadcn/studio (MIT)."
   }
 }

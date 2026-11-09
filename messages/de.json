@@ -12,19 +12,23 @@
   "sections": {
     "work": {
       "eyebrow": "// ausgewählte Projekte",
-      "title": "Dinge, die ich gebaut <soft>und am meisten daraus gelernt habe.</soft>"
+      "title": "Dinge, die ich gebaut <soft>und am meisten daraus gelernt habe.</soft>",
+      "meta": "4 Projekte"
     },
     "about": {
       "eyebrow": "// über mich",
-      "title": "Architekt von Haus aus. <soft>Entwickler aus Überzeugung.</soft>"
+      "title": "Architekt von Haus aus. <soft>Entwickler aus Überzeugung.</soft>",
+      "meta": "seit 2022"
     },
     "stack": {
       "eyebrow": "// stack und leistungen",
-      "title": "Womit ich arbeite <soft>und wobei ich helfen kann.</soft>"
+      "title": "Womit ich arbeite <soft>und wobei ich helfen kann.</soft>",
+      "meta": "gültiges JSON"
     },
     "contact": {
       "eyebrow": "// kontakt",
-      "title": "Lass uns <soft>etwas Gutes bauen.</soft>"
+      "title": "Lass uns <soft>etwas Gutes bauen.</soft>",
+      "meta": "POST /api/contact"
     }
   },
   "notFound": {
@@ -34,5 +38,33 @@
     "navigationAria": "Navigation der Fehlerseite",
     "home": "Zurück zur Startseite",
     "projects": "Projekte ansehen"
+  },
+  "nav": {
+    "main": "Hauptnavigation",
+    "home": "kamycoding, Startseite"
+  },
+  "theme": {
+    "toggle": "Farbschema wechseln",
+    "dark": "dunkel",
+    "light": "hell"
+  },
+  "language": {
+    "label": "Sprache"
+  },
+  "status": {
+    "label": "Statusleiste",
+    "build": "Build erfolgreich",
+    "city": "Köln"
+  },
+  "footer": {
+    "aboutHeading": "// kamyar zamanfar",
+    "about": "Full-Stack-Entwickler bei Köln. Diese Seite habe ich selbst entworfen und gebaut. Die Katze hat sie reviewt.",
+    "pages": "// seiten",
+    "elsewhere": "// anderswo",
+    "legal": "// rechtliches",
+    "legalNotice": "Impressum",
+    "privacyPolicy": "Datenschutz",
+    "builtWith": "Next.js, TypeScript, Tailwind CSS. Gehostet bei Netlify.",
+    "credit": "Basiert ursprünglich auf dem Zolt-Template von shadcn/studio (MIT)."
   }
 }
