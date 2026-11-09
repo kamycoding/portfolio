@@ -30,9 +30,12 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
-# env files (can opt-in for committing if needed)
-.env*.local
-.env
+# env files: never commit real values, only the template
+.env*
+!.env.example
+
+# netlify cli (netlify link, netlify dev)
+.netlify/
 
 # vercel
 .vercel
