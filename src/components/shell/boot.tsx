@@ -21,9 +21,12 @@ type Step = Readonly<{
 }>
 
 // The build log from the prototype (app.js BOOT), as data instead of HTML. Gaps are in milliseconds.
+// Filled with the real version when the log is rendered, so the steps stay a constant for the timers.
+const VERSION = '{version}'
+
 const STEPS: readonly Step[] = [
   { gap: 0, line: [['$', 'dim'], [' '], ['pnpm build', 'b']] },
-  { gap: 140, line: [['▲', 'tri'], [' '], ['kamycoding', 'b'], [' '], ['2.0.0', 'dim']] },
+  { gap: 140, line: [['▲', 'tri'], [' '], ['kamycoding', 'b'], [' '], [VERSION, 'dim']] },
   { gap: 90, line: [['  - Environments: .env.production', 'dim']] },
   { gap: 60, line: [] },
   { gap: 90, line: 'spin' },
@@ -55,13 +58,13 @@ const TONE_CLASS: Readonly<Record<Tone, string | undefined>> = {
   tri: styles.tri
 }
 
-const Segments = ({ segments }: Readonly<{ segments: readonly Segment[] }>) =>
+const Segments = ({ segments, version }: Readonly<{ segments: readonly Segment[]; version: string }>) =>
   segments.map(([text, tone], index) =>
     tone === 'b' ? (
       <b key={index}>{text}</b>
     ) : (
       <span key={index} className={tone && TONE_CLASS[tone]}>
-        {text}
+        {text === VERSION ? version : text}
       </span>
     )
   )
@@ -75,7 +78,12 @@ let playedThisLoad = false
 export const replayIntro = () => replay?.()
 
 // The site builds itself on every load: a pnpm build log, then the page. Any key or "skip intro" ends it.
-const Boot = () => {
+// version is the full release version from package.json (src/lib/version.ts).
+type BootProps = Readonly<{
+  version: string
+}>
+
+const Boot = ({ version }: BootProps) => {
   const t = useTranslations('boot')
   const [shown, setShown] = useState(0)
   const [spin, setSpin] = useState(0)
@@ -223,7 +231,7 @@ const Boot = () => {
 
     return (
       <>
-        {step.line.length === 0 ? ' ' : <Segments segments={step.line} />}
+        {step.line.length === 0 ? ' ' : <Segments segments={step.line} version={version} />}
         {step.right && <span className={cn(styles.dim, styles.r)}>{step.right}</span>}
       </>
     )

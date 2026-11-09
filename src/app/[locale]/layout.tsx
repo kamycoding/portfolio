@@ -20,6 +20,7 @@ import Toast from '@/components/shell/toast'
 import TopBar from '@/components/shell/top-bar'
 import { routing } from '@/i18n/routing'
 import { pageMetadata, SITE_URL } from '@/lib/site'
+import { APP_VERSION, versionLabel } from '@/lib/version'
 import { cn } from '@/lib/utils'
 
 import '../globals.css'
@@ -80,8 +81,8 @@ const LocaleLayout = async ({ children, params }: LocaleLayoutProps) => {
             </a>
 
             {/* Static in the HTML, so it covers the page from the first paint until the build log ends. */}
-            <Boot />
-            <TopBar />
+            <Boot version={APP_VERSION} />
+            <TopBar versionLabel={versionLabel(APP_VERSION)} />
             <Rulers />
 
             {/* Room for the fixed top bar, rulers and status bar. */}
