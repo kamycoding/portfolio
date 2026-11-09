@@ -1,0 +1,98 @@
+/* Legal pages as Markdown files. No prototype design exists; the type follows about.md. */
+.back {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 40px;
+  font:
+    400 13px var(--font-geist-mono),
+    monospace;
+  color: var(--muted);
+  transition: color 0.15s;
+}
+
+.back:hover {
+  color: var(--text);
+}
+
+.md {
+  max-width: 68ch;
+  margin-top: 56px;
+  font-size: 16.5px;
+  line-height: 1.7;
+  color: var(--muted);
+}
+
+.md section + section {
+  margin-top: 48px;
+}
+
+.md h2 {
+  margin-bottom: 14px;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: -0.015em;
+  color: var(--text);
+}
+
+/* Markdown markers stay visible like the ** in about.md; the empty alt text keeps screen readers quiet. */
+.md h2::before {
+  content: '## ' / '';
+  font-family: var(--font-geist-mono), monospace;
+  font-weight: 400;
+  color: var(--faint);
+}
+
+.md p + p,
+.md p + ul,
+.md ul + p,
+.md p + address,
+.md address + p {
+  margin-top: 12px;
+}
+
+.md address {
+  font-style: normal;
+  color: var(--text);
+}
+
+.md ul {
+  display: grid;
+  gap: 4px;
+}
+
+.md li {
+  position: relative;
+  padding-left: 2ch;
+}
+
+.md li::before {
+  content: '-' / '';
+  position: absolute;
+  left: 0;
+  font-family: var(--font-geist-mono), monospace;
+  color: var(--faint);
+}
+
+.md a {
+  color: var(--kw);
+  text-decoration: underline;
+  text-decoration-color: color-mix(in srgb, var(--kw) 40%, transparent);
+  text-underline-offset: 3px;
+}
+
+.md a:hover {
+  text-decoration-color: currentColor;
+}
+
+.updated {
+  max-width: 68ch;
+  margin-top: 56px;
+  padding-top: 18px;
+  border-top: 1px solid var(--hair);
+  font:
+    400 12.5px var(--font-geist-mono),
+    monospace;
+  color: var(--faint);
+}
