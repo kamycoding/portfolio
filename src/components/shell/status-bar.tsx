@@ -35,12 +35,8 @@ const StatusBar = ({ branch }: StatusBarProps) => {
         <span className='hidden lg:inline'>LF</span>
         <span className='hidden sm:inline'>Ln {line}</span>
         <ThemeToggle variant='status' className='hidden lg:inline' />
-        <button
-          type='button'
-          onClick={wakeCat}
-          aria-label={awake ? tCat('awakeLabel') : tCat('wake')}
-          className='hover:text-text hidden lg:inline'
-        >
+        <button type='button' onClick={wakeCat} className='hover:text-text hidden lg:inline'>
+          <span className='sr-only'>{awake ? tCat('awakeLabel') : tCat('wake')}, </span>
           cat: <span className='text-text'>{awake ? tCat('awake') : tCat('asleep')}</span>
         </button>
         <span>

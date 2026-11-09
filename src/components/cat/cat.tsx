@@ -93,7 +93,6 @@ const Cat = ({ className, announce = true }: CatProps) => {
       <button
         type='button'
         data-cursor='pet'
-        aria-label={awake ? t('awakeLabel') : t('wake')}
         onClick={onWake}
         onPointerEnter={onPointerEnter}
         onPointerLeave={onPointerLeave}
@@ -151,6 +150,9 @@ const Cat = ({ className, announce = true }: CatProps) => {
             <path d='M32 73 v1.6 M35 73.6 v1.6 M47 73 v1.6 M50 73.6 v1.6' strokeWidth='1' opacity='.55' />
           </g>
         </svg>
+
+        {/* Named by hidden text instead of aria-label, so the decorative "z z" letters do not count as a visible label. */}
+        <span className='sr-only'>{awake ? t('awakeLabel') : t('wake')}</span>
       </button>
 
       <div

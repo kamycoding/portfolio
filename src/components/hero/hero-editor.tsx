@@ -211,9 +211,10 @@ const HeroEditor = () => {
 
       <Terminal />
 
+      {/* Empty until the first hover card, and an empty tooltip has no accessible name. */}
       <div
         id={tipId}
-        role='tooltip'
+        role={tip ? 'tooltip' : undefined}
         className={cn(styles.tip, tipOpen && styles.tipShow)}
         style={tip ? { left: tip.left, top: tip.top } : undefined}
       >

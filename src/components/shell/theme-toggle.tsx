@@ -30,10 +30,13 @@ const ThemeToggle = ({ variant, className }: ThemeToggleProps) => {
 
   const toggle = () => setTheme(current === 'dark' ? 'light' : 'dark')
 
+  // Named by hidden text plus the visible theme, so the visible label is part of the name (WCAG 2.5.3).
   if (variant === 'status') {
     return (
-      <button type='button' onClick={toggle} aria-label={t('toggle')} className={cn('hover:text-text', className)}>
-        ◐ <span>{isClient ? t(current) : ' '}</span>
+      <button type='button' onClick={toggle} className={cn('hover:text-text', className)}>
+        <span className='sr-only'>{t('toggle')}: </span>
+        <span aria-hidden='true'>◐ </span>
+        <span>{isClient ? t(current) : ' '}</span>
       </button>
     )
   }

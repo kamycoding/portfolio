@@ -23,9 +23,9 @@ const TopBar = () => {
 
   return (
     <header className='border-hair bg-bg/84 fixed inset-x-0 top-0 z-40 flex h-(--top) items-stretch border-b backdrop-blur-md'>
+      {/* Named by its text plus a hidden ", home", so the visible label is part of the name (WCAG 2.5.3). */}
       <Link
         href='/#index'
-        aria-label={t('home')}
         className='border-hair flex flex-none items-center gap-2.5 border-r px-3 font-mono text-sm font-medium sm:px-5'
       >
         <span
@@ -34,8 +34,9 @@ const TopBar = () => {
         >
           k/
         </span>
-        <span className='hidden sm:inline'>kamycoding</span>
+        <span className='max-sm:sr-only'>kamycoding</span>
         <span className='text-faint hidden text-[11.5px] font-normal lg:inline'>v2.0</span>
+        <span className='sr-only'>, {t('home')}</span>
       </Link>
 
       <nav aria-label={t('main')} className='flex min-w-0 flex-1 overflow-x-auto [scrollbar-width:none]'>
@@ -80,13 +81,8 @@ const TopBar = () => {
       </nav>
 
       <div className='border-hair flex flex-none items-center gap-1.5 border-l px-2 sm:gap-2 sm:px-3.5'>
-        <button
-          type='button'
-          className={ui.chip}
-          aria-label={tPalette('open')}
-          aria-keyshortcuts='Control+K Meta+K'
-          onClick={openPalette}
-        >
+        <button type='button' className={ui.chip} aria-keyshortcuts='Control+K Meta+K' onClick={openPalette}>
+          <span className='sr-only'>{tPalette('open')}, </span>
           <span>{modKey}</span> K
         </button>
         <ThemeToggle variant='icon' />
