@@ -6,7 +6,8 @@ import ThemeToggle from '@/components/shell/theme-toggle'
 import { useCat, wakeCat } from '@/hooks/use-cat'
 import { useCologneTime } from '@/hooks/use-cologne-time'
 import { useScrollSpy } from '@/hooks/use-scroll-spy'
-import { getSection } from '@/lib/sections'
+import { usePathname } from '@/i18n/navigation'
+import { getPage, getSection } from '@/lib/sections'
 
 type StatusBarProps = Readonly<{
   branch: string
@@ -18,6 +19,7 @@ const StatusBar = ({ branch }: StatusBarProps) => {
   const { awake } = useCat()
   const { activeId, line } = useScrollSpy()
   const time = useCologneTime()
+  const file = getPage(usePathname())?.file ?? (activeId && getSection(activeId).file)
 
   return (
     <aside
@@ -26,7 +28,7 @@ const StatusBar = ({ branch }: StatusBarProps) => {
     >
       <span>⎇ {branch}</span>
       <span className='text-ok'>✓ {t('build')}</span>
-      {activeId && <span className='text-text hidden lg:inline'>{getSection(activeId).file}</span>}
+      {file && <span className='text-text hidden lg:inline'>{file}</span>}
 
       <div className='ml-auto flex items-center gap-4'>
         <span className='hidden lg:inline'>UTF-8</span>

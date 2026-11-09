@@ -15,3 +15,13 @@ export type SectionId = Section['id']
 export type FileSectionId = Exclude<SectionId, 'index'>
 
 export const getSection = (id: SectionId) => SECTIONS.find(section => section.id === id)!
+
+// Pages outside the one-page sections. They open as their own file tab.
+export const PAGES = [
+  { href: '/legal-notice', file: 'legal-notice.md', crumb: ['legal'] },
+  { href: '/privacy-policy', file: 'privacy-policy.md', crumb: ['legal'] }
+] as const
+
+export type Page = (typeof PAGES)[number]
+
+export const getPage = (pathname: string) => PAGES.find(page => page.href === pathname)

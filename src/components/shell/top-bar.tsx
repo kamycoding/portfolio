@@ -5,13 +5,16 @@ import { useTranslations } from 'next-intl'
 import LanguageSwitch from '@/components/shell/language-switch'
 import ThemeToggle from '@/components/shell/theme-toggle'
 import { useScrollSpy } from '@/hooks/use-scroll-spy'
-import { Link } from '@/i18n/navigation'
-import { SECTIONS } from '@/lib/sections'
+import { Link, usePathname } from '@/i18n/navigation'
+import { getPage, SECTIONS } from '@/lib/sections'
 import { cn } from '@/lib/utils'
 
 const TopBar = () => {
   const t = useTranslations('nav')
   const { activeId, progress } = useScrollSpy()
+
+  // On a legal page its own file is the open tab, so no section tab is active.
+  const page = getPage(usePathname())
 
   return (
     <header className='border-hair bg-bg/84 fixed inset-x-0 top-0 z-40 flex h-(--top) items-stretch border-b backdrop-blur-md'>
@@ -32,7 +35,7 @@ const TopBar = () => {
 
       <nav aria-label={t('main')} className='flex min-w-0 flex-1 overflow-x-auto [scrollbar-width:none]'>
         {SECTIONS.map(section => {
-          const isActive = section.id === activeId
+          const isActive = !page && section.id === activeId
 
           return (
             <Link
@@ -56,6 +59,19 @@ const TopBar = () => {
             </Link>
           )
         })}
+        {page && (
+          <Link
+            href={page.href}
+            aria-current='page'
+            className='border-hair bg-panel text-text after:bg-kw relative flex items-center gap-2 border-r px-4.5 font-mono text-[13px] whitespace-nowrap after:absolute after:inset-x-0 after:top-0 after:h-[1.5px]'
+          >
+            <span aria-hidden='true' className='bg-prop size-1.75 flex-none rounded-[2px]' />
+            {page.file}
+            <span aria-hidden='true' className='text-faint ml-0.5 text-[11px]'>
+              ×
+            </span>
+          </Link>
+        )}
       </nav>
 
       <div className='border-hair flex flex-none items-center gap-1.5 border-l px-2 sm:gap-2 sm:px-3.5'>
