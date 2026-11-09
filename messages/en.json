@@ -119,5 +119,25 @@
     "asleep": "asleep",
     "awake": "awake",
     "meow": "Meow"
+  },
+  "work": {
+    "intro": "A product I co-founded, a team project, a client site and a game. Each one taught me something I still use.",
+    "lsHint": "hover to preview, click to open",
+    "drawing": "line drawing of the interface",
+    "labels": {
+      "role": "role",
+      "time": "time",
+      "context": "context",
+      "status": "status"
+    },
+    "links": {
+      "live": "Open live site",
+      "code": "View source"
+    },
+    "drawer": {
+      "close": "close",
+      "prev": "previous project",
+      "next": "next project"
+    }
   }
 }

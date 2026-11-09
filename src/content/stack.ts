@@ -23,9 +23,15 @@ export const TICKER = [
   'Git'
 ] as const
 
-// Icon file in public/stack/ per technology. Phase 6 adds the icons only the JSON tree uses.
+// Icon file in public/stack/ per technology. Phase 6 adds the icons only the JSON tree uses (GitHub, VS Code).
 export const ICON: Readonly<Record<string, string>> = {
   TypeScript: 'typescript',
+  JavaScript: 'javascript',
+  RxJS: 'rxjs',
+  Sass: 'sass',
+  SCSS: 'sass',
+  HTML: 'html5',
+  CSS: 'css3',
   React: 'react',
   'Next.js': 'nextjs',
   'Node.js': 'nodejs',

@@ -151,7 +151,7 @@ const Terminal = () => {
               {index > 0 && '\n'}
               <b>{project.id}/</b>
               {'  '}
-              {project.tag[locale === 'de' ? 'de' : 'en']}
+              {project[locale === 'de' ? 'de' : 'en'].tag}
             </span>
           ))
         )
