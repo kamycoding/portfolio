@@ -115,9 +115,7 @@
     "legal": "// rechtliches",
     "legalNotice": "Impressum",
     "privacyPolicy": "Datenschutz",
-    "builtWith": "Next.js, TypeScript, Tailwind CSS. Gehostet bei Netlify.",
-    "credit": "Basiert ursprünglich auf dem Zolt-Template von shadcn/studio (MIT).",
-    "build": "gebaut am {date}"
+    "credit": "Basiert ursprünglich auf dem Zolt-Template von shadcn/studio (MIT)."
   },
   "cat": {
     "wake": "Katze wecken",

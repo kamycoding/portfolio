@@ -1,8 +1,7 @@
-import { getLocale, getTranslations } from 'next-intl/server'
+import { getTranslations } from 'next-intl/server'
 
 import { Link } from '@/i18n/navigation'
 import { SECTIONS } from '@/lib/sections'
-import { buildInfo } from '@/lib/version'
 
 import Wordmark from './wordmark'
 
@@ -18,15 +17,6 @@ const linkClass = 'text-muted hover:text-text text-[14.5px] transition-colors'
 const Footer = async () => {
   const t = await getTranslations('footer')
   const year = new Date().getFullYear()
-  const build = buildInfo()
-
-  // UTC like the build date itself, so the day does not shift with the server's time zone.
-  const builtOn = new Intl.DateTimeFormat((await getLocale()) === 'de' ? 'de-DE' : 'en-GB', {
-    day: 'numeric',
-    month: 'short',
-    year: 'numeric',
-    timeZone: 'UTC'
-  }).format(Date.parse(build.date))
 
   return (
     <footer className='border-hair border-t pt-20 pb-15'>
@@ -90,19 +80,10 @@ const Footer = async () => {
 
         <div className='border-hair text-faint mt-12 flex flex-wrap justify-between gap-4 border-t pt-5 font-mono text-[11.5px]'>
           <span>© {year} Kamyar Zamanfar</span>
-          <span>{t('builtWith')}</span>
 
           {/* Kept while Zolt-derived config files remain (ADR 0003). */}
           <span>{t('credit')}</span>
         </div>
-
-        {/* The last line of the page, like the end of a file; the values are fixed at build time. */}
-        <p className='text-com mt-3 flex flex-wrap gap-x-2 font-mono text-[11.5px]'>
-          <span>{'// EOF'}</span>
-          <span>· {build.commit}</span>
-          <span>· {build.version}</span>
-          <span>· {t('build', { date: builtOn })}</span>
-        </p>
       </div>
     </footer>
   )

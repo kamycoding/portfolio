@@ -9,7 +9,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 ### Changed
 
 - The stack section is two blocks: the stack as a VS Code style explorer (folders per group, technologies as files, real names on hover and focus) and a full-width GitHub contributions grid for the last 52 weeks with a reveal wave, a pulse on today and a stats line.
-- The footer closes with a large "kamycoding" line drawing that draws itself once, the cat lying on its "m", and an `// EOF` line with the commit, version and build date.
+- The footer closes with a large "kamycoding" line drawing that draws itself once and the cat lying on its "m". The bottom bar keeps only the copyright and the template credit.
+- Reviews are shown as GitHub-style pull request reviews with line-drawn avatars, an approval summary and the quotes as review comments.
+- The hero shows only the name and role. The editor can be slid between a live-measured blueprint and the build (the entrance plays it after the intro), and the terminal is rebuilt with a modern prompt, ghost suggestions and real commands such as `ls projects`, `git log` and `blueprint`.
 - The top bar and the intro show the version from `package.json` (`v2.1`, `2.1.0`) instead of a hardcoded `2.0`, so they follow every release.
 - `@types/node` follows the Node 24 runtime (`24.19.2`, was `22.19.3`).
 - Dependabot no longer proposes major updates of `@types/node`; they are raised together with the Node version.
