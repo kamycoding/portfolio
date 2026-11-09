@@ -40,7 +40,7 @@
     },
     "terminal": {
       "label": "Terminal. Type help to see commands.",
-      "help": "<b>help</b>                this list\n<b>whoami</b>              who is this\n<b>ls</b> [projects]       sections and projects, clickable\n<b>git log</b>             GitHub contributions\n<b>blueprint</b>           switch between plan and build\n<b>theme</b> [dark|light]  switch the theme\n<b>lang</b> [de|en]        switch the language\n<b>contact</b>             jump to the contact form\n<b>pet cat</b>             wake the cat\n<b>clear</b>               clear the terminal",
+      "help": "<b>help</b>                 this list\n<b>whoami</b>               who is this\n<b>ls</b> [projects]        sections and projects, clickable\n<b>git log</b>              GitHub contributions\n<b>blueprint</b>            switch between plan and build\n<b>theme</b> [list|<name>]  switch the color theme\n<b>lang</b> [de|en]         switch the language\n<b>contact</b>              jump to the contact form\n<b>pet cat</b>              wake the cat\n<b>clear</b>                clear the terminal",
       "whoami": "<b>Kamyar Zamanfar</b>, full-stack developer near Cologne.\nTypeScript, React, Next.js, Node. Co-founder of Heldio.",
       "lsMissing": "ls: cannot access '{path}': No such file or directory",
       "gitUsage": "usage: git log",
@@ -50,7 +50,7 @@
       },
       "blueprintOn": "plan view: {value} percent plan. drag the handle, or run blueprint again.",
       "blueprintOff": "build view.",
-      "themeUsage": "usage: theme [dark|light]",
+      "themeUsage": "usage: theme [list|<name>], for example: theme monokai",
       "langUsage": "usage: lang [de|en]",
       "petUsage": "usage: pet cat",
       "cat": "meow. it is awake now, for a bit.",
@@ -95,9 +95,7 @@
     "home": "home"
   },
   "theme": {
-    "toggle": "Toggle theme",
-    "dark": "dark",
-    "light": "light"
+    "picker": "Color Theme"
   },
   "language": {
     "label": "Language"
@@ -517,12 +515,22 @@
       "contact": "Go to contact",
       "top": "Back to top",
       "mail": "Copy email",
-      "theme": "Toggle theme",
+      "theme": "Color Theme",
       "lang": "Auf Deutsch wechseln",
       "cat": "Wake the cat",
       "replay": "Replay intro",
       "gh": "Open GitHub",
       "li": "Open LinkedIn"
+    },
+    "themes": {
+      "label": "Color Theme",
+      "placeholder": "Select Color Theme",
+      "light": "light themes",
+      "dark": "dark themes",
+      "empty": "No matching theme",
+      "preview": "preview",
+      "select": "select",
+      "restore": "restore"
     }
   },
   "cursor": {

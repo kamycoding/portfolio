@@ -18,6 +18,7 @@ import { GITHUB_USER, periodText, WEEKS } from '@/lib/contributions'
 import { buildHeatmap } from '@/lib/heatmap'
 import { SECTIONS } from '@/lib/sections'
 import { parseCommand, suggest } from '@/lib/terminal'
+import { findTheme, getTheme, isDarkTheme, THEMES } from '@/lib/themes'
 import { cn } from '@/lib/utils'
 
 import styles from './hero.module.css'
@@ -142,6 +143,32 @@ const Terminal = () => {
       ))
     )
 
+  // One button per VS Code theme; the shown one is marked.
+  const listThemes = () => {
+    const shown = getTheme(resolvedTheme).id
+
+    print(
+      THEMES.map((item, index) => (
+        <span key={item.id}>
+          {index > 0 && '\n'}
+          <span className={styles.ok}>{item.id === shown ? '●' : ' '}</span>{' '}
+          <button
+            type='button'
+            className={styles.outLink}
+            onClick={() => {
+              setTheme(item.id)
+              print(`theme: ${item.name}`)
+            }}
+          >
+            {item.name}
+          </button>
+          {'  '}
+          <span className={styles.dim}>{item.id}</span>
+        </span>
+      ))
+    )
+  }
+
   // Real numbers from the committed GitHub snapshot, the same source as the heatmap in stack.json.
   const gitLog = () => {
     const heat = buildHeatmap(CONTRIBUTIONS, WEEKS)
@@ -203,13 +230,16 @@ const Terminal = () => {
       }
 
       case 'theme': {
-        if (arg && arg !== 'dark' && arg !== 'light') return fail(t('themeUsage'))
+        if (arg === 'list') return listThemes()
 
-        const next = arg || (resolvedTheme === 'light' ? 'dark' : 'light')
+        // Without a name it stays a quick dark/light toggle; Monokai and Solarized count as dark.
+        const next = arg ? findTheme(arg) : isDarkTheme(resolvedTheme) ? 'light' : 'dark'
+
+        if (!next) return fail(t('themeUsage'))
 
         setTheme(next)
 
-        return print(`theme: ${next}`)
+        return print(`theme: ${getTheme(next).name}`)
       }
 
       case 'lang': {

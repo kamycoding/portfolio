@@ -21,6 +21,7 @@ import TopBar from '@/components/shell/top-bar'
 import { routing } from '@/i18n/routing'
 import { pageMetadata, SITE_URL } from '@/lib/site'
 import { APP_VERSION, versionLabel } from '@/lib/version'
+import { THEME_IDS } from '@/lib/themes'
 import { cn } from '@/lib/utils'
 
 import '../globals.css'
@@ -72,7 +73,7 @@ const LocaleLayout = async ({ children, params }: LocaleLayoutProps) => {
         </Script>
         <NextIntlClientProvider>
           {/* next-themes sets data-theme in a blocking script before first paint, so there is no flash. */}
-          <ThemeProvider attribute='data-theme' defaultTheme='system' themes={['dark', 'light']} storageKey='theme'>
+          <ThemeProvider attribute='data-theme' defaultTheme='system' themes={THEME_IDS} storageKey='theme'>
             <a
               href='#main'
               className='bg-text text-bg fixed -top-15 left-3 z-100 rounded-md px-3 py-2 font-mono text-[13px] font-medium focus:top-3'

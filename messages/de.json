@@ -40,7 +40,7 @@
     },
     "terminal": {
       "label": "Terminal. Gib help ein, um alle Befehle zu sehen.",
-      "help": "<b>help</b>                diese Liste\n<b>whoami</b>              wer ist das\n<b>ls</b> [projects]       Bereiche und Projekte, klickbar\n<b>git log</b>             GitHub-Beiträge\n<b>blueprint</b>           zwischen Plan und Umsetzung wechseln\n<b>theme</b> [dark|light]  Theme wechseln\n<b>lang</b> [de|en]        Sprache wechseln\n<b>contact</b>             zum Kontaktformular springen\n<b>pet cat</b>             Katze wecken\n<b>clear</b>               Terminal leeren",
+      "help": "<b>help</b>                 diese Liste\n<b>whoami</b>               wer ist das\n<b>ls</b> [projects]        Bereiche und Projekte, klickbar\n<b>git log</b>              GitHub-Beiträge\n<b>blueprint</b>            zwischen Plan und Umsetzung wechseln\n<b>theme</b> [list|<name>]  Farbdesign wechseln\n<b>lang</b> [de|en]         Sprache wechseln\n<b>contact</b>              zum Kontaktformular springen\n<b>pet cat</b>              Katze wecken\n<b>clear</b>                Terminal leeren",
       "whoami": "<b>Kamyar Zamanfar</b>, Full-Stack-Entwickler bei Köln.\nTypeScript, React, Next.js, Node. Mitgründer von Heldio.",
       "lsMissing": "ls: Zugriff auf '{path}' nicht möglich: Datei oder Verzeichnis nicht gefunden",
       "gitUsage": "Nutzung: git log",
@@ -50,7 +50,7 @@
       },
       "blueprintOn": "Planansicht: {value} Prozent Plan. Zieh den Griff oder tippe blueprint noch einmal.",
       "blueprintOff": "Umsetzung.",
-      "themeUsage": "Nutzung: theme [dark|light]",
+      "themeUsage": "Nutzung: theme [list|<name>], zum Beispiel: theme monokai",
       "langUsage": "Nutzung: lang [de|en]",
       "petUsage": "Nutzung: pet cat",
       "cat": "miau. sie ist jetzt wach, für kurz.",
@@ -95,9 +95,7 @@
     "home": "Startseite"
   },
   "theme": {
-    "toggle": "Farbschema wechseln",
-    "dark": "dunkel",
-    "light": "hell"
+    "picker": "Farbdesign"
   },
   "language": {
     "label": "Sprache"
@@ -525,12 +523,22 @@
       "contact": "Zum Kontakt",
       "top": "Nach oben",
       "mail": "E-Mail kopieren",
-      "theme": "Theme wechseln",
+      "theme": "Farbdesign",
       "lang": "Switch to English",
       "cat": "Katze wecken",
       "replay": "Intro erneut abspielen",
       "gh": "GitHub öffnen",
       "li": "LinkedIn öffnen"
+    },
+    "themes": {
+      "label": "Farbdesign",
+      "placeholder": "Farbdesign auswählen",
+      "light": "helle Designs",
+      "dark": "dunkle Designs",
+      "empty": "Kein passendes Design",
+      "preview": "Vorschau",
+      "select": "auswählen",
+      "restore": "zurücksetzen"
     }
   },
   "cursor": {

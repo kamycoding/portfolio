@@ -24,6 +24,8 @@ describe('suggest', () => {
     expect(suggest('gi', [])).toBe('git log')
     expect(suggest('ls p', [])).toBe('ls projects')
     expect(suggest('bl', [])).toBe('blueprint')
+    expect(suggest('theme l', [])).toBe('theme list')
+    expect(suggest('theme so', [])).toBe('theme solarized-dark')
   })
 
   it('prefers the newest matching history entry', () => {
