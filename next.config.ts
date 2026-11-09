@@ -4,7 +4,7 @@ import createNextIntlPlugin from 'next-intl/plugin'
 
 const withNextIntl = createNextIntlPlugin()
 
-// Report-Only with 'unsafe-inline' so pages stay static, see docs/adr/0005-csp-strategy.md
+// Enforced, with 'unsafe-inline' so pages stay static, see docs/adr/0005-csp-strategy.md
 const contentSecurityPolicy = [
   "default-src 'self'",
   "script-src 'self' 'unsafe-inline'",
@@ -15,15 +15,16 @@ const contentSecurityPolicy = [
   "object-src 'none'",
   "base-uri 'self'",
   "form-action 'self'",
-  "frame-ancestors 'none'"
+  "frame-ancestors 'none'",
+  'upgrade-insecure-requests'
 ].join('; ')
 
 const securityHeaders = [
-  { key: 'Content-Security-Policy-Report-Only', value: contentSecurityPolicy },
+  { key: 'Content-Security-Policy', value: contentSecurityPolicy },
   { key: 'Strict-Transport-Security', value: 'max-age=63072000; includeSubDomains' },
   { key: 'X-Content-Type-Options', value: 'nosniff' },
 
-  // Enforced now because frame-ancestors is only reported while the CSP is Report-Only.
+  // Kept next to the enforced frame-ancestors for older browsers that only know this header.
   { key: 'X-Frame-Options', value: 'DENY' },
   { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
   {

@@ -40,6 +40,13 @@ In Phase 10, after all interactive features exist (Phase 9: intro, command palet
 1. Check a Netlify Deploy Preview with `curl -I` and the browser console, in both themes, both languages and with reduced motion. No CSP violations may remain.
 2. Rename the header to `Content-Security-Policy` and add `upgrade-insecure-requests` (ignored in Report-Only mode).
 
+## Update: enforced (Phase 10, 2026-11-09)
+
+- The header is now `Content-Security-Policy` with `upgrade-insecure-requests` added. The policy itself is unchanged.
+- Checked locally on the production build (`pnpm start`): every page in both themes and both languages, with and without reduced motion, the 404, and all interactions (intro and replay, command palette, shortcuts, drawer, terminal, portrait, JSON folding, contact form, language switch). No violations, no blocked requests.
+- The Deploy Preview needs a Netlify team login, so the console check there is done by Kamyar on the Report-Only preview before the enforcing commit is pushed. Scripts that Netlify injects only into previews may show up as blocked there; that does not affect production.
+- `X-Frame-Options: DENY` stays for older browsers that do not know `frame-ancestors`.
+
 ## Consequences
 
 - Pages stay static and CDN-cached.
