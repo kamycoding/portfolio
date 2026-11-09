@@ -1,0 +1,402 @@
+/* About section from the prototype (style.css "about", "git log", "reviews"). */
+.about {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 380px;
+  gap: clamp(40px, 6vw, 96px);
+  align-items: start;
+  margin-top: 56px;
+}
+
+.md p {
+  max-width: 60ch;
+  font-size: 18px;
+  line-height: 1.75;
+  color: var(--muted);
+}
+
+.md p + p {
+  margin-top: 22px;
+}
+
+.md strong {
+  font-weight: 500;
+  color: var(--text);
+}
+
+.mk {
+  font-family: var(--font-geist-mono), monospace;
+  font-weight: 400;
+  color: var(--faint);
+}
+
+.facts {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin-top: 40px;
+  overflow: hidden;
+  border: 1px solid var(--hair);
+  border-radius: 12px;
+}
+
+.facts div {
+  padding: 18px 18px 16px;
+  border-right: 1px solid var(--hair);
+}
+
+.facts div:last-child {
+  border: 0;
+}
+
+.facts b {
+  display: block;
+  font-weight: 600;
+  font-size: 30px;
+  letter-spacing: -0.03em;
+}
+
+.facts span {
+  font:
+    400 11.5px var(--font-geist-mono),
+    monospace;
+  color: var(--faint);
+}
+
+/* ---------- portrait ---------- */
+.portrait {
+  position: sticky;
+  top: calc(var(--top) + var(--ruler) + 60px);
+}
+
+.frame {
+  position: relative;
+  aspect-ratio: 2 / 3;
+  overflow: hidden;
+  border: 1px solid var(--hair-2);
+  border-radius: 12px;
+
+  /* The ASCII art is light on dark in both themes, like the prototype. */
+  background: #0a0e1a;
+  cursor: crosshair;
+}
+
+.frame canvas,
+.frame img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.frame img {
+  opacity: 0;
+  transition: opacity 0.5s;
+}
+
+.frame:hover img,
+.reveal img {
+  opacity: 1;
+}
+
+.cap {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+  font:
+    400 11.5px var(--font-geist-mono),
+    monospace;
+  color: var(--faint);
+}
+
+.cap button {
+  color: var(--muted);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* ---------- git log ---------- */
+.logHead {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  align-items: end;
+  justify-content: space-between;
+  margin-top: 120px;
+}
+
+.gitlog {
+  position: relative;
+  margin-top: 40px;
+}
+
+.commit {
+  position: relative;
+  display: grid;
+  grid-template-columns: 150px 28px minmax(0, 1fr);
+  gap: 0 20px;
+}
+
+.when {
+  padding-top: 22px;
+  font:
+    400 12.5px var(--font-geist-mono),
+    monospace;
+  color: var(--faint);
+  text-align: right;
+}
+
+.rail {
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+.rail::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: var(--hair-2);
+}
+
+.commit:first-child .rail::before {
+  top: 28px;
+}
+
+.commit:last-child .rail::before {
+  bottom: calc(100% - 28px);
+}
+
+.node {
+  position: relative;
+  width: 13px;
+  height: 13px;
+  margin-top: 22px;
+  border: 2px solid var(--kw);
+  border-radius: 50%;
+  background: var(--bg);
+}
+
+.headNode {
+  background: var(--kw);
+  box-shadow: 0 0 0 5px var(--kw-a);
+}
+
+.card {
+  padding: 16px 0 40px;
+  border-bottom: 1px solid var(--hair);
+}
+
+.commit:last-child .card {
+  border: 0;
+}
+
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  font:
+    400 12px var(--font-geist-mono),
+    monospace;
+  color: var(--faint);
+}
+
+.hash {
+  color: var(--str);
+}
+
+.ref {
+  padding: 2px 7px;
+  border: 1px solid;
+  border-radius: 5px;
+  font:
+    500 11px var(--font-geist-mono),
+    monospace;
+}
+
+.refHead {
+  border-color: color-mix(in srgb, var(--kw) 40%, transparent);
+  color: var(--kw);
+}
+
+.refBr {
+  border-color: color-mix(in srgb, var(--prop) 40%, transparent);
+  color: var(--prop);
+}
+
+.refTag {
+  border-color: color-mix(in srgb, var(--str) 40%, transparent);
+  color: var(--str);
+}
+
+.whenMobile {
+  display: none;
+}
+
+.commit h3 {
+  margin-top: 10px;
+  font-weight: 600;
+  font-size: 20px;
+  letter-spacing: -0.02em;
+}
+
+.scope {
+  margin-right: 6px;
+  font:
+    400 14px var(--font-geist-mono),
+    monospace;
+  letter-spacing: 0;
+  color: var(--muted);
+}
+
+.role {
+  margin-top: 2px;
+  font-size: 15px;
+  color: var(--muted);
+}
+
+.commit p {
+  max-width: 64ch;
+  margin-top: 12px;
+  font-size: 15px;
+  line-height: 1.65;
+  color: var(--muted);
+}
+
+.diff {
+  margin-top: 14px;
+  padding-left: 12px;
+  border-left: 2px solid color-mix(in srgb, var(--ok) 45%, transparent);
+  font:
+    400 12.5px/1.7 var(--font-geist-mono),
+    monospace;
+  color: var(--ok);
+}
+
+.stackRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+/* ---------- reviews ---------- */
+.reviews {
+  margin-top: 120px;
+}
+
+.reviewList {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+  margin-top: 36px;
+}
+
+.review {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid var(--hair-2);
+  border-radius: 12px;
+  background: var(--panel);
+}
+
+.reviewHead {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--hair);
+  background: var(--panel-2);
+  font-size: 13.5px;
+}
+
+.reviewHead b {
+  font-weight: 500;
+}
+
+.reviewHead span {
+  font:
+    400 11.5px var(--font-geist-mono),
+    monospace;
+  color: var(--faint);
+}
+
+.avatar {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  font:
+    500 10.5px var(--font-geist-mono),
+    monospace;
+  color: var(--bg);
+}
+
+.review blockquote {
+  flex: 1;
+  padding: 18px 16px 20px;
+  font-size: 15.5px;
+  line-height: 1.65;
+  color: var(--text);
+}
+
+.reviewFoot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  border-top: 1px solid var(--hair);
+  font:
+    400 11.5px var(--font-geist-mono),
+    monospace;
+  color: var(--faint);
+}
+
+.approved {
+  display: inline-flex;
+  gap: 6px;
+  align-items: center;
+  color: var(--ok);
+}
+
+/* ---------- responsive (prototype breakpoints) ---------- */
+@media (max-width: 1100px) {
+  .reviewList {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 980px) {
+  .about {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .portrait {
+    position: static;
+    max-width: 380px;
+  }
+
+  .commit {
+    grid-template-columns: 22px minmax(0, 1fr);
+    gap: 0 14px;
+  }
+
+  .when {
+    display: none;
+  }
+
+  .whenMobile {
+    display: inline;
+  }
+}
+
+@media (max-width: 560px) {
+  .facts b {
+    font-size: 24px;
+  }
+}

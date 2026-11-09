@@ -26,6 +26,10 @@ const Section = async ({ id, children }: SectionProps) => {
 
 const soft = (chunks: ReactNode) => <span className='text-muted'>{chunks}</span>
 
+// Section title style from the prototype (h2), shared by sub-headings like the git log and reviews.
+export const HEADING_CLASS =
+  'max-w-[18ch] text-[clamp(32px,3.6vw,54px)] leading-[1.06] font-semibold tracking-[-0.035em]'
+
 type SectionHeadingProps = Readonly<{
   id: FileSectionId
   intro?: string
@@ -39,9 +43,7 @@ export const SectionHeading = async ({ id, intro, className }: SectionHeadingPro
   return (
     <div className={className}>
       <p className='text-com mb-4.5 font-mono text-[13px]'>{t(`${id}.eyebrow`)}</p>
-      <h2 className='max-w-[18ch] text-[clamp(32px,3.6vw,54px)] leading-[1.06] font-semibold tracking-[-0.035em]'>
-        {t.rich(`${id}.title`, { soft })}
-      </h2>
+      <h2 className={HEADING_CLASS}>{t.rich(`${id}.title`, { soft })}</h2>
       {intro && <p className={cn('text-muted mt-4.5 max-w-[56ch] text-[16.5px] leading-[1.65]')}>{intro}</p>}
     </div>
   )
