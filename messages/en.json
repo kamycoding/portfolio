@@ -6,20 +6,16 @@
   "hero": {
     "comment": "// full-stack developer, cologne",
     "headline": {
-      "line1": "I build web products.",
-      "line2": "From idea to deploy."
+      "line1": "Kamyar Zamanfar",
+      "line2": "Full-Stack Developer"
     },
-    "lede": "I trained as an architect, so I care about <strong>structure, details and the people</strong> who use what I build. Today I work across the stack with TypeScript, React, Next.js and Node, and I co-founded <strong>Heldio</strong>, an AI platform for language learning.",
     "cta": {
       "work": "See my work",
       "copyEmail": "Copy email"
     },
     "now": {
-      "label": "Status",
-      "open": "Open to work",
       "city": "Cologne"
     },
-    "scroll": "scroll to read the source",
     "editor": {
       "filesLabel": "Open files",
       "problems": "0 problems",

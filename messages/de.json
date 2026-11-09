@@ -6,20 +6,16 @@
   "hero": {
     "comment": "// full-stack developer, köln",
     "headline": {
-      "line1": "Ich baue Web-Produkte.",
-      "line2": "Von der Idee bis zum Deploy."
+      "line1": "Kamyar Zamanfar",
+      "line2": "Full-Stack Developer"
     },
-    "lede": "Ich habe Architektur studiert. Deshalb sind mir <strong>Struktur, Details und die Menschen</strong> wichtig, die nutzen, was ich baue. Heute arbeite ich über den ganzen Stack mit TypeScript, React, Next.js und Node. Außerdem habe ich <strong>Heldio</strong> mitgegründet, eine KI-Plattform zum Sprachenlernen.",
     "cta": {
       "work": "Projekte ansehen",
       "copyEmail": "E-Mail kopieren"
     },
     "now": {
-      "label": "Status",
-      "open": "Offen für Jobs",
       "city": "Köln"
     },
-    "scroll": "scrollen, um den Quellcode zu lesen",
     "editor": {
       "filesLabel": "Geöffnete Dateien",
       "problems": "0 Probleme",

@@ -1,4 +1,4 @@
-/* Hero styles from the prototype (style.css: hero, editor, ticker, hero upgrades, hero polish, status row). */
+/* Hero styles: name and role, editor, terminal (prototype style.css: hero, editor, hero upgrades). */
 
 /* ---------- section, dot grid and pointer spotlight ---------- */
 .section {
@@ -43,131 +43,57 @@
   padding: 64px var(--gutter) 72px;
 }
 
-/* ---------- left column ---------- */
-.comment {
-  margin-bottom: 22px;
-  font:
-    400 13px var(--font-geist-mono),
-    monospace;
-  color: var(--com);
+/* ---------- left column: name and role ---------- */
+.intro {
+  min-width: 0;
+  container-type: inline-size;
 }
 
+/* Sized to its column, so "Zamanfar" fits from 390px phones up to the widest desktop. */
 .h1 {
   font-weight: 600;
-  font-size: clamp(34px, 3.8vw, 58px);
-  line-height: 1.03;
-  letter-spacing: -0.042em;
+  font-size: clamp(44px, 18cqi, 120px);
+  line-height: 0.95;
+  letter-spacing: -0.045em;
 }
 
-.soft {
+/* Words never break inside; the name wraps only between first and last name. */
+.word {
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.letter {
+  display: inline-block;
+  transition:
+    opacity 0.6s cubic-bezier(0.2, 0.7, 0.2, 1),
+    transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1);
+  transition-delay: calc(0.06s + var(--i, 0) * 0.035s);
+}
+
+/* Letters rise in once the intro releases the page, like the .rv choreography. */
+:global(.js:not(.ready)) .letter {
+  opacity: 0;
+  transform: translateY(0.3em);
+  transition: none;
+}
+
+.role {
+  margin-top: 26px;
+  font:
+    400 clamp(15px, 1.35vw, 19px) var(--font-geist-mono),
+    monospace;
   color: var(--muted);
 }
 
 .caret {
   display: inline-block;
-  width: 0.07em;
-  height: 0.8em;
-  margin-left: 0.07em;
-  vertical-align: -0.03em;
+  width: 0.55em;
+  height: 1.1em;
+  margin-left: 0.15em;
+  vertical-align: -0.2em;
   background: var(--kw);
   animation: blink 1.1s steps(1) infinite;
-}
-
-.lede {
-  max-width: 50ch;
-  margin-top: 28px;
-  font-size: 17px;
-  line-height: 1.65;
-  color: var(--muted);
-}
-
-.lede strong {
-  font-weight: 500;
-  color: var(--text);
-}
-
-.ctas {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-  margin-top: 36px;
-}
-
-.separator {
-  align-self: center;
-  width: 1px;
-  height: 26px;
-  margin: 0 4px;
-  background: var(--hair-2);
-}
-
-.now {
-  display: flex;
-  flex-wrap: nowrap;
-  width: fit-content;
-  max-width: 100%;
-  margin-top: 40px;
-  overflow: hidden;
-  border: 1px solid var(--hair-2);
-  border-radius: 12px;
-  background: color-mix(in srgb, var(--panel) 60%, transparent);
-  list-style: none;
-}
-
-.now li {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  height: 40px;
-  padding: 0 13px;
-  border-right: 1px solid var(--hair);
-  font:
-    400 12.5px var(--font-geist-mono),
-    monospace;
-  color: var(--text);
-  white-space: nowrap;
-}
-
-.now li:last-child {
-  border-right: 0;
-}
-
-.now .k {
-  color: var(--faint);
-}
-
-.now .ok {
-  color: var(--ok);
-}
-
-.pulse {
-  flex: none;
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: var(--ok);
-  box-shadow: 0 0 0 0 color-mix(in srgb, var(--ok) 50%, transparent);
-  animation: pulse 2.4s infinite;
-}
-
-.scrollhint {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  width: fit-content;
-  margin-top: 48px;
-  font:
-    400 12px var(--font-geist-mono),
-    monospace;
-  color: var(--faint);
-}
-
-.scrollhint i {
-  display: block;
-  width: 1px;
-  height: 28px;
-  background: linear-gradient(var(--faint), transparent);
-  animation: drip 2.2s ease-in-out infinite;
 }
 
 /* ---------- editor ---------- */
@@ -499,43 +425,6 @@
   right: 175px;
 }
 
-/* ---------- ticker ---------- */
-.ticker {
-  display: flex;
-  align-items: center;
-  height: 46px;
-  overflow: hidden;
-  border-top: 1px solid var(--hair);
-  border-bottom: 1px solid var(--hair);
-  mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
-}
-
-.track {
-  display: flex;
-  gap: 44px;
-  font:
-    400 13px var(--font-geist-mono),
-    monospace;
-  color: var(--muted);
-  white-space: nowrap;
-  animation: tick 48s linear infinite;
-}
-
-.ticker:hover .track {
-  animation-play-state: paused;
-}
-
-.track span {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.track img {
-  width: 16px;
-  height: 16px;
-}
-
 /* ---------- responsive (prototype breakpoints) ---------- */
 @media (max-width: 980px) {
   .hero {
@@ -558,7 +447,6 @@
 }
 
 @media (max-width: 560px) {
-  .separator,
   .hideSmall {
     display: none;
   }
@@ -566,16 +454,14 @@
   .tpBody {
     height: 140px;
   }
-
-  /* Two items now (status and Cologne time), so one row of two equal cells. */
-  .now {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    width: 100%;
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {
+  :global(.js:not(.ready)) .letter {
+    opacity: 1;
+    transform: none;
+  }
+
   :global(.js:not(.ready)) .editor,
   .editor {
     opacity: 1;
@@ -603,42 +489,5 @@
 
   100% {
     background: transparent;
-  }
-}
-
-@keyframes pulse {
-  70% {
-    box-shadow: 0 0 0 8px transparent;
-  }
-
-  100% {
-    box-shadow: 0 0 0 0 transparent;
-  }
-}
-
-@keyframes drip {
-  0% {
-    transform: scaleY(0);
-    transform-origin: top;
-  }
-
-  50% {
-    transform: scaleY(1);
-    transform-origin: top;
-  }
-
-  51% {
-    transform-origin: bottom;
-  }
-
-  100% {
-    transform: scaleY(0);
-    transform-origin: bottom;
-  }
-}
-
-@keyframes tick {
-  to {
-    transform: translateX(-50%);
   }
 }
