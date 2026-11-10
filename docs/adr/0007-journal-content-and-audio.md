@@ -32,7 +32,7 @@ For audio:
 Option 3 for content and option 3 for audio. Audio implementation follows in step 1e.
 
 - Published translations live in `content/posts/<slug>/en.mdx` and `de.mdx`. Each file exports a `metadata` object, without YAML frontmatter.
-- A small registry explicitly imports published translations. Metadata is validated with zod when posts are listed. Invalid metadata, duplicate translations, language mismatches and published posts marked `draft: true` throw errors. Static route generation will consume this list in step 1b so these errors fail the build.
+- A small registry explicitly imports published translations. Metadata is validated with zod when posts are listed. Invalid metadata, duplicate translations, language mismatches and published posts marked `draft: true` throw errors. The indexes and static article route generation consume this list, so these errors fail the build.
 - Drafts and unpublished assets stay in gitignored `content/drafts/`. The application never imports this directory. Publication includes deliberately moving approved content and assets and registering the published translation.
 - `@next/mdx` compiles imported modules through the normal Next.js pipeline. MDX is not added to `pageExtensions`.
 - `next.config.ts` references `src/lib/blog/rehype.mjs` through a single-element plugin tuple containing an absolute filesystem path constructed with `path.join(process.cwd(), ...)`. The MDX loader resolves relative paths from the source context, not necessarily the repository root. Its `require.resolve` call does not accept a file URL as a module identifier.
@@ -41,7 +41,15 @@ Option 3 for content and option 3 for audio. Audio implementation follows in ste
 - Shiki emits CSS variables for all four themes. The reading styles will select them through the site's existing `data-theme` attribute. MDX renders highlighted tokens as React elements without `dangerouslySetInnerHTML`.
 - There is no separate compiler, generated-module pipeline or content CI step.
 
-The published-post list will supply the indexes, static routes, sitemap and RSS. Missing translations will render a localized notice linking to an available version. Language alternates will include published translations only. Journal-only suppression of automatic proxy alternate headers is deferred to step 1b.
+The published-post list supplies the indexes and static routes. Sitemap and RSS integration follows in step 1f. Both indexes show all published slugs, preferring the requested language and marking other-language posts. While the registry is empty, both indexes use `noindex, follow`; indexing starts automatically once a post exists.
+
+Each published slug is prebuilt for both locales, including a localized notice when a translation is unavailable. Notices use `noindex, follow` and point their canonical to the available article. Article language alternates include published translations only, with English as `x-default` when available and German otherwise.
+
+Unknown slugs follow the site's existing localized 404 pattern: keep the default `dynamicParams` and call `notFound()` from the page immediately after the validated registry lookup. Unknown requests render only the localized error, never article content. The page owns the `notFound()` call rather than relying on metadata error handling. This preserves the existing editor shell; `dynamicParams = false` is not used to select the localized error boundary.
+
+The proxy has two next-intl handlers with identical routing options except `alternateLinks: false` on the journal handler. Only `/blog` and its descendants, after stripping a supported locale prefix, use that handler. Homepage and legal-page HTML alternates and automatic proxy headers stay unchanged. Journal metadata supplies its own accurate HTML alternates.
+
+Journal locale switches reset the reading position to the top and use the existing raw Next.js router with the locale cookie. English URLs remain `/blog/...`, without an `/en` prefix. The notice's cross-language link sets the requested locale cookie before navigation so language detection cannot redirect back to the unavailable version.
 
 Optional `learning.json` files will hold validated terms, sentence alignment, dialogue and quiz data. German and English alignment is authored explicitly.
 

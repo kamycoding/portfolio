@@ -146,6 +146,20 @@ The stack heatmap shows the real GitHub contributions of kamycoding instead of t
 - The about fact "168 commits since July" stays unchanged.
 - Maintenance: renew the token before it expires (at most one year); refresh the committed snapshot now and then with `pnpm contributions:update`.
 
+## Journal: Phase 1
+
+Branch: `feat/blog`. Each step is reviewed separately. Kamyar commits and pushes.
+
+- Step 1a (done): MDX modules through `@next/mdx`, local Shiki plugin through an absolute path, validated exported metadata, empty explicit post registry and gitignored local drafts (ADR 0007).
+- Step 1b (done): Journal indexes and article routes, missing-translation notices, basic editor tabs and breadcrumbs, top-bar/footer navigation, journal locale switching and bilingual copy. Empty indexes use `noindex, follow` until a post is published. Both locales of every published slug are prebuilt. Unknown slugs call `notFound()` immediately using the existing localized 404 pattern with default `dynamicParams`; they never render an article. Journal-only proxy handling suppresses automatic alternate headers while the pages supply accurate HTML alternates. English locale switches use `/blog/...`, without `/en`.
+- Step 1c: reading styles, code-block presentation, Outline scroll-spy and article progress in the status bar.
+- Step 1d: Term, Gloss, Dialog, Quiz, Callout, TLDR, Takeaways and Figure.
+- Step 1e: local ElevenLabs audio authoring and playback. Plan and voice remain undecided; no generation before approval.
+- Step 1f: sitemap, RSS, per-post Open Graph images, JSON-LD, author box, privacy and documentation. Sitemap changes stay deferred until this step.
+- Step 1g: Kamyar's English article, reviewed assets and release verification. No placeholder article is published.
+
+Phase 2 includes the minimap, CodeTabs, BeforeAfter, Steps, Glossary, vocabulary basket, full-text search, palette/terminal integration, Atom, revision history, explained glossary pages and series pages.
+
 ## Answered questions
 
 - Project durations and years (Join 5 weeks, Designer portfolio 4 months, El Pollo Loco 3 weeks, all 2026): confirmed as in the prototype.

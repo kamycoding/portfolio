@@ -1,12 +1,13 @@
 'use client'
 
-import { useTranslations } from 'next-intl'
+import { useLocale, useTranslations } from 'next-intl'
 
 import ThemeToggle from '@/components/shell/theme-toggle'
 import { useCat, wakeCat } from '@/hooks/use-cat'
 import { useCologneTime } from '@/hooks/use-cologne-time'
 import { useScrollSpy } from '@/hooks/use-scroll-spy'
 import { usePathname } from '@/i18n/navigation'
+import { isJournalRoute, journalFile } from '@/lib/blog/routes'
 import { getPage, getSection } from '@/lib/sections'
 
 type StatusBarProps = Readonly<{
@@ -16,10 +17,15 @@ type StatusBarProps = Readonly<{
 const StatusBar = ({ branch }: StatusBarProps) => {
   const t = useTranslations('status')
   const tCat = useTranslations('cat')
+  const locale = useLocale()
   const { awake } = useCat()
   const { activeId, line } = useScrollSpy()
   const time = useCologneTime()
-  const file = getPage(usePathname())?.file ?? (activeId && getSection(activeId).file)
+  const pathname = usePathname()
+
+  const file = isJournalRoute(pathname)
+    ? journalFile(pathname, locale === 'de' ? 'de' : 'en')
+    : (getPage(pathname)?.file ?? (activeId && getSection(activeId).file))
 
   return (
     <aside

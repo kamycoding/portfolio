@@ -82,6 +82,36 @@
       "meta": "POST /api/contact"
     }
   },
+  "journal": {
+    "title": "Journal",
+    "metaTitle": "Journal | kamycoding",
+    "description": "Building software in Germany.",
+    "empty": "No posts published yet.",
+    "editor": "Journal editor",
+    "files": "Journal files",
+    "breadcrumb": "Journal breadcrumb",
+    "availableOnly": "Available in {language}",
+    "missingTitle": "Translation unavailable",
+    "missingDescription": "This post is available in {language}.",
+    "missingMeta": "This translation is unavailable. Read the published language version.",
+    "readIn": "Read in {language}",
+    "languages": { "en": "English", "de": "German" },
+    "categories": {
+      "engineering": "Engineering",
+      "product": "Product",
+      "design": "Design",
+      "learning": "Learning",
+      "career": "Career",
+      "tools": "Tools"
+    },
+    "formats": {
+      "essay": "Essay",
+      "note": "Note",
+      "interactive": "Interactive",
+      "series": "Series",
+      "visual": "Visual"
+    }
+  },
   "notFound": {
     "code": "Error 404",
     "heading": "Page not found",
@@ -92,7 +122,8 @@
   },
   "nav": {
     "main": "Main",
-    "home": "home"
+    "home": "home",
+    "journal": "Journal"
   },
   "theme": {
     "picker": "Color Theme"
@@ -109,6 +140,7 @@
     "aboutHeading": "// kamyar zamanfar",
     "about": "Full-stack developer near Cologne. I designed and built this site myself. The cat reviewed it.",
     "pages": "// pages",
+    "journal": "Journal",
     "elsewhere": "// elsewhere",
     "legal": "// legal",
     "legalNotice": "Legal notice",

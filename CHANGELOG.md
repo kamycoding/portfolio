@@ -6,6 +6,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+### Added
+
+- Bilingual Journal indexes at `/blog` and `/de/blog`, with an honest empty state and `noindex, follow` until posts are published.
+- Static article and missing-translation routes with editor tabs, breadcrumbs, top-bar/footer navigation and localized 404 handling for unknown slugs.
+- Journal-only proxy handling and publication-aware language alternates. Journal language switching keeps English URLs free of the `/en` prefix.
+
 ## [2.2.0] - 2026-11-09
 
 ### Changed

@@ -37,6 +37,11 @@ const Footer = async () => {
                   </Link>
                 </li>
               ))}
+              <li>
+                <Link href='/blog' className={linkClass}>
+                  {t('journal')}
+                </Link>
+              </li>
             </ul>
           </div>
 

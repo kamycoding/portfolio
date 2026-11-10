@@ -10,6 +10,7 @@ import { openPalette } from '@/hooks/use-palette'
 import { useRestoreLocalePosition } from '@/hooks/use-switch-locale'
 import { useScrollSpy } from '@/hooks/use-scroll-spy'
 import { Link, usePathname } from '@/i18n/navigation'
+import { isJournalRoute } from '@/lib/blog/routes'
 import { getPage, SECTIONS } from '@/lib/sections'
 import { cn } from '@/lib/utils'
 
@@ -28,7 +29,9 @@ const TopBar = ({ versionLabel }: TopBarProps) => {
   const { activeId, progress } = useScrollSpy()
 
   // On a legal page its own file is the open tab, so no section tab is active.
-  const page = getPage(usePathname())
+  const pathname = usePathname()
+  const page = getPage(pathname)
+  const journal = isJournalRoute(pathname)
 
   return (
     <header className='border-hair bg-bg/84 fixed inset-x-0 top-0 z-40 flex h-(--top) items-stretch border-b backdrop-blur-md'>
@@ -50,7 +53,7 @@ const TopBar = ({ versionLabel }: TopBarProps) => {
 
       <nav aria-label={t('main')} className='flex min-w-0 flex-1 [scrollbar-width:none] overflow-x-auto'>
         {SECTIONS.map(section => {
-          const isActive = !page && section.id === activeId
+          const isActive = !page && !journal && section.id === activeId
 
           return (
             <Link
@@ -74,6 +77,20 @@ const TopBar = ({ versionLabel }: TopBarProps) => {
             </Link>
           )
         })}
+        <Link
+          href='/blog'
+          aria-label={`${t('journal')} (blog/)`}
+          aria-current={journal ? 'location' : undefined}
+          className={cn(
+            'border-hair relative flex items-center gap-2 border-r px-4.5 font-mono text-[13px] whitespace-nowrap',
+            journal
+              ? 'bg-panel text-text after:bg-kw after:absolute after:inset-x-0 after:top-0 after:h-[1.5px]'
+              : 'text-muted hover:text-text'
+          )}
+        >
+          <span aria-hidden='true' className='bg-prop size-1.75 flex-none rounded-[2px]' />
+          blog/
+        </Link>
         {page && (
           <Link
             href={page.href}

@@ -7,6 +7,7 @@ import { useRouter } from 'next/navigation'
 import { useLocale } from 'next-intl'
 
 import { usePathname } from '@/i18n/navigation'
+import { isJournalRoute, withoutLocalePrefix } from '@/lib/blog/routes'
 import { capturePosition, type ReadingPosition, restoreScrollY, type SectionBox } from '@/lib/locale-position'
 import { SECTIONS } from '@/lib/sections'
 import { localePath } from '@/lib/site'
@@ -38,12 +39,14 @@ export const useSwitchLocale = () => {
 
       if (next === locale) return
 
-      pending = capturePosition(measureSections(), window.scrollY, readingAnchor())
+      pending = isJournalRoute(pathname)
+        ? { kind: 'top' }
+        : capturePosition(measureSections(), window.scrollY, readingAnchor())
 
       // The proxy reads this cookie, so "/" is served in English instead of redirecting to /de (ADR 0004).
       // Session cookie with the same flags as the proxy's, as described in the privacy policy.
       document.cookie = `NEXT_LOCALE=${next}; path=/; SameSite=Lax; Secure`
-      router.replace(localePath(next, pathname), { scroll: false })
+      router.replace(localePath(next, withoutLocalePrefix(pathname)), { scroll: false })
     },
     [locale, pathname, router]
   )
