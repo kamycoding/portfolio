@@ -4,6 +4,8 @@ import { useEffect, useRef } from 'react'
 
 import { useTheme } from 'next-themes'
 
+import { useReadingRoute } from '@/hooks/use-reading-route'
+
 // Same breakpoint as the `lg` screen in globals.css: rulers are desktop only.
 const DESKTOP_QUERY = '(min-width: 981px)'
 
@@ -21,6 +23,13 @@ const Rulers = () => {
   const markXRef = useRef<HTMLDivElement>(null)
   const markYRef = useRef<HTMLDivElement>(null)
   const coordRef = useRef<HTMLDivElement>(null)
+  const { reading, pathname } = useReadingRoute()
+
+  // A route change without a pointer move must not leave the crosshair over the next page.
+  useEffect(() => {
+    for (const ref of [crossXRef, crossYRef, markXRef, markYRef, coordRef])
+      ref.current?.style.setProperty('opacity', '0')
+  }, [pathname])
 
   useEffect(() => {
     const desktop = window.matchMedia(DESKTOP_QUERY)
@@ -112,6 +121,9 @@ const Rulers = () => {
     const onPointerMove = (event: PointerEvent) => {
       if (event.pointerType !== 'mouse' || !desktop.matches) return
 
+      // Journal pages are for reading: no crosshair, no coordinates.
+      if (reading.current) return setVisible(false, false)
+
       const ruler = readPx('--ruler')
       const top = readPx('--top') + ruler
       const bottom = window.innerHeight - readPx('--status')
@@ -153,10 +165,11 @@ const Rulers = () => {
     }
 
     // Redraw with the new token colors when the theme changes.
-  }, [resolvedTheme])
+  }, [resolvedTheme, reading])
 
+  // data-rulers lets globals.css fade the scales on journal pages.
   return (
-    <div aria-hidden='true' className='hidden lg:block'>
+    <div aria-hidden='true' className='hidden lg:block' data-rulers=''>
       <div className='border-hair bg-bg fixed top-(--top) left-0 z-36 grid size-(--ruler) place-items-center border-r border-b'>
         <span className='border-faint size-1.25 rounded-[1px] border' />
       </div>

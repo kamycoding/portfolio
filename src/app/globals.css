@@ -119,6 +119,11 @@
   color-scheme: dark;
 }
 
+/* Journal pages are for reading: the ruler scales fade back (shell/rulers.tsx); their frame stays, so nothing moves. */
+html:has([data-reading]) [data-rulers] :is(canvas, span) {
+  opacity: 0.4;
+}
+
 /* The rulers are desktop only, so they take no space below 981px. */
 @media (max-width: 980px) {
   :root {

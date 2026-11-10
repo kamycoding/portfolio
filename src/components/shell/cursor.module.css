@@ -1,10 +1,18 @@
 /* Custom cursor from the prototype (style.css: .mcur). Only for a fine pointer that can hover. */
+/* A manual popover (cursor.tsx), so it can stay above other popovers; the reset removes the browser's popover box. */
 .cur {
   position: fixed;
-  top: 0;
-  left: 0;
+  inset: 0 auto auto 0;
   z-index: 200;
   display: none;
+  width: 0;
+  height: 0;
+  margin: 0;
+  padding: 0;
+  overflow: visible;
+  border: 0;
+  background: none;
+  color: inherit;
   pointer-events: none;
 }
 
@@ -122,4 +130,79 @@
 
 .hidden {
   opacity: 0;
+}
+
+/*
+ * Reading mode (journal pages): an editor caret over prose, a ring over links and controls, a dot elsewhere. All in
+ * --kw with a thin --bg outline so they show on every background in all four themes. No labels, no transitions.
+ */
+.reading .label {
+  display: none;
+}
+
+.reading .ring,
+.reading .dot {
+  transition: none;
+}
+
+.reading .dot {
+  width: 6px;
+  height: 6px;
+  margin: -3px 0 0 -3px;
+  border-radius: 50%;
+  background: var(--kw);
+  box-shadow: 0 0 0 1px var(--bg);
+}
+
+.reading .ring {
+  opacity: 0;
+}
+
+.reading.link .ring {
+  width: 22px;
+  height: 22px;
+  margin: -11px 0 0 -11px;
+  border: 1.5px solid var(--kw);
+  background: none;
+  box-shadow:
+    0 0 0 1px var(--bg),
+    inset 0 0 0 1px var(--bg);
+  opacity: 1;
+}
+
+.reading.link .dot {
+  opacity: 0;
+}
+
+.reading.down.link .ring {
+  width: 18px;
+  height: 18px;
+  margin: -9px 0 0 -9px;
+}
+
+/* The I-beam: a slim bar with a short serif at each end. */
+.reading.text .dot {
+  width: 2px;
+  height: 20px;
+  margin: -10px 0 0 -1px;
+  border-radius: 0;
+}
+
+.reading.text .dot::before,
+.reading.text .dot::after {
+  position: absolute;
+  left: -3px;
+  width: 8px;
+  height: 2px;
+  background: var(--kw);
+  box-shadow: 0 0 0 1px var(--bg);
+  content: '';
+}
+
+.reading.text .dot::before {
+  top: 0;
+}
+
+.reading.text .dot::after {
+  bottom: 0;
 }

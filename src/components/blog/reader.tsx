@@ -15,8 +15,9 @@ const Reader = async ({
   const t = await getTranslations({ locale, namespace: 'journal' })
   const file = slug ? `${locale}.mdx` : 'blog/'
 
+  // data-reading switches the shell to its reading cursor and quieter rulers (hooks/use-reading-route.ts).
   return (
-    <section className={styles.editor} aria-label={t('editor')}>
+    <section className={styles.editor} aria-label={t('editor')} data-reading=''>
       <nav className={styles.tabs} aria-label={t('files')}>
         <Link href='/blog' aria-current={slug ? undefined : 'page'} className={styles.tab}>
           blog/

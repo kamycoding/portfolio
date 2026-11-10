@@ -4,6 +4,7 @@ import { useEffect, useRef } from 'react'
 
 import { useTranslations } from 'next-intl'
 
+import { useReadingRoute } from '@/hooks/use-reading-route'
 import { prefersReducedMotion } from '@/lib/actions'
 
 import styles from './cursor.module.css'
@@ -13,6 +14,10 @@ const TEXT = 'input:not([type=checkbox]), textarea, [contenteditable], [data-cur
 
 // Everything a click does something on grows the ring; data-cursor names the action.
 const CLICKABLE = 'a, button, [role="button"], [role="option"], [data-cursor]'
+
+// Journal pages: a ring over these, an editor caret over prose, a dot everywhere else.
+const READING_TARGETS = 'a, button, summary, label, [role="button"], [role="option"]'
+const PROSE = 'p, li, h1, h2, h3, h4, h5, h6, blockquote, pre, code, figcaption, dt, dd'
 
 type Labels = Readonly<Record<'go' | 'open' | 'copy' | 'run' | 'pet' | 'fold', string>>
 
@@ -39,6 +44,7 @@ const Cursor = () => {
   const ringRef = useRef<HTMLSpanElement>(null)
   const dotRef = useRef<HTMLSpanElement>(null)
   const labelRef = useRef<HTMLSpanElement>(null)
+  const { reading } = useReadingRoute()
 
   const labels: Labels = {
     go: t('go'),
@@ -70,9 +76,27 @@ const Cursor = () => {
 
     html.classList.add('has-cur')
 
+    // The top layer sits above every z-index, so a Term popover would cover the cursor. The cursor is a manual popover
+    // too and is shown again whenever another one opens, which puts it last in the top layer.
+    const raise = () => {
+      if (typeof root.showPopover !== 'function') return
+
+      if (root.matches(':popover-open')) root.hidePopover()
+
+      root.showPopover()
+    }
+
+    const onToggle = (event: Event) => {
+      if (event.target !== root && (event as ToggleEvent).newState === 'open') raise()
+    }
+
+    raise()
+    document.addEventListener('toggle', onToggle, true)
+
     // The ring eases toward the pointer and the loop stops once it has arrived.
     const follow = () => {
-      const ease = prefersReducedMotion() ? 1 : 0.2
+      // Reading mode never trails: the caret and dot sit exactly on the pointer.
+      const ease = prefersReducedMotion() || reading.current ? 1 : 0.2
 
       ringX += (x - ringX) * ease
       ringY += (y - ringY) * ease
@@ -94,7 +118,21 @@ const Cursor = () => {
         root.classList.remove(styles.hidden)
       }
 
-      const [kind, text] = event.target instanceof Element ? kindOf(event.target, currentLabels) : ['', '']
+      const target = event.target instanceof Element ? event.target : null
+
+      // Reading mode (cursor.module.css): links and controls first, then prose, then the plain dot.
+      if (reading.current) {
+        root.classList.add(styles.reading)
+        root.classList.toggle(styles.link, Boolean(target?.closest(READING_TARGETS)))
+        root.classList.toggle(styles.text, !target?.closest(READING_TARGETS) && Boolean(target?.closest(PROSE)))
+        if (frame === 0) frame = window.requestAnimationFrame(follow)
+
+        return
+      }
+
+      root.classList.remove(styles.reading)
+
+      const [kind, text] = target ? kindOf(target, currentLabels) : ['', '']
 
       root.classList.toggle(styles.link, kind === 'link')
       root.classList.toggle(styles.text, kind === 'text')
@@ -117,6 +155,8 @@ const Cursor = () => {
     document.documentElement.addEventListener('mouseleave', onLeave)
 
     return () => {
+      document.removeEventListener('toggle', onToggle, true)
+      if (root.matches(':popover-open')) root.hidePopover()
       html.classList.remove('has-cur')
       window.removeEventListener('pointermove', onMove)
       window.removeEventListener('pointerdown', onDown)
@@ -124,10 +164,10 @@ const Cursor = () => {
       document.documentElement.removeEventListener('mouseleave', onLeave)
       window.cancelAnimationFrame(frame)
     }
-  }, [labelKey])
+  }, [labelKey, reading])
 
   return (
-    <div ref={rootRef} aria-hidden='true' className={`${styles.cur} ${styles.hidden}`}>
+    <div ref={rootRef} popover='manual' aria-hidden='true' className={`${styles.cur} ${styles.hidden}`}>
       <span ref={ringRef} className={styles.ring}>
         <span ref={labelRef} className={styles.label} />
       </span>
