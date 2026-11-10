@@ -1,0 +1,32 @@
+import { z } from 'zod'
+
+export const postLanguageSchema = z.enum(['en', 'de'])
+export const postSlugSchema = z.string().regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/, 'Use a lowercase, hyphen-separated slug.')
+
+const text = z.string().trim().min(1)
+
+export const postMetadataSchema = z
+  .strictObject({
+    title: text,
+    description: text,
+    date: z.iso.date(),
+    updated: z.iso.date().optional(),
+    category: z.enum(['engineering', 'product', 'design', 'learning', 'career', 'tools']),
+    format: z.enum(['essay', 'note', 'interactive', 'series', 'visual']),
+    series: postSlugSchema.optional(),
+    tags: z.array(text).refine(tags => new Set(tags).size === tags.length, 'Tags must be unique.'),
+    draft: z.literal(false, { error: 'Published posts cannot be drafts. Keep drafts in content/drafts/.' }),
+    lang: postLanguageSchema
+  })
+  .superRefine((metadata, context) => {
+    if (metadata.updated && metadata.updated < metadata.date) {
+      context.addIssue({ code: 'custom', path: ['updated'], message: 'Updated must not precede the publication date.' })
+    }
+
+    if (metadata.format === 'series' && !metadata.series) {
+      context.addIssue({ code: 'custom', path: ['series'], message: 'The series format requires a series identifier.' })
+    }
+  })
+
+export type PostLanguage = z.infer<typeof postLanguageSchema>
+export type PostMetadata = z.infer<typeof postMetadataSchema>
