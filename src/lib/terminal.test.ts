@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
-import { parseCommand, suggest } from './terminal'
+import { parseCommand, postCommandLines, postSlugFromArg, suggest } from './terminal'
 
 describe('parseCommand', () => {
   it('splits name and argument, ignoring case and extra spaces', () => {
@@ -39,5 +39,30 @@ describe('suggest', () => {
   it('returns null when nothing longer matches', () => {
     expect(suggest('git log', [])).toBeNull()
     expect(suggest('xyz', [])).toBeNull()
+  })
+})
+
+describe('journal commands', () => {
+  const lines = postCommandLines(['first-post', 'second-post'])
+
+  it('offers open and cat for every published post', () => {
+    expect(lines).toEqual(['open first-post', 'open second-post', 'cat blog/first-post', 'cat blog/second-post'])
+  })
+
+  it('completes them after the built-in commands, newest post first', () => {
+    expect(suggest('ls b', [], lines)).toBe('ls blog')
+    expect(suggest('op', [], lines)).toBe('open first-post')
+    expect(suggest('open s', [], lines)).toBe('open second-post')
+    expect(suggest('cat', [], lines)).toBe('cat blog/first-post')
+    expect(suggest('op', [])).toBeNull()
+  })
+
+  it('reads the slug from the forms a visitor may type', () => {
+    expect(postSlugFromArg('first-post')).toBe('first-post')
+    expect(postSlugFromArg('blog/first-post')).toBe('first-post')
+    expect(postSlugFromArg('./blog/first-post/')).toBe('first-post')
+    expect(postSlugFromArg('blog/first-post/en.mdx')).toBe('first-post')
+    expect(postSlugFromArg('blog')).toBe('')
+    expect(postSlugFromArg('blog/')).toBe('')
   })
 })

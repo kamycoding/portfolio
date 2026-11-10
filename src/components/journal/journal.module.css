@@ -1,0 +1,458 @@
+/*
+ * blog/ on the homepage: a split editor like VS Code's Markdown preview. The explorer sits on --panel-2, the preview
+ * on --panel; every text and background pair was checked for WCAG AA in all four themes. Nothing here changes size
+ * after the first paint: hover and focus only change colours and the preview header text.
+ */
+.window {
+  margin-top: 56px;
+  overflow: hidden;
+  border: 1px solid var(--hair-2);
+  border-radius: 14px;
+  background: var(--panel);
+  box-shadow: var(--shadow);
+}
+
+.panes {
+  display: grid;
+  grid-template-columns: minmax(240px, 300px) minmax(0, 1fr);
+}
+
+.paneHead {
+  display: flex;
+  align-items: center;
+  height: 42px;
+  overflow: hidden;
+  border-bottom: 1px solid var(--hair);
+  font:
+    400 12.5px var(--font-geist-mono),
+    monospace;
+  color: var(--muted);
+}
+
+/* ---------- explorer ---------- */
+.explorer {
+  min-width: 0;
+  border-right: 1px solid var(--hair);
+  background: var(--panel-2);
+}
+
+.explorerTitle {
+  padding: 0 16px;
+  font-size: 11.5px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.tree {
+  padding: 8px 0 20px;
+  list-style: none;
+  font:
+    400 12.5px/1.5 var(--font-geist-mono),
+    monospace;
+}
+
+.tree ul {
+  list-style: none;
+}
+
+.row {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  width: 100%;
+  padding: 4px 14px;
+  border: 0;
+  background: none;
+  color: var(--muted);
+  font: inherit;
+  text-align: left;
+  overflow-wrap: anywhere;
+}
+
+.root {
+  color: var(--text);
+}
+
+.folder {
+  padding-left: 28px;
+  cursor: pointer;
+}
+
+.file {
+  padding-left: 42px;
+  color: var(--text);
+}
+
+.heading {
+  padding-left: 62px;
+}
+
+.chevron {
+  flex: none;
+  width: 1ch;
+  color: var(--faint);
+}
+
+.hash {
+  flex: none;
+  margin-left: -14px;
+  color: var(--faint);
+}
+
+.mdBadge {
+  align-self: center;
+  background: var(--prop);
+}
+
+.folder[data-selected] {
+  color: var(--text);
+}
+
+.folder:hover,
+.file:hover,
+.heading:hover,
+.heading:focus-visible,
+.file:focus-visible,
+.folder:focus-visible {
+  background: var(--panel-3);
+  color: var(--text);
+}
+
+.heading:hover,
+.heading:focus-visible {
+  box-shadow: inset 2px 0 var(--kw);
+}
+
+/* The window clips overflow, so the focus ring sits inside the row. */
+.row:focus-visible {
+  outline-offset: -2px;
+  border-radius: 0;
+}
+
+/* ---------- preview ---------- */
+.preview {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+}
+
+.tab {
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: 8px;
+  height: 100%;
+  padding: 0 16px;
+  border-right: 1px solid var(--hair);
+  background: var(--panel-2);
+  box-shadow: inset 0 1.5px 0 var(--kw);
+  color: var(--text);
+  white-space: nowrap;
+}
+
+.crumb {
+  min-width: 0;
+  padding: 0 16px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.body {
+  flex: 1;
+  min-height: 520px;
+  padding: clamp(24px, 3.4vw, 48px);
+}
+
+.comment {
+  font:
+    400 12.5px/1.6 var(--font-geist-mono),
+    monospace;
+  color: var(--muted);
+}
+
+.title {
+  max-width: 24ch;
+  margin-top: 14px;
+  font-size: clamp(26px, 3vw, 40px);
+  font-weight: 600;
+  line-height: 1.12;
+  letter-spacing: -0.03em;
+  text-wrap: balance;
+  overflow-wrap: anywhere;
+}
+
+.tldr {
+  max-width: 56ch;
+  margin-top: 16px;
+  font-size: 16.5px;
+  line-height: 1.65;
+  color: var(--muted);
+}
+
+.tldrLabel {
+  margin-right: 10px;
+  font:
+    400 12.5px var(--font-geist-mono),
+    monospace;
+  color: var(--com);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 28px;
+}
+
+/* ---------- diff card ---------- */
+.card {
+  max-width: 620px;
+  margin: 28px 0 0;
+  box-shadow: none;
+}
+
+.diffBadge {
+  background: var(--ok);
+}
+
+.stat {
+  margin-left: auto;
+  padding: 0 16px;
+  font:
+    400 12.5px var(--font-geist-mono),
+    monospace;
+  white-space: nowrap;
+}
+
+.minus {
+  color: var(--err);
+}
+
+.plus {
+  color: var(--ok);
+}
+
+.diff {
+  padding-top: 18px;
+}
+
+.hunk {
+  padding: 0 22px 12px 44px;
+  font:
+    400 12.5px var(--font-geist-mono),
+    monospace;
+  color: var(--faint);
+  overflow-wrap: anywhere;
+}
+
+/* Label, sentence and play button; the sign and the bar repeat what the label says, so colour is never alone. */
+.diffRow {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 4px 16px;
+  align-items: center;
+  padding: 16px 22px 18px 44px;
+}
+
+.diffRow::before {
+  position: absolute;
+  top: 14px;
+  left: 20px;
+  font:
+    600 15px var(--font-geist-mono),
+    monospace;
+}
+
+.remove {
+  box-shadow: inset 3px 0 var(--err);
+}
+
+.remove::before {
+  content: '-';
+  color: var(--err);
+}
+
+/* The last row closes the card, so it takes the frame's inner radius. */
+.add {
+  padding-bottom: 24px;
+  border-radius: 0 0 13px 13px;
+  box-shadow: inset 3px 0 var(--ok);
+  background: color-mix(in srgb, var(--ok) 7%, transparent);
+}
+
+/* On the tinted row --ok drops below AA in Light Modern and Solarized Dark, so the sign takes the text colour. */
+.add::before {
+  content: '+';
+  color: var(--text);
+}
+
+.label {
+  grid-column: 1 / -1;
+  font:
+    400 12px var(--font-geist-mono),
+    monospace;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.german {
+  grid-column: 1;
+  font-size: clamp(20px, 2.2vw, 28px);
+  font-weight: 500;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+  text-decoration: none;
+  overflow-wrap: anywhere;
+}
+
+.remove .german {
+  color: var(--muted);
+}
+
+/* The article's audio button, enlarged: this is the one control the card is about. */
+.play {
+  grid-column: 2;
+  grid-row: 2 / span 2;
+  display: grid;
+}
+
+.play button {
+  width: 46px;
+  height: 46px;
+  border-color: var(--hair-3);
+  border-radius: 50%;
+  color: var(--text);
+}
+
+.play button:hover,
+.play button[data-playing] {
+  border-color: var(--ok);
+}
+
+.play svg {
+  width: 18px;
+  height: 18px;
+}
+
+.meaning {
+  grid-column: 1;
+  margin-top: 2px;
+  font-size: 14.5px;
+  line-height: 1.5;
+  color: var(--muted);
+}
+
+/*
+ * The spoken line slides in as the card scrolls into view. Scroll-driven and CSS only, so the server HTML is the
+ * final state: without support, or with reduced motion, the line is simply there.
+ */
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    .add > :not(.play) {
+      animation: said linear both;
+      animation-timeline: view();
+      animation-range: entry 35% cover 32%;
+    }
+  }
+}
+
+@keyframes said {
+  from {
+    opacity: 0;
+    transform: translateX(-10px);
+  }
+}
+
+/* ---------- mobile outline ---------- */
+.outlineList {
+  display: none;
+  margin-top: 32px;
+  padding-top: 20px;
+  border-top: 1px solid var(--hair);
+}
+
+.outlineTitle {
+  font:
+    400 12px var(--font-geist-mono),
+    monospace;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.outlineList ul {
+  margin-top: 8px;
+  list-style: none;
+}
+
+.outlineLink {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  min-height: 44px;
+  padding: 8px 0;
+  color: var(--muted);
+  line-height: 1.4;
+}
+
+.outlineLink:hover {
+  color: var(--text);
+}
+
+/* ---------- status bar ---------- */
+.status {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px 0;
+  padding: 0 4px;
+  border-top: 1px solid var(--hair);
+  background: var(--panel-2);
+  font:
+    400 12px/1 var(--font-geist-mono),
+    monospace;
+  color: var(--muted);
+  list-style: none;
+}
+
+.status li {
+  padding: 10px 12px;
+}
+
+.status li + li {
+  border-left: 1px solid var(--hair);
+}
+
+.outlineList.always {
+  display: block;
+}
+
+@media (max-width: 980px) {
+  .panes {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .explorer {
+    display: none;
+  }
+
+  .outlineList {
+    display: block;
+  }
+
+  .body {
+    min-height: 0;
+  }
+}
+
+@media (max-width: 560px) {
+  .tab {
+    border-right: 0;
+  }
+
+  .crumb {
+    display: none;
+  }
+}

@@ -1,6 +1,6 @@
 'use client'
 
-import type { ReactNode } from 'react'
+import type { ComponentProps, ReactNode } from 'react'
 
 import { useLocale } from 'next-intl'
 
@@ -13,15 +13,25 @@ export const setLocaleCookie = (language: PostLanguage) => {
   document.cookie = `NEXT_LOCALE=${language}; path=/; SameSite=Lax; Secure`
 }
 
-type PostLinkProps = Readonly<{ slug: string; language: PostLanguage; className?: string; children: ReactNode }>
+type PostLinkProps = Readonly<{
+  slug: string
+  language: PostLanguage
+
+  // A heading id, to open the article at that heading.
+  hash?: string
+  className?: string
+  children: ReactNode
+}> &
+  Pick<ComponentProps<'a'>, 'onFocus' | 'onBlur' | 'onPointerEnter' | 'onPointerLeave'>
 
 // Links a post in the language it is published in. English URLs stay free of /en.
-const PostLink = ({ slug, language, className, children }: PostLinkProps) => {
+const PostLink = ({ slug, language, hash, className, children, ...handlers }: PostLinkProps) => {
   const locale = useLocale()
+  const path = `/blog/${slug}${hash ? `#${hash}` : ''}`
 
   if (language === locale) {
     return (
-      <Link href={`/blog/${slug}`} lang={language} className={className}>
+      <Link href={path} lang={language} className={className} {...handlers}>
         {children}
       </Link>
     )
@@ -30,11 +40,12 @@ const PostLink = ({ slug, language, className, children }: PostLinkProps) => {
   // A plain link without prefetch: the cookie must be set before the request, or locale detection redirects back.
   return (
     <a
-      href={localePath(language, `/blog/${slug}`)}
+      href={localePath(language, path)}
       hrefLang={language}
       lang={language}
       className={className}
       onClick={() => setLocaleCookie(language)}
+      {...handlers}
     >
       {children}
     </a>

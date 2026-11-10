@@ -16,6 +16,9 @@ export const postMetadataSchema = z
   .strictObject({
     title,
     description,
+
+    // One or two sentences, shown by the article's TLDR block and the homepage journal section.
+    tldr: text.optional(),
     date: z.iso.date(),
     updated: z.iso.date().optional(),
     category: z.enum(['engineering', 'product', 'design', 'learning', 'career', 'tools']),

@@ -9,15 +9,18 @@ import { CONTRIBUTIONS, PROFILE_URL } from '@/content/activity'
 import { PROJECTS } from '@/content/projects'
 import { animateBuild, getBlueprint } from '@/hooks/use-blueprint'
 import { wakeCat } from '@/hooks/use-cat'
+import { useOpenPost } from '@/hooks/use-open-post'
 import { openProject } from '@/hooks/use-project-drawer'
 import { useReady } from '@/hooks/use-ready'
 import { useSwitchLocale } from '@/hooks/use-switch-locale'
+import { useRouter } from '@/i18n/navigation'
 import { goToSection, prefersReducedMotion } from '@/lib/actions'
+import type { PostEntry } from '@/lib/blog/home'
 import { BUILD_MAX, planPercent } from '@/lib/blueprint'
 import { GITHUB_USER, periodText, WEEKS } from '@/lib/contributions'
 import { buildHeatmap } from '@/lib/heatmap'
 import { SECTIONS } from '@/lib/sections'
-import { parseCommand, suggest } from '@/lib/terminal'
+import { parseCommand, postCommandLines, postSlugFromArg, suggest } from '@/lib/terminal'
 import { findTheme, getTheme, isDarkTheme, THEMES } from '@/lib/themes'
 import { cn } from '@/lib/utils'
 
@@ -62,11 +65,16 @@ const Prompt = ({ failed }: Readonly<{ failed: boolean }>) => (
   </span>
 )
 
-const Terminal = () => {
+// posts: the published journal posts, newest first, as the homepage lists them for this language.
+type TerminalProps = Readonly<{ posts: readonly PostEntry[] }>
+
+const Terminal = ({ posts }: TerminalProps) => {
   const t = useTranslations('hero.terminal')
   const tStack = useTranslations('stack.heat')
   const locale = useLocale()
   const switchLocale = useSwitchLocale()
+  const openPost = useOpenPost()
+  const router = useRouter()
   const { resolvedTheme, setTheme } = useTheme()
   const ready = useReady()
 
@@ -81,7 +89,8 @@ const Terminal = () => {
   const bodyRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
 
-  const suggestion = suggest(input, history)
+  const suggestion = suggest(input, history, postCommandLines(posts.map(post => post.slug)))
+
   const ghost = suggestion ? suggestion.slice(input.length) : ''
 
   const print = (content: ReactNode, kind: Line['kind'] = 'out') =>
@@ -121,8 +130,57 @@ const Terminal = () => {
         <button type='button' className={styles.outLink} onClick={() => run('ls projects')}>
           projects/
         </button>
+        {'  '}
+        <button type='button' className={styles.outLink} onClick={() => run('ls blog')}>
+          blog/
+        </button>
       </>
     )
+
+  // Posts print like projects: the slug is the control, the title explains it.
+  const listPosts = () =>
+    posts.length === 0
+      ? print(<span className={styles.dim}>{t('blogEmpty')}</span>)
+      : print(
+          posts.map((post, index) => (
+            <span key={post.slug}>
+              {index > 0 && '\n'}
+              <button type='button' className={styles.outLink} onClick={() => run(`open ${post.slug}`)}>
+                {post.slug}/
+              </button>
+              {'  '}
+              <span lang={post.lang}>{post.title}</span>
+            </span>
+          ))
+        )
+
+  // `open <slug>` and `cat blog/<slug>` leave the homepage; "blog" alone opens the journal index.
+  const visitPost = (command: 'open' | 'cat', arg: string) => {
+    const slug = postSlugFromArg(arg)
+
+    if (!arg || (command === 'cat' && !/^(?:\.\/)?blog\//.test(arg))) return fail(t(`${command}Usage`))
+
+    if (!slug) {
+      print(
+        <>
+          <span className={styles.ok}>→</span> blog/
+        </>
+      )
+
+      return router.push('/blog')
+    }
+
+    const post = posts.find(item => item.slug === slug)
+
+    if (!post) return fail(t('postMissing', { command, slug }))
+
+    print(
+      <>
+        <span className={styles.ok}>→</span> blog/{post.slug}/{post.lang}.mdx
+      </>
+    )
+    openPost(post)
+  }
 
   const listProjects = () =>
     print(
@@ -217,7 +275,12 @@ const Terminal = () => {
 
         if (arg === 'projects' || arg === 'projects/') return listProjects()
 
+        if (arg === 'blog' || arg === 'blog/') return listPosts()
+
         return fail(t('lsMissing', { path: arg }))
+      case 'open':
+      case 'cat':
+        return visitPost(name, arg)
       case 'git':
         return arg === 'log' ? gitLog() : fail(t('gitUsage'))
 
