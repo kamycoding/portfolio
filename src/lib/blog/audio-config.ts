@@ -15,12 +15,12 @@ export const audioConfig: AudioConfig = {
 
   // Each voice with the model that suits it best; `pnpm audio --model` overrides all of them for samples.
   voices: {
-    narrator: { id: 'vv3bG6FrcGtmeOdRSriS', model: 'eleven_multilingual_v2' },
+    narrator: { id: 'vv3bG6FrcGtmeOdRSriS', model: 'eleven_v4' },
 
     // In the order a dialogue declares its speakers: the first speaker shares the narrator's voice.
     speakers: [
-      { id: 'vv3bG6FrcGtmeOdRSriS', model: 'eleven_multilingual_v2' },
-      { id: 'petid4zVzpITlltH2r3L', model: 'eleven_multilingual_v2' }
+      { id: 'vv3bG6FrcGtmeOdRSriS', model: 'eleven_v4' },
+      { id: 'petid4zVzpITlltH2r3L', model: 'eleven_v4' }
     ]
   }
 }
