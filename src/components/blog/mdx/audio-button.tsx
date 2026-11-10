@@ -5,12 +5,21 @@ import { useEffect, useId, useRef, useState, useSyncExternalStore } from 'react'
 import { useTranslations } from 'next-intl'
 
 import { endPlayback, startPlayback, stopPlayback, usePlayingId } from '@/hooks/use-audio-playback'
+import { cn } from '@/lib/utils'
 
 import styles from './audio-button.module.css'
 
 export type ClipAudio = Readonly<{ src?: string; text: string }>
 
-type AudioButtonProps = ClipAudio & Readonly<{ label: string; onTime?: (milliseconds: number | null) => void }>
+type AudioButtonProps = ClipAudio &
+  Readonly<{
+    label: string
+    onTime?: (milliseconds: number | null) => void
+    className?: string
+
+    // A visible text next to the icon, which then is also the accessible name (WCAG 2.5.3).
+    visible?: Readonly<{ idle: string; playing: string }>
+  }>
 
 // Only a voice on this device may speak a missing clip; a remote voice would send the text to a third party.
 const localGermanVoice = () =>
@@ -29,7 +38,7 @@ const hasLocalGermanVoice = () => Boolean(localGermanVoice())
  * Plays a same-origin clip through a native <audio> element, which loads nothing before the first click and never
  * autoplays (docs/adr/0007). Without a clip it falls back to a local German voice, otherwise it says so.
  */
-const AudioButton = ({ src, text, label, onTime }: AudioButtonProps) => {
+const AudioButton = ({ src, text, label, onTime, className, visible }: AudioButtonProps) => {
   const t = useTranslations('journal.audio')
   const id = useId()
   const audio = useRef<HTMLAudioElement>(null)
@@ -101,8 +110,18 @@ const AudioButton = ({ src, text, label, onTime }: AudioButtonProps) => {
     <>
       <button
         type='button'
-        className={styles.button}
-        aria-label={playing ? t('stop') : source === 'none' ? t('unavailable') : label}
+        className={cn(styles.button, className)}
+        aria-label={
+          visible
+            ? playing
+              ? visible.playing
+              : visible.idle
+            : playing
+              ? t('stop')
+              : source === 'none'
+                ? t('unavailable')
+                : label
+        }
         aria-disabled={source === 'none' || undefined}
         data-playing={playing || undefined}
         onClick={toggle}
@@ -119,6 +138,7 @@ const AudioButton = ({ src, text, label, onTime }: AudioButtonProps) => {
             <path d='M5 3v10l8-5z' fill='currentColor' />
           )}
         </svg>
+        {visible && <span>{playing ? visible.playing : visible.idle}</span>}
       </button>
       {src && <audio ref={audio} src={src} preload='none' onEnded={() => endPlayback(id)} onError={fail} />}
     </>

@@ -87,26 +87,17 @@ const createLearningSchema = (lang: PostLanguage) => {
       'Narration headings must be unique.'
     )
 
-  return z
-    .strictObject({
-      terms: z.record(idSchema, termSchema).optional(),
-      sentences: z.record(idSchema, sentenceSchema).optional(),
-      dialogues: z.record(idSchema, dialogueSchema).optional(),
-      quizzes: z.record(idSchema, quizSchema).optional(),
-      narration: narrationSchema.optional(),
-
-      // The homepage diff card: a textbook line next to the term people really say, which also supplies its audio.
-      contrast: z.strictObject({ textbook: text, term: idSchema }).optional()
-    })
-    .superRefine((learning, context) => {
-      if (learning.contrast && !learning.terms?.[learning.contrast.term]) {
-        context.addIssue({ code: 'custom', path: ['contrast', 'term'], message: 'The term must be one of the terms.' })
-      }
-    })
+  return z.strictObject({
+    terms: z.record(idSchema, termSchema).optional(),
+    sentences: z.record(idSchema, sentenceSchema).optional(),
+    dialogues: z.record(idSchema, dialogueSchema).optional(),
+    quizzes: z.record(idSchema, quizSchema).optional(),
+    narration: narrationSchema.optional()
+  })
 }
 
 export const learningSchemas = { en: createLearningSchema('en'), de: createLearningSchema('de') }
 
 export type Learning = z.output<(typeof learningSchemas)['en']>
-export type LearningKind = Exclude<keyof Learning, 'contrast' | 'narration'>
+export type LearningKind = Exclude<keyof Learning, 'narration'>
 export type LearningEntry<K extends LearningKind> = NonNullable<Learning[K]>[string]

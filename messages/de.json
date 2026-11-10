@@ -156,18 +156,27 @@
       "eyebrow": "// journal",
       "title": "Software entwickeln in Deutschland, <soft>aufgeschrieben.</soft>",
       "meta": "{count, plural, one {# Beitrag} other {# Beiträge}}",
-      "read": "Artikel lesen",
-      "all": "Alle Beiträge",
-      "diffLabel": "Lehrbuchdeutsch im Vergleich zu dem, was Leute wirklich sagen",
-      "textbook": "Lehrbuch",
-      "real": "was Leute sagen",
-      "explorer": "Explorer",
-      "preview": "Vorschau",
-      "outline": "Gliederung",
-      "status": "Fakten zum Artikel",
-      "statusRead": "{minutes} Min. Lesezeit",
-      "statusTerms": "{count, plural, one {# Begriff} other {# Begriffe}}",
-      "statusClips": "{count, plural, one {# Audioclip} other {# Audioclips}}"
+      "openEditors": "Geöffnete Editoren",
+      "quickOpen": "Schnell öffnen…",
+      "quickOpenLabel": "Schnell öffnen: Beiträge nach Titel oder Tag filtern",
+      "categories": "Kategorien",
+      "all": "Alle",
+      "noMatch": "Kein passender Beitrag.",
+      "previous": "Vorherige Beiträge",
+      "next": "Weitere Beiträge",
+      "listen": "Anhören",
+      "stop": "Stopp",
+      "copyLink": "Link kopieren",
+      "copied": "Kopiert",
+      "open": "Öffnen",
+      "allPosts": "Alle Beiträge",
+      "availableIn": "Verfügbar auf {languages}",
+      "minutes": "{minutes} Min.",
+      "badgeAudio": "Audio",
+      "badgeInteractive": "interaktiv",
+      "badgeQuiz": "Quiz",
+      "lineAdded": "Hinzugefügte Zeile: ",
+      "lineRemoved": "Entfernte Zeile: "
     },
     "interactive": {
       "puzzle": {
@@ -708,14 +717,6 @@
       "select": "auswählen",
       "restore": "zurücksetzen"
     }
-  },
-  "cursor": {
-    "go": "go",
-    "open": "öffnen",
-    "copy": "kopieren",
-    "run": "run",
-    "pet": "streicheln",
-    "fold": "fold"
   },
   "meta": {
     "title": "Kamyar Zamanfar, Full-Stack-Entwickler",

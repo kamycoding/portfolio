@@ -2,7 +2,17 @@ import { describe, expect, it } from 'vitest'
 
 import { clipHash, clipPath } from './audio'
 import { audioConfig } from './audio-config'
-import { HOME_POSTS, homePosts, outlineHeadings, postContrast, postEntries, postStats, readingMinutes } from './home'
+import {
+  cardBadges,
+  firstClip,
+  HOME_POSTS,
+  homePosts,
+  postEntries,
+  readingMinutes,
+  sectionWeights,
+  shortName,
+  shorten
+} from './home'
 import type { PublishedPost } from './posts'
 import type { PostLanguage } from './schema'
 
@@ -25,27 +35,23 @@ const post = (slug: string, lang: PostLanguage, date: string, extra: Partial<Pub
   ...extra
 })
 
-const learning = {
-  terms: { stuck: { de: 'Da häng ich grad ein bisschen.', en: "I'm a bit stuck there." } },
-  contrast: { textbook: 'Ich habe ein Problem.', term: 'stuck' }
-}
+const learning = { terms: { stuck: { de: 'Da häng ich grad ein bisschen.', en: "I'm a bit stuck there." } } }
 
 describe('homePosts', () => {
   it('is empty while nothing is published, which hides the section', () => {
     expect(homePosts([], 'en')).toEqual([])
   })
 
-  it('keeps the newest posts, one entry per slug in the best language', () => {
+  it('keeps one entry per slug in the best language, newest first', () => {
     const posts = [
       post('a', 'en', '2026-11-01'),
       post('b', 'en', '2026-11-04'),
       post('b', 'de', '2026-11-04'),
-      post('c', 'en', '2026-11-03'),
-      post('d', 'de', '2026-11-02')
+      post('c', 'en', '2026-11-03')
     ]
 
-    expect(homePosts(posts, 'de').map(item => `${item.slug}/${item.metadata.lang}`)).toEqual(['b/de', 'c/en', 'd/de'])
-    expect(homePosts(posts, 'de')).toHaveLength(HOME_POSTS)
+    expect(homePosts(posts, 'de').map(item => `${item.slug}/${item.metadata.lang}`)).toEqual(['b/de', 'c/en', 'a/en'])
+    expect(HOME_POSTS).toBeGreaterThan(3)
   })
 })
 
@@ -60,30 +66,6 @@ describe('postEntries', () => {
   })
 })
 
-describe('postContrast', () => {
-  it('is null without a contrast in learning.json', () => {
-    expect(postContrast(post('a', 'en', '2026-11-01'))).toBeNull()
-    expect(postContrast(post('a', 'en', '2026-11-01', { learning: { terms: learning.terms } }))).toBeNull()
-  })
-
-  it('pairs the textbook line with the term and offers no file before the clip exists', () => {
-    expect(postContrast(post('a', 'en', '2026-11-01', { learning }))).toEqual({
-      textbook: 'Ich habe ein Problem.',
-      real: 'Da häng ich grad ein bisschen.',
-      meaning: "I'm a bit stuck there.",
-      audio: { src: undefined, text: 'Da häng ich grad ein bisschen.' }
-    })
-  })
-
-  it('plays the clip the article plays once audio.json lists it', () => {
-    const hash = clipHash(learning.terms.stuck.de, audioConfig.voices.narrator, audioConfig)
-    const clips = { [hash]: { text: learning.terms.stuck.de, model: 'model', voice: 'voice' } }
-    const contrast = postContrast(post('a', 'en', '2026-11-01', { learning, audio: { version: 1, clips } }))
-
-    expect(contrast?.audio.src).toBe(clipPath('a', hash))
-  })
-})
-
 describe('readingMinutes', () => {
   it('counts prose only and rounds up', () => {
     const body = Array.from({ length: 300 }, () => 'word').join(' ')
@@ -94,28 +76,61 @@ describe('readingMinutes', () => {
   })
 })
 
-describe('outlineHeadings', () => {
-  it('keeps the h2 headings only', () => {
-    const outline = [
-      { id: 'a', text: 'A', depth: 2 },
-      { id: 'b', text: 'B', depth: 3 }
-    ] as const
+describe('sectionWeights', () => {
+  const source = `export const metadata = {\n  title: 'x'\n}\n\nIntro words.\n\n## One\n\n${'a '.repeat(40)}\n\n<h2 id="two">Two</h2>\n\n${'b '.repeat(20)}\n\n\`\`\`md\n## not a heading\n\`\`\`\n`
 
-    expect(outlineHeadings(outline)).toEqual([{ id: 'a', text: 'A' }])
+  it('is proportional to the longest section, in reading order, for both heading styles', () => {
+    expect(sectionWeights(source, 2)).toEqual([1, 0.5])
+  })
+
+  it('is null when the source does not match the outline', () => {
+    expect(sectionWeights(source, 3)).toBeNull()
+    expect(sectionWeights(source, 0)).toBeNull()
   })
 })
 
-describe('postStats', () => {
-  it('counts terms and the clips that audio.json lists, and nothing else', () => {
+describe('shortName', () => {
+  it('keeps short slugs and cuts long ones at a word', () => {
+    expect(shortName('short-post')).toBe('short-post')
+    expect(shortName('german-for-developers-dailies-calls')).toBe('german-for-developers…')
+    expect(shortName('javascript-event-loop-explained')).toBe('javascript-event-loop…')
+  })
+})
+
+describe('shorten', () => {
+  it('cuts at a word and leaves short text alone', () => {
+    expect(shorten('A short line.')).toBe('A short line.')
+    expect(shorten('one two three four five', 12)).toBe('one two…')
+  })
+})
+
+describe('firstClip and cardBadges', () => {
+  it('has no clip before audio.json lists one', () => {
+    expect(firstClip(post('a', 'en', '2026-11-01', { learning }))).toBeNull()
+  })
+
+  it('plays the first listed term clip when there is no narration', () => {
     const hash = clipHash(learning.terms.stuck.de, audioConfig.voices.narrator, audioConfig)
     const clips = { [hash]: { text: learning.terms.stuck.de, model: 'model', voice: 'voice' } }
+    const withAudio = post('a', 'en', '2026-11-01', { learning, audio: { version: 1, clips } })
+    const clip = firstClip(withAudio)
 
-    expect(postStats(post('a', 'en', '2026-11-01', { learning, audio: { version: 1, clips } }), 4)).toEqual({
-      minutes: 4,
-      terms: 1,
-      clips: 1
+    expect(clip).toEqual({ src: clipPath('a', hash), text: learning.terms.stuck.de })
+    expect(cardBadges(withAudio, clip)).toEqual({ audio: true, interactive: false, quiz: false })
+  })
+
+  it('prefers the first narration section', () => {
+    const entry = { heading: 'intro', text: 'Spoken intro.' }
+    const voice = audioConfig.voices.narration.en
+    const hash = clipHash(entry.text, voice, audioConfig, 'en')
+    const clips = { [hash]: { text: entry.text, model: voice.model, voice: voice.id } }
+
+    const narrated = post('a', 'en', '2026-11-01', {
+      outline: [{ id: 'intro', text: 'The intro', depth: 2 }],
+      learning: { narration: [entry] },
+      audio: { version: 1, clips }
     })
-    expect(postStats(post('a', 'en', '2026-11-01', { learning }), null)).toEqual({ minutes: null, terms: 1, clips: 0 })
-    expect(postStats(post('a', 'en', '2026-11-01'), 1)).toEqual({ minutes: 1, terms: 0, clips: 0 })
+
+    expect(firstClip(narrated)).toEqual({ src: clipPath('a', hash), text: 'The intro' })
   })
 })

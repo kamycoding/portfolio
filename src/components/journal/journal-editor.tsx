@@ -1,221 +1,262 @@
 'use client'
 
-import { useId, useState } from 'react'
+import { type KeyboardEvent, type ReactNode, useEffect, useId, useRef, useState } from 'react'
 
-import { useLocale, useTranslations } from 'next-intl'
+import { useTranslations } from 'next-intl'
 
-import AudioButton from '@/components/blog/mdx/audio-button'
-import PostLink from '@/components/blog/post-link'
-import editor from '@/components/ui/editor.module.css'
-import ui from '@/components/ui/ui.module.css'
+import { useModKey } from '@/hooks/use-mod-key'
 import { Link } from '@/i18n/navigation'
-import type { HomePost } from '@/lib/blog/home'
+import { prefersReducedMotion } from '@/lib/actions'
 import { cn } from '@/lib/utils'
 
 import styles from './journal.module.css'
 
-type Heading = HomePost['headings'][number]
+type Item = Readonly<{
+  key: string
+  titleId: string
 
-// A split editor like VS Code's Markdown preview: explorer tree on the left, preview of the selected post on the right.
-// Server-rendered with the first post selected, so the page is complete before any script runs.
-const JournalEditor = ({ posts }: Readonly<{ posts: readonly HomePost[] }>) => {
-  const t = useTranslations('journal')
-  const locale = useLocale()
+  // Lower-case title and tags, for the quick-open filter.
+  search: string
+  category: string
+  node: ReactNode
+}>
+
+type JournalEditorsProps = Readonly<{
+  items: readonly Item[]
+  categories: readonly Readonly<{ id: string; label: string }>[]
+
+  // The inside of the last card, which links to the index.
+  last: ReactNode
+}>
+
+const ALL = 'all'
+
+// With fewer posts than this there is nothing to filter.
+const FILTER_FROM = 3
+
+type Scroll = Readonly<{ overflow: boolean; start: boolean; end: boolean }>
+
+// The open editors: a header like VS Code's, a quick-open filter and category chips from three posts on, and a row of
+// cards that scrolls and snaps. The cards are server-rendered; this only filters, scrolls and moves focus.
+const JournalEditors = ({ items, categories, last }: JournalEditorsProps) => {
+  const t = useTranslations('journal.home')
+  const modKey = useModKey()
   const id = useId()
-  const [selected, setSelected] = useState(0)
-  const [hovered, setHovered] = useState<string | null>(null)
-  const [focused, setFocused] = useState<string | null>(null)
-  const post = posts[selected]
-  const file = `${post.lang}.mdx`
-  const shown = hovered ?? focused
-  const heading = post.headings.find(item => item.id === shown)
-  const { contrast, stats } = post
+  const section = useRef<HTMLDivElement>(null)
+  const list = useRef<HTMLUListElement>(null)
+  const input = useRef<HTMLInputElement>(null)
+  const [query, setQuery] = useState('')
+  const [category, setCategory] = useState(ALL)
+  const [active, setActive] = useState(items[0].key)
+  const [scroll, setScroll] = useState<Scroll>({ overflow: false, start: true, end: true })
+  const filtering = items.length >= FILTER_FROM
+  const needle = query.trim().toLowerCase()
 
-  const select = (index: number) => {
-    setSelected(index)
-    setHovered(null)
-    setFocused(null)
-  }
-
-  // Hovering or focusing a heading shows it in the preview header; clicking opens the article there.
-  const headingLink = (item: Heading, className: string) => (
-    <PostLink
-      slug={post.slug}
-      language={post.lang}
-      hash={item.id}
-      className={className}
-      onPointerEnter={() => setHovered(item.id)}
-      onPointerLeave={() => setHovered(null)}
-      onFocus={() => setFocused(item.id)}
-      onBlur={() => setFocused(null)}
-    >
-      <span aria-hidden='true' className={styles.hash}>
-        #
-      </span>
-      {item.text}
-    </PostLink>
+  const shown = items.map(
+    item =>
+      !filtering || ((category === ALL || item.category === category) && (!needle || item.search.includes(needle)))
   )
 
+  const count = shown.filter(Boolean).length
+
+  // The card with the focus stop is the one that was focused last, or else the first one that is shown.
+  const firstShown = items.find((_, index) => shown[index])?.key ?? 'all'
+  const activeShown = active === 'all' || shown[items.findIndex(item => item.key === active)]
+  const focusStop = activeShown ? active : firstShown
+
+  // Ctrl or Cmd P filters the posts while the section is on screen. Elsewhere the browser keeps its print dialog.
+  useEffect(() => {
+    if (!filtering) return
+
+    const onKeyDown = (event: globalThis.KeyboardEvent) => {
+      if (!(event.ctrlKey || event.metaKey) || event.altKey || event.shiftKey || event.key.toLowerCase() !== 'p') return
+
+      const box = section.current?.getBoundingClientRect()
+
+      if (!box || box.bottom < 0 || box.top > window.innerHeight) return
+
+      event.preventDefault()
+      input.current?.focus()
+    }
+
+    window.addEventListener('keydown', onKeyDown)
+
+    return () => window.removeEventListener('keydown', onKeyDown)
+  }, [filtering])
+
+  // The previous and next buttons only matter while the row overflows; their space is reserved either way.
+  useEffect(() => {
+    const element = list.current
+
+    if (!element) return
+
+    let frame = 0
+
+    const measure = () => {
+      frame = 0
+
+      const overflow = element.scrollWidth > element.clientWidth + 1
+      const start = element.scrollLeft <= 1
+      const end = element.scrollLeft + element.clientWidth >= element.scrollWidth - 1
+
+      setScroll(current =>
+        current.overflow === overflow && current.start === start && current.end === end
+          ? current
+          : { overflow, start, end }
+      )
+    }
+
+    const schedule = () => {
+      if (frame === 0) frame = window.requestAnimationFrame(measure)
+    }
+
+    schedule()
+    element.addEventListener('scroll', schedule, { passive: true })
+
+    const observer = new ResizeObserver(schedule)
+
+    observer.observe(element)
+
+    return () => {
+      window.cancelAnimationFrame(frame)
+      element.removeEventListener('scroll', schedule)
+      observer.disconnect()
+    }
+  }, [count])
+
+  const page = (direction: -1 | 1) => {
+    const element = list.current
+
+    if (!element) return
+
+    const card = element.querySelector<HTMLElement>('li:not([hidden])')
+    const step = (card?.getBoundingClientRect().width ?? 300) + 16
+
+    element.scrollBy({ left: direction * step, behavior: prefersReducedMotion() ? 'auto' : 'smooth' })
+  }
+
+  // Roving focus: Left and Right move between the cards, Enter opens the one in focus.
+  const onKeyDown = (event: KeyboardEvent<HTMLUListElement>) => {
+    const target = event.target
+
+    if (!(target instanceof HTMLElement) || !target.matches('[data-card]')) return
+
+    const cards = [...event.currentTarget.querySelectorAll<HTMLElement>('[data-card]')].filter(
+      card => !card.closest('li')?.hidden
+    )
+
+    const index = cards.indexOf(target)
+    const move = { ArrowRight: index + 1, ArrowLeft: index - 1, Home: 0, End: cards.length - 1 }[event.key]
+
+    if (move !== undefined) {
+      event.preventDefault()
+      cards[Math.min(cards.length - 1, Math.max(0, move))]?.focus()
+    } else if (event.key === 'Enter' && target.getAttribute('role') === 'group') {
+      target.querySelector<HTMLElement>('[data-open] a')?.click()
+    }
+  }
+
   return (
-    <div className={styles.window} data-shell-ui=''>
-      <div className={styles.panes}>
-        <nav aria-labelledby={`${id}-explorer`} className={styles.explorer}>
-          <div className={styles.paneHead}>
-            <span id={`${id}-explorer`} className={styles.explorerTitle}>
-              {t('home.explorer')}
-            </span>
-          </div>
-          <ul className={styles.tree}>
-            <li>
-              <span className={cn(styles.row, styles.root)}>
-                <span aria-hidden='true' className={styles.chevron}>
-                  ▾
-                </span>
-                blog/
-              </span>
-              <ul>
-                {posts.map((item, index) => {
-                  const open = index === selected
-
-                  return (
-                    <li key={item.slug}>
-                      <button
-                        type='button'
-                        className={cn(styles.row, styles.folder)}
-                        aria-expanded={open}
-                        aria-controls={open ? `${id}-tree` : undefined}
-                        data-selected={open || undefined}
-                        onClick={() => select(index)}
-                      >
-                        <span aria-hidden='true' className={styles.chevron}>
-                          {open ? '▾' : '▸'}
-                        </span>
-                        {item.slug}/
-                      </button>
-                      {open && (
-                        <ul id={`${id}-tree`}>
-                          <li>
-                            <PostLink slug={item.slug} language={item.lang} className={cn(styles.row, styles.file)}>
-                              <span aria-hidden='true' className={cn(editor.badge, styles.mdBadge)}>
-                                M↓
-                              </span>
-                              {file}
-                            </PostLink>
-                            <ul aria-label={t('home.outline')}>
-                              {item.headings.map(entry => (
-                                <li key={entry.id}>{headingLink(entry, cn(styles.row, styles.heading))}</li>
-                              ))}
-                            </ul>
-                          </li>
-                        </ul>
-                      )}
-                    </li>
-                  )
-                })}
-              </ul>
-            </li>
-          </ul>
-        </nav>
-
-        <div className={styles.preview}>
-          <div className={styles.paneHead}>
-            <span className={styles.tab}>
-              <span aria-hidden='true' className={cn(editor.badge, styles.mdBadge)}>
-                M↓
-              </span>
-              {t('home.preview')}: {file}
-            </span>
-            <span aria-hidden='true' className={styles.crumb}>
-              {heading && `§ ${heading.text}`}
-            </span>
-          </div>
-
-          <article key={post.slug} className={styles.body}>
-            <p className={styles.comment}>
-              {'// '}
-              {post.category} · {post.format} · <time dateTime={post.date}>{post.date}</time>
-            </p>
-            <h3 className={styles.title}>{post.title}</h3>
-            <p lang={post.lang} className={styles.tldr}>
-              {post.hasTldr && (
-                <span lang={locale} className={styles.tldrLabel}>
-                  {t('tldr')}
-                </span>
-              )}
-              {post.summary}
-            </p>
-
-            {contrast && (
-              <figure className={cn(editor.editor, styles.card)} aria-label={t('home.diffLabel')}>
-                <div className={editor.edHead} aria-hidden='true'>
-                  <div className={editor.edTab}>
-                    <span className={cn(editor.badge, styles.diffBadge)}>±</span>textbook.diff
-                  </div>
-                  <span className={styles.stat}>
-                    <span className={styles.minus}>-1</span> <span className={styles.plus}>+1</span>
-                  </span>
-                </div>
-                <div className={styles.diff}>
-                  <p className={styles.hunk} aria-hidden='true'>
-                    @@ {t('home.textbook')} → {t('home.real')} @@
-                  </p>
-                  <div className={cn(styles.diffRow, styles.remove)}>
-                    <span className={styles.label}>{t('home.textbook')}</span>
-                    <del lang='de' className={styles.german}>
-                      {contrast.textbook}
-                    </del>
-                  </div>
-                  <div className={cn(styles.diffRow, styles.add)}>
-                    <span className={styles.label}>{t('home.real')}</span>
-                    <ins lang='de' className={styles.german}>
-                      {contrast.real}
-                    </ins>
-                    <span className={styles.play}>
-                      <AudioButton {...contrast.audio} label={t('audio.sentence')} />
-                    </span>
-                    <span lang='en' className={styles.meaning}>
-                      {contrast.meaning}
-                    </span>
-                  </div>
-                </div>
-              </figure>
-            )}
-
-            <div className={styles.actions}>
-              <PostLink slug={post.slug} language={post.lang} className={cn(ui.btn, ui.primary)}>
-                <span lang={locale}>{t('home.read')}</span>
-                <span aria-hidden='true'>→</span>
-              </PostLink>
-              <Link href='/blog' className={ui.btn}>
-                {t('home.all')}
-              </Link>
-            </div>
-
-            {/* The tree is hidden on small screens, so the outline moves under the preview as a short list. A post without a diff card shows it on wide screens too, so its preview is full. */}
-            {post.headings.length > 0 && (
-              <nav aria-label={t('home.outline')} className={cn(styles.outlineList, !contrast && styles.always)}>
-                <p className={styles.outlineTitle} aria-hidden='true'>
-                  {t('home.outline')}
-                </p>
-                <ul>
-                  {post.headings.map(entry => (
-                    <li key={entry.id}>{headingLink(entry, styles.outlineLink)}</li>
-                  ))}
-                </ul>
-              </nav>
-            )}
-          </article>
+    <div ref={section} className={styles.editors} data-shell-ui=''>
+      <div className={styles.head}>
+        <h3 className={styles.panelTitle}>
+          <span aria-hidden='true'>▾ </span>
+          {t('openEditors')} ({items.length})
+        </h3>
+        <div className={cn(styles.pager, !scroll.overflow && styles.pagerOff)}>
+          <button
+            type='button'
+            className={styles.pagerButton}
+            aria-label={t('previous')}
+            aria-controls={`${id}-row`}
+            aria-disabled={scroll.start || undefined}
+            tabIndex={scroll.overflow ? undefined : -1}
+            onClick={() => page(-1)}
+          >
+            <span aria-hidden='true'>←</span>
+          </button>
+          <button
+            type='button'
+            className={styles.pagerButton}
+            aria-label={t('next')}
+            aria-controls={`${id}-row`}
+            aria-disabled={scroll.end || undefined}
+            tabIndex={scroll.overflow ? undefined : -1}
+            onClick={() => page(1)}
+          >
+            <span aria-hidden='true'>→</span>
+          </button>
         </div>
       </div>
 
-      <ul className={styles.status} aria-label={t('home.status')}>
-        {stats.minutes !== null && <li>{t('home.statusRead', { minutes: stats.minutes })}</li>}
-        {stats.terms > 0 && <li>{t('home.statusTerms', { count: stats.terms })}</li>}
-        {stats.clips > 0 && <li>{t('home.statusClips', { count: stats.clips })}</li>}
-        <li>{t(`languages.${post.lang}`)}</li>
+      {filtering && (
+        <div className={styles.filter}>
+          <label className={styles.quickOpen}>
+            <span aria-hidden='true' className={styles.chevron}>
+              ›
+            </span>
+            <span className='sr-only'>{t('quickOpenLabel')}</span>
+            <input
+              ref={input}
+              type='text'
+              value={query}
+              placeholder={t('quickOpen')}
+              autoComplete='off'
+              spellCheck={false}
+              aria-keyshortcuts='Control+P Meta+P'
+              onChange={event => setQuery(event.target.value)}
+            />
+            <kbd aria-hidden='true'>{modKey} P</kbd>
+          </label>
+          <div role='group' aria-label={t('categories')} className={styles.chips}>
+            {[{ id: ALL, label: t('all') }, ...categories].map(chip => (
+              <button
+                key={chip.id}
+                type='button'
+                className={styles.chip}
+                aria-pressed={category === chip.id}
+                onClick={() => setCategory(chip.id)}
+              >
+                {chip.label}
+              </button>
+            ))}
+          </div>
+          <p role='status' className={styles.noMatch}>
+            {count === 0 ? t('noMatch') : ''}
+          </p>
+        </div>
+      )}
+
+      {/* The list itself scrolls, so it is a focusable region for keyboard users. */}
+      <ul ref={list} id={`${id}-row`} className={styles.row} onKeyDown={onKeyDown}>
+        {items.map((item, index) => (
+          <li key={item.key} hidden={!shown[index]} className={styles.item}>
+            <div
+              data-card=''
+              role='group'
+              aria-labelledby={item.titleId}
+              tabIndex={focusStop === item.key ? 0 : -1}
+              className={styles.cardFocus}
+              onFocus={event => event.target === event.currentTarget && setActive(item.key)}
+            >
+              {item.node}
+            </div>
+          </li>
+        ))}
+        <li className={styles.item}>
+          <Link
+            href='/blog'
+            data-card=''
+            tabIndex={focusStop === 'all' ? 0 : -1}
+            className={styles.cardFocus}
+            onFocus={event => event.target === event.currentTarget && setActive('all')}
+          >
+            {last}
+          </Link>
+        </li>
       </ul>
     </div>
   )
 }
 
-export default JournalEditor
+export default JournalEditors

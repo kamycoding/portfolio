@@ -156,18 +156,27 @@
       "eyebrow": "// journal",
       "title": "Building software in Germany, <soft>written down.</soft>",
       "meta": "{count, plural, one {# post} other {# posts}}",
-      "read": "Read the article",
-      "all": "All posts",
-      "diffLabel": "Textbook German compared with what people say",
-      "textbook": "textbook",
-      "real": "what people say",
-      "explorer": "Explorer",
-      "preview": "Preview",
-      "outline": "Outline",
-      "status": "Article facts",
-      "statusRead": "{minutes} min read",
-      "statusTerms": "{count, plural, one {# term} other {# terms}}",
-      "statusClips": "{count, plural, one {# audio clip} other {# audio clips}}"
+      "openEditors": "Open editors",
+      "quickOpen": "Quick open…",
+      "quickOpenLabel": "Quick open: filter posts by title or tag",
+      "categories": "Categories",
+      "all": "All",
+      "noMatch": "No post matches.",
+      "previous": "Previous posts",
+      "next": "Next posts",
+      "listen": "Listen",
+      "stop": "Stop",
+      "copyLink": "Copy link",
+      "copied": "Copied",
+      "open": "Open",
+      "allPosts": "All posts",
+      "availableIn": "Available in {languages}",
+      "minutes": "{minutes} min",
+      "badgeAudio": "audio",
+      "badgeInteractive": "interactive",
+      "badgeQuiz": "quiz",
+      "lineAdded": "Added line: ",
+      "lineRemoved": "Removed line: "
     },
     "interactive": {
       "puzzle": {
@@ -700,14 +709,6 @@
       "select": "select",
       "restore": "restore"
     }
-  },
-  "cursor": {
-    "go": "go",
-    "open": "open",
-    "copy": "copy",
-    "run": "run",
-    "pet": "pet",
-    "fold": "fold"
   },
   "meta": {
     "title": "Kamyar Zamanfar, full-stack developer",

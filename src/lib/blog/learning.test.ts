@@ -76,14 +76,6 @@ describe('learning.json schema', () => {
     expect(parse({ quizzes: { q: { ...quiz, choices: [quiz.choices[0]], answer: 'a' } } }).success).toBe(false)
   })
 
-  it('accepts a contrast only when its term exists', () => {
-    const terms = { stuck: { de: 'Da häng ich.', en: 'I am stuck.' } }
-
-    expect(parse({ terms, contrast: { textbook: 'Ich habe ein Problem.', term: 'stuck' } }).success).toBe(true)
-    expect(parse({ terms, contrast: { textbook: 'Ich habe ein Problem.', term: 'other' } }).success).toBe(false)
-    expect(parse({ contrast: { textbook: 'Ich habe ein Problem.', term: 'stuck' } }).success).toBe(false)
-  })
-
   it('reads one narration entry per heading, in the language of the translation', () => {
     const narration = [
       { heading: 'intro', text: { en: 'Hello.', de: 'Hallo.' } },

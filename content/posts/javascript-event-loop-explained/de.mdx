@@ -3,6 +3,10 @@ export const metadata = {
   description:
     'Rate, was dieser Code loggt, und geh dann Schritt für Schritt durch Call Stack und Queues. Rätsel, ein Live-Stepper, ein echter Async-Bug und eine Freeze-Demo.',
   tldr: 'JavaScript führt immer nur eine Sache auf einmal aus. Die Reihenfolge deiner Logs hängt vom Call Stack, der Microtask-Queue und der Task-Queue ab, und genau diese Reihenfolge erklärt viele echte Bugs.',
+  preview: [
+    { kind: 'code', text: "console.log('1') // was loggt zuerst?" },
+    { kind: 'code', text: "setTimeout(() => console.log('2'), 0)" }
+  ],
   date: '2026-11-10',
   category: 'engineering',
   format: 'interactive',

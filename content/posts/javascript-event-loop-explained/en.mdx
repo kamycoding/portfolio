@@ -3,6 +3,10 @@ export const metadata = {
   description:
     'Guess what this code logs, then step through the call stack and queues. Puzzles, a live stepper, a real async bug and a page-freeze demo.',
   tldr: 'JavaScript runs one thing at a time. The order of your logs depends on the call stack, the microtask queue and the task queue, and that order explains a lot of real bugs.',
+  preview: [
+    { kind: 'code', text: "console.log('1') // what logs first?" },
+    { kind: 'code', text: "setTimeout(() => console.log('2'), 0)" }
+  ],
   date: '2026-11-10',
   category: 'engineering',
   format: 'interactive',
