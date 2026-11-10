@@ -22,13 +22,11 @@ const Rulers = () => {
   const crossYRef = useRef<HTMLDivElement>(null)
   const markXRef = useRef<HTMLDivElement>(null)
   const markYRef = useRef<HTMLDivElement>(null)
-  const coordRef = useRef<HTMLDivElement>(null)
   const { reading, pathname } = useReadingRoute()
 
   // A route change without a pointer move must not leave the crosshair over the next page.
   useEffect(() => {
-    for (const ref of [crossXRef, crossYRef, markXRef, markYRef, coordRef])
-      ref.current?.style.setProperty('opacity', '0')
+    for (const ref of [crossXRef, crossYRef, markXRef, markYRef]) ref.current?.style.setProperty('opacity', '0')
   }, [pathname])
 
   useEffect(() => {
@@ -108,12 +106,12 @@ const Rulers = () => {
       if (frame === 0) frame = window.requestAnimationFrame(draw)
     }
 
-    const setVisible = (pointing: boolean, overUi: boolean) => {
-      const lines = pointing && !overUi ? '1' : '0'
+    // The guide lines run across the viewport only inside the hero; the ruler marks follow the pointer everywhere.
+    const setVisible = (pointing: boolean, guides: boolean) => {
+      const lines = pointing && guides ? '1' : '0'
 
       if (crossXRef.current) crossXRef.current.style.opacity = lines
       if (crossYRef.current) crossYRef.current.style.opacity = lines
-      if (coordRef.current) coordRef.current.style.opacity = lines
       if (markXRef.current) markXRef.current.style.opacity = pointing ? '1' : '0'
       if (markYRef.current) markYRef.current.style.opacity = pointing ? '1' : '0'
     }
@@ -131,19 +129,15 @@ const Rulers = () => {
 
       if (y < top || x < ruler || y > bottom) return setVisible(false, false)
 
-      const overUi = event.target instanceof Element && event.target.closest(INTERACTIVE) !== null
+      const target = event.target instanceof Element ? event.target : null
+      const guides = target !== null && target.closest('#index') !== null && target.closest(INTERACTIVE) === null
 
-      setVisible(true, overUi)
+      setVisible(true, guides)
 
       if (crossXRef.current) crossXRef.current.style.transform = `translateX(${x}px)`
       if (crossYRef.current) crossYRef.current.style.transform = `translateY(${y}px)`
       if (markXRef.current) markXRef.current.style.transform = `translateX(${x}px)`
       if (markYRef.current) markYRef.current.style.transform = `translateY(${y}px)`
-
-      if (coordRef.current) {
-        coordRef.current.textContent = `x ${Math.round(x - ruler)}  y ${Math.round(y - top + window.scrollY)}`
-        coordRef.current.style.transform = `translate(${x + 12}px, ${y + 12}px)`
-      }
     }
 
     const onPointerLeave = () => setVisible(false, false)
@@ -195,10 +189,6 @@ const Rulers = () => {
       <div
         ref={crossYRef}
         className='bg-kw/22 pointer-events-none fixed top-0 right-0 left-(--ruler) z-14 h-px opacity-0 transition-opacity'
-      />
-      <div
-        ref={coordRef}
-        className='bg-bg/92 border-kw/30 text-kw pointer-events-none fixed top-0 left-0 z-16 rounded border px-1.5 py-0.5 font-mono text-[10.5px] whitespace-nowrap opacity-0 transition-opacity'
       />
     </div>
   )

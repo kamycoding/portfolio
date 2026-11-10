@@ -63,7 +63,7 @@ const Reviews = async () => {
 
       <div className={styles.list}>
         {REVIEWS.map(review => (
-          <article key={review.name} className={styles.review} data-shell-ui=''>
+          <article key={review.name} className={styles.review} data-shell-ui='' data-frame=''>
             <header className={styles.top}>
               <ReviewAvatar kind={review.avatar} accent={review.accent} />
               <div className={styles.who}>
