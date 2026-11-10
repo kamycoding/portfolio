@@ -1,0 +1,193 @@
+export const metadata = {
+  title: 'The JavaScript Event Loop: Predict the Output',
+  description:
+    'Guess what this code logs, then step through the call stack and queues. Puzzles, a live stepper, a real async bug and a page-freeze demo.',
+  tldr: 'JavaScript runs one thing at a time. The order of your logs depends on the call stack, the microtask queue and the task queue, and that order explains a lot of real bugs.',
+  date: '2026-11-10',
+  category: 'engineering',
+  format: 'interactive',
+  tags: ['javascript', 'async', 'performance'],
+  draft: false,
+  lang: 'en'
+}
+
+<TLDR>
+  <p>{metadata.tldr}</p>
+</TLDR>
+
+<h2 id="spinner">A spinner that lies</h2>
+
+A common bug. Imagine a form with a "Save all" button. You click it. The spinner shows for a blink, then the page says "Saved". But nothing is saved yet. Three requests are still on their way.
+
+The code after the loop did not wait for them. It ran first. The next screen reads the data, and the data is not there.
+
+To understand why, let's play. Each puzzle shows some code. Click the console lines in the order you expect, then check. Go with your gut first. A wrong guess teaches you more than a right one.
+
+<h2 id="puzzle-1">Puzzle 1: What does this log?</h2>
+
+<OutputPuzzle
+  code={`console.log('1')
+setTimeout(() => console.log('2'), 0)
+Promise.resolve().then(() => console.log('3'))
+console.log('4')`}
+  lines={['2', '4', '1', '3']}
+  answer={['1', '4', '3', '2']}
+  explanation={`The two plain logs run first: 1, then 4. After that the .then callback logs 3. The timeout callback logs 2 last, even with a delay of 0. Promise callbacks are microtasks. Timer callbacks are tasks. Microtasks go first.`}
+/>
+
+<h2 id="what-happened">What just happened</h2>
+
+Step through it. Press Next, or use the arrow keys, and watch the lists change.
+
+<EventLoopStepper scenario="order" />
+
+Three things matter:
+
+- **The call stack** holds the function that is running right now. JavaScript runs one thing at a time, and a running function is never interrupted.
+- **The microtask queue** holds promise callbacks (`.then`, and the code after `await`) and anything you pass to `queueMicrotask`.
+- **The task queue** holds callbacks like timers and events.
+
+Here is the rule. After the current code is done and the call stack is empty, the browser runs **all** microtasks. Only then does it take the next task.
+
+So `setTimeout(fn, 0)` loses against `.then`. Not because it is slow. Because it waits in a different queue.
+
+<h2 id="puzzle-2">Puzzle 2: async and await</h2>
+
+Same game, now with `async` and `await`. Be careful: the function body does not run in one piece.
+
+<OutputPuzzle
+  code={`async function load() {
+  console.log('A')
+  await null
+  console.log('B')
+}
+console.log('C')
+load()
+console.log('D')`}
+  lines={['B', 'D', 'A', 'C']}
+  answer={['C', 'A', 'D', 'B']}
+  explanation={`C logs first. Then load() starts and runs synchronously up to its first await, so A comes next. The await pauses load() and gives control back to the caller, which logs D. The rest of load() continues later, as a microtask. That is B.`}
+/>
+
+<EventLoopStepper scenario="async-await" />
+
+An async function runs like a normal function until its first `await`. At the `await` it pauses, and the caller carries on. The rest of the function is scheduled as a microtask. That is why B comes last.
+
+Remember this sentence: **the code after `await` is a microtask.**
+
+<h2 id="puzzle-3">Puzzle 3: Microtasks that queue microtasks</h2>
+
+One more. Watch the order of the microtasks, and what happens to the one that is queued inside another.
+
+<OutputPuzzle
+  code={`setTimeout(() => console.log('timeout'), 0)
+queueMicrotask(() => console.log('micro 1'))
+Promise.resolve().then(() => {
+  console.log('micro 2')
+  queueMicrotask(() => console.log('micro 3'))
+})
+console.log('sync')`}
+  lines={['timeout', 'micro 3', 'sync', 'micro 1', 'micro 2']}
+  answer={['sync', 'micro 1', 'micro 2', 'micro 3', 'timeout']}
+  explanation={`sync logs first. Then the microtasks run in the order they were queued: micro 1, then micro 2. micro 2 queues micro 3, and micro 3 still runs before the timeout, because the browser keeps running microtasks until the queue is empty. Only then does the timeout, a task, get its turn.`}
+/>
+
+The browser does not take the next task until the microtask queue is empty, and that includes microtasks queued by other microtasks.
+
+That has a cost. A microtask that keeps queueing new microtasks means the queue is never empty. The browser never reaches the next task, and it never gets to update the screen. The page freezes, and there is no long loop anywhere in the code.
+
+<h2 id="back-to-the-spinner">Back to the spinner</h2>
+
+Here is the bug from the start.
+
+```tsx filename="save-all.tsx"
+async function saveAll(items: Item[]) {
+  setSaving(true)
+
+  items.forEach(async item => {
+    await save(item)
+  })
+
+  setSaving(false)
+  showToast('Saved')
+}
+```
+
+`forEach` calls your async callback for every item. Each call runs until its first `await` and returns a promise. `forEach` does not look at those promises. It does not wait for them. So the lines after it run right away.
+
+Run it three ways. The saves are fake: timers of 400, 700 and 300 ms. The numbers are measured on your machine, so expect a few milliseconds of noise.
+
+<AsyncRaceTimeline />
+
+`forEach` turns the spinner off after about 0 ms, while the saves are still running. `for...of` with `await` waits for each save in turn, so it takes about 1400 ms. `Promise.all` starts all three saves at once and takes about as long as the slowest one, about 700 ms.
+
+Two ways to fix it:
+
+```diff filename="save-all.diff"
+   setSaving(true)
+
+-  items.forEach(async item => {
+-    await save(item)
+-  })
++  // Fix A: one after the other
++  for (const item of items) {
++    await save(item)
++  }
++
++  // Fix B: all at once (use A or B, not both)
++  await Promise.all(items.map(item => save(item)))
+
+   setSaving(false)
+   showToast('Saved')
+```
+
+Use `for...of` when the order matters, or when a save needs the result of the one before. Use `Promise.all` when the saves are independent. It is faster. Know that it rejects as soon as one save fails.
+
+<h2 id="main-thread">Feel the main thread</h2>
+
+The counter below counts animation frames. It is driven by `requestAnimationFrame`, which runs your callback before the next repaint. While it ticks, the page is alive.
+
+<MainThreadDemo />
+
+Press the first button. A long loop is one long task. The browser can only update the screen between tasks, so the counter freezes.
+
+Press the second button. It is the same work, cut into small pieces. After each piece the code gives the thread back with `scheduler.yield()`, or with `setTimeout(fn, 0)` when the browser does not have it. Between the pieces the browser can draw, and the counter keeps going.
+
+<Callout type="tip" title="Keep tasks short">
+
+A screen at 60 Hz needs a new frame about every 16 ms. If one task takes longer, the page cannot update on time. Split the work into chunks, or move it to a Web Worker.
+
+</Callout>
+
+<Callout type="warning" title="setTimeout(fn, 0) is not instant">
+
+The callback still waits for the current code and for every microtask. Then it waits for its turn in the task queue. The delay is what you ask for, not a promise: the real delay can be longer.
+
+</Callout>
+
+<h2 id="check-yourself">Check yourself</h2>
+
+Three questions. No score, just an explanation each.
+
+<Quiz id="timeout-or-then" />
+
+<Quiz id="after-await" />
+
+<Quiz id="long-loop" />
+
+<Takeaways>
+
+- JavaScript runs one thing at a time. A running function is never interrupted.
+- After the current code, the browser runs all microtasks before it takes the next task.
+- `.then`, the code after `await` and `queueMicrotask` are microtasks. Timers and events are tasks.
+- `forEach` does not wait for async callbacks. Use `for...of` or `Promise.all`.
+- The screen updates between tasks. Keep tasks short, or the page freezes.
+
+</Takeaways>
+
+<h2 id="cheat-sheet">Cheat sheet</h2>
+
+1. The order: synchronous code, then all microtasks, then the next task.
+2. Microtasks: `Promise.then`, `catch` and `finally`, the code after `await`, `queueMicrotask`.
+3. Tasks: `setTimeout`, `setInterval`, and events like clicks.
+4. In loops: `for...of` waits for each `await`, `Promise.all` runs them together, `forEach` does not wait at all.

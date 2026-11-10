@@ -1,0 +1,95 @@
+{
+  "version": 1,
+  "clips": {
+    "06c403b97ff820ba": {
+      "text": "Den Main Thread spüren. Der Zähler in der Demo zählt Animations-Frames. Er hängt an requestAnimationFrame, das vor dem nächsten Repaint läuft. Wenn du anderthalb Sekunden blockierst, ist die Schleife ein langer Task. Der Browser kann den Bildschirm nur zwischen Tasks aktualisieren, also friert der Zähler ein. Wenn du dieselbe Arbeit in kleinen Häppchen erledigst und dazwischen abgibst, kann der Browser zwischendurch zeichnen, und der Zähler läuft weiter. Halte deine Tasks kurz. Und denk daran: setTimeout mit null ist nicht sofort. Der Callback wartet trotzdem auf den aktuellen Code und auf alle Microtasks, und die echte Verzögerung kann länger sein, als du angibst.",
+      "model": "eleven_v4",
+      "voice": "vv3bG6FrcGtmeOdRSriS"
+    },
+    "232ecaa72aee6742": {
+      "text": "Rätsel zwei. Es gibt eine async-Funktion namens load. Sie loggt A, wartet dann auf null und loggt danach B. Außerhalb loggt der Code C, ruft load auf und loggt dann D. Wie ist die Reihenfolge? Hier ist die Lösung: C, A, D, B. Zuerst loggt C. Dann startet load und läuft bis zum ersten await synchron, also kommt A als Nächstes. Das await pausiert load und gibt die Kontrolle an den Aufrufer zurück, der D loggt. Der Rest von load läuft später weiter, als Microtask. Das ist B. Merk dir: Der Code nach await ist ein Microtask.",
+      "model": "eleven_v4",
+      "voice": "vv3bG6FrcGtmeOdRSriS"
+    },
+    "35daef97d6f1fdf6": {
+      "text": "Check yourself. There are three questions. First: which runs first, a timeout callback or a then callback queued at the same time? The then callback, because it is a microtask. Second: the code after an await runs as a microtask. Third: a long loop freezes the page because rendering waits until the current task is finished. The takeaways: JavaScript runs one thing at a time. After the current code, the browser runs all microtasks before it takes the next task. A forEach does not wait for async callbacks, so use for of or Promise all. And keep your tasks short.",
+      "model": "eleven_v4",
+      "voice": "ktkP7Nsj67dw2zcplQYt"
+    },
+    "38bbb498b7b7b87f": {
+      "text": "Spickzettel. Die Reihenfolge ist immer dieselbe. Zuerst der synchrone Code, dann alle Microtasks, dann der nächste Task. Promise then, catch und finally, der Code nach await und queueMicrotask erzeugen Microtasks. setTimeout, setInterval und Events wie Klicks erzeugen Tasks. In Schleifen wartet for of auf jedes await, Promise all führt sie zusammen aus, und forEach wartet gar nicht.",
+      "model": "eleven_v4",
+      "voice": "vv3bG6FrcGtmeOdRSriS"
+    },
+    "463e0facf6c5c50a": {
+      "text": "Zurück zum Spinner. Die Speicherfunktion geht die Einträge mit forEach und einem async-Callback durch. Jeder Aufruf läuft bis zum ersten await und gibt ein Promise zurück, und forEach ignoriert diese Promises. Die Zeilen nach der Schleife laufen also sofort: Sie schalten den Spinner aus und zeigen die Erfolgsmeldung, während drei Speichervorgänge noch warten. In der Zeitleiste kannst du drei Varianten laufen lassen. Mit forEach geht der Spinner nach etwa null Millisekunden aus. Mit einer for-of-Schleife und await laufen die Vorgänge nacheinander, und der Spinner geht nach etwa vierzehnhundert Millisekunden aus. Mit Promise all starten die Vorgänge gleichzeitig, und der Spinner geht nach etwa siebenhundert Millisekunden aus. Nimm for of, wenn die Reihenfolge zählt. Nimm Promise all, wenn die Vorgänge unabhängig sind.",
+      "model": "eleven_v4",
+      "voice": "vv3bG6FrcGtmeOdRSriS"
+    },
+    "613361aa2e225171": {
+      "text": "Puzzle two. There is an async function called load. It logs A, then awaits null, then logs B. Outside of it, the code logs C, calls load, and then logs D. What is the order? Here is the answer: C, A, D, B. The log C runs first. Then load starts and runs synchronously until its first await, so A comes next. The await pauses load and gives control back to the caller, which logs D. The rest of load continues later, as a microtask. That is B. Remember this: the code after await is a microtask.",
+      "model": "eleven_v4",
+      "voice": "ktkP7Nsj67dw2zcplQYt"
+    },
+    "63c658039da157a1": {
+      "text": "Rätsel eins. Die erste Zeile loggt die Zahl eins. Die zweite Zeile bittet den Browser, nach null Millisekunden einen Callback auszuführen, und dieser Callback loggt zwei. Die dritte Zeile erzeugt ein Promise, das schon erfüllt ist, und hängt einen Callback an, der drei loggt. Die letzte Zeile loggt vier. Nimm dir einen Moment und rate die Reihenfolge. Hier ist die Lösung: eins, vier, drei, zwei. Zuerst laufen die beiden normalen Logs. Dann läuft der Promise-Callback, denn er ist ein Microtask. Der Timer-Callback ist ein Task und kommt deshalb zuletzt, auch mit null Millisekunden Verzögerung.",
+      "model": "eleven_v4",
+      "voice": "vv3bG6FrcGtmeOdRSriS"
+    },
+    "669ff8a5b91f3da8": {
+      "text": "Puzzle one. The first line logs the number one. The second line asks the browser to run a callback after zero milliseconds, and that callback logs two. The third line creates a promise that is already resolved and attaches a callback that logs three. The last line logs four. Take a moment and guess the order. Here is the answer: one, four, three, two. The two plain logs run first. Then the promise callback runs, because it is a microtask. The timer callback is a task, so it comes last, even with a delay of zero.",
+      "model": "eleven_v4",
+      "voice": "ktkP7Nsj67dw2zcplQYt"
+    },
+    "66fedb380ab3c4e2": {
+      "text": "Back to the spinner. The save function loops over the items with forEach and an async callback. Each call runs until its first await and returns a promise, and forEach ignores those promises. So the lines after the loop run right away: they turn the spinner off and show the success message, while three saves are still waiting. In the timeline you can run three versions. With forEach, the spinner turns off after about zero milliseconds. With a for of loop and await, the saves run one after the other, and the spinner turns off after about fourteen hundred milliseconds. With Promise all, the saves start together, and the spinner turns off after about seven hundred milliseconds. Use for of when the order matters. Use Promise all when the saves are independent.",
+      "model": "eleven_v4",
+      "voice": "ktkP7Nsj67dw2zcplQYt"
+    },
+    "7aef2709719eac27": {
+      "text": "Prüf dich selbst. Es gibt drei Fragen. Erstens: Was läuft zuerst, ein Timeout-Callback oder ein then-Callback, die gleichzeitig angelegt wurden? Der then-Callback, denn er ist ein Microtask. Zweitens: Der Code nach einem await läuft als Microtask. Drittens: Eine lange Schleife friert die Seite ein, weil das Rendern wartet, bis der aktuelle Task fertig ist. Die wichtigsten Punkte: JavaScript führt immer nur eine Sache auf einmal aus. Nach dem aktuellen Code führt der Browser alle Microtasks aus, bevor er den nächsten Task nimmt. Ein forEach wartet nicht auf async-Callbacks, also nimm for of oder Promise all. Und halte deine Tasks kurz.",
+      "model": "eleven_v4",
+      "voice": "vv3bG6FrcGtmeOdRSriS"
+    },
+    "81dfb247cc5ad1a6": {
+      "text": "Now let us watch it happen. Three things matter. The call stack holds the function that is running right now. JavaScript runs one thing at a time, and a running function is never interrupted. The microtask queue holds promise callbacks, the code after an await, and anything you pass to queueMicrotask. The task queue holds callbacks like timers and events. And here is the rule. When the current code is finished and the call stack is empty, the browser runs all microtasks. Only then does it take the next task. That is why a timeout of zero loses against a then callback. In the stepper, press Next and watch the lists change.",
+      "model": "eleven_v4",
+      "voice": "ktkP7Nsj67dw2zcplQYt"
+    },
+    "85aad78dcb1b8e81": {
+      "text": "Kurz gesagt: JavaScript führt immer nur eine Sache auf einmal aus. Die Reihenfolge deiner Logs hängt vom Call Stack, der Microtask-Queue und der Task-Queue ab, und genau diese Reihenfolge erklärt viele echte Bugs. Wir starten mit einem typischen Fehler. Stell dir ein Formular mit einem Button vor, der alle Einträge speichert. Du klickst, der Spinner blinkt kurz auf, und die Seite meldet Erfolg. Gespeichert ist aber noch nichts. Der Code nach der Schleife hat nicht auf die Speichervorgänge gewartet. Er lief zuerst. Um zu verstehen, warum, lösen wir ein paar Rätsel. Jedes zeigt Code. Du rätst, was er loggt, und prüfst danach die Lösung.",
+      "model": "eleven_v4",
+      "voice": "vv3bG6FrcGtmeOdRSriS"
+    },
+    "92c2a4880a16095b": {
+      "text": "Puzzle three. The code schedules a timeout that logs timeout. It queues a microtask that logs micro one. It creates a resolved promise whose callback logs micro two and then queues another microtask that logs micro three. Finally it logs sync. The order is: sync, micro one, micro two, micro three, timeout. Microtasks that are queued while microtasks run still go before the next task. That has a cost. A microtask that keeps queueing new microtasks means the queue never becomes empty. The browser never reaches the next task, and it cannot update the screen. The page freezes, and there is no long loop anywhere in the code.",
+      "model": "eleven_v4",
+      "voice": "ktkP7Nsj67dw2zcplQYt"
+    },
+    "aee81a6efd2f635f": {
+      "text": "Feel the main thread. The counter in the demo counts animation frames, driven by requestAnimationFrame, which runs before the next repaint. If you block for one and a half seconds, the loop is one long task. The browser can only update the screen between tasks, so the counter freezes. If you run the same work in small chunks and yield between them, the browser gets a chance to draw in between, and the counter keeps going. Keep your tasks short. And remember that setTimeout with zero is not instant. The callback still waits for the current code and for every microtask, and the real delay can be longer than you ask for.",
+      "model": "eleven_v4",
+      "voice": "ktkP7Nsj67dw2zcplQYt"
+    },
+    "b7f4d2fedbca6723": {
+      "text": "In short: JavaScript runs one thing at a time. The order of your logs depends on the call stack, the microtask queue and the task queue, and that order explains a lot of real bugs. We start with a common bug. Imagine a form with a button that saves all entries. You click it, the spinner flashes for a moment, and the page reports success. But nothing is saved yet. The code after the loop did not wait for the saves. It ran first. To understand why, we will solve a few puzzles. Each one shows some code. You guess what it logs, and then you check the answer.",
+      "model": "eleven_v4",
+      "voice": "ktkP7Nsj67dw2zcplQYt"
+    },
+    "c4242ffcaf67aac0": {
+      "text": "Cheat sheet. The order is always the same. First the synchronous code, then all microtasks, then the next task. Promise then, catch and finally, the code after await, and queueMicrotask create microtasks. setTimeout, setInterval and events like clicks create tasks. In loops, for of waits for each await, Promise all runs them together, and forEach does not wait at all.",
+      "model": "eleven_v4",
+      "voice": "ktkP7Nsj67dw2zcplQYt"
+    },
+    "cbe0a27f2f3ed9cb": {
+      "text": "Rätsel drei. Der Code plant einen Timeout, der timeout loggt. Er legt einen Microtask an, der micro eins loggt. Er erzeugt ein erfülltes Promise, dessen Callback micro zwei loggt und dann einen weiteren Microtask anlegt, der micro drei loggt. Zum Schluss loggt er sync. Die Reihenfolge ist: sync, micro eins, micro zwei, micro drei, timeout. Microtasks, die angelegt werden, während Microtasks laufen, kommen trotzdem vor dem nächsten Task. Das hat einen Preis. Ein Microtask, der ständig neue Microtasks anlegt, sorgt dafür, dass die Queue nie leer wird. Der Browser kommt nie zum nächsten Task und kann den Bildschirm nicht aktualisieren. Die Seite friert ein, und im Code steht nirgends eine lange Schleife.",
+      "model": "eleven_v4",
+      "voice": "vv3bG6FrcGtmeOdRSriS"
+    },
+    "e1a3ba0b2e59c315": {
+      "text": "Jetzt schauen wir uns an, wie das abläuft. Drei Dinge sind wichtig. Der Call Stack enthält die Funktion, die gerade läuft. JavaScript führt immer nur eine Sache aus, und eine laufende Funktion wird nie unterbrochen. Die Microtask-Queue enthält Promise-Callbacks, den Code nach einem await und alles, was du an queueMicrotask übergibst. Die Task-Queue enthält Callbacks wie Timer und Events. Und hier ist die Regel. Wenn der aktuelle Code fertig und der Call Stack leer ist, führt der Browser alle Microtasks aus. Erst danach nimmt er den nächsten Task. Darum verliert ein Timeout von null gegen einen then-Callback. Drück im Stepper auf Weiter und sieh dir an, wie sich die Listen ändern.",
+      "model": "eleven_v4",
+      "voice": "vv3bG6FrcGtmeOdRSriS"
+    }
+  }
+}

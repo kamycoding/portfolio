@@ -47,6 +47,20 @@ export const POSTS: readonly PostRegistration[] = [
     load: () => import('../../../content/posts/german-for-developers-dailies-calls/en.mdx'),
     learning: () => import('../../../content/posts/german-for-developers-dailies-calls/learning.json'),
     audio: () => import('../../../content/posts/german-for-developers-dailies-calls/audio.json')
+  },
+  {
+    slug: 'javascript-event-loop-explained',
+    lang: 'en',
+    load: () => import('../../../content/posts/javascript-event-loop-explained/en.mdx'),
+    learning: () => import('../../../content/posts/javascript-event-loop-explained/learning.json'),
+    audio: () => import('../../../content/posts/javascript-event-loop-explained/audio.json')
+  },
+  {
+    slug: 'javascript-event-loop-explained',
+    lang: 'de',
+    load: () => import('../../../content/posts/javascript-event-loop-explained/de.mdx'),
+    learning: () => import('../../../content/posts/javascript-event-loop-explained/learning.json'),
+    audio: () => import('../../../content/posts/javascript-event-loop-explained/audio.json')
   }
 ]
 
@@ -115,6 +129,14 @@ export const listPosts = async (registry: readonly PostRegistration[] = POSTS): 
       }
 
       const learning = entry.learning ? await parseLearning(entry, entry.learning) : null
+
+      // Narration is read per h2 section, so each entry must name a real h2 of this translation.
+      const sections = new Set(outline.data.filter(item => item.depth === 2).map(item => item.id))
+      const unknown = learning?.narration?.find(item => !sections.has(item.heading))
+
+      if (unknown) {
+        throw new Error(`Narration for ${entry.slug}/${entry.lang}.mdx names an unknown h2 id: "${unknown.heading}".`)
+      }
 
       const audio = entry.audio ? await parseAudio(entry, entry.audio) : null
 

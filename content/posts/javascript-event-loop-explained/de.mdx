@@ -1,0 +1,193 @@
+export const metadata = {
+  title: 'Der JavaScript-Event-Loop: Sag die Ausgabe voraus',
+  description:
+    'Rate, was dieser Code loggt, und geh dann Schritt für Schritt durch Call Stack und Queues. Rätsel, ein Live-Stepper, ein echter Async-Bug und eine Freeze-Demo.',
+  tldr: 'JavaScript führt immer nur eine Sache auf einmal aus. Die Reihenfolge deiner Logs hängt vom Call Stack, der Microtask-Queue und der Task-Queue ab, und genau diese Reihenfolge erklärt viele echte Bugs.',
+  date: '2026-11-10',
+  category: 'engineering',
+  format: 'interactive',
+  tags: ['javascript', 'async', 'performance'],
+  draft: false,
+  lang: 'de'
+}
+
+<TLDR>
+  <p>{metadata.tldr}</p>
+</TLDR>
+
+<h2 id="spinner">Ein Spinner, der lügt</h2>
+
+Ein typischer Bug. Stell dir ein Formular mit einem Button „Alle speichern“ vor. Du klickst. Der Spinner blinkt kurz auf, dann erscheint die Erfolgsmeldung. Gespeichert ist aber noch nichts. Drei Requests sind noch unterwegs.
+
+Der Code nach der Schleife hat nicht auf sie gewartet. Er lief zuerst. Die nächste Ansicht liest die Daten, und die Daten sind nicht da.
+
+Um zu verstehen, warum, spielen wir ein bisschen. Jedes Rätsel zeigt Code. Klick die Konsolenzeilen in der Reihenfolge an, die du erwartest, und prüf dann. Erst aus dem Bauch heraus. Ein falscher Tipp bringt dir mehr als ein richtiger.
+
+<h2 id="puzzle-1">Rätsel 1: Was loggt das?</h2>
+
+<OutputPuzzle
+  code={`console.log('1')
+setTimeout(() => console.log('2'), 0)
+Promise.resolve().then(() => console.log('3'))
+console.log('4')`}
+  lines={['2', '4', '1', '3']}
+  answer={['1', '4', '3', '2']}
+  explanation={`Zuerst laufen die beiden normalen Logs: 1, dann 4. Danach loggt der .then-Callback die 3. Der Timeout-Callback loggt die 2 als Letztes, auch mit 0 ms Verzögerung. Promise-Callbacks sind Microtasks. Timer-Callbacks sind Tasks. Microtasks kommen zuerst.`}
+/>
+
+<h2 id="what-happened">Was ist da passiert?</h2>
+
+Geh es Schritt für Schritt durch. Drück auf Weiter oder nutz die Pfeiltasten und sieh dir an, wie sich die Listen ändern.
+
+<EventLoopStepper scenario="order" />
+
+Drei Dinge sind wichtig:
+
+- **Der Call Stack** enthält die Funktion, die gerade läuft. JavaScript führt immer nur eine Sache aus, und eine laufende Funktion wird nie unterbrochen.
+- **Die Microtask-Queue** enthält Promise-Callbacks (`.then` und den Code nach `await`) sowie alles, was du an `queueMicrotask` übergibst.
+- **Die Task-Queue** enthält Callbacks wie Timer und Events.
+
+Hier ist die Regel. Wenn der aktuelle Code fertig und der Call Stack leer ist, führt der Browser **alle** Microtasks aus. Erst danach nimmt er den nächsten Task.
+
+Darum verliert `setTimeout(fn, 0)` gegen `.then`. Nicht weil es langsam ist, sondern weil es in einer anderen Queue wartet.
+
+<h2 id="puzzle-2">Rätsel 2: async und await</h2>
+
+Gleiches Spiel, jetzt mit `async` und `await`. Vorsicht: Der Funktionsrumpf läuft nicht am Stück.
+
+<OutputPuzzle
+  code={`async function load() {
+  console.log('A')
+  await null
+  console.log('B')
+}
+console.log('C')
+load()
+console.log('D')`}
+  lines={['B', 'D', 'A', 'C']}
+  answer={['C', 'A', 'D', 'B']}
+  explanation={`Zuerst loggt C. Dann startet load() und läuft bis zum ersten await synchron, also kommt A als Nächstes. Das await pausiert load() und gibt die Kontrolle an den Aufrufer zurück, der D loggt. Der Rest von load() läuft später weiter, als Microtask. Das ist B.`}
+/>
+
+<EventLoopStepper scenario="async-await" />
+
+Eine async-Funktion läuft bis zum ersten `await` wie eine normale Funktion. Am `await` pausiert sie, und der Aufrufer macht weiter. Der Rest der Funktion wird als Microtask eingeplant. Deshalb kommt B zuletzt.
+
+Merk dir diesen Satz: **Der Code nach `await` ist ein Microtask.**
+
+<h2 id="puzzle-3">Rätsel 3: Microtasks, die Microtasks anlegen</h2>
+
+Noch eins. Achte auf die Reihenfolge der Microtasks und darauf, was mit dem passiert, der in einem anderen angelegt wird.
+
+<OutputPuzzle
+  code={`setTimeout(() => console.log('timeout'), 0)
+queueMicrotask(() => console.log('micro 1'))
+Promise.resolve().then(() => {
+  console.log('micro 2')
+  queueMicrotask(() => console.log('micro 3'))
+})
+console.log('sync')`}
+  lines={['timeout', 'micro 3', 'sync', 'micro 1', 'micro 2']}
+  answer={['sync', 'micro 1', 'micro 2', 'micro 3', 'timeout']}
+  explanation={`sync loggt zuerst. Dann laufen die Microtasks in der Reihenfolge, in der sie angelegt wurden: micro 1, dann micro 2. micro 2 legt micro 3 an, und micro 3 läuft trotzdem noch vor dem Timeout, weil der Browser Microtasks ausführt, bis die Queue leer ist. Erst dann kommt der Timeout, ein Task, an die Reihe.`}
+/>
+
+Der Browser nimmt den nächsten Task erst, wenn die Microtask-Queue leer ist. Das gilt auch für Microtasks, die andere Microtasks angelegt haben.
+
+Das hat einen Preis. Ein Microtask, der ständig neue Microtasks anlegt, sorgt dafür, dass die Queue nie leer wird. Der Browser kommt nie zum nächsten Task und kann den Bildschirm nicht aktualisieren. Die Seite friert ein, und im Code steht nirgends eine lange Schleife.
+
+<h2 id="back-to-the-spinner">Zurück zum Spinner</h2>
+
+Hier ist der Bug vom Anfang.
+
+```tsx filename="save-all.tsx"
+async function saveAll(items: Item[]) {
+  setSaving(true)
+
+  items.forEach(async item => {
+    await save(item)
+  })
+
+  setSaving(false)
+  showToast('Saved')
+}
+```
+
+`forEach` ruft deinen async-Callback für jedes Element auf. Jeder Aufruf läuft bis zum ersten `await` und gibt ein Promise zurück. `forEach` schaut sich diese Promises nicht an. Es wartet nicht auf sie. Die Zeilen danach laufen also sofort.
+
+Probier es auf drei Arten aus. Die Speichervorgänge sind fake: Timer mit 400, 700 und 300 ms. Die Zahlen werden auf deinem Rechner gemessen, ein paar Millisekunden Rauschen sind normal.
+
+<AsyncRaceTimeline />
+
+`forEach` schaltet den Spinner nach etwa 0 ms aus, während die Speichervorgänge noch laufen. `for...of` mit `await` wartet auf jeden Vorgang nacheinander und braucht deshalb etwa 1400 ms. `Promise.all` startet alle drei gleichzeitig und braucht ungefähr so lange wie der langsamste, etwa 700 ms.
+
+Zwei Wege zur Lösung:
+
+```diff filename="save-all.diff"
+   setSaving(true)
+
+-  items.forEach(async item => {
+-    await save(item)
+-  })
++  // Fix A: one after the other
++  for (const item of items) {
++    await save(item)
++  }
++
++  // Fix B: all at once (use A or B, not both)
++  await Promise.all(items.map(item => save(item)))
+
+   setSaving(false)
+   showToast('Saved')
+```
+
+Nimm `for...of`, wenn die Reihenfolge zählt oder ein Vorgang das Ergebnis des vorherigen braucht. Nimm `Promise.all`, wenn die Vorgänge unabhängig sind. Das ist schneller. Beachte, dass es abgelehnt wird, sobald ein Vorgang fehlschlägt.
+
+<h2 id="main-thread">Den Main Thread spüren</h2>
+
+Der Zähler unten zählt Animations-Frames. Er hängt an `requestAnimationFrame`, das deinen Callback vor dem nächsten Repaint ausführt. Solange er tickt, lebt die Seite.
+
+<MainThreadDemo />
+
+Drück den ersten Button. Eine lange Schleife ist ein langer Task. Der Browser kann den Bildschirm nur zwischen zwei Tasks aktualisieren, also friert der Zähler ein.
+
+Drück den zweiten Button. Es ist dieselbe Arbeit, nur in kleine Häppchen geschnitten. Nach jedem Häppchen gibt der Code den Thread mit `scheduler.yield()` zurück, oder mit `setTimeout(fn, 0)`, wenn der Browser das nicht kennt. Zwischen den Häppchen kann der Browser zeichnen, und der Zähler läuft weiter.
+
+<Callout type="tip" title="Halte Tasks kurz">
+
+Ein Bildschirm mit 60 Hz braucht etwa alle 16 ms ein neues Frame. Dauert ein Task länger, kann die Seite nicht rechtzeitig aktualisieren. Teil die Arbeit in Häppchen auf oder verlagere sie in einen Web Worker.
+
+</Callout>
+
+<Callout type="warning" title="setTimeout(fn, 0) ist nicht sofort">
+
+Der Callback wartet trotzdem auf den aktuellen Code und auf alle Microtasks. Danach wartet er, bis er in der Task-Queue an der Reihe ist. Die Verzögerung ist das, worum du bittest, kein Versprechen: Die echte Verzögerung kann länger sein.
+
+</Callout>
+
+<h2 id="check-yourself">Prüf dich selbst</h2>
+
+Drei Fragen. Ohne Punkte, aber mit einer Erklärung zu jeder.
+
+<Quiz id="timeout-or-then" />
+
+<Quiz id="after-await" />
+
+<Quiz id="long-loop" />
+
+<Takeaways>
+
+- JavaScript führt immer nur eine Sache auf einmal aus. Eine laufende Funktion wird nie unterbrochen.
+- Nach dem aktuellen Code führt der Browser alle Microtasks aus, bevor er den nächsten Task nimmt.
+- `.then`, der Code nach `await` und `queueMicrotask` sind Microtasks. Timer und Events sind Tasks.
+- `forEach` wartet nicht auf async-Callbacks. Nimm `for...of` oder `Promise.all`.
+- Der Bildschirm wird zwischen Tasks aktualisiert. Halte Tasks kurz, sonst friert die Seite ein.
+
+</Takeaways>
+
+<h2 id="cheat-sheet">Spickzettel</h2>
+
+1. Die Reihenfolge: synchroner Code, dann alle Microtasks, dann der nächste Task.
+2. Microtasks: `Promise.then`, `catch` und `finally`, der Code nach `await`, `queueMicrotask`.
+3. Tasks: `setTimeout`, `setInterval` und Events wie Klicks.
+4. In Schleifen: `for...of` wartet auf jedes `await`, `Promise.all` führt sie zusammen aus, `forEach` wartet gar nicht.

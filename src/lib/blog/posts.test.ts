@@ -166,3 +166,19 @@ describe('listPosts', () => {
     await expect(listPosts([broken])).rejects.toThrow('Invalid audio.json for fixture/en.mdx')
   })
 })
+
+describe('narration in the registry', () => {
+  const narration = (heading: string) => ({ narration: [{ heading, text: { en: 'Spoken text.' } }] })
+
+  it('accepts a narration entry that names an h2 of the translation', async () => {
+    const [post] = await listPosts([registration({ learning: async () => ({ default: narration('intro') }) })])
+
+    expect(post.learning?.narration).toEqual([{ heading: 'intro', text: 'Spoken text.' }])
+  })
+
+  it('names the translation when an entry points at a heading that does not exist', async () => {
+    const entry = registration({ learning: async () => ({ default: narration('missing') }) })
+
+    await expect(listPosts([entry])).rejects.toThrow('Narration for fixture/en.mdx names an unknown h2 id: "missing"')
+  })
+})
