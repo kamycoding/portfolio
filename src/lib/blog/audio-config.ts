@@ -2,7 +2,8 @@ import type { AudioConfig } from './audio'
 
 /*
  * Plain configuration, not secrets (docs/adr/0007). Every value is part of the clip hash, so a change regenerates
- * the affected clips. Voices are ElevenLabs replacement voices, never the Default voices that expire at the end of 2026.
+ * the affected clips. The voices come from the Voice Library: generated clips stay usable, new clips depend on each
+ * voice's notice period.
  */
 export const audioConfig: AudioConfig = {
   model: 'eleven_multilingual_v2',
@@ -13,10 +14,9 @@ export const audioConfig: AudioConfig = {
   // ElevenLabs' defaults.
   settings: { stability: 0.5, similarity_boost: 0.75, style: 0, use_speaker_boost: true, speed: 1 },
   voices: {
-    // Elara
-    narrator: 'WQP7cQUF5aAS6Axh5yaa',
+    narrator: 'vv3bG6FrcGtmeOdRSriS',
 
-    // Eddie and Jade, in the order a dialogue declares its speakers.
-    speakers: ['l7kNoIfnJKPg7779LI2t', 'g7LVvkPWALzPxOQbF6OE']
+    // In the order a dialogue declares its speakers: the first speaker shares the narrator's voice.
+    speakers: ['vv3bG6FrcGtmeOdRSriS', 'petid4zVzpITlltH2r3L']
   }
 }
