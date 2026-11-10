@@ -3,9 +3,10 @@
 export const LOGO_RATIO = 36 / 40
 
 type LogoProps = Readonly<{
+  className?: string
+
   /** Height in pixels; the width follows from the logo's proportions. */
   height?: number
-  className?: string
 
   /** An accessible name. Leave it out when a visible "kamycoding" label sits next to the logo: it is hidden then. */
   label?: string
