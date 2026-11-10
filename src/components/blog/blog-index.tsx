@@ -1,10 +1,10 @@
 import { getTranslations } from 'next-intl/server'
 
-import { Link } from '@/i18n/navigation'
 import type { PublishedPost } from '@/lib/blog/posts'
 import { journalIndexPosts } from '@/lib/blog/routes'
 import type { PostLanguage } from '@/lib/blog/schema'
 
+import PostLink from './post-link'
 import Reader from './reader'
 import styles from './blog.module.css'
 
@@ -26,9 +26,9 @@ const BlogIndex = async ({ locale, posts }: Readonly<{ locale: PostLanguage; pos
             <li key={post.slug}>
               <time dateTime={post.metadata.date}>{post.metadata.date}</time>
               <h2>
-                <Link href={`/blog/${post.slug}`} lang={post.metadata.lang}>
+                <PostLink slug={post.slug} language={post.metadata.lang}>
                   {post.metadata.title}
-                </Link>
+                </PostLink>
               </h2>
               <p lang={post.metadata.lang}>{post.metadata.description}</p>
               <span className={styles.language}>

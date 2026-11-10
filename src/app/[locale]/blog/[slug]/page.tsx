@@ -5,6 +5,7 @@ import { notFound } from 'next/navigation'
 
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 
+import ArticleReading from '@/components/blog/article-reading'
 import Reader from '@/components/blog/reader'
 import TranslationNotice from '@/components/blog/translation-notice'
 import styles from '@/components/blog/blog.module.css'
@@ -90,9 +91,10 @@ const PostPage = async ({ params }: PostProps) => {
           <h1>{post.metadata.title}</h1>
           <p>{post.metadata.description}</p>
         </header>
-        <div className={styles.body}>
+        {/* Keyed by slug, so moving to another post remounts the tracker and resets progress. */}
+        <ArticleReading key={slug} outline={post.outline}>
           <post.Content />
-        </div>
+        </ArticleReading>
       </article>
     </Reader>
   )

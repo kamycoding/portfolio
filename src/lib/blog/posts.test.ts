@@ -15,10 +15,12 @@ const metadata = {
   lang: 'en'
 }
 
+const outline = [{ id: 'intro', text: 'Intro', depth: 2 }]
+
 const registration = (overrides: Partial<PostRegistration> = {}): PostRegistration => ({
   slug: 'fixture',
   lang: 'en',
-  load: async () => ({ default: Content, metadata }),
+  load: async () => ({ default: Content, metadata, outline }),
   ...overrides
 })
 
@@ -28,17 +30,25 @@ describe('listPosts', () => {
   })
 
   it('validates metadata at listing time and preserves the MDX component', async () => {
-    expect(await listPosts([registration()])).toEqual([{ slug: 'fixture', metadata, Content }])
+    expect(await listPosts([registration()])).toEqual([{ slug: 'fixture', metadata, outline, Content }])
+  })
+
+  it('rejects a module without the generated outline export', async () => {
+    const entry = registration({ load: async () => ({ default: Content, metadata, outline: undefined }) })
+
+    await expect(listPosts([entry])).rejects.toThrow('Invalid outline for fixture/en.mdx')
   })
 
   it('fails instead of silently omitting a published draft', async () => {
-    const entry = registration({ load: async () => ({ default: Content, metadata: { ...metadata, draft: true } }) })
+    const entry = registration({
+      load: async () => ({ default: Content, metadata: { ...metadata, draft: true }, outline })
+    })
 
     await expect(listPosts([entry])).rejects.toThrow('Published posts cannot be drafts')
   })
 
   it('reports the translation identity when metadata is missing or invalid', async () => {
-    const entry = registration({ load: async () => ({ default: Content, metadata: undefined }) })
+    const entry = registration({ load: async () => ({ default: Content, metadata: undefined, outline }) })
 
     await expect(listPosts([entry])).rejects.toThrow('Invalid metadata for fixture/en.mdx')
   })
@@ -48,7 +58,7 @@ describe('listPosts', () => {
   })
 
   it('rejects duplicate translations before executing imports', async () => {
-    const load = vi.fn(async () => ({ default: Content, metadata }))
+    const load = vi.fn(async () => ({ default: Content, metadata, outline }))
 
     await expect(listPosts([registration({ load }), registration({ load })])).rejects.toThrow(
       'Duplicate published translation: fixture/en'
@@ -57,7 +67,7 @@ describe('listPosts', () => {
   })
 
   it('rejects an invalid slug before executing its import', async () => {
-    const load = vi.fn(async () => ({ default: Content, metadata }))
+    const load = vi.fn(async () => ({ default: Content, metadata, outline }))
 
     await expect(listPosts([registration({ slug: '../drafts', load })])).rejects.toThrow()
     expect(load).not.toHaveBeenCalled()
@@ -66,7 +76,7 @@ describe('listPosts', () => {
   it('allows independently published translations and sorts by date with stable ties', async () => {
     const german = registration({
       lang: 'de',
-      load: async () => ({ default: Content, metadata: { ...metadata, lang: 'de', date: '2026-11-09' } })
+      load: async () => ({ default: Content, metadata: { ...metadata, lang: 'de', date: '2026-11-09' }, outline })
     })
 
     const other = registration({ slug: 'another-fixture' })

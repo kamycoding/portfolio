@@ -95,6 +95,11 @@
     "missingDescription": "This post is available in {language}.",
     "missingMeta": "This translation is unavailable. Read the published language version.",
     "readIn": "Read in {language}",
+    "onThisPage": "On this page",
+    "contents": "Contents",
+    "copy": "Copy",
+    "copied": "Copied",
+    "copyFailed": "Copy failed. Select the code and copy it manually.",
     "languages": { "en": "English", "de": "German" },
     "categories": {
       "engineering": "Engineering",
@@ -134,7 +139,8 @@
   "status": {
     "label": "Status bar",
     "build": "build passing",
-    "city": "Cologne"
+    "city": "Cologne",
+    "reading": "{progress, number, percent} read"
   },
   "footer": {
     "aboutHeading": "// kamyar zamanfar",

@@ -16,6 +16,7 @@ import type { PostLanguage } from './schema'
 const post = (slug: string, lang: PostLanguage, date = '2026-11-10'): PublishedPost => ({
   slug,
   Content: () => null,
+  outline: [],
   metadata: {
     title: 'Route fixture',
     description: 'Route fixture.',

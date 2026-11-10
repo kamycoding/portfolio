@@ -3,8 +3,8 @@
 import { useTranslations } from 'next-intl'
 
 import type { PostLanguage } from '@/lib/blog/schema'
-import { localePath } from '@/lib/site'
 
+import PostLink from './post-link'
 import styles from './blog.module.css'
 
 const TranslationNotice = ({
@@ -19,16 +19,9 @@ const TranslationNotice = ({
       <h1>{t('missingTitle')}</h1>
       <p>{t('missingDescription', { language: t(`languages.${language}`) })}</p>
       <p lang={language}>{title}</p>
-      <a
-        href={localePath(language, `/blog/${slug}`)}
-        lang={language}
-        onClick={() => {
-          // Let locale detection honour the link without an /en URL or a redirect back to this notice.
-          document.cookie = `NEXT_LOCALE=${language}; path=/; SameSite=Lax; Secure`
-        }}
-      >
+      <PostLink slug={slug} language={language}>
         {t('readIn', { language: t(`languages.${language}`) })}
-      </a>
+      </PostLink>
     </div>
   )
 }

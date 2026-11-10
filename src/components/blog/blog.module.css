@@ -104,16 +104,104 @@
   line-height: 1.65;
 }
 
-.body {
-  max-width: 70ch;
+/* Same 17px as the prose, so the 70ch column matches the text measure. */
+.reading {
   margin-top: 40px;
   font-size: 17px;
-  line-height: 1.75;
+}
+
+/* Both Outline variants are in the server HTML and only one is displayed, so nothing shifts on hydration. */
+.contents {
+  max-width: 70ch;
+  margin-bottom: 32px;
+  border: 1px solid var(--hair);
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.contents summary {
+  display: flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 16px;
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.contents summary:hover,
+.contents[open] summary {
+  color: var(--text);
+}
+
+.contents .toc {
+  padding: 4px 16px 16px;
+}
+
+.outline {
+  display: none;
+}
+
+@media (min-width: 1101px) {
+  .withOutline {
+    display: grid;
+    grid-template-columns: minmax(0, 70ch) 15rem;
+    column-gap: clamp(40px, 5vw, 80px);
+    align-items: start;
+  }
+
+  .contents {
+    display: none;
+  }
+
+  /* Sticky below the fixed top bar and ruler; long outlines scroll inside, above the status bar. */
+  .outline {
+    display: block;
+    position: sticky;
+    top: calc(var(--top) + var(--ruler) + 24px);
+    max-height: calc(100vh - var(--top) - var(--ruler) - var(--status) - 48px);
+    overflow-y: auto;
+    font-size: 14px;
+  }
+}
+
+.tocTitle {
+  margin-bottom: 12px;
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 12px;
+}
+
+.toc ul {
+  border-left: 1px solid var(--hair);
+}
+
+.toc ul ul {
+  border-left: 0;
+}
+
+.toc a {
+  display: block;
+  margin-left: -1px;
+  padding: 5px 12px;
+  border-left: 2px solid transparent;
+  color: var(--muted);
+  line-height: 1.45;
   overflow-wrap: anywhere;
 }
 
-.body > * + * {
-  margin-top: 20px;
+.toc ul ul a {
+  padding-left: 26px;
+}
+
+.toc a:hover {
+  color: var(--text);
+}
+
+.toc a[aria-current='location'] {
+  border-left-color: var(--kw);
+  color: var(--text);
 }
 
 .notice a,

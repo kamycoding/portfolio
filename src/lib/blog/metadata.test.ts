@@ -8,6 +8,7 @@ import type { PublishedPost } from './posts'
 const post: PublishedPost = {
   slug: 'fixture',
   Content: () => null,
+  outline: [],
   metadata: {
     title: 'Metadata fixture',
     description: 'Metadata fixture.',

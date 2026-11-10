@@ -95,6 +95,13 @@ Two stacked blocks, then the services.
 ### Footer
 Outlined `kamycoding.com` wordmark, page links, elsewhere links, legal links, copyright.
 
+### Journal reading (`blog/`)
+- Article body in Geist Sans at 17px, about 70ch wide, line height 1.75. Prose styles restore headings, lists, quotes, links and inline code after Tailwind's reset (`prose.module.css`).
+- Code blocks are normal fenced Markdown: ```` ```ts filename="example.ts" {2} ````, with `// [!code ++]` and `// [!code --]` for diffs. The frame shows the filename (or the language), a Copy button and a polite status message. Copy writes the resulting code, without removed lines or markers; a failure says so.
+- Token colours come from the real VS Code themes; the few below WCAG AA are raised in `rehype.mjs`. Highlighted and diff lines keep the theme background and use a left bar plus a `+`/`-` sign, so meaning does not depend on colour alone.
+- Outline: h2 and h3 only. From 1101px a sticky column next to the text with scroll-spy (`aria-current="location"`); below that a closed native `<details>` Contents control above the body that closes after a jump. Both are in the server HTML, so nothing shifts.
+- The status bar shows the share of the article body read (`42% read`), plain text, never announced. The footer does not count, and it resets on navigation.
+
 ## Global interactions
 - **Intro**: a `pnpm build` log (spinner, steps of the career, progress bar, route table, `Ready in`). Runs on every load, skippable with any key, skipped with reduced motion.
 - **Command palette** (`Ctrl K`): grouped commands, keyboard navigation, focus returns on close.

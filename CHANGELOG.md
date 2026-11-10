@@ -11,6 +11,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 - Bilingual Journal indexes at `/blog` and `/de/blog`, with an honest empty state and `noindex, follow` until posts are published.
 - Static article and missing-translation routes with editor tabs, breadcrumbs, top-bar/footer navigation and localized 404 handling for unknown slugs.
 - Journal-only proxy handling and publication-aware language alternates. Journal language switching keeps English URLs free of the `/en` prefix.
+- Journal reading styles: Geist Sans prose at about 70ch, code blocks with filename, copy button, highlighted lines and diffs in all four themes, an Outline with scroll-spy (a Contents control on small screens) and reading progress in the status bar.
+- Heading IDs are generated at build time, transliterate German umlauts and ß, keep explicit `<h2 id="...">` anchors and avoid duplicates.
+- Journal indexes link a post that exists only in the other language directly to its published version.
 
 ## [2.2.0] - 2026-11-09
 

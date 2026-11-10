@@ -95,6 +95,11 @@
     "missingDescription": "Dieser Beitrag ist auf {language} verfügbar.",
     "missingMeta": "Diese Übersetzung ist nicht verfügbar. Lies die veröffentlichte Sprachversion.",
     "readIn": "Auf {language} lesen",
+    "onThisPage": "Auf dieser Seite",
+    "contents": "Inhalt",
+    "copy": "Kopieren",
+    "copied": "Kopiert",
+    "copyFailed": "Kopieren fehlgeschlagen. Markiere den Code und kopiere ihn manuell.",
     "languages": { "en": "Englisch", "de": "Deutsch" },
     "categories": {
       "engineering": "Softwareentwicklung",
@@ -134,7 +139,8 @@
   "status": {
     "label": "Statusleiste",
     "build": "Build erfolgreich",
-    "city": "Köln"
+    "city": "Köln",
+    "reading": "{progress, number, percent} gelesen"
   },
   "footer": {
     "aboutHeading": "// kamyar zamanfar",

@@ -1,0 +1,112 @@
+/* Reading styles for MDX article bodies. Tailwind's preflight resets these elements, so prose restores them. */
+.prose {
+  max-width: 70ch;
+  font-family: var(--font-sans);
+  font-size: 17px;
+  line-height: 1.75;
+  overflow-wrap: break-word;
+}
+
+.prose > * + * {
+  margin-top: 1.25em;
+}
+
+.prose h2,
+.prose h3,
+.prose h4 {
+  color: var(--text);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+
+.prose h2 {
+  margin-top: 2.4em;
+  font-size: 1.6em;
+  line-height: 1.25;
+}
+
+.prose h3 {
+  margin-top: 2em;
+  font-size: 1.25em;
+  line-height: 1.35;
+}
+
+.prose h4 {
+  margin-top: 1.75em;
+  font-size: 1.05em;
+  line-height: 1.45;
+}
+
+.prose :is(h2, h3, h4) + * {
+  margin-top: 0.75em;
+}
+
+.prose a {
+  color: var(--kw);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+}
+
+.prose a:hover {
+  text-decoration-thickness: 2px;
+}
+
+.prose strong {
+  color: var(--text);
+  font-weight: 600;
+}
+
+.prose ul,
+.prose ol {
+  padding-left: 1.5em;
+}
+
+.prose ul {
+  list-style: disc;
+}
+
+.prose ol {
+  list-style: decimal;
+}
+
+.prose li + li,
+.prose li > :is(ul, ol) {
+  margin-top: 0.4em;
+}
+
+.prose li::marker {
+  color: var(--muted);
+}
+
+.prose blockquote {
+  padding-left: 1.1em;
+  border-left: 3px solid var(--hair-2);
+  color: var(--muted);
+}
+
+.prose blockquote > * + * {
+  margin-top: 0.75em;
+}
+
+.prose :not(pre) > code {
+  padding: 0.1em 0.35em;
+  border: 1px solid var(--hair);
+  border-radius: 4px;
+  background: var(--panel-2);
+  font-family: var(--font-mono);
+  font-size: 0.86em;
+  overflow-wrap: anywhere;
+}
+
+.prose hr {
+  margin-block: 2.5em;
+  border: 0;
+  border-top: 1px solid var(--hair);
+}
+
+.prose img {
+  max-width: 100%;
+  height: auto;
+}

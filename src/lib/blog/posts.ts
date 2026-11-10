@@ -2,11 +2,21 @@ import type { ComponentType } from 'react'
 
 import type { MDXProps } from 'mdx/types'
 
-import { postLanguageSchema, postMetadataSchema, postSlugSchema, type PostLanguage, type PostMetadata } from './schema'
+import {
+  outlineSchema,
+  postLanguageSchema,
+  postMetadataSchema,
+  postSlugSchema,
+  type OutlineItem,
+  type PostLanguage,
+  type PostMetadata
+} from './schema'
 
+// @types/mdx only declares the default export; listPosts validates the named exports at runtime.
 type PostModule = Readonly<{
   default: ComponentType<MDXProps>
-  metadata: unknown
+  metadata?: unknown
+  outline?: unknown
 }>
 
 export type PostRegistration = Readonly<{
@@ -18,6 +28,7 @@ export type PostRegistration = Readonly<{
 export type PublishedPost = Readonly<{
   slug: string
   metadata: PostMetadata
+  outline: OutlineItem[]
   Content: PostModule['default']
 }>
 
@@ -54,7 +65,15 @@ export const listPosts = async (registry: readonly PostRegistration[] = POSTS): 
         throw new Error(`Language does not match the registered translation: ${entry.slug}/${entry.lang}.mdx.`)
       }
 
-      return { slug: entry.slug, metadata: result.data, Content: postModule.default }
+      const outline = outlineSchema.safeParse(postModule.outline)
+
+      if (!outline.success) {
+        throw new Error(`Invalid outline for ${entry.slug}/${entry.lang}.mdx: ${outline.error.message}`, {
+          cause: outline.error
+        })
+      }
+
+      return { slug: entry.slug, metadata: result.data, outline: outline.data, Content: postModule.default }
     })
   )
 

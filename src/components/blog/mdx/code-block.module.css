@@ -1,0 +1,158 @@
+.frame {
+  margin-block: 1.75em;
+  overflow: hidden;
+  border: 1px solid var(--hair-2);
+  border-radius: 8px;
+}
+
+.header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 12px;
+  min-height: 40px;
+  padding: 4px 6px 4px 14px;
+  border-bottom: 1px solid var(--hair-2);
+  background: var(--panel-2);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.label {
+  min-width: 0;
+  color: var(--muted);
+  overflow-wrap: anywhere;
+}
+
+.status {
+  margin-left: auto;
+  color: var(--muted);
+}
+
+/* --err misses AA on --panel-2 in Monokai and Solarized; the wording carries the failure. */
+.failed {
+  color: var(--text);
+}
+
+.copy {
+  min-height: 32px;
+  padding: 0 10px;
+  border: 1px solid var(--hair-2);
+  border-radius: 6px;
+  color: var(--muted);
+}
+
+/* With an empty status the button still sits on the right. */
+.status:empty + .copy {
+  margin-left: auto;
+}
+
+.copy:hover {
+  border-color: var(--hair-3);
+  color: var(--text);
+}
+
+/*
+ * Shiki writes one colour variable per theme (docs/adr/0007). Dark is the default, like :root in globals.css;
+ * lines inherit the block's variables, tokens set their own. Unhighlighted blocks fall back to the site colours.
+ */
+.pre {
+  margin: 0;
+  padding-block: 14px;
+  overflow-x: auto;
+  background: var(--shiki-dark-bg, var(--panel));
+  color: var(--shiki-dark, var(--text));
+  font-family: var(--font-mono);
+  font-size: 13.5px;
+  line-height: 1.65;
+  tab-size: 2;
+}
+
+.pre span {
+  color: var(--shiki-dark);
+  font-style: var(--shiki-dark-font-style);
+  font-weight: var(--shiki-dark-font-weight);
+}
+
+:global([data-theme='light']) .pre {
+  background: var(--shiki-light-bg, var(--panel));
+  color: var(--shiki-light, var(--text));
+}
+
+:global([data-theme='light']) .pre span {
+  color: var(--shiki-light);
+  font-style: var(--shiki-light-font-style);
+  font-weight: var(--shiki-light-font-weight);
+}
+
+:global([data-theme='monokai']) .pre {
+  background: var(--shiki-monokai-bg, var(--panel));
+  color: var(--shiki-monokai, var(--text));
+}
+
+:global([data-theme='monokai']) .pre span {
+  color: var(--shiki-monokai);
+  font-style: var(--shiki-monokai-font-style);
+  font-weight: var(--shiki-monokai-font-weight);
+}
+
+:global([data-theme='solarized-dark']) .pre {
+  background: var(--shiki-solarized-dark-bg, var(--panel));
+  color: var(--shiki-solarized-dark, var(--text));
+}
+
+:global([data-theme='solarized-dark']) .pre span {
+  color: var(--shiki-solarized-dark);
+  font-style: var(--shiki-solarized-dark-font-style);
+  font-weight: var(--shiki-solarized-dark-font-weight);
+}
+
+/* The frame clips overflow, so the global outside focus ring would be cut off. */
+.pre:focus-visible {
+  outline-offset: -2px;
+  border-radius: 0 0 7px 7px;
+}
+
+/* A grid drops the newline text nodes between lines, so each line can be a full-width block. */
+.pre code {
+  display: grid;
+  min-width: 100%;
+  width: max-content;
+}
+
+.pre :global(.line) {
+  position: relative;
+  padding-inline: 20px;
+}
+
+/*
+ * Marked lines keep the theme background, so every token keeps its contrast. A bar and a +/- sign carry the
+ * meaning instead of colour alone; the sign is generated content, so copying never includes it.
+ */
+.pre :global(.line.highlighted) {
+  box-shadow: inset 3px 0 var(--kw);
+}
+
+.pre :global(.line.diff)::before {
+  position: absolute;
+  left: 7px;
+}
+
+.pre :global(.line.add) {
+  box-shadow: inset 3px 0 var(--ok);
+}
+
+.pre :global(.line.add)::before {
+  content: '+';
+  color: var(--ok);
+}
+
+.pre :global(.line.remove) {
+  box-shadow: inset 3px 0 var(--err);
+}
+
+.pre :global(.line.remove)::before {
+  content: '-';
+  color: var(--err);
+}

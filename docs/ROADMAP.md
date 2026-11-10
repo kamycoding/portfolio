@@ -152,7 +152,7 @@ Branch: `feat/blog`. Each step is reviewed separately. Kamyar commits and pushes
 
 - Step 1a (done): MDX modules through `@next/mdx`, local Shiki plugin through an absolute path, validated exported metadata, empty explicit post registry and gitignored local drafts (ADR 0007).
 - Step 1b (done): Journal indexes and article routes, missing-translation notices, basic editor tabs and breadcrumbs, top-bar/footer navigation, journal locale switching and bilingual copy. Empty indexes use `noindex, follow` until a post is published. Both locales of every published slug are prebuilt. Unknown slugs call `notFound()` immediately using the existing localized 404 pattern with default `dynamicParams`; they never render an article. Journal-only proxy handling suppresses automatic alternate headers while the pages supply accurate HTML alternates. English locale switches use `/blog/...`, without `/en`.
-- Step 1c: reading styles, code-block presentation, Outline scroll-spy and article progress in the status bar.
+- Step 1c (done): reading styles, code blocks from fenced Markdown (filename, copy, highlighted lines, diffs, AA token colours in all four themes), build-time heading IDs with German transliteration and an `outline` export, Outline scroll-spy with a mobile Contents control, article progress in the status bar, and index links that point other-language posts at their published version.
 - Step 1d: Term, Gloss, Dialog, Quiz, Callout, TLDR, Takeaways and Figure.
 - Step 1e: local ElevenLabs audio authoring and playback. Plan and voice remain undecided; no generation before approval.
 - Step 1f: sitemap, RSS, per-post Open Graph images, JSON-LD, author box, privacy and documentation. Sitemap changes stay deferred until this step.
