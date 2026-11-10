@@ -18,6 +18,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 - Journal audio: play buttons for terms, Gloss sentences and dialogue lines, with same-origin clips, the spoken word group highlighted in Gloss, a local German voice as fallback and a clear unavailable state. Clips are generated locally with `pnpm audio` (a dry run unless `--generate` is given); builds never contact ElevenLabs.
 - Journal search and sharing: published translations in the sitemap, an RSS feed per language (`/blog/rss.xml`, `/de/blog/rss.xml`), an Open Graph image per article, structured data for articles, and an author box at the end of each article.
 - The privacy policy describes the journal audio and the local speech fallback, and the theme paragraph now names all four color themes.
+- The 404 page is an editor window with the missing file as a tab, a compiler-style "Module not found" line with the real path, a "Did you mean" suggestion for the closest real route, a link to the journal and the sleeping cat.
 
 ## [2.2.0] - 2026-11-09
 

@@ -1,3 +1,9 @@
+import type { RouteCandidate } from '@/lib/not-found'
+
+import { MissingDetails, MissingTab } from './not-found/missing-path'
+import SleepingCat from './not-found/sleeping-cat'
+import styles from './not-found/not-found.module.css'
+
 type NotFoundViewProps = Readonly<{
   copy: {
     code: string
@@ -6,33 +12,53 @@ type NotFoundViewProps = Readonly<{
     navigationAria: string
     home: string
     projects: string
+    journal: string
+    suggestion: string
+    fallback: string
   }
   homeHref: string
+  journalHref: string
+  candidates: readonly RouteCandidate[]
 }>
 
+const action = 'inline-flex h-11.5 items-center rounded-[10px] border px-5 text-[15px] font-medium'
+
 // Shared by the localized 404 (inside the shell) and the root 404. The caller provides <main>.
-const NotFoundView = ({ copy, homeHref }: NotFoundViewProps) => {
-  return (
-    <div className='mx-auto flex max-w-(--max) flex-col justify-center px-(--gutter) py-24'>
-      <p className='text-com mb-4.5 font-mono text-[13px]'>{`// ${copy.code}`}</p>
-      <h1 className='text-[clamp(32px,3.6vw,54px)] leading-[1.06] font-semibold tracking-[-0.035em]'>{copy.heading}</h1>
-      <p className='text-muted mt-4.5 max-w-[56ch] text-[16.5px] leading-[1.65]'>{copy.description}</p>
-      <nav aria-label={copy.navigationAria} className='mt-9 flex flex-wrap gap-3'>
-        <a
-          href={homeHref}
-          className='bg-text text-bg border-text inline-flex h-11.5 items-center rounded-[10px] border px-5 text-[15px] font-medium'
-        >
-          {copy.home}
-        </a>
-        <a
-          href={`${homeHref}#work`}
-          className='border-hair-2 hover:border-hair-3 inline-flex h-11.5 items-center rounded-[10px] border px-5 text-[15px] font-medium'
-        >
-          {copy.projects}
-        </a>
-      </nav>
+const NotFoundView = ({ copy, homeHref, journalHref, candidates }: NotFoundViewProps) => (
+  <div className={styles.view}>
+    <div className={styles.window}>
+      {/* The tab repeats the path that the error line states, so assistive technology reads it once. */}
+      <div aria-hidden='true' className={styles.tabs}>
+        <MissingTab />
+      </div>
+      <div className={styles.body}>
+        <p className={styles.eyebrow}>{`// ${copy.code}`}</p>
+        <h1 className={styles.heading}>{copy.heading}</h1>
+        <MissingDetails
+          candidates={candidates}
+          suggestion={copy.suggestion}
+          fallback={copy.fallback}
+          homeHref={homeHref}
+          journalHref={journalHref}
+        />
+        <p className={styles.description}>{copy.description}</p>
+        <div className={styles.footer}>
+          <nav aria-label={copy.navigationAria} className={styles.actions}>
+            <a href={homeHref} className={`bg-text text-bg border-text ${action}`}>
+              {copy.home}
+            </a>
+            <a href={`${homeHref}#work`} className={`border-hair-2 hover:border-hair-3 ${action}`}>
+              {copy.projects}
+            </a>
+            <a href={journalHref} className={`border-hair-2 hover:border-hair-3 ${action}`}>
+              {copy.journal}
+            </a>
+          </nav>
+          <SleepingCat />
+        </div>
+      </div>
     </div>
-  )
-}
+  </div>
+)
 
 export default NotFoundView

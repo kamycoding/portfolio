@@ -1,0 +1,163 @@
+/* The 404 as an editor window with a missing file (docs/design/DESIGN.md). No motion, and every line is fixed. */
+.view {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: clamp(48px, 8vw, 96px) var(--gutter);
+}
+
+.window {
+  max-width: 880px;
+  overflow: hidden;
+  border: 1px solid var(--hair-2);
+  border-radius: 14px;
+  background: var(--panel);
+  box-shadow: var(--shadow);
+}
+
+.tabs {
+  display: flex;
+  height: 42px;
+  border-bottom: 1px solid var(--hair);
+  font:
+    400 12.5px var(--font-geist-mono),
+    monospace;
+}
+
+.tab {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+  padding: 0 16px;
+  border-right: 1px solid var(--hair);
+  background: var(--panel-2);
+  box-shadow: inset 0 1.5px 0 var(--err);
+  color: var(--text);
+}
+
+/* A wavy error underline and the close mark, so the error never depends on colour alone. */
+.tabName {
+  overflow: hidden;
+  text-decoration: underline wavy var(--err);
+  text-decoration-skip-ink: none;
+  text-decoration-thickness: 1px;
+  text-overflow: ellipsis;
+  text-underline-offset: 4px;
+  white-space: nowrap;
+}
+
+.close {
+  color: var(--err);
+}
+
+.body {
+  padding: clamp(28px, 5vw, 48px);
+}
+
+.eyebrow {
+  margin-bottom: 18px;
+  color: var(--com);
+  font:
+    13px var(--font-geist-mono),
+    monospace;
+}
+
+.heading {
+  font-size: clamp(32px, 3.6vw, 54px);
+  font-weight: 600;
+  line-height: 1.06;
+  letter-spacing: -0.035em;
+}
+
+.error {
+  margin-top: 26px;
+  padding: 12px 16px;
+  border-left: 3px solid var(--err);
+  border-radius: 0 6px 6px 0;
+  background: var(--bg-2);
+  font:
+    13.5px/1.7 var(--font-geist-mono),
+    monospace;
+}
+
+.line,
+.hint {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.line {
+  color: var(--text);
+}
+
+.glyph {
+  margin-right: 10px;
+  color: var(--err);
+}
+
+.hint {
+  color: var(--muted);
+}
+
+.hint a {
+  color: var(--kw);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+.hint a:hover {
+  text-decoration-thickness: 2px;
+}
+
+.description {
+  max-width: 56ch;
+  margin-top: 22px;
+  color: var(--muted);
+  font-size: 16.5px;
+  line-height: 1.65;
+}
+
+.footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  margin-top: 36px;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.cat {
+  flex: none;
+  width: 112px;
+  margin-left: auto;
+  overflow: visible;
+  color: var(--text);
+}
+
+.fill {
+  fill: var(--panel);
+}
+
+.stripe {
+  stroke: var(--faint);
+}
+
+.zz {
+  font:
+    500 11px var(--font-geist-mono),
+    monospace;
+  fill: var(--faint);
+  stroke: none;
+}
+
+.zzSmall {
+  font-size: 8px;
+}

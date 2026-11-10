@@ -152,7 +152,10 @@
     "description": "Die gesuchte Seite existiert nicht oder wurde möglicherweise verschoben.",
     "navigationAria": "Navigation der Fehlerseite",
     "home": "Zurück zur Startseite",
-    "projects": "Projekte ansehen"
+    "projects": "Projekte ansehen",
+    "journal": "Zum Journal",
+    "suggestion": "Meintest du {route}?",
+    "fallback": "Versuch's mit {home} oder {journal}"
   },
   "nav": {
     "main": "Hauptnavigation",

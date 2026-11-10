@@ -111,6 +111,13 @@ Outlined `kamycoding.com` wordmark, page links, elsewhere links, legal links, co
 - Author box: the article's footer below the text, 70ch wide: a hairline on top, the `k/` mark, "Written by" / "Geschrieben von" in `--com` mono, the name, "Full-stack developer near Cologne." in `--muted`, and GitHub and LinkedIn links in `--kw`.
 - Article Open Graph image: the homepage frame (logo, name, domain, Dark Modern) with `// journal · category` in `--com`, the title in a dashed blueprint outline, a dimension line, and `blog/<slug>.mdx` with `DATE` and language in mono.
 
+### Not found (404)
+- An editor window with the missing file as its only tab: the last path segment as a file name (`hello.tsx`, `post.mdx` under `/blog`), a wavy `--err` underline and a close mark. The tab row is `aria-hidden`, because the error line says the same.
+- `// Error 404`, the heading, then a compiler-style panel with an `--err` bar: "Module not found: Can't resolve '/hello'" in English in both languages (`lang="en"`), and below it "Did you mean /blog?" / "Meintest du /blog?" with the closest real route, or "Try / or /blog" / "Versuch's mit / oder /blog". Both lines are single lines with an ellipsis.
+- The 404 HTML is static and shared by every path, so the path is read in the browser after loading; before that the lines show their fallbacks in the same space, so nothing shifts. The path is only shown as text; links only go to known routes.
+- Actions: Back to homepage, View projects, Read the journal. The cat lies asleep next to them, static and decorative.
+- The localized 404 uses the active theme; the root 404 (paths the proxy skips) stays on Dark Modern. Both are `noindex`.
+
 ## Global interactions
 - **Intro**: a `pnpm build` log (spinner, steps of the career, progress bar, route table, `Ready in`). Runs on every load, skippable with any key, skipped with reduced motion.
 - **Command palette** (`Ctrl K`): grouped commands, keyboard navigation, focus returns on close.
