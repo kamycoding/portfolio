@@ -1,9 +1,10 @@
 'use client'
 
-import { type ReactNode, useEffect, useId, useRef, useState } from 'react'
+import { type MouseEvent, type ReactNode, useEffect, useId, useRef, useState } from 'react'
 
 import { useTranslations } from 'next-intl'
 
+import { createHoverIntent } from '@/lib/blog/hover-intent'
 import { placePopover } from '@/lib/blog/popover-position'
 
 import AudioButton, { type ClipAudio } from './audio-button'
@@ -13,7 +14,8 @@ type TermProps = Readonly<{ de: string; en: string; note?: string; audio: ClipAu
 
 /*
  * A nonmodal disclosure on the native Popover API: Escape, light dismiss and focus return come from the browser,
- * and it opens even before hydration. Script only places it next to the word.
+ * and it opens even before hydration. Script places it next to the word and, for a mouse, opens it on hover.
+ * popover="auto" keeps one open at a time.
  */
 const Term = ({ de, en, note, audio, children }: TermProps) => {
   const t = useTranslations('journal.audio')
@@ -21,10 +23,36 @@ const Term = ({ de, en, note, audio, children }: TermProps) => {
   const trigger = useRef<HTMLButtonElement>(null)
   const panel = useRef<HTMLSpanElement>(null)
   const [open, setOpen] = useState(false)
+  const intent = useRef<ReturnType<typeof createHoverIntent>>(null)
 
   useEffect(() => {
     const element = panel.current!
+    const button = trigger.current!
+    const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)')
     let frame = 0
+
+    const hover = createHoverIntent({
+      open: () => element.showPopover(),
+      close: () => element.hidePopover(),
+      isOpen: () => element.matches(':popover-open')
+    })
+
+    intent.current = hover
+
+    // Mouse only: touch and pen keep tap to open, and a coarse pointer never gets a hover timer.
+    const onEnter = (onTrigger: boolean) => (event: PointerEvent) => {
+      if (event.pointerType === 'mouse' && finePointer.matches) hover.enter(onTrigger)
+    }
+
+    const onLeave = (event: PointerEvent) => {
+      if (event.pointerType === 'mouse') hover.leave()
+    }
+
+    const enterTrigger = onEnter(true)
+    const enterPanel = onEnter(false)
+
+    // Focus inside, for example on the audio button, keeps the panel open after the pointer leaves.
+    const pin = () => hover.pin()
 
     const place = () => {
       const { top, left } = placePopover(trigger.current!.getBoundingClientRect(), element.getBoundingClientRect(), {
@@ -60,18 +88,36 @@ const Term = ({ de, en, note, audio, children }: TermProps) => {
       setOpen(isOpen)
       listen(isOpen)
       if (isOpen) place()
+      else hover.closed()
     }
 
     element.addEventListener('beforetoggle', beforeToggle)
     element.addEventListener('toggle', toggle)
+    element.addEventListener('focusin', pin)
+    element.addEventListener('pointerenter', enterPanel)
+    element.addEventListener('pointerleave', onLeave)
+    button.addEventListener('pointerenter', enterTrigger)
+    button.addEventListener('pointerleave', onLeave)
 
     return () => {
       element.removeEventListener('beforetoggle', beforeToggle)
       element.removeEventListener('toggle', toggle)
+      element.removeEventListener('focusin', pin)
+      element.removeEventListener('pointerenter', enterPanel)
+      element.removeEventListener('pointerleave', onLeave)
+      button.removeEventListener('pointerenter', enterTrigger)
+      button.removeEventListener('pointerleave', onLeave)
+      hover.dispose()
+      intent.current = null
       listen(false)
       cancelAnimationFrame(frame)
     }
   }, [])
+
+  // Click, tap, Enter and Space still toggle; on a panel that hover opened, they pin it instead of closing it.
+  const pinOnClick = (event: MouseEvent) => {
+    if (intent.current?.pin()) event.preventDefault()
+  }
 
   return (
     <>
@@ -83,6 +129,7 @@ const Term = ({ de, en, note, audio, children }: TermProps) => {
         popoverTarget={id}
         aria-controls={id}
         aria-expanded={open}
+        onClick={pinOnClick}
       >
         {children}
       </button>
