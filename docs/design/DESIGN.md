@@ -122,7 +122,7 @@ Outlined `kamycoding.com` wordmark, page links, elsewhere links, legal links, co
 - **Intro**: a `pnpm build` log (spinner, steps of the career, progress bar, route table, `Ready in`). Runs on every load, skippable with any key, skipped with reduced motion.
 - **Command palette** (`Ctrl K`): grouped commands, keyboard navigation, focus returns on close.
 - **Shortcuts**: `G W/A/S/C/G` navigate, `C` copy email, `T` Color Theme picker, `L` language, `M` cat, `?` palette. Ignored while typing.
-- **Cursor** (fine pointers only): dot plus easing ring, ring grows on links with a small label (`go`, `↗`, `copy`, `open`, `run`, `pet`), caret on text and code.
+- **Cursor** (fine pointers only, homepage): a drafting tool. Thin crosshair with live coordinates (guide lines only inside the hero), a corner-bracket selection frame with the element's measured size over buttons, links, project and review cards, a pull of at most 4 px on real buttons, an editor caret with the status bar's line number over text, a block over the terminal, a paw near the cat, a measuring line on drag and a "+" pin on click, dimmed to 30% opacity after 3 s without movement. Journal pages use a calm reading cursor (caret over prose, ring over controls, dot elsewhere).
 
 ## Accessibility (must keep)
 - Skip link, landmarks, visible focus (`--kw` outline), real buttons and links.
