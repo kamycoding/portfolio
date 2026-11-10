@@ -101,6 +101,12 @@ Outlined `kamycoding.com` wordmark, page links, elsewhere links, legal links, co
 - Token colours come from the real VS Code themes; the few below WCAG AA are raised in `rehype.mjs`. Highlighted and diff lines keep the theme background and use a left bar plus a `+`/`-` sign, so meaning does not depend on colour alone.
 - Outline: h2 and h3 only. From 1101px a sticky column next to the text with scroll-spy (`aria-current="location"`); below that a closed native `<details>` Contents control above the body that closes after a jump. Both are in the server HTML, so nothing shifts.
 - The status bar shows the share of the article body read (`42% read`), plain text, never announced. The footer does not count, and it resets on navigation.
+- Term: German word with a dotted `--kw` underline (links use a solid one). Click, tap, Enter or Space opens a nonmodal popover with the German form, the English translation and an optional note; Escape or a tap outside closes it and focus returns. No hover opening, no vocabulary basket.
+- Gloss: German line above the English line. The first part of each word group is a button: hover, focus or a tap (pins it, `aria-pressed`, Escape unpins) highlights the group on both lines with `--kw-a` and a solid underline. Buttons are described by their English parts.
+- Dialog: speaker-labelled German lines; a "Show English" toggle (`aria-pressed`, check mark in reserved space) reveals the English lines.
+- Quiz: radios in a fieldset, Check, then one live region with "Correct." or "Not quite." and the explanation. The right answer and a wrong pick get a text label plus a glyph and border in `--ok` or `--err`. The same button becomes "Try again", which resets and focuses the first choice.
+- Callout (Note `--kw`, Tip `--ok`, Warning `--str`): accent bar and a coloured mono label on `--bg`. TLDR and Takeaways: a region labelled in `--com`, not a heading, so the Outline stays unchanged. Figure: image with intrinsic size, hairline border and a muted caption.
+- None of them animate. States change colour and decoration only, so nothing shifts; all text and indicator colours were checked for AA in every theme.
 
 ## Global interactions
 - **Intro**: a `pnpm build` log (spinner, steps of the career, progress bar, route table, `Ready in`). Runs on every load, skippable with any key, skipped with reduced motion.

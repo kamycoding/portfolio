@@ -30,7 +30,7 @@ describe('listPosts', () => {
   })
 
   it('validates metadata at listing time and preserves the MDX component', async () => {
-    expect(await listPosts([registration()])).toEqual([{ slug: 'fixture', metadata, outline, Content }])
+    expect(await listPosts([registration()])).toEqual([{ slug: 'fixture', metadata, outline, learning: null, Content }])
   })
 
   it('rejects a module without the generated outline export', async () => {
@@ -98,5 +98,29 @@ describe('listPosts', () => {
     })
 
     await expect(listPosts([entry])).rejects.toThrow('Fixture import failed')
+  })
+
+  it('resolves learning.json text to the language of each translation', async () => {
+    const learning = async () => ({
+      default: { terms: { feierabend: { de: 'der Feierabend', en: 'end of work', note: { en: 'Note', de: 'Notiz' } } } }
+    })
+
+    const german = registration({
+      lang: 'de',
+      load: async () => ({ default: Content, metadata: { ...metadata, lang: 'de' }, outline }),
+      learning
+    })
+
+    const posts = await listPosts([registration({ learning }), german])
+
+    expect(posts.map(post => post.learning?.terms?.feierabend.note)).toEqual(['Notiz', 'Note'])
+  })
+
+  it('names the translation when its learning.json lacks text in that language', async () => {
+    const entry = registration({
+      learning: async () => ({ default: { terms: { feierabend: { de: 'x', en: 'y', note: { de: 'Notiz' } } } } })
+    })
+
+    await expect(listPosts([entry])).rejects.toThrow('Invalid learning.json for fixture/en.mdx')
   })
 })

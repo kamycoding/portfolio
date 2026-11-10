@@ -100,6 +100,24 @@
     "copy": "Kopieren",
     "copied": "Kopiert",
     "copyFailed": "Kopieren fehlgeschlagen. Markiere den Code und kopiere ihn manuell.",
+    "callout": {
+      "note": "Hinweis",
+      "tip": "Tipp",
+      "warning": "Achtung"
+    },
+    "tldr": "Kurz gesagt",
+    "takeaways": "Das Wichtigste",
+    "gloss": "Deutscher Satz mit englischer Zuordnung",
+    "showEnglish": "Englisch anzeigen",
+    "quiz": {
+      "check": "Prüfen",
+      "retry": "Nochmal versuchen",
+      "correct": "Richtig.",
+      "incorrect": "Nicht ganz.",
+      "choose": "Wähl zuerst eine Antwort.",
+      "yourAnswer": "Deine Antwort",
+      "correctAnswer": "Richtige Antwort"
+    },
     "languages": { "en": "Englisch", "de": "Deutsch" },
     "categories": {
       "engineering": "Softwareentwicklung",

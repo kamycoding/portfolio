@@ -100,6 +100,24 @@
     "copy": "Copy",
     "copied": "Copied",
     "copyFailed": "Copy failed. Select the code and copy it manually.",
+    "callout": {
+      "note": "Note",
+      "tip": "Tip",
+      "warning": "Warning"
+    },
+    "tldr": "TL;DR",
+    "takeaways": "Takeaways",
+    "gloss": "German sentence with English alignment",
+    "showEnglish": "Show English",
+    "quiz": {
+      "check": "Check",
+      "retry": "Try again",
+      "correct": "Correct.",
+      "incorrect": "Not quite.",
+      "choose": "Choose an answer first.",
+      "yourAnswer": "Your answer",
+      "correctAnswer": "Correct answer"
+    },
     "languages": { "en": "English", "de": "German" },
     "categories": {
       "engineering": "Engineering",

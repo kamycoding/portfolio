@@ -9,6 +9,7 @@ const post: PublishedPost = {
   slug: 'fixture',
   Content: () => null,
   outline: [],
+  learning: null,
   metadata: {
     title: 'Metadata fixture',
     description: 'Metadata fixture.',

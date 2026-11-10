@@ -1,0 +1,77 @@
+/*
+ * Callout, TLDR, Takeaways and Figure. They sit on --bg; the accent labels and --com reach AA on it in all four
+ * themes, which they would not on --panel-2 in Monokai and Solarized.
+ */
+.callout,
+.summary {
+  margin-block: 1.75em;
+  padding: 12px 18px 14px;
+  border: 1px solid var(--hair-2);
+  border-radius: 8px;
+}
+
+.callout {
+  --accent: var(--kw);
+  border-left: 3px solid var(--accent);
+}
+
+.tip {
+  --accent: var(--ok);
+}
+
+.warning {
+  --accent: var(--str);
+}
+
+.label,
+.summaryLabel {
+  margin-bottom: 4px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.label {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 10px;
+}
+
+.kind {
+  color: var(--accent);
+}
+
+.title {
+  color: var(--text);
+  font-family: var(--font-sans);
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.summaryLabel {
+  color: var(--com);
+}
+
+.body > * + * {
+  margin-top: 0.75em;
+}
+
+.figure {
+  margin-block: 2em;
+}
+
+.figure img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  border: 1px solid var(--hair);
+  border-radius: 8px;
+}
+
+.caption {
+  margin-top: 10px;
+  color: var(--muted);
+  font-size: 0.88em;
+  line-height: 1.6;
+}

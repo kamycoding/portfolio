@@ -59,7 +59,13 @@ The proxy has two next-intl handlers with identical routing options except `alte
 
 Journal locale switches reset the reading position to the top and use the existing raw Next.js router with the locale cookie. English URLs remain `/blog/...`, without an `/en` prefix. The notice's cross-language link sets the requested locale cookie before navigation so language detection cannot redirect back to the unavailable version.
 
-Optional `learning.json` files will hold validated terms, sentence alignment, dialogue and quiz data. German and English alignment is authored explicitly.
+Learning components (step 1d):
+
+- An optional `content/posts/<slug>/learning.json` holds terms, sentences (German and English word-group alignment, authored explicitly), dialogues and quizzes, each keyed by a slug-format id. One file serves every translation of the slug; each registry entry references it with a `learning` loader next to `load`.
+- `listPosts` parses the file once per translation with that translation's language. Reader-facing text is written as `{ "en": "...", "de": "..." }`, must exist in the parsing language and resolves to a plain string. Objects are strict, so step 1e adds audio fields deliberately. Sentence groups must match on both sides, dialogue speakers must be declared, and quiz choice ids must be unique and include the answer.
+- MDX references entries by id: `<Term id="feierabend" />` (children override the displayed form), `<Gloss id="..." />`, `<Dialog id="..." />` and `<Quiz id="..." />`. The article page passes these four through the MDX `components` prop, bound to the post's validated data, so each client component receives one entry only. An unknown id, or a reference without a registered `learning.json`, throws during prerendering; every published slug is prebuilt, so the build fails.
+- Callout (`note`, `tip`, `warning`), TLDR, Takeaways and Figure need no data and live in the global mapping. Figure takes a static image import from the MDX and renders a plain `<img>` with the intrinsic size: no layout shift, a hashed asset on the own origin and no image function. Authors export images at about twice the column width.
+- Term uses the native Popover API (`popover="auto"`): a nonmodal disclosure with browser-provided Escape, light dismiss and focus return, which opens even before hydration. A small tested helper positions it next to the word.
 
 In step 1e, `scripts/generate-audio.ts` will call ElevenLabs during local authoring. The API key will exist only in an environment variable. Normal builds will not call ElevenLabs. The cache key will include text, language, voice, model, synthesis settings and output format. Published MP3 and timing files will be served from the own origin; unpublished audio will stay with local drafts.
 
@@ -76,3 +82,4 @@ Playback will use native audio elements. Timing information will be used only wh
 - The CSP needs no third-party origins.
 - Commercial audio use requires review of the actual ElevenLabs agreement before generation.
 - Phase 1 has no vocabulary basket or persistent learning state. Richer reading tools and discovery features remain in Phase 2.
+- A typo in a learning id or a missing translation of reader-facing text fails the build instead of shipping a broken component.
