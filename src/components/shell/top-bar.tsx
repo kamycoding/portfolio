@@ -2,6 +2,7 @@
 
 import { useTranslations } from 'next-intl'
 
+import Logo from '@/components/brand/logo'
 import LanguageSwitch from '@/components/shell/language-switch'
 import ThemeToggle from '@/components/shell/theme-toggle'
 import ui from '@/components/ui/ui.module.css'
@@ -10,6 +11,7 @@ import { openPalette } from '@/hooks/use-palette'
 import { useRestoreLocalePosition } from '@/hooks/use-switch-locale'
 import { useScrollSpy } from '@/hooks/use-scroll-spy'
 import { Link, usePathname } from '@/i18n/navigation'
+import { isJournalRoute } from '@/lib/blog/routes'
 import { getPage, SECTIONS } from '@/lib/sections'
 import { cn } from '@/lib/utils'
 
@@ -28,7 +30,9 @@ const TopBar = ({ versionLabel }: TopBarProps) => {
   const { activeId, progress } = useScrollSpy()
 
   // On a legal page its own file is the open tab, so no section tab is active.
-  const page = getPage(usePathname())
+  const pathname = usePathname()
+  const page = getPage(pathname)
+  const journal = isJournalRoute(pathname)
 
   return (
     <header className='border-hair bg-bg/84 fixed inset-x-0 top-0 z-40 flex h-(--top) items-stretch border-b backdrop-blur-md'>
@@ -37,12 +41,7 @@ const TopBar = ({ versionLabel }: TopBarProps) => {
         href='/#index'
         className='border-hair flex flex-none items-center gap-2.5 border-r px-3 font-mono text-sm font-medium sm:px-5'
       >
-        <span
-          aria-hidden='true'
-          className='border-text grid size-5.5 place-items-center rounded-md border-[1.5px] font-mono text-[10.5px] font-semibold tracking-[-0.04em]'
-        >
-          k/
-        </span>
+        <Logo height={22} />
         <span className='max-sm:sr-only'>kamycoding</span>
         <span className='text-faint hidden text-[11.5px] font-normal lg:inline'>{versionLabel}</span>
         <span className='sr-only'>, {t('home')}</span>
@@ -50,7 +49,7 @@ const TopBar = ({ versionLabel }: TopBarProps) => {
 
       <nav aria-label={t('main')} className='flex min-w-0 flex-1 [scrollbar-width:none] overflow-x-auto'>
         {SECTIONS.map(section => {
-          const isActive = !page && section.id === activeId
+          const isActive = !page && !journal && section.id === activeId
 
           return (
             <Link
@@ -74,6 +73,20 @@ const TopBar = ({ versionLabel }: TopBarProps) => {
             </Link>
           )
         })}
+        <Link
+          href='/blog'
+          aria-label={`blog/, ${t('journal')}`}
+          aria-current={journal ? 'location' : undefined}
+          className={cn(
+            'border-hair relative flex items-center gap-2 border-r px-4.5 font-mono text-[13px] whitespace-nowrap',
+            journal
+              ? 'bg-panel text-text after:bg-kw after:absolute after:inset-x-0 after:top-0 after:h-[1.5px]'
+              : 'text-muted hover:text-text'
+          )}
+        >
+          <span aria-hidden='true' className='bg-prop size-1.75 flex-none rounded-[2px]' />
+          blog/
+        </Link>
         {page && (
           <Link
             href={page.href}

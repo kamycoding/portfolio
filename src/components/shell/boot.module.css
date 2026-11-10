@@ -22,6 +22,12 @@
   visibility: hidden;
 }
 
+/* The log and footer leave at once and only the background fades, so no half-transparent text is left behind. */
+.done .term,
+.done .foot {
+  visibility: hidden;
+}
+
 .term {
   width: min(620px, 92vw);
   font:

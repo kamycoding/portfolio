@@ -6,6 +6,41 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+## [2.3.0] - 2026-11-10
+
+The Journal: a bilingual blog about building software in Germany, with interactive learning components and audio, its first article, a place on the homepage and a redesigned 404 page.
+
+### Added
+
+- Journal at `/blog` and `/de/blog`: MDX articles in the repository with validated metadata, static article routes, editor tabs and breadcrumbs, and a `blog/` tab in the top bar and footer. A post that exists in only one language shows a localized notice in the other and links to the published version (ADR 0007).
+- First article, in English: "German for Developers: What People Say in Dailies and Calls", with a textbook diff, 20 playable phrases, a word-by-word sentence, a standup dialogue and a quiz.
+- Second article, in English and German: "The JavaScript Event Loop: Predict the Output". It teaches the call stack, microtasks and tasks through three output puzzles, a stepper, a real `forEach(async)` bug with a measured timeline and a page-freeze demo. The claims were checked against MDN and the HTML specification.
+- Interactive article components: `OutputPuzzle` (click the console lines in the order you expect, per-position feedback and a running score), `EventLoopStepper` (precomputed frames with the code, call stack, microtask queue, task queue and console, arrow keys and a live description), `AsyncRaceTimeline` (three save strategies run with real timers and measured times) and `MainThreadDemo` (a frame counter that freezes during a blocking loop and keeps going when the work is chunked with `scheduler.yield()` or `setTimeout`).
+- "Listen to this article": a reusable narration player at the top of an article with play and pause, previous and next section, 1x, 1.25x and 1.5x speed, a polite status line and the current section marked in the Outline (choosing an Outline entry while it plays jumps there). Narration is authored per h2 section in `learning.json` (English and German), generated with `pnpm audio` (one clip per section and language, a narrator voice per language) and shows "Audio not generated yet" until the clips exist. Only the event loop article has narration for now.
+- Reading experience: Geist Sans prose at about 70ch, code blocks with filename, copy button, highlighted lines and diffs in all four themes, an Outline with scroll-spy (a Contents control on small screens) and reading progress in the status bar. Heading IDs are generated at build time and transliterate German umlauts and ß.
+- Article components: Term translations in an accessible popover that also opens on hover with a mouse, Gloss sentences with linked German and English word groups, Dialog with a Show English toggle, Quiz with check, explanation and retry, and Callout, TLDR, Takeaways and Figure blocks. Learning data lives in a validated `learning.json` per post, and an unknown id fails the build.
+- Audio: play buttons for terms, Gloss sentences and dialogue lines, with same-origin clips, the spoken word group highlighted in Gloss, a local German voice as fallback and a clear unavailable state. Clips are generated locally with `pnpm audio` (a dry run unless `--generate` is given); builds never contact ElevenLabs.
+- Search and sharing: published translations in the sitemap, an RSS feed per language (`/blog/rss.xml`, `/de/blog/rss.xml`), an Open Graph image per article, structured data for articles, publication-aware language alternates and an author box at the end of each article. The journal indexes are indexed now that a post is published.
+- Homepage journal section (`blog/`) between the stack and the contact form, built as VS Code's "Open editors": every post is a small editor window in a horizontal scroll-snap row (three visible on desktop, swipe on mobile, previous and next buttons when it overflows), with a last card to the index. A card has a tab (shortened file name and language badges), a code-style preview with line numbers (the title as a Markdown heading, the TL;DR as a comment and up to two hook lines), a minimap with one bar per h2 section, a footer (category, reading time, audio, interactive and quiz badges) and actions: Listen, Copy link, read the other translation and Open. From three posts on there is a quick-open filter (title and tags, Ctrl or Cmd P while the section is on screen) and category chips. Left and Right move between cards. It is hidden while nothing is published.
+- Terminal: `ls blog` lists the published posts, `open <slug>` and `cat blog/<slug>` open one, with ghost suggestions like the other commands.
+- Command palette: a Journal group with the journal and every published post.
+- Reading cursor on journal pages: an editor caret over prose (text still selects), a small ring over links and controls and a dot elsewhere, in the theme colour with a thin outline, quieter rulers and no blueprint crosshair. The homepage keeps the blueprint cursor.
+- Post metadata takes an optional `tldr`, shared by the article's TLDR block and the homepage, and an optional `preview` of up to two hook lines (kind `code`, `comment`, `add` or `remove`) for the homepage cards.
+
+### Changed
+
+- The homepage cursor is a drafting tool that matches the blueprint hero, for fine pointers only: a thin crosshair with live coordinates (the guide lines run across the viewport only inside the hero), a corner-bracket selection frame with the element's measured size ("240 × 48") over buttons, links, project cards and review cards, a subtle magnetic pull of at most 4 px on real buttons, a slim editor caret with the status bar's line number over text, a block cursor over the terminal, a paw near the cat, a measuring line with the distance in px when you drag on empty space, a "+" pin when you click there, and a dim to 30% opacity after three seconds without movement. One animation loop moves transforms only, rects are cached per scroll and resize, and reduced motion means no pull, no fades and static frames. Like the journal cursor it is a manual popover that is shown again whenever another popover opens, so it never disappears under one. Journal pages keep their reading cursor.
+- The real kamycoding logo (blue "{", yellow "K") replaces the "k/" mark in the top bar, the author box and the social images, through one shared `Logo` component. The homepage and article Open Graph images change with it.
+- The 404 page is an editor window with the missing file as a tab, a compiler-style "Module not found" line with the real path, a "Did you mean" suggestion for the closest real route, a link to the journal and the sleeping cat.
+- The privacy policy describes the journal audio and the local speech fallback, and the theme paragraph now names all four color themes.
+
+### Fixed
+
+- The terminal's `help` printed its message key instead of the command list, because `<name>` in the text was read as an unclosed tag.
+- The custom cursor stays visible above Term popovers.
+- The intro hides its text at once when it ends and fades only the background, so no half-transparent text is left on the page.
+- The review badge and the key hint on the contact send button reach WCAG AA contrast in every theme.
+
 ## [2.2.0] - 2026-11-09
 
 ### Changed
@@ -109,7 +144,8 @@ First stable release of kamycoding.com, built with Angular and deployed on Netli
 
 - Unit tests for the contact function with Vitest (success, validation, honeypot, provider errors, network errors, timeout, method handling, rate limit config).
 
-[Unreleased]: https://github.com/kamycoding/portfolio/compare/v2.2.0...HEAD
+[Unreleased]: https://github.com/kamycoding/portfolio/compare/v2.3.0...HEAD
+[2.3.0]: https://github.com/kamycoding/portfolio/compare/v2.2.0...v2.3.0
 [2.2.0]: https://github.com/kamycoding/portfolio/compare/v2.1.0...v2.2.0
 [2.1.0]: https://github.com/kamycoding/portfolio/compare/v2.0.0...v2.1.0
 [2.0.0]: https://github.com/kamycoding/portfolio/compare/v1.0.0...v2.0.0

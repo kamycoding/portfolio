@@ -1,0 +1,376 @@
+/*
+ * Term, Gloss, Dialog and Quiz. They sit on --bg inside the article; every text and background pair below was
+ * checked for WCAG AA in all four themes. States change colour and decoration only, never size, so nothing shifts.
+ */
+
+/* Term: a dotted --kw underline, distinct from the solid underline of links. */
+.term {
+  padding: 0;
+  border: 0;
+  border-radius: 2px;
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-align: inherit;
+  text-decoration: underline dotted var(--kw);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+}
+
+.term:hover,
+.term[aria-expanded='true'] {
+  background: var(--kw-a);
+  text-decoration-style: solid;
+}
+
+.panel {
+  max-width: min(22rem, calc(100vw - 32px));
+  max-height: calc(100vh - 32px);
+  overflow: auto;
+  padding: 10px 14px;
+  border: 1px solid var(--hair-2);
+  border-radius: 8px;
+  background: var(--panel-2);
+  box-shadow: var(--shadow);
+  color: var(--text);
+  font-family: var(--font-sans);
+  font-size: 15px;
+  line-height: 1.55;
+}
+
+/* Placed by term.tsx; without script the browser's centred default stays. */
+.panel[data-placed] {
+  position: fixed;
+  inset: auto;
+  margin: 0;
+}
+
+.panel[data-placed='pending'] {
+  visibility: hidden;
+}
+
+.panel > span {
+  display: block;
+}
+
+.panel > .panelHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.panelTerm {
+  font-weight: 600;
+}
+
+.note {
+  margin-top: 6px;
+  padding-top: 6px;
+  border-top: 1px solid var(--hair-2);
+  color: var(--muted);
+  font-size: 14px;
+}
+
+/* Gloss */
+.gloss {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  column-gap: 12px;
+  margin-block: 1.75em;
+  padding: 14px 18px;
+  border: 1px solid var(--hair-2);
+  border-radius: 8px;
+}
+
+.glossDe {
+  grid-column: 1;
+  font-size: 1.05em;
+}
+
+.glossAudio {
+  grid-column: 2;
+  grid-row: 1 / span 2;
+}
+
+.glossEn {
+  grid-column: 1;
+  margin-top: 6px;
+  color: var(--muted);
+}
+
+.segment {
+  border-radius: 3px;
+  box-decoration-break: clone;
+  text-decoration: underline dotted var(--muted);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 5px;
+}
+
+.control {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+}
+
+.control[aria-pressed='true'] {
+  text-decoration-style: solid;
+}
+
+.segment[data-active] {
+  background: var(--kw-a);
+  color: var(--text);
+  text-decoration: underline solid var(--kw);
+  text-decoration-thickness: 2px;
+}
+
+/* Shared by the Dialog toggle and the Quiz button, matching the code block's Copy button. */
+.button {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 32px;
+  padding: 0 10px;
+  border: 1px solid var(--hair-2);
+  border-radius: 6px;
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.button:hover {
+  border-color: var(--hair-3);
+  color: var(--text);
+}
+
+.button[aria-pressed='true'] {
+  border-color: var(--kw);
+  color: var(--text);
+}
+
+/* Reserved width, so the check mark appears without moving the label. */
+.check {
+  width: 1ch;
+  color: var(--kw);
+}
+
+/* Dialog */
+.dialog {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  margin-block: 1.75em;
+  overflow: hidden;
+  border: 1px solid var(--hair-2);
+  border-radius: 8px;
+}
+
+.dialogTitle,
+.controls {
+  grid-row: 1;
+  display: flex;
+  align-items: center;
+  min-height: 40px;
+  border-bottom: 1px solid var(--hair-2);
+  background: var(--panel-2);
+}
+
+.dialogTitle {
+  grid-column: 1;
+  padding: 4px 6px 4px 14px;
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.controls {
+  grid-column: 1 / -1;
+  justify-content: flex-end;
+  padding: 4px 6px;
+}
+
+.dialogTitle + .controls {
+  grid-column: 2;
+}
+
+/* Two classes outrank the prose list rules (.prose ol, .prose li + li) without depending on load order. */
+.dialog .lines {
+  grid-column: 1 / -1;
+  padding: 6px 18px 12px;
+  list-style: none;
+}
+
+/* Speaker, German line and its audio button in one row; the English line sits under the German one. */
+.line {
+  display: grid;
+  grid-template-columns: minmax(6rem, max-content) 1fr auto;
+  gap: 2px 16px;
+  margin-inline: -8px;
+  padding: 8px;
+  border-radius: 6px;
+}
+
+/* The line being played; the button itself also turns to Stop. */
+.line:has([data-playing]) {
+  background: var(--kw-a);
+}
+
+.lines .line + .line {
+  margin-top: 0;
+  border-top: 1px solid var(--hair);
+}
+
+.speaker {
+  grid-row: 1 / span 2;
+  grid-column: 1;
+  padding-top: 0.3em;
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.german {
+  grid-row: 1;
+  grid-column: 2;
+}
+
+.lineAudio {
+  grid-row: 1 / span 2;
+  grid-column: 3;
+}
+
+.english {
+  grid-row: 2;
+  grid-column: 2;
+  color: var(--muted);
+  font-size: 0.94em;
+}
+
+@media (max-width: 560px) {
+  .line {
+    grid-template-columns: 1fr auto;
+  }
+
+  .speaker {
+    grid-row: 1;
+    grid-column: 1;
+  }
+
+  .lineAudio {
+    grid-row: 1;
+    grid-column: 2;
+  }
+
+  .german,
+  .english {
+    grid-row: auto;
+    grid-column: 1 / -1;
+  }
+}
+
+/* Quiz */
+.quiz {
+  margin-block: 1.75em;
+  padding: 16px 18px;
+  border: 1px solid var(--hair-2);
+  border-radius: 8px;
+}
+
+.question {
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+
+.quiz .choices {
+  padding: 0;
+  list-style: none;
+}
+
+.quiz .choices > li + li {
+  margin-top: 6px;
+}
+
+.choice {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 10px;
+  padding: 8px 12px;
+  border: 1px solid var(--hair-2);
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.choice:hover {
+  border-color: var(--hair-3);
+}
+
+.choice:has(input:focus-visible) {
+  outline: 1.5px solid var(--kw);
+  outline-offset: 2px;
+}
+
+/* The label carries the focus ring, so the radio itself does not draw a second one. */
+.choice input:focus-visible {
+  outline: none;
+}
+
+.choice input {
+  flex: none;
+  width: 1em;
+  height: 1em;
+  accent-color: var(--kw);
+  translate: 0 0.12em;
+}
+
+fieldset:disabled .choice {
+  cursor: default;
+}
+
+.choice[data-state='answer'] {
+  border-color: var(--ok);
+}
+
+.choice[data-state='wrong'] {
+  border-color: var(--err);
+}
+
+.mark {
+  margin-left: auto;
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 12px;
+}
+
+.glyph {
+  margin-right: 6px;
+}
+
+[data-state='answer'] .glyph {
+  color: var(--ok);
+}
+
+[data-state='wrong'] .glyph {
+  color: var(--err);
+}
+
+.quiz > .button {
+  margin-top: 14px;
+}
+
+/* Rendered empty from the start, so screen readers register the live region before the first check. */
+.result:not(:empty) {
+  margin-top: 12px;
+}
+
+.result > p + p {
+  margin-top: 4px;
+}
+
+.verdict {
+  font-weight: 600;
+}

@@ -1,8 +1,17 @@
+import path from 'node:path'
+
 import type { NextConfig } from 'next'
 
+import createMDX from '@next/mdx'
 import createNextIntlPlugin from 'next-intl/plugin'
 
 const withNextIntl = createNextIntlPlugin()
+
+const withMDX = createMDX({
+  options: {
+    rehypePlugins: [[path.join(process.cwd(), 'src/lib/blog/rehype.mjs')]]
+  }
+})
 
 // Enforced, with 'unsafe-inline' so pages stay static, see docs/adr/0005-csp-strategy.md
 const contentSecurityPolicy = [
@@ -49,4 +58,4 @@ const nextConfig: NextConfig = {
   }
 }
 
-export default withNextIntl(nextConfig)
+export default withNextIntl(withMDX(nextConfig))

@@ -1,0 +1,338 @@
+{
+  "terms": {
+    "das-daily": {
+      "de": "das Daily",
+      "en": "the daily standup",
+      "note": {
+        "en": "Neuter: \"das Daily\", \"im Daily\", \"nach dem Daily\". The long form \"tägliches Stand-up-Meeting\" is for job ads."
+      }
+    },
+    "der-blocker": {
+      "de": "der Blocker",
+      "en": "something that stops you from making progress",
+      "note": {
+        "en": "The plural has no ending: \"keine Blocker\"."
+      }
+    },
+    "durch-sein": {
+      "de": "durch sein",
+      "en": "to be done, to be through",
+      "note": {
+        "en": "\"Das Ticket ist durch\" means finished and off your plate. \"Fertig\" is correct too. \"Durch\" is what you hear."
+      }
+    },
+    "haengen": {
+      "de": "hängen",
+      "en": "to be stuck; in a call: to freeze",
+      "note": {
+        "en": "\"Ich häng da\" is about you and a problem. \"Du hängst\" is about your video or audio."
+      }
+    },
+    "drueberschauen": {
+      "de": "drüberschauen",
+      "en": "to take a quick look over something",
+      "note": {
+        "en": "Short for \"darüberschauen\". It means a light check, not a full review."
+      }
+    },
+    "bilateral": {
+      "de": "bilateral",
+      "en": "between the two of us",
+      "note": {
+        "en": "In German offices it means \"just the two of us, outside the meeting\". No diplomacy involved."
+      }
+    },
+    "aufsetzen": {
+      "de": "aufsetzen",
+      "en": "to set up",
+      "note": {
+        "en": "Separable: \"Ich setze das Projekt neu auf.\""
+      }
+    },
+    "hochfahren": {
+      "de": "hochfahren",
+      "en": "to start up",
+      "note": {
+        "en": "Separable: \"Fahr mal den Server hoch.\" The opposite is \"runterfahren\"."
+      }
+    },
+    "feierabend": {
+      "de": "der Feierabend",
+      "en": "the end of the working day",
+      "note": {
+        "en": "\"Schönen Feierabend!\" is the standard goodbye when someone logs off for the day."
+      }
+    },
+    "halt": {
+      "de": "Das ist halt so.",
+      "en": "That's just how it is.",
+      "note": {
+        "en": "\"halt\" marks a fact that nobody is going to change. \"eben\" does the same job."
+      }
+    },
+    "quasi": {
+      "de": "Das ist quasi unser Seeder.",
+      "en": "That's basically our seeder.",
+      "note": {
+        "en": "\"quasi\" says the label is close enough, not exact."
+      }
+    },
+    "genau": {
+      "de": "Genau. Dann zum nächsten Punkt.",
+      "en": "Right. On to the next point, then.",
+      "note": {
+        "en": "\"Genau\" is agreement. Alone at the start of a sentence, it often just closes the topic."
+      }
+    },
+    "mal": {
+      "de": "Schau mal kurz drauf.",
+      "en": "Have a quick look at it.",
+      "note": {
+        "en": "\"mal\" turns an order into a casual request. \"kurz\" promises it will not take long."
+      }
+    },
+    "ja": {
+      "de": "Das ist wichtig, ja.",
+      "en": "That's important, right.",
+      "note": {
+        "en": "A check that you are still following. Often said with a slight rise, like \"right?\". Nobody expects an answer."
+      }
+    },
+    "kurzes-update": {
+      "de": "Kurzes Update von mir.",
+      "en": "Quick update from me."
+    },
+    "noch-dran": {
+      "de": "Bin da noch dran.",
+      "en": "I'm still working on it.",
+      "note": {
+        "en": "\"an etwas dran sein\" means to be working on something. Dropping \"Ich\" at the start is normal in speech."
+      }
+    },
+    "fast-durch": {
+      "de": "Ist fast durch, muss nur noch getestet werden.",
+      "en": "It's almost done, it just needs testing."
+    },
+    "haeng-ich": {
+      "de": "Da häng ich grad ein bisschen.",
+      "en": "I'm a bit stuck there.",
+      "note": {
+        "en": "\"ein bisschen\" is politeness. It can mean very stuck."
+      }
+    },
+    "keine-blocker": {
+      "de": "Keine Blocker von meiner Seite.",
+      "en": "No blockers from my side."
+    },
+    "das-wars": {
+      "de": "Das war's von mir.",
+      "en": "That's it from me."
+    }
+  },
+  "sentences": {
+    "nach-dem-daily": {
+      "de": [
+        {
+          "text": "Ich",
+          "group": "i"
+        },
+        " ",
+        {
+          "text": "schau",
+          "group": "look"
+        },
+        " mir ",
+        {
+          "text": "das",
+          "group": "it"
+        },
+        " ",
+        {
+          "text": "nach dem Daily",
+          "group": "after"
+        },
+        " ",
+        {
+          "text": "nochmal",
+          "group": "again"
+        },
+        " ",
+        {
+          "text": "an",
+          "group": "look"
+        },
+        "."
+      ],
+      "en": [
+        {
+          "text": "I'll",
+          "group": "i"
+        },
+        " ",
+        {
+          "text": "look at",
+          "group": "look"
+        },
+        " ",
+        {
+          "text": "it",
+          "group": "it"
+        },
+        " ",
+        {
+          "text": "again",
+          "group": "again"
+        },
+        " ",
+        {
+          "text": "after the daily",
+          "group": "after"
+        },
+        "."
+      ]
+    }
+  },
+  "dialogues": {
+    "standup": {
+      "title": {
+        "en": "A daily, start to finish",
+        "de": "Ein Daily von Anfang bis Ende"
+      },
+      "speakers": {
+        "a": "Alex",
+        "b": "Sam"
+      },
+      "lines": [
+        {
+          "speaker": "a",
+          "de": "Morgen zusammen! Wer fängt an?",
+          "en": "Morning, everyone! Who wants to start?"
+        },
+        {
+          "speaker": "b",
+          "de": "Ich mach mal. Also, gestern hab ich noch am Login-Ticket gesessen.",
+          "en": "I'll go. So, yesterday I was still working on the login ticket."
+        },
+        {
+          "speaker": "b",
+          "de": "Ist fast durch, muss halt nur noch getestet werden.",
+          "en": "It's almost done, it just needs testing."
+        },
+        {
+          "speaker": "a",
+          "de": "Passt. Und heute?",
+          "en": "Sounds good. And today?"
+        },
+        {
+          "speaker": "b",
+          "de": "Heute schau ich mir den Bug im Checkout an. Da häng ich grad ein bisschen.",
+          "en": "Today I'm looking at the checkout bug. I'm a bit stuck there."
+        },
+        {
+          "speaker": "a",
+          "de": "Soll ich nach dem Daily mal kurz mit draufschauen?",
+          "en": "Should I take a quick look with you after the daily?"
+        },
+        {
+          "speaker": "b",
+          "de": "Ja, gerne. Lass uns das danach kurz bilateral klären.",
+          "en": "Yes, please. Let's sort it out between the two of us afterwards."
+        },
+        {
+          "speaker": "b",
+          "de": "Sonst keine Blocker von meiner Seite. Das war's von mir.",
+          "en": "Otherwise, no blockers from my side. That's it from me."
+        }
+      ]
+    }
+  },
+  "quizzes": {
+    "noch-dran": {
+      "question": {
+        "en": "What does \"Ich bin da noch dran.\" mean?"
+      },
+      "choices": [
+        {
+          "id": "finished",
+          "text": {
+            "en": "I'm finished."
+          }
+        },
+        {
+          "id": "working",
+          "text": {
+            "en": "I'm still working on it."
+          }
+        },
+        {
+          "id": "next",
+          "text": {
+            "en": "I'm next."
+          }
+        }
+      ],
+      "answer": "working",
+      "explanation": {
+        "en": "\"An etwas dran sein\" means you are in the middle of it. Finished would be \"Ist durch\". \"I'm next\" would be \"Ich bin dran\", without \"da noch\"."
+      }
+    },
+    "bilateral": {
+      "question": {
+        "en": "What does \"Lass uns das bilateral klären.\" mean?"
+      },
+      "choices": [
+        {
+          "id": "team",
+          "text": {
+            "en": "Let's discuss it with the whole team."
+          }
+        },
+        {
+          "id": "two",
+          "text": {
+            "en": "Let's sort it out between the two of us."
+          }
+        },
+        {
+          "id": "languages",
+          "text": {
+            "en": "Let's write it in two languages."
+          }
+        }
+      ],
+      "answer": "two",
+      "explanation": {
+        "en": "The two people involved take it out of the meeting. Everyone else gets their time back."
+      }
+    },
+    "genau": {
+      "question": {
+        "en": "\"Genau.\" at the start of a sentence in a call usually signals:"
+      },
+      "choices": [
+        {
+          "id": "disagree",
+          "text": {
+            "en": "Strong disagreement."
+          }
+        },
+        {
+          "id": "moving-on",
+          "text": {
+            "en": "\"Okay, moving on.\""
+          }
+        },
+        {
+          "id": "question",
+          "text": {
+            "en": "A question."
+          }
+        }
+      ],
+      "answer": "moving-on",
+      "explanation": {
+        "en": "It sounds like agreement, and sometimes it is. At the start of a sentence in a call, it mostly closes one topic and opens the next."
+      }
+    }
+  }
+}

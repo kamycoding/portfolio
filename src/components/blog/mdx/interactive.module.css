@@ -1,0 +1,447 @@
+/*
+ * Puzzle, stepper, timeline and main thread demo. They sit on --bg inside the article; every text and background pair
+ * was checked for WCAG AA in all four themes. State changes colour only, never size, and every moving part has its
+ * height reserved. Two-class selectors outrank the prose rules (.prose ul, .prose h4, .prose code).
+ */
+.puzzle,
+.stepper,
+.timeline,
+.thread {
+  margin-block: 1.75em;
+  padding: 16px 18px;
+  border: 1px solid var(--hair-2);
+  border-radius: 8px;
+}
+
+/* ---------- code ---------- */
+.codeFrame {
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid var(--hair-2);
+  border-radius: 6px;
+  background: var(--panel);
+}
+
+.codeHeader {
+  padding: 6px 12px;
+  border-bottom: 1px solid var(--hair-2);
+  background: var(--panel-2);
+  color: var(--muted);
+  font:
+    12px/1.4 var(--font-geist-mono),
+    monospace;
+}
+
+.code {
+  margin: 0;
+  padding-block: 10px;
+  overflow-x: auto;
+  background: var(--panel);
+  color: var(--text);
+  font:
+    13.5px/1.65 var(--font-geist-mono),
+    monospace;
+  tab-size: 2;
+}
+
+.code:focus-visible {
+  outline-offset: -2px;
+}
+
+.code code {
+  display: grid;
+  width: max-content;
+  min-width: 100%;
+}
+
+.codeLine {
+  display: block;
+  padding-inline: 14px;
+  white-space: pre;
+}
+
+.codeLine[data-current] {
+  background: var(--kw-a);
+  box-shadow: inset 3px 0 var(--kw);
+}
+
+.kw {
+  color: var(--kw);
+}
+
+.str {
+  color: var(--str);
+}
+
+.com {
+  color: var(--com);
+}
+
+.num {
+  color: var(--num);
+}
+
+.fn {
+  color: var(--prop);
+}
+
+/* ---------- shared controls ---------- */
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 12px;
+  margin-top: 14px;
+}
+
+.button {
+  min-height: 36px;
+  padding: 0 14px;
+  border: 1px solid var(--hair-2);
+  border-radius: 6px;
+  color: var(--muted);
+  font:
+    12px/1.4 var(--font-geist-mono),
+    monospace;
+}
+
+.button:hover {
+  border-color: var(--hair-3);
+  color: var(--text);
+}
+
+/* Still focusable and named, so a keyboard user learns why nothing happens. */
+.button[aria-disabled='true'] {
+  border-style: dashed;
+  cursor: not-allowed;
+}
+
+.hint {
+  min-height: 1.4em;
+  color: var(--muted);
+  font:
+    12px/1.4 var(--font-geist-mono),
+    monospace;
+}
+
+.result {
+  margin-top: 12px;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.result p + p {
+  margin-top: 6px;
+}
+
+/* ---------- puzzle ---------- */
+.instruction {
+  margin-top: 14px;
+  color: var(--muted);
+  font-size: 15px;
+}
+
+.consoleLines {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.consoleLine {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 96px;
+  min-height: 40px;
+  padding: 0 12px;
+  border: 1px solid var(--hair-2);
+  border-radius: 6px;
+  color: var(--text);
+  text-align: left;
+}
+
+.puzzle .consoleLine code {
+  padding: 0;
+  border: 0;
+  background: none;
+  font-size: 13px;
+}
+
+.consoleLine:hover {
+  border-color: var(--hair-3);
+}
+
+.consoleLine[aria-pressed='true'] {
+  border-color: var(--kw);
+}
+
+.consoleLine[data-state='right'] {
+  border-color: var(--ok);
+}
+
+.consoleLine[data-state='wrong'] {
+  border-color: var(--err);
+}
+
+.consoleLine[aria-disabled='true'] {
+  cursor: default;
+}
+
+/* Reserved width, so the number and the mark appear without moving the line. */
+.order {
+  min-width: 3.4ch;
+  color: var(--muted);
+  font:
+    12px var(--font-geist-mono),
+    monospace;
+}
+
+.verdict {
+  font-weight: 600;
+}
+
+.resultLabel,
+.score {
+  color: var(--muted);
+}
+
+.score {
+  font:
+    12px var(--font-geist-mono),
+    monospace;
+}
+
+/* ---------- stepper ---------- */
+.stepperGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 14px;
+  align-items: start;
+}
+
+.queues {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 10px;
+  min-width: 0;
+}
+
+.panel {
+  min-width: 0;
+  border: 1px solid var(--hair-2);
+  border-radius: 6px;
+}
+
+.stepper .panelTitle {
+  margin: 0;
+  padding: 6px 10px;
+  border-bottom: 1px solid var(--hair-2);
+  background: var(--panel-2);
+  color: var(--muted);
+  font:
+    12px/1.4 var(--font-geist-mono),
+    monospace;
+  letter-spacing: 0;
+}
+
+.stepper .panelBody {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin: 0;
+  padding: 6px;
+  list-style: none;
+}
+
+.stepper .chip {
+  margin: 0;
+  padding: 4px 8px;
+  border: 1px solid var(--hair-2);
+  border-radius: 4px;
+  color: var(--text);
+  font:
+    12px/1.5 var(--font-geist-mono),
+    monospace;
+  overflow-wrap: anywhere;
+}
+
+/* The function that is running: the top of the call stack. */
+.stepper .chip[data-top] {
+  border-color: var(--kw);
+  box-shadow: inset 3px 0 var(--kw);
+}
+
+.stepper .emptyItem {
+  margin: 0;
+  padding: 4px 8px;
+  color: var(--muted);
+  font:
+    12px/1.5 var(--font-geist-mono),
+    monospace;
+}
+
+.note {
+  min-height: 4.8em;
+  margin-top: 12px;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+/* ---------- timeline ---------- */
+.mode {
+  margin-top: 16px;
+}
+
+.modeHead {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 2px 16px;
+}
+
+.timeline .modeCode {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: 1.5;
+}
+
+.timeline .modeCode code {
+  padding: 0;
+  border: 0;
+  background: none;
+  font-size: 13px;
+}
+
+.modeStats {
+  min-width: 17rem;
+  color: var(--muted);
+  font:
+    12px/1.5 var(--font-geist-mono),
+    monospace;
+}
+
+.modeStats b {
+  color: var(--text);
+  font-weight: 600;
+}
+
+.track {
+  position: relative;
+  margin-top: 6px;
+  padding: 4px 0;
+  border: 1px solid var(--hair-2);
+  border-radius: 4px;
+  background: var(--panel);
+}
+
+.lane {
+  position: relative;
+  height: 20px;
+  margin-block: 2px;
+}
+
+.bar {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  padding-left: 6px;
+  overflow: hidden;
+  border-radius: 3px;
+  background: color-mix(in srgb, var(--kw) 22%, transparent);
+  box-shadow: inset 0 0 0 1px var(--kw);
+  color: var(--text);
+  font:
+    11px var(--font-geist-mono),
+    monospace;
+  white-space: nowrap;
+}
+
+/* When the spinner turned off. */
+.marker {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  border-left: 2px dashed var(--text);
+}
+
+.axis {
+  position: relative;
+  height: 20px;
+  margin-top: 6px;
+  color: var(--muted);
+  font:
+    11px var(--font-geist-mono),
+    monospace;
+}
+
+.axis span {
+  position: absolute;
+  transform: translateX(-50%);
+}
+
+.axis span:first-child {
+  transform: none;
+}
+
+.axis span:last-child {
+  transform: translateX(-100%);
+}
+
+.legend {
+  margin-top: 4px;
+  color: var(--muted);
+  font:
+    12px var(--font-geist-mono),
+    monospace;
+}
+
+.legendMark {
+  display: inline-block;
+  height: 12px;
+  margin-right: 4px;
+  border-left: 2px dashed var(--text);
+  vertical-align: middle;
+}
+
+.timeline .result {
+  min-height: 6em;
+}
+
+/* ---------- main thread ---------- */
+.counter {
+  color: var(--muted);
+  font:
+    14px var(--font-geist-mono),
+    monospace;
+}
+
+.counter b {
+  display: inline-block;
+  min-width: 8ch;
+  color: var(--text);
+  font-size: 24px;
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+}
+
+.thread .result {
+  min-height: 3.4em;
+}
+
+@media (max-width: 760px) {
+  .stepperGrid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .queues {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

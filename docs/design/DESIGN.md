@@ -95,11 +95,34 @@ Two stacked blocks, then the services.
 ### Footer
 Outlined `kamycoding.com` wordmark, page links, elsewhere links, legal links, copyright.
 
+### Journal reading (`blog/`)
+- Article body in Geist Sans at 17px, about 70ch wide, line height 1.75. Prose styles restore headings, lists, quotes, links and inline code after Tailwind's reset (`prose.module.css`).
+- Code blocks are normal fenced Markdown: ```` ```ts filename="example.ts" {2} ````, with `// [!code ++]` and `// [!code --]` for diffs. The frame shows the filename (or the language), a Copy button and a polite status message. Copy writes the resulting code, without removed lines or markers; a failure says so.
+- Token colours come from the real VS Code themes; the few below WCAG AA are raised in `rehype.mjs`. Highlighted and diff lines keep the theme background and use a left bar plus a `+`/`-` sign, so meaning does not depend on colour alone.
+- Outline: h2 and h3 only. From 1101px a sticky column next to the text with scroll-spy (`aria-current="location"`); below that a closed native `<details>` Contents control above the body that closes after a jump. Both are in the server HTML, so nothing shifts.
+- The status bar shows the share of the article body read (`42% read`), plain text, never announced. The footer does not count, and it resets on navigation.
+- Term: German word with a dotted `--kw` underline (links use a solid one). Click, tap, Enter or Space opens a nonmodal popover with the German form, the English translation and an optional note; Escape or a tap outside closes it and focus returns. No hover opening, no vocabulary basket.
+- Gloss: German line above the English line. The first part of each word group is a button: hover, focus or a tap (pins it, `aria-pressed`, Escape unpins) highlights the group on both lines with `--kw-a` and a solid underline. Buttons are described by their English parts.
+- Dialog: speaker-labelled German lines; a "Show English" toggle (`aria-pressed`, check mark in reserved space) reveals the English lines.
+- Quiz: radios in a fieldset, Check, then one live region with "Correct." or "Not quite." and the explanation. The right answer and a wrong pick get a text label plus a glyph and border in `--ok` or `--err`. The same button becomes "Try again", which resets and focuses the first choice.
+- Callout (Note `--kw`, Tip `--ok`, Warning `--str`): accent bar and a coloured mono label on `--bg`. TLDR and Takeaways: a region labelled in `--com`, not a heading, so the Outline stays unchanged. Figure: image with intrinsic size, hairline border and a muted caption.
+- None of them animate. States change colour and decoration only, so nothing shifts; all text and indicator colours were checked for AA in every theme.
+- Audio: a 28px icon button (play triangle, stop square, crossed speaker when unavailable) in the Term popover next to the German form, in a reserved column of Gloss and in every dialogue line. Names: "Aussprache anhören", "Satz anhören", "Zeile 2 anhören, Speaker A", "Stopp" while playing, "Audio nicht verfügbar" with a dashed border when neither a clip nor a local German voice exists. Playing shows a `--kw` border; a playing dialogue line gets the `--kw-a` background, and Gloss highlights the spoken group. No autoplay, no animation.
+- Author box: the article's footer below the text, 70ch wide: a hairline on top, the `k/` mark, "Written by" / "Geschrieben von" in `--com` mono, the name, "Full-stack developer near Cologne." in `--muted`, and GitHub and LinkedIn links in `--kw`.
+- Article Open Graph image: the homepage frame (logo, name, domain, Dark Modern) with `// journal · category` in `--com`, the title in a dashed blueprint outline, a dimension line, and `blog/<slug>.mdx` with `DATE` and language in mono.
+
+### Not found (404)
+- An editor window with the missing file as its only tab: the last path segment as a file name (`hello.tsx`, `post.mdx` under `/blog`), a wavy `--err` underline and a close mark. The tab row is `aria-hidden`, because the error line says the same.
+- `// Error 404`, the heading, then a compiler-style panel with an `--err` bar: "Module not found: Can't resolve '/hello'" in English in both languages (`lang="en"`), and below it "Did you mean /blog?" / "Meintest du /blog?" with the closest real route, or "Try / or /blog" / "Versuch's mit / oder /blog". Both lines are single lines with an ellipsis.
+- The 404 HTML is static and shared by every path, so the path is read in the browser after loading; before that the lines show their fallbacks in the same space, so nothing shifts. The path is only shown as text; links only go to known routes.
+- Actions: Back to homepage, View projects, Read the journal. The cat lies asleep next to them, static and decorative.
+- The localized 404 uses the active theme; the root 404 (paths the proxy skips) stays on Dark Modern. Both are `noindex`.
+
 ## Global interactions
 - **Intro**: a `pnpm build` log (spinner, steps of the career, progress bar, route table, `Ready in`). Runs on every load, skippable with any key, skipped with reduced motion.
 - **Command palette** (`Ctrl K`): grouped commands, keyboard navigation, focus returns on close.
 - **Shortcuts**: `G W/A/S/C/G` navigate, `C` copy email, `T` Color Theme picker, `L` language, `M` cat, `?` palette. Ignored while typing.
-- **Cursor** (fine pointers only): dot plus easing ring, ring grows on links with a small label (`go`, `↗`, `copy`, `open`, `run`, `pet`), caret on text and code.
+- **Cursor** (fine pointers only, homepage): a drafting tool. Thin crosshair with live coordinates (guide lines only inside the hero), a corner-bracket selection frame with the element's measured size over buttons, links, project and review cards, a pull of at most 4 px on real buttons, an editor caret with the status bar's line number over text, a block over the terminal, a paw near the cat, a measuring line on drag and a "+" pin on click, dimmed to 30% opacity after 3 s without movement. Journal pages use a calm reading cursor (caret over prose, ring over controls, dot elsewhere).
 
 ## Accessibility (must keep)
 - Skip link, landmarks, visible focus (`--kw` outline), real buttons and links.

@@ -1,12 +1,14 @@
 'use client'
 
-import { useTranslations } from 'next-intl'
+import { useLocale, useTranslations } from 'next-intl'
 
 import ThemeToggle from '@/components/shell/theme-toggle'
+import { useArticleProgress } from '@/hooks/use-article-progress'
 import { useCat, wakeCat } from '@/hooks/use-cat'
 import { useCologneTime } from '@/hooks/use-cologne-time'
 import { useScrollSpy } from '@/hooks/use-scroll-spy'
 import { usePathname } from '@/i18n/navigation'
+import { isJournalRoute, journalFile } from '@/lib/blog/routes'
 import { getPage, getSection } from '@/lib/sections'
 
 type StatusBarProps = Readonly<{
@@ -16,10 +18,16 @@ type StatusBarProps = Readonly<{
 const StatusBar = ({ branch }: StatusBarProps) => {
   const t = useTranslations('status')
   const tCat = useTranslations('cat')
+  const locale = useLocale()
   const { awake } = useCat()
   const { activeId, line } = useScrollSpy()
+  const article = useArticleProgress()
   const time = useCologneTime()
-  const file = getPage(usePathname())?.file ?? (activeId && getSection(activeId).file)
+  const pathname = usePathname()
+
+  const file = isJournalRoute(pathname)
+    ? journalFile(pathname, locale === 'de' ? 'de' : 'en')
+    : (getPage(pathname)?.file ?? (activeId && getSection(activeId).file))
 
   return (
     <aside
@@ -29,6 +37,12 @@ const StatusBar = ({ branch }: StatusBarProps) => {
       <span>⎇ {branch}</span>
       <span className='text-ok'>✓ {t('build')}</span>
       {file && <span className='text-text hidden lg:inline'>{file}</span>}
+
+      {/*
+       * Plain text, not a live region: progress is there to glance at, not announced on every scroll.
+       * Last in the left-aligned group, so appearing after hydration and growing never moves anything else.
+       */}
+      {article.tracking && <span>{t('reading', { progress: article.progress })}</span>}
 
       <div className='ml-auto flex items-center gap-4'>
         <span className='hidden lg:inline'>UTF-8</span>

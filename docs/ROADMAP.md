@@ -146,6 +146,22 @@ The stack heatmap shows the real GitHub contributions of kamycoding instead of t
 - The about fact "168 commits since July" stays unchanged.
 - Maintenance: renew the token before it expires (at most one year); refresh the committed snapshot now and then with `pnpm contributions:update`.
 
+## Journal: Phase 1
+
+Branch: `feat/blog`. Each step is reviewed separately. Kamyar commits and pushes.
+
+- Step 1a (done): MDX modules through `@next/mdx`, local Shiki plugin through an absolute path, validated exported metadata, empty explicit post registry and gitignored local drafts (ADR 0007).
+- Step 1b (done): Journal indexes and article routes, missing-translation notices, basic editor tabs and breadcrumbs, top-bar/footer navigation, journal locale switching and bilingual copy. Empty indexes use `noindex, follow` until a post is published. Both locales of every published slug are prebuilt. Unknown slugs call `notFound()` immediately using the existing localized 404 pattern with default `dynamicParams`; they never render an article. Journal-only proxy handling suppresses automatic alternate headers while the pages supply accurate HTML alternates. English locale switches use `/blog/...`, without `/en`.
+- Step 1c (done): reading styles, code blocks from fenced Markdown (filename, copy, highlighted lines, diffs, AA token colours in all four themes), build-time heading IDs with German transliteration and an `outline` export, Outline scroll-spy with a mobile Contents control, article progress in the status bar, and index links that point other-language posts at their published version.
+- Step 1d (done): Term (native popover), Gloss (authored word-group alignment), Dialog (Show English toggle), Quiz, Callout, TLDR, Takeaways and Figure. Validated per-slug `learning.json` referenced by id from MDX; unknown ids fail the build. Audio slots are left for step 1e.
+- Step 1e (done): `pnpm audio` dry runs and Kamyar-run `--generate` with ElevenLabs (Starter plan, two Voice Library voices), hashed clips under `public/blog-audio/`, validated `audio.json` manifests, timed Gloss highlighting, local German Web Speech fallback and an unavailable state. Model chosen after a sample comparison: `eleven_v4` for both voices, with character timing returned (about 38 credits for 94 characters on Starter).
+- Step 1f (done): metadata length checks, sitemap with content-based `lastmod`, RSS per language with autodiscovery, a blueprint Open Graph image per translation, JSON-LD (BlogPosting, BreadcrumbList, Person), author box, privacy policy section 11 on journal audio with the corrected theme paragraph, and the README authoring guide. DefinedTerm moves to Phase 2.
+- Step 1g (done, v2.3.0): the first English article, "German for Developers: What People Say in Dailies and Calls", registered with its `learning.json` and an empty `audio.json` that `pnpm audio --generate` fills. Post metadata takes an optional `tldr` and an optional `preview` (up to two hook lines). The homepage gets a `blog/` section after the stack as VS Code's "Open editors" (one editor window per post in a scrolling row, quick-open filter and category chips from three posts on, hidden while nothing is published), the terminal gets `ls blog`, `open <slug>` and `cat blog/<slug>`, and the palette lists the journal and every post. The registry test now checks the registered posts against `content/posts/`. After review: Term opens on hover too, journal pages get a reading cursor and quieter rulers, the intro hides its text instantly when it ends (Lighthouse accessibility 100 on every page), and the 29 article clips are generated.
+- Step 1h (done, v2.3.0): the second article, "The JavaScript Event Loop: Predict the Output", in English and German, with four interactive components (puzzle, stepper, async timeline, main thread demo). Narration through `learning.json`, a `narration` audio kind with a narrator per language and a reusable "Listen to this article" player that marks the playing section in the Outline.
+- Before the release: Kamyar runs `pnpm audio javascript-event-loop-explained --generate` and listens to the narration, then checks the privacy policy "Last updated" date on release day.
+
+Phase 2 includes the minimap, CodeTabs, BeforeAfter, Steps, Glossary, vocabulary basket, full-text search, Atom, revision history, explained glossary pages and series pages.
+
 ## Answered questions
 
 - Project durations and years (Join 5 weeks, Designer portfolio 4 months, El Pollo Loco 3 weeks, all 2026): confirmed as in the prototype.

@@ -7,11 +7,13 @@ import { useTheme } from 'next-themes'
 
 import { replayIntro } from '@/components/shell/boot'
 import { wakeCat } from '@/hooks/use-cat'
+import { useOpenPost } from '@/hooks/use-open-post'
 import { closePalette, isPaletteOpen, openPalette, openThemePicker, usePalette } from '@/hooks/use-palette'
 import { isReady } from '@/hooks/use-ready'
 import { useSwitchLocale } from '@/hooks/use-switch-locale'
 import { useRouter } from '@/i18n/navigation'
 import { copyEmail, goToSection } from '@/lib/actions'
+import type { PostEntry } from '@/lib/blog/home'
 import type { SectionId } from '@/lib/sections'
 import { getTheme, THEMES } from '@/lib/themes'
 
@@ -46,11 +48,12 @@ const filterGroups = (groups: readonly Group[], query: string) => {
 
 // Ctrl or Cmd K opens a command list; single keys run the same actions outside of text fields.
 // In theme mode it is the Color Theme picker: arrows preview, Enter keeps, Escape restores, like VS Code.
-const CommandPalette = () => {
+const CommandPalette = ({ posts }: Readonly<{ posts: readonly PostEntry[] }>) => {
   const t = useTranslations('palette')
   const tCommon = useTranslations('common')
   const switchLocale = useSwitchLocale()
   const router = useRouter()
+  const openPost = useOpenPost()
   const { theme, resolvedTheme, setTheme } = useTheme()
   const { open, mode, session } = usePalette()
   const [query, setQuery] = useState('')
@@ -96,6 +99,14 @@ const CommandPalette = () => {
         { label: t('cmd.stack'), keys: 'G S', run: () => goTo('stack') },
         { label: t('cmd.contact'), keys: 'G C', run: () => goTo('contact') },
         { label: t('cmd.top'), keys: 'G G', run: () => goTo('index') }
+      ]
+    },
+    {
+      // The journal and every published post; the hint is the file the post opens as.
+      title: t('groups.journal'),
+      commands: [
+        { label: t('cmd.journal'), keys: 'blog/', run: () => router.push('/blog') },
+        ...posts.map(post => ({ label: post.title, keys: `${post.lang}.mdx`, run: () => openPost(post) }))
       ]
     },
     {

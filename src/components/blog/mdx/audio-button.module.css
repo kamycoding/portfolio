@@ -1,0 +1,35 @@
+/* Same size in every state, so availability and playback never move the text around it. */
+.button {
+  display: inline-grid;
+  flex: none;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border: 1px solid var(--hair-2);
+  border-radius: 6px;
+  background: none;
+  color: var(--muted);
+}
+
+.button:hover {
+  border-color: var(--hair-3);
+  color: var(--text);
+}
+
+.button[data-playing] {
+  border-color: var(--kw);
+  color: var(--text);
+}
+
+/* Still focusable and named, so keyboard and screen reader users learn why nothing plays. */
+.button[aria-disabled='true'] {
+  border-style: dashed;
+  color: var(--muted);
+  cursor: not-allowed;
+}
+
+.icon {
+  width: 14px;
+  height: 14px;
+}

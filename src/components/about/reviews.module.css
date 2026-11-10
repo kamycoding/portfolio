@@ -188,7 +188,9 @@
   background: color-mix(in srgb, var(--ok) 10%, transparent);
   font-weight: 500;
   font-size: 11.5px;
-  color: var(--ok);
+
+  /* Plain --ok misses AA on its own tint in Light Modern and Solarized Dark; a quarter of --text lifts it. */
+  color: color-mix(in srgb, var(--ok) 75%, var(--text));
 }
 
 .comment {

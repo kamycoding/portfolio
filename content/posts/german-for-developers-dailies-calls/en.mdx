@@ -1,0 +1,183 @@
+export const metadata = {
+  title: 'German for Developers: What People Say in Dailies and Calls',
+  description:
+    'The German you hear in dailies and calls is not the German in textbooks. Real phrases, filler words and verbs, with audio, a dialogue and a quiz.',
+  tldr: 'Textbook German gets you through forms. Dailies and calls run on short, relaxed phrases and five little words.',
+  preview: [
+    { kind: 'remove', text: 'Ich habe ein Problem.' },
+    { kind: 'add', text: 'Da häng ich grad ein bisschen.' }
+  ],
+  date: '2026-11-10',
+  category: 'learning',
+  format: 'interactive',
+  tags: ['german', 'career', 'communication'],
+  draft: false,
+  lang: 'en'
+}
+
+<TLDR>
+  <p>{metadata.tldr}</p>
+</TLDR>
+
+Your course taught you full sentences. Your team does not speak in full sentences. The daily starts, someone says "Ist durch", someone else says "Genau", and the meeting has moved on before you finished parsing the first word.
+
+This is the German that fills that gap. Every underlined phrase opens a translation and plays the audio.
+
+## Textbook vs. what people say
+
+Same meaning, two registers. The minus lines are what the book gave you. The plus lines are what you will hear.
+
+```diff filename="standup.diff"
+- Ich habe gestern an der Aufgabe gearbeitet.
++ Gestern hab ich noch am Ticket gesessen.
+- Ich habe ein Problem.
++ Da häng ich grad ein bisschen.
+- Ich bin fertig.
++ Ist durch.
+- Können Sie mir bitte helfen?
++ Kannst du mal kurz drüberschauen?
+- Ich werde es später überprüfen.
++ Ich schau's mir nachher nochmal an.
+```
+
+Nothing on the minus lines is wrong. It just sounds like a letter. Spoken German drops endings: <i lang="de">habe</i> becomes <strong lang="de">hab</strong>, <i lang="de">gerade</i> becomes <strong lang="de">grad</strong>, <i lang="de">schaue es</i> becomes <strong lang="de">schau's</strong>. And tech teams say <strong lang="de">du</strong>, so use it unless your team clearly does not. When someone asks you to <Term id="drueberschauen" />, they want a quick look, not an audit.
+
+## The five little words
+
+These five carry almost no information and most of the tone. Courses skip them because they do not translate cleanly. Dailies are full of them.
+
+- **halt** means "that's just how it is". The speaker is not asking for a fix. <Term id="halt" />
+- **quasi** means "basically, sort of". The name is close enough. <Term id="quasi" />
+- **genau** is agreement, and very often "okay, moving on". <Term id="genau" />
+- **mal** softens a request. Without it, the same sentence is an order. <Term id="mal" />
+- **..., ja.** at the end of a sentence keeps the listener with you. It is not a real question. <Term id="ja" />
+
+<Callout type="tip" title="Hear them first">
+
+You do not need to use these words yourself at first. But you need to hear them. Otherwise every sentence sounds like a question or a correction.
+
+</Callout>
+
+## Giving your update in a daily
+
+An update in <Term id="das-daily" /> has three parts: yesterday, today, blockers. Thirty seconds is a good update. Two minutes is a presentation.
+
+- Open with <Term id="kurzes-update" /> It tells everyone it is your turn and that you will be short.
+- Still working on something: <Term id="noch-dran" />
+- Nearly finished: <Term id="fast-durch" />
+- Stuck: <Term id="haeng-ich" /> Say it early. It is a normal sentence, not a confession.
+- Nothing in your way: <Term id="keine-blocker" />
+- Close with <Term id="das-wars" /> Then stop talking.
+
+Two words do most of the work here. The first is <Term id="der-blocker" />, the English word with a German article. The second is <Term id="durch-sein">durch</Term>: when a ticket is finished, say it is <i lang="de">durch</i>, not <i lang="de">fertig</i>. Both are correct. Only one sounds like you work there.
+
+Many teams skip the call and post the update in the team chat. Same three parts, even fewer words:
+
+```md filename="async-standup.md"
+**Gestern:** Login-Ticket, PR ist offen
+**Heute:** Bug im Checkout
+**Blocker:** keine
+```
+
+No verbs, no full sentences. That is the expected style, not laziness.
+
+## One sentence, taken apart
+
+This sentence ends a lot of blocker discussions. Select a word group to see its English partner.
+
+<Gloss id="nach-dem-daily" />
+
+<i lang="de">Anschauen</i> is a separable verb: in a main clause the prefix <strong lang="de">an</strong> moves to the very end, so you only know which verb you heard when the sentence is over.
+
+## Phrases for calls
+
+Remote calls have their own small vocabulary. Most of it is about the call itself.
+
+- <strong lang="de">Ich teil mal kurz meinen Bildschirm.</strong> I'll share my screen for a moment.
+- <strong lang="de">Siehst du meinen Bildschirm?</strong> Can you see my screen?
+- <strong lang="de">Du bist noch gemutet.</strong> You're still on mute.
+- <Term id="haengen">Du hängst.</Term> Your video or audio froze.
+- <strong lang="de">Ich muss mal kurz gucken.</strong> Let me check for a second. It buys you time, and nobody minds.
+- <strong lang="de">Ich schick euch das gleich in den Chat.</strong> I'll send it to you in the chat in a moment.
+- <strong lang="de">Bei mir wirft das einen Fehler.</strong> It throws an error for me.
+- <strong lang="de">Gibt's noch Fragen?</strong> Any more questions?
+- <strong lang="de">Passt.</strong> Works for me.
+- <strong lang="de">Alles gut.</strong> All good. Also the answer when someone apologises.
+- <strong lang="de">So weit, so gut.</strong> So far, so good.
+
+The tone is lighter than you might expect. A small joke at your own expense fits well: <strong lang="de">Ist das ein Mac-Problem oder ein Ich-Problem?</strong> Is that a Mac problem or a me problem?
+
+## Verbs you will hear about projects
+
+Project talk is mostly verbs, and many of them are separable. Here they are next to the commands they describe:
+
+```bash filename="terminal"
+git clone git@github.com:team/shop.git   # das Repo klonen
+git pull                                 # sich den aktuellen Stand runterziehen
+python -m venv .venv                     # die Umgebung aufsetzen
+pip install -r requirements.txt          # die Abhängigkeiten installieren
+pip install -U -r requirements.txt       # die Abhängigkeiten updaten
+python manage.py migrate                 # migrieren
+python manage.py loaddata seed.json      # eine Datei einlesen
+python manage.py runserver               # den Server hochfahren
+```
+
+The verb for day one is <Term id="aufsetzen" />: <strong lang="de">ein Projekt aufsetzen</strong>, to set a project up. The verb for every morning is <Term id="hochfahren" />. <strong lang="de">Sich etwas runterziehen</strong> is to pull or download something: <strong lang="de">Zieh dir mal den aktuellen Stand runter.</strong> And a script that breaks on every second run is <strong lang="de">fehleranfällig</strong>, error-prone.
+
+## Denglisch is fine
+
+Do not search for the "proper" German word. Nobody translates deploy. The English verb gets a German ending and that is the whole rule: <strong lang="de">deployen</strong>, <strong lang="de">mergen</strong>, <strong lang="de">committen</strong>, <strong lang="de">pushen</strong>.
+
+The past participle takes <i lang="de">ge-</i> at the front and <i lang="de">-t</i> at the end:
+
+- <strong lang="de">Ich hab's gefixt.</strong> I fixed it.
+- <strong lang="de">Ist gemergt.</strong> It's merged.
+
+Some words stay fully English: <strong lang="de">Das Ticket ist ready.</strong>
+
+A current example: <strong lang="de">Hab das mit Copilot generieren lassen, muss aber noch drüberschauen.</strong> I had Copilot generate that, but I still need to look over it.
+
+## A daily, start to finish
+
+Everything above, in one short standup. Play it once without the English. Then switch the English on and check what you missed.
+
+<Dialog id="standup" />
+
+Count the little words: <strong lang="de">mal</strong> twice, <strong lang="de">halt</strong> once. Then look at the last exchange. The word <Term id="bilateral" /> has nothing to do with diplomacy. It means the two of you sort it out after the meeting, and everyone else gets their time back.
+
+## Check yourself
+
+Three questions. No score, just an explanation each.
+
+<Quiz id="noch-dran" />
+
+<Quiz id="bilateral" />
+
+<Quiz id="genau" />
+
+<Takeaways>
+
+- Textbook sentences are correct and stiff. Shorten them: <i lang="de">hab</i>, <i lang="de">grad</i>, <i lang="de">schau's</i>.
+- Say <i lang="de">du</i> unless your team clearly does not.
+- Learn to hear <i lang="de">halt</i>, <i lang="de">quasi</i>, <i lang="de">genau</i>, <i lang="de">mal</i> and <i lang="de">ja</i> before you try to use them.
+- A daily update has three parts: <i lang="de">gestern</i>, <i lang="de">heute</i>, <i lang="de">Blocker</i>. Keep it to thirty seconds.
+- Use the English tech word with a German ending: <i lang="de">gefixt</i>, <i lang="de">gemergt</i>, <i lang="de">deployt</i>.
+
+</Takeaways>
+
+## Cheat sheet
+
+The ten phrases that cover most dailies and calls:
+
+1. <Term id="kurzes-update" /> Quick update from me.
+2. <Term id="noch-dran" /> I'm still working on it.
+3. <Term id="durch-sein">Ist durch.</Term> It's done.
+4. <Term id="haeng-ich" /> I'm a bit stuck there.
+5. <Term id="drueberschauen">Kannst du mal kurz drüberschauen?</Term> Can you take a quick look?
+6. <Term id="keine-blocker" /> No blockers from my side.
+7. <Term id="das-wars" /> That's it from me.
+8. <strong lang="de">Du bist noch gemutet.</strong> You're still on mute.
+9. <strong lang="de">Ich schick euch das gleich in den Chat.</strong> I'll send it in the chat in a moment.
+10. <Term id="bilateral">Lass uns das bilateral klären.</Term> Let's sort it out between the two of us.
+
+That is enough for tomorrow's daily. Dann schönen <Term id="feierabend">Feierabend</Term>!

@@ -19,6 +19,8 @@ import StatusBar from '@/components/shell/status-bar'
 import Toast from '@/components/shell/toast'
 import TopBar from '@/components/shell/top-bar'
 import { routing } from '@/i18n/routing'
+import { postEntries } from '@/lib/blog/home'
+import { listPosts } from '@/lib/blog/posts'
 import { pageMetadata, SITE_URL } from '@/lib/site'
 import { APP_VERSION, versionLabel } from '@/lib/version'
 import { THEME_IDS } from '@/lib/themes'
@@ -95,7 +97,7 @@ const LocaleLayout = async ({ children, params }: LocaleLayoutProps) => {
             {/* Netlify sets BRANCH at build time; local builds show main. */}
             <StatusBar branch={process.env.BRANCH ?? 'main'} />
             <Toast />
-            <CommandPalette />
+            <CommandPalette posts={postEntries(await listPosts(), locale)} />
             <Cursor />
           </ThemeProvider>
         </NextIntlClientProvider>

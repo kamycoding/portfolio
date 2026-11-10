@@ -1,8 +1,17 @@
+import type { NextRequest } from 'next/server'
+
 import createMiddleware from 'next-intl/middleware'
 
 import { routing } from './i18n/routing'
+import { isJournalRoute } from './lib/blog/routes'
 
-export default createMiddleware(routing)
+const handleDefault = createMiddleware(routing)
+const handleJournal = createMiddleware({ ...routing, alternateLinks: false })
+
+const proxy = (request: NextRequest) =>
+  isJournalRoute(request.nextUrl.pathname) ? handleJournal(request) : handleDefault(request)
+
+export default proxy
 
 export const config = {
   // Skip `/api` (redirected to the Netlify contact function), Next internals, any path with a file extension and the

@@ -1,11 +1,24 @@
-/* Custom cursor from the prototype (style.css: .mcur). Only for a fine pointer that can hover. */
+/*
+ * The homepage cursor is a drafting tool (cursor.tsx): crosshair, selection frame, caret, block, paw, measuring line
+ * and pin, all in --kw with a thin --bg outline so they show on every background in all four themes. Labels pair
+ * --kw on --bg (and --bg on --kw), which reach AA in every theme. Only transforms move; only opacity changes (it dims to 30% when idle).
+ * Journal pages use the calm reading cursor at the bottom.
+ */
 .cur {
   position: fixed;
-  top: 0;
-  left: 0;
+  inset: 0 auto auto 0;
   z-index: 200;
   display: none;
+  width: 0;
+  height: 0;
+  margin: 0;
+  padding: 0;
+  overflow: visible;
+  border: 0;
+  background: none;
+  color: inherit;
   pointer-events: none;
+  transition: opacity 0.45s;
 }
 
 :global(html.has-cur) .cur {
@@ -19,107 +32,221 @@
   }
 }
 
-.dot {
+/* Every part sits at the top left and is moved with a transform; the kind of cursor says which parts show. */
+.cur > * {
   position: fixed;
   top: 0;
   left: 0;
-  width: 6px;
-  height: 6px;
-  margin: -3px 0 0 -3px;
-  border-radius: 50%;
-  background: var(--text);
-  transition:
-    width 0.2s,
-    height 0.2s,
-    margin 0.2s,
-    border-radius 0.2s,
-    background 0.2s,
-    opacity 0.2s;
-}
-
-.ring {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 32px;
-  height: 32px;
-  margin: -16px 0 0 -16px;
-  border: 1px solid color-mix(in srgb, var(--kw) 70%, transparent);
-  border-radius: 50%;
-  transition:
-    width 0.25s cubic-bezier(0.2, 0.7, 0.2, 1),
-    height 0.25s cubic-bezier(0.2, 0.7, 0.2, 1),
-    margin 0.25s cubic-bezier(0.2, 0.7, 0.2, 1),
-    background 0.25s,
-    border-color 0.25s,
-    opacity 0.2s,
-    border-radius 0.25s;
-}
-
-.label {
-  position: absolute;
-  top: calc(100% - 6px);
-  left: calc(100% - 6px);
-  padding: 2px 7px;
-  border-radius: 6px;
-  background: var(--kw);
-  font:
-    500 10.5px var(--font-geist-mono),
-    monospace;
-  color: var(--bg);
-  white-space: nowrap;
   opacity: 0;
-  transform: translateY(-3px);
-  transition:
-    opacity 0.15s,
-    transform 0.15s;
+  pointer-events: none;
 }
 
-.label:empty {
-  display: none;
+/* After three seconds without movement the cursor dims, so there is always a visible pointer. */
+.idle {
+  opacity: 0.3;
 }
 
-.link .ring {
-  width: 46px;
-  height: 46px;
-  margin: -23px 0 0 -23px;
-  border-color: var(--kw);
-  background: color-mix(in srgb, var(--kw) 14%, transparent);
+/* Before the first move and after the pointer left the window. */
+.hidden {
+  opacity: 0;
 }
 
-.link .label {
+.cur[data-kind='cross'] :is(.cross, .tag),
+.cur[data-kind='text'] :is(.caret, .tag),
+.cur[data-kind='block'] .block,
+.cur[data-kind='paw'] .paw,
+.cur[data-kind='frame'] :is(.corner, .sizeTag, .dot),
+.cur[data-measuring] :is(.line, .origin, .distTag) {
   opacity: 1;
-  transform: none;
 }
 
-.link .dot {
+/* ---------- crosshair ---------- */
+.cross {
+  width: 22px;
+  height: 22px;
+  margin: -11px 0 0 -11px;
+  background:
+    linear-gradient(var(--kw), var(--kw)) center / 100% 1px no-repeat,
+    linear-gradient(var(--kw), var(--kw)) center / 1px 100% no-repeat;
+  filter: drop-shadow(0 0 0.6px var(--bg));
+  mask: radial-gradient(circle at center, transparent 3px, #000 3.5px);
+}
+
+/* ---------- labels ---------- */
+.tag > span,
+.sizeTag > span,
+.distTag > span {
+  display: block;
+  padding: 2px 7px;
+  border-radius: 4px;
+  font:
+    500 10.5px/1.5 var(--font-geist-mono),
+    monospace;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.tag > span {
+  border: 1px solid color-mix(in srgb, var(--kw) 35%, transparent);
+  background: color-mix(in srgb, var(--bg) 92%, transparent);
+  color: var(--kw);
+}
+
+.tag[data-tone='ln'] > span {
+  color: var(--text);
+}
+
+.sizeTag > span,
+.distTag > span {
   background: var(--kw);
+  color: var(--bg);
 }
 
-.text .ring {
-  opacity: 0;
+.tag[data-flip='true'] > span,
+.distTag[data-flip='true'] > span {
+  transform: translateX(-100%);
 }
 
-.text .dot {
+/* ---------- editor caret, terminal block, paw ---------- */
+.caret {
   width: 2px;
   height: 20px;
   margin: -10px 0 0 -1px;
-  border-radius: 1px;
   background: var(--kw);
+  box-shadow: 0 0 0 1px var(--bg);
 }
 
-.down .ring {
-  width: 24px;
-  height: 24px;
-  margin: -12px 0 0 -12px;
+.block {
+  width: 9px;
+  height: 18px;
+  margin: -9px 0 0 -2px;
+  border: 1px solid var(--kw);
+  background: color-mix(in srgb, var(--kw) 55%, transparent);
+  box-shadow: 0 0 0 1px var(--bg);
 }
 
-.down.link .ring {
-  width: 38px;
-  height: 38px;
-  margin: -19px 0 0 -19px;
+.paw {
+  margin: -11px 0 0 -11px;
 }
 
-.hidden {
+.paw svg {
+  display: block;
+  fill: var(--kw);
+  paint-order: stroke;
+  stroke: var(--bg);
+  stroke-width: 1.4px;
+}
+
+/* ---------- selection frame ---------- */
+.corner {
+  width: 8px;
+  height: 8px;
+  border: 0 solid var(--kw);
+  filter: drop-shadow(0 0 0.5px var(--bg));
+}
+
+.corner[data-corner='0'] {
+  border-width: 1.5px 0 0 1.5px;
+}
+
+.corner[data-corner='1'] {
+  border-width: 1.5px 1.5px 0 0;
+}
+
+.corner[data-corner='2'] {
+  border-width: 0 0 1.5px 1.5px;
+}
+
+.corner[data-corner='3'] {
+  border-width: 0 1.5px 1.5px 0;
+}
+
+/* ---------- measuring line and pin ---------- */
+.line {
+  width: 100px;
+  height: 1px;
+  background: var(--kw);
+  filter: drop-shadow(0 0 0.5px var(--bg));
+  transform-origin: 0 0;
+}
+
+.origin {
+  width: 7px;
+  height: 7px;
+  margin: -3.5px 0 0 -3.5px;
+  border: 1.5px solid var(--kw);
+  background: var(--bg);
+}
+
+.pin {
+  width: 15px;
+  height: 15px;
+  margin: -7.5px 0 0 -7.5px;
+  background:
+    linear-gradient(var(--kw), var(--kw)) center / 100% 1.5px no-repeat,
+    linear-gradient(var(--kw), var(--kw)) center / 1.5px 100% no-repeat;
+  filter: drop-shadow(0 0 0.6px var(--bg));
+}
+
+/* ---------- reading mode (journal pages) ---------- */
+.dot {
+  width: 4px;
+  height: 4px;
+  margin: -2px 0 0 -2px;
+  border-radius: 50%;
+  background: var(--kw);
+  box-shadow: 0 0 0 1px var(--bg);
+}
+
+.ring {
+  width: 22px;
+  height: 22px;
+  margin: -11px 0 0 -11px;
+  border: 1.5px solid var(--kw);
+  border-radius: 50%;
+  box-shadow:
+    0 0 0 1px var(--bg),
+    inset 0 0 0 1px var(--bg);
+}
+
+/* An editor caret over prose, a ring over links and controls, a dot elsewhere: calm, no easing. */
+.reading .dot {
+  width: 6px;
+  height: 6px;
+  margin: -3px 0 0 -3px;
+  opacity: 1;
+}
+
+.reading.link .ring {
+  opacity: 1;
+}
+
+.reading.link .dot {
   opacity: 0;
+}
+
+.reading.text .dot {
+  width: 2px;
+  height: 20px;
+  margin: -10px 0 0 -1px;
+  border-radius: 0;
+}
+
+.reading.text .dot::before,
+.reading.text .dot::after {
+  position: absolute;
+  left: -3px;
+  width: 8px;
+  height: 2px;
+  background: var(--kw);
+  box-shadow: 0 0 0 1px var(--bg);
+  content: '';
+}
+
+.reading.text .dot::before {
+  top: 0;
+}
+
+.reading.text .dot::after {
+  bottom: 0;
 }

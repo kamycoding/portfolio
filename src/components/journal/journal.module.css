@@ -1,0 +1,482 @@
+/*
+ * blog/ on the homepage, as VS Code's "Open editors". Cards sit on --panel, their tab and actions on --panel-2; every
+ * text and background pair was checked for WCAG AA in all four themes. Nothing here changes size after the first
+ * paint: filtering, hovering and focusing only change colours, and the previous and next buttons keep their space.
+ */
+.editors {
+  margin-top: 48px;
+}
+
+/* ---------- header, quick open, chips ---------- */
+.head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-height: 36px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--hair);
+}
+
+.panelTitle {
+  color: var(--muted);
+  font:
+    400 12px/1.4 var(--font-geist-mono),
+    monospace;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.pager {
+  display: flex;
+  gap: 6px;
+}
+
+.pagerOff {
+  visibility: hidden;
+}
+
+.pagerButton {
+  width: 32px;
+  height: 32px;
+  border: 1px solid var(--hair-2);
+  border-radius: 6px;
+  color: var(--muted);
+  font:
+    14px/1 var(--font-geist-mono),
+    monospace;
+}
+
+.pagerButton:hover {
+  border-color: var(--hair-3);
+  color: var(--text);
+}
+
+.pagerButton[aria-disabled='true'] {
+  border-style: dashed;
+  cursor: not-allowed;
+}
+
+.filter {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 16px;
+  padding-block: 14px 4px;
+}
+
+.quickOpen {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: min(300px, 100%);
+  height: 36px;
+  padding: 0 10px;
+  border: 1px solid var(--hair-2);
+  border-radius: 6px;
+  background: var(--panel);
+}
+
+.quickOpen:focus-within {
+  border-color: var(--kw);
+}
+
+.chevron {
+  color: var(--kw);
+  font:
+    13px var(--font-geist-mono),
+    monospace;
+}
+
+.quickOpen input {
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+  border: 0;
+  outline: none;
+  background: none;
+  color: var(--text);
+  font:
+    13px var(--font-geist-mono),
+    monospace;
+}
+
+.quickOpen input::placeholder {
+  color: var(--muted);
+  opacity: 1;
+}
+
+.quickOpen kbd {
+  color: var(--muted);
+  font:
+    11.5px var(--font-geist-mono),
+    monospace;
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.chip {
+  min-height: 30px;
+  padding: 0 12px;
+  border: 1px solid var(--hair-2);
+  border-radius: 999px;
+  color: var(--muted);
+  font:
+    12px var(--font-geist-mono),
+    monospace;
+}
+
+.chip:hover {
+  border-color: var(--hair-3);
+  color: var(--text);
+}
+
+.chip[aria-pressed='true'] {
+  border-color: var(--kw);
+  background: var(--kw-a);
+  color: var(--text);
+}
+
+/* Reserved width, so the message never moves the chips. */
+.noMatch {
+  min-width: 12ch;
+  color: var(--muted);
+  font:
+    12px var(--font-geist-mono),
+    monospace;
+}
+
+/* ---------- the row ---------- */
+.row {
+  display: flex;
+  gap: 16px;
+  margin-top: 16px;
+  padding: 4px 4px 12px;
+  overflow-x: auto;
+  list-style: none;
+  scroll-padding-inline: 4px;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: thin;
+}
+
+.item {
+  display: flex;
+  flex: 0 0 calc((100% - 32px) / 3);
+  min-width: 290px;
+  scroll-snap-align: start;
+}
+
+.item[hidden] {
+  display: none;
+}
+
+/* The card, or the last link card, is what takes the focus stop. */
+.cardFocus {
+  display: flex;
+  flex: 1;
+  min-width: 0;
+  border-radius: 10px;
+}
+
+.cardFocus:focus-visible {
+  outline-offset: 3px;
+}
+
+.window {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid var(--hair-2);
+  border-radius: 10px;
+  background: var(--panel);
+  box-shadow: var(--shadow);
+}
+
+.all {
+  transition: border-color 0.2s;
+}
+
+a:hover > .all,
+a:focus-visible > .all {
+  border-color: var(--kw);
+}
+
+/* ---------- tab ---------- */
+.tab {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  height: 36px;
+  padding: 0 12px;
+  border-bottom: 1px solid var(--hair);
+  background: var(--panel-2);
+  box-shadow: inset 0 1.5px 0 var(--kw);
+  font:
+    12px var(--font-geist-mono),
+    monospace;
+  color: var(--text);
+}
+
+.file {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+.fileName {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.mdBadge {
+  flex: none;
+  padding: 1px 3px;
+  border-radius: 3px;
+  background: var(--prop);
+  color: var(--panel);
+  font:
+    600 9px var(--font-geist-mono),
+    monospace;
+}
+
+.langs {
+  display: flex;
+  flex: none;
+  gap: 4px;
+}
+
+.lang {
+  padding: 1px 5px;
+  border: 1px solid var(--hair-3);
+  border-radius: 4px;
+  color: var(--muted);
+  font-size: 10.5px;
+}
+
+/* ---------- code preview ---------- */
+.code {
+  position: relative;
+  flex: none;
+  height: 112px;
+  padding: 10px 36px 10px 0;
+  overflow: hidden;
+  font:
+    12px/22px var(--font-geist-mono),
+    monospace;
+}
+
+.lines {
+  min-width: 0;
+}
+
+.line {
+  position: relative;
+  display: flex;
+  height: 22px;
+  padding-right: 8px;
+}
+
+.ln {
+  flex: none;
+  width: 32px;
+  padding-right: 10px;
+  color: var(--faint);
+  text-align: right;
+}
+
+.title,
+.src {
+  min-width: 0;
+  overflow: hidden;
+  font: inherit;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.title {
+  color: var(--text);
+  font-weight: 600;
+}
+
+.hash {
+  color: var(--kw);
+  font-weight: 400;
+}
+
+/* The sign and the bar of an added or removed line repeat what the screen reader text says. */
+.line[data-kind='add']::before,
+.line[data-kind='remove']::before {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 3px;
+  height: 22px;
+  content: '';
+}
+
+.line[data-kind='add']::before {
+  background: var(--ok);
+}
+
+.line[data-kind='remove']::before {
+  background: var(--err);
+}
+
+.line[data-kind='add'] .src::before,
+.line[data-kind='remove'] .src::before {
+  margin-right: 6px;
+  font-weight: 600;
+}
+
+.line[data-kind='add'] .src::before {
+  color: var(--ok);
+  content: '+';
+}
+
+.line[data-kind='remove'] .src::before {
+  color: var(--err);
+  content: '-';
+}
+
+.kw {
+  color: var(--kw);
+}
+
+.str {
+  color: var(--str);
+}
+
+.com {
+  color: var(--com);
+}
+
+.num {
+  color: var(--num);
+}
+
+.fn {
+  color: var(--prop);
+}
+
+/* One bar per h2 section, as long as the section's text; decorative. */
+.minimap {
+  position: absolute;
+  top: 12px;
+  right: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 3px;
+  width: 24px;
+}
+
+.minimap span {
+  display: block;
+  height: 3px;
+  border-radius: 1px;
+  background: var(--hair-3);
+}
+
+/* ---------- footer and actions ---------- */
+.foot {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: 4px 10px;
+  height: 36px;
+  padding: 0 12px;
+  overflow: hidden;
+  border-top: 1px solid var(--hair);
+  color: var(--muted);
+  font:
+    12px var(--font-geist-mono),
+    monospace;
+  white-space: nowrap;
+}
+
+.foot > span + span::before {
+  margin-right: 10px;
+  color: var(--faint);
+  content: '·';
+}
+
+.foot .badge {
+  padding: 1px 6px;
+  border: 1px solid var(--hair-3);
+  border-radius: 4px;
+  font-size: 11px;
+}
+
+.foot .badge::before {
+  display: none;
+}
+
+/* Two rows are reserved, so cards with fewer actions are as tall as the others. */
+.actions {
+  display: flex;
+  flex: 1;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  gap: 6px;
+  min-height: 84px;
+  padding: 10px 12px 12px;
+  border-top: 1px solid var(--hair);
+  background: var(--panel-2);
+}
+
+.actions .action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  width: auto;
+  min-height: 30px;
+  height: auto;
+  padding: 0 10px;
+  border: 1px solid var(--hair-2);
+  border-radius: 6px;
+  background: none;
+  color: var(--muted);
+  font:
+    12px var(--font-geist-mono),
+    monospace;
+}
+
+.actions .action:hover {
+  border-color: var(--hair-3);
+  color: var(--text);
+}
+
+.actions .copy {
+  min-width: 96px;
+}
+
+.actions .open {
+  border-color: var(--text);
+  color: var(--text);
+}
+
+.openWrap {
+  margin-left: auto;
+}
+
+@media (max-width: 1100px) {
+  .item {
+    flex-basis: calc((100% - 16px) / 2);
+  }
+}
+
+@media (max-width: 700px) {
+  .item {
+    flex-basis: 86%;
+  }
+}

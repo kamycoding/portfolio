@@ -40,9 +40,13 @@
     },
     "terminal": {
       "label": "Terminal. Type help to see commands.",
-      "help": "<b>help</b>                 this list\n<b>whoami</b>               who is this\n<b>ls</b> [projects]        sections and projects, clickable\n<b>git log</b>              GitHub contributions\n<b>blueprint</b>            switch between plan and build\n<b>theme</b> [list|<name>]  switch the color theme\n<b>lang</b> [de|en]         switch the language\n<b>contact</b>              jump to the contact form\n<b>pet cat</b>              wake the cat\n<b>clear</b>                clear the terminal",
+      "help": "<b>help</b>                 this list\n<b>whoami</b>               who is this\n<b>ls</b> [projects|blog]   sections, projects and posts, clickable\n<b>open</b> '<slug>'          open a journal post, also: cat blog/'<slug>'\n<b>git log</b>              GitHub contributions\n<b>blueprint</b>            switch between plan and build\n<b>theme</b> [list|'<name>']  switch the color theme\n<b>lang</b> [de|en]         switch the language\n<b>contact</b>              jump to the contact form\n<b>pet cat</b>              wake the cat\n<b>clear</b>                clear the terminal",
       "whoami": "<b>Kamyar Zamanfar</b>, full-stack developer near Cologne.\nTypeScript, React, Next.js, Node. Co-founder of Heldio.",
       "lsMissing": "ls: cannot access '{path}': No such file or directory",
+      "blogEmpty": "no posts published yet.",
+      "openUsage": "usage: open [slug], see: ls blog",
+      "catUsage": "usage: cat blog/[slug], see: ls blog",
+      "postMissing": "{command}: no such post: {slug}. see: ls blog",
       "gitUsage": "usage: git log",
       "gitLog": {
         "total": "{count, plural, one {<b>#</b> contribution} other {<b>#</b> contributions}}, {period}",
@@ -82,17 +86,174 @@
       "meta": "POST /api/contact"
     }
   },
+  "journal": {
+    "title": "Journal",
+    "metaTitle": "Journal | kamycoding",
+    "description": "Building software in Germany.",
+    "empty": "No posts published yet.",
+    "editor": "Journal editor",
+    "files": "Journal files",
+    "breadcrumb": "Journal breadcrumb",
+    "availableOnly": "Available in {language}",
+    "missingTitle": "Translation unavailable",
+    "missingDescription": "This post is available in {language}.",
+    "missingMeta": "This translation is unavailable. Read the published language version.",
+    "readIn": "Read in {language}",
+    "onThisPage": "On this page",
+    "contents": "Contents",
+    "copy": "Copy",
+    "copied": "Copied",
+    "copyFailed": "Copy failed. Select the code and copy it manually.",
+    "callout": {
+      "note": "Note",
+      "tip": "Tip",
+      "warning": "Warning"
+    },
+    "tldr": "TL;DR",
+    "takeaways": "Takeaways",
+    "gloss": "German sentence with English alignment",
+    "showEnglish": "Show English",
+    "quiz": {
+      "check": "Check",
+      "retry": "Try again",
+      "correct": "Correct.",
+      "incorrect": "Not quite.",
+      "choose": "Choose an answer first.",
+      "yourAnswer": "Your answer",
+      "correctAnswer": "Correct answer"
+    },
+    "audio": {
+      "term": "Play pronunciation",
+      "sentence": "Play sentence",
+      "line": "Play line {number}, {speaker}",
+      "stop": "Stop",
+      "unavailable": "Audio unavailable"
+    },
+    "author": {
+      "label": "Written by",
+      "role": "Full-stack developer near Cologne."
+    },
+    "languages": {
+      "en": "English",
+      "de": "German"
+    },
+    "categories": {
+      "engineering": "Engineering",
+      "product": "Product",
+      "design": "Design",
+      "learning": "Learning",
+      "career": "Career",
+      "tools": "Tools"
+    },
+    "formats": {
+      "essay": "Essay",
+      "note": "Note",
+      "interactive": "Interactive",
+      "series": "Series",
+      "visual": "Visual"
+    },
+    "home": {
+      "eyebrow": "// journal",
+      "title": "Building software in Germany, <soft>written down.</soft>",
+      "meta": "{count, plural, one {# post} other {# posts}}",
+      "openEditors": "Open editors",
+      "quickOpen": "Quick open…",
+      "quickOpenLabel": "Quick open: filter posts by title or tag",
+      "categories": "Categories",
+      "all": "All",
+      "noMatch": "No post matches.",
+      "previous": "Previous posts",
+      "next": "Next posts",
+      "listen": "Listen",
+      "stop": "Stop",
+      "copyLink": "Copy link",
+      "copied": "Copied",
+      "open": "Open",
+      "allPosts": "All posts",
+      "availableIn": "Available in {languages}",
+      "minutes": "{minutes} min",
+      "badgeAudio": "audio",
+      "badgeInteractive": "interactive",
+      "badgeQuiz": "quiz",
+      "lineAdded": "Added line: ",
+      "lineRemoved": "Removed line: "
+    },
+    "interactive": {
+      "puzzle": {
+        "instruction": "Click the console lines in the order you expect them to appear.",
+        "picked": "{count} of {total} chosen",
+        "check": "Check",
+        "retry": "Try again",
+        "right": "Right",
+        "wrong": "Wrong",
+        "correct": "Correct.",
+        "incorrect": "Not quite. {right} of {total} in the right place.",
+        "realOrder": "Real order:",
+        "score": "Score: {correct} of {attempted, plural, one {# puzzle} other {# puzzles}} solved"
+      },
+      "stepper": {
+        "label": "Event loop stepper",
+        "code": "Code",
+        "stack": "Call stack",
+        "micro": "Microtask queue",
+        "tasks": "Task queue",
+        "console": "Console",
+        "empty": "empty",
+        "previous": "Previous",
+        "next": "Next",
+        "reset": "Reset",
+        "step": "Step {number} of {total}",
+        "keys": "Use the left and right arrow keys"
+      },
+      "timeline": {
+        "run": "Run",
+        "running": "Running…",
+        "saves": "Three fake saves of {first}, {second} and {third} ms",
+        "spinner": "Spinner off",
+        "done": "All saves done",
+        "save": "Save {number}",
+        "legend": "Dashed line: the spinner turned off",
+        "summary": "spinner off after {off} ms, all saves done after {done} ms"
+      },
+      "thread": {
+        "frames": "Frames drawn",
+        "block": "Block for 1.5 s (capped)",
+        "chunks": "Same work in chunks",
+        "yieldScheduler": "The chunks yield with scheduler.yield().",
+        "yieldTimeout": "The chunks yield with setTimeout(0).",
+        "working": "Working…",
+        "resultBlock": "Longest gap between frames: {gap} ms. {frames, plural, one {# frame was} other {# frames were}} drawn while the work ran.",
+        "resultChunks": "Longest gap between frames: {gap} ms. {frames, plural, one {# frame was} other {# frames were}} drawn while the work ran."
+      }
+    },
+    "narration": {
+      "label": "Listen to this article",
+      "speed": "Playback speed",
+      "previous": "Previous section",
+      "next": "Next section",
+      "play": "Play",
+      "pause": "Pause",
+      "ready": "{count, plural, one {# section} other {# sections}}, one clip each",
+      "status": "Section {number} of {count}: {title}",
+      "unavailable": "Audio not generated yet",
+      "failed": "The audio could not be played."
+    }
+  },
   "notFound": {
     "code": "Error 404",
     "heading": "Page not found",
     "description": "The page you’re looking for doesn’t exist or may have moved.",
     "navigationAria": "Not found page navigation",
     "home": "Back to homepage",
-    "projects": "View projects"
+    "projects": "View projects",
+    "journal": "Read the journal",
+    "suggestion": "Did you mean {route}?",
+    "fallback": "Try {home} or {journal}"
   },
   "nav": {
     "main": "Main",
-    "home": "home"
+    "home": "home",
+    "journal": "Journal"
   },
   "theme": {
     "picker": "Color Theme"
@@ -103,12 +264,14 @@
   "status": {
     "label": "Status bar",
     "build": "build passing",
-    "city": "Cologne"
+    "city": "Cologne",
+    "reading": "{progress, number, percent} read"
   },
   "footer": {
     "aboutHeading": "// kamyar zamanfar",
     "about": "Full-stack developer near Cologne. I designed and built this site myself. The cat reviewed it.",
     "pages": "// pages",
+    "journal": "Journal",
     "elsewhere": "// elsewhere",
     "legal": "// legal",
     "legalNotice": "Legal notice",
@@ -390,15 +553,27 @@
         "This website supports English and German.",
         "To remember the language selected by you, a technically necessary cookie named \"NEXT_LOCALE\" is set in your browser. It is set when you switch the language or open a language version that differs from your browser's language setting.",
         "The cookie contains only the selected language (\"en\" or \"de\"). It is transmitted only over encrypted connections and expires at the end of your browser session.",
-        "When you change the colour theme, your choice (\"light\" or \"dark\") is stored in your browser's Local Storage under the key \"theme\".",
+        "When you change the colour theme, your choice is stored in your browser's Local Storage under the key \"theme\". The possible values are \"light\" (Light Modern), \"dark\" (Dark Modern), \"monokai\" (Monokai), \"solarized-dark\" (Solarized Dark) and \"system\" (follow your device's setting).",
         "This entry remains until you delete it in your browser.",
         "The stored values are used solely to preserve your language and theme preference on later page views.",
         "They are not used for advertising, analytics or tracking purposes.",
         "The legal basis is § 25(2) No. 2 TDDDG, as this storage is strictly necessary to provide the language and theme function you requested, and Art. 6(1)(f) GDPR (our legitimate interest in a user-friendly website)."
       ]
     },
+    "audio": {
+      "heading": "11. Audio in the Journal",
+      "paragraphs": [
+        "Some journal articles offer audio recordings of German words, sentences and dialogue lines.",
+        "The audio files are static files that are delivered from this website's own domain through its hosting provider Netlify (see section 3), like all other files of this website. They are only loaded when you start playback. No connection to other services is established.",
+        "The recordings were created in advance using the text-to-speech service ElevenLabs. When you play them, no data is transmitted to ElevenLabs.",
+        "If no audio file is available for a text, your browser's built-in speech synthesis (Web Speech API) may read the text aloud after you start playback. This website only uses a German voice that your browser reports as installed locally on your device. The text is not transmitted by this website to me or to any third party. If no such voice is available, nothing is played.",
+        "Whether and how your browser or operating system processes data when using its speech synthesis is determined by its manufacturer and your device settings.",
+        "No playback settings are stored for this function, and no cookies or Local Storage entries are used.",
+        "The legal basis for delivering the audio files is Article 6(1)(f) GDPR. The legitimate interest is providing the audio function you requested."
+      ]
+    },
     "tracking": {
-      "heading": "11. Cookies, Analytics and Tracking",
+      "heading": "12. Cookies, Analytics and Tracking",
       "paragraphs": [
         "This website currently does not use its own analytics or marketing tracking services.",
         "In particular, KamyCoding does not set tracking cookies for personalised advertising or the creation of user profiles.",
@@ -406,7 +581,7 @@
       ]
     },
     "encryption": {
-      "heading": "12. Encrypted Transmission",
+      "heading": "13. Encrypted Transmission",
       "paragraphs": [
         "This website is provided over HTTPS.",
         "This encrypts communication between your browser and the website while the information is being transmitted.",
@@ -414,7 +589,7 @@
       ]
     },
     "recipients": {
-      "heading": "13. Recipients of Personal Data",
+      "heading": "14. Recipients of Personal Data",
       "intro": "Personal data is disclosed to service providers only to the extent necessary to operate the website and process requests.",
       "listIntro": "These providers currently include",
       "items": [
@@ -425,7 +600,7 @@
       "outro": "Personal data is not disclosed to these providers for advertising purposes."
     },
     "rights": {
-      "heading": "14. Your Rights under the GDPR",
+      "heading": "15. Your Rights under the GDPR",
       "intro": "Subject to the applicable statutory requirements, you have in particular the following rights",
       "items": [
         "right of access under Article 15 GDPR",
@@ -438,22 +613,22 @@
       "outro": "Where processing is based on consent, you may generally withdraw that consent at any time with effect for the future."
     },
     "objection": {
-      "heading": "15. Right to Object",
+      "heading": "16. Right to Object",
       "body": "Where personal data is processed on the basis of Article 6(1)(f) GDPR, you have the right, subject to the statutory requirements, to object to such processing on grounds relating to your particular situation."
     },
     "complaint": {
-      "heading": "16. Right to Lodge a Complaint",
+      "heading": "17. Right to Lodge a Complaint",
       "paragraphs": [
         "You have the right to lodge a complaint with a competent data protection supervisory authority concerning the processing of your personal data.",
         "You may in particular contact the supervisory authority responsible for your place of residence, habitual residence, place of work or the place of the alleged infringement."
       ]
     },
     "automatedDecisionMaking": {
-      "heading": "17. Automated Decision-Making",
+      "heading": "18. Automated Decision-Making",
       "body": "This website does not use automated decision-making, including profiling, within the meaning of Article 22 GDPR."
     },
     "changes": {
-      "heading": "18. Changes to this Privacy Policy",
+      "heading": "19. Changes to this Privacy Policy",
       "paragraphs": [
         "This Privacy Policy may be updated if technical, legal or organisational circumstances change.",
         "The version currently published on this website applies."
@@ -461,7 +636,7 @@
     },
     "updated": {
       "label": "Last updated",
-      "date": "November 9, 2026"
+      "date": "November 10, 2026"
     }
   },
   "contact": {
@@ -505,6 +680,7 @@
     "empty": "No matching command",
     "groups": {
       "nav": "Navigate",
+      "journal": "Journal",
       "actions": "Actions",
       "links": "Links"
     },
@@ -520,7 +696,8 @@
       "cat": "Wake the cat",
       "replay": "Replay intro",
       "gh": "Open GitHub",
-      "li": "Open LinkedIn"
+      "li": "Open LinkedIn",
+      "journal": "Open the journal"
     },
     "themes": {
       "label": "Color Theme",
@@ -532,14 +709,6 @@
       "select": "select",
       "restore": "restore"
     }
-  },
-  "cursor": {
-    "go": "go",
-    "open": "open",
-    "copy": "copy",
-    "run": "run",
-    "pet": "pet",
-    "fold": "fold"
   },
   "meta": {
     "title": "Kamyar Zamanfar, full-stack developer",

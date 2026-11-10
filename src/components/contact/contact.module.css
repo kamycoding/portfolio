@@ -294,7 +294,9 @@
 
 .k {
   font-weight: 400;
-  color: color-mix(in srgb, var(--bg) 55%, transparent);
+
+  /* 70% keeps the key hint at AA on the --text button in all four themes (55% reached 3.2 to 4.4). */
+  color: color-mix(in srgb, var(--bg) 70%, transparent);
 }
 
 .out {

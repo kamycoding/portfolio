@@ -1,7 +1,8 @@
 'use client'
 
-import { useSyncExternalStore } from 'react'
+import { useEffect, useSyncExternalStore } from 'react'
 
+import { usePathname } from '@/i18n/navigation'
 import { SECTIONS, type SectionId } from '@/lib/sections'
 import { getActiveIndex, getLineNumber, getProgress } from '@/lib/scroll-spy'
 
@@ -67,9 +68,16 @@ const subscribe = (listener: () => void) => {
   }
 }
 
-export const useScrollSpy = () =>
-  useSyncExternalStore(
+export const useScrollSpy = () => {
+  const pathname = usePathname()
+
+  useEffect(() => {
+    schedule()
+  }, [pathname])
+
+  return useSyncExternalStore(
     subscribe,
     () => state,
     () => INITIAL_STATE
   )
+}

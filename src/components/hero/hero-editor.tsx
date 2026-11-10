@@ -9,6 +9,7 @@ import { animateBuild, getBlueprint, setBuild, subscribeBlueprint } from '@/hook
 import { useCat } from '@/hooks/use-cat'
 import { useIntroRun, useReady } from '@/hooks/use-ready'
 import { prefersReducedMotion } from '@/lib/actions'
+import type { PostEntry } from '@/lib/blog/home'
 import { BUILD_MAX } from '@/lib/blueprint'
 import { cn } from '@/lib/utils'
 
@@ -57,9 +58,12 @@ type Tip = Readonly<{ key: PropKey; left: number; top: number }>
 
 type HeroEditorProps = Readonly<{
   buildDate: string
+
+  // Published journal posts for the terminal's `ls blog` and `open`.
+  posts: readonly PostEntry[]
 }>
 
-const HeroEditor = ({ buildDate }: HeroEditorProps) => {
+const HeroEditor = ({ buildDate, posts }: HeroEditorProps) => {
   const t = useTranslations('hero.editor')
   const { awake, wakes } = useCat()
   const [doc, setDoc] = useState<Doc>('kamyar')
@@ -275,7 +279,7 @@ const HeroEditor = ({ buildDate }: HeroEditorProps) => {
           <span>{cursor}</span>
         </div>
 
-        <Terminal />
+        <Terminal posts={posts} />
 
         {/* Empty until the first hover card, and an empty tooltip has no accessible name. */}
         <div
