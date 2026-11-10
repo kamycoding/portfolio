@@ -15,7 +15,6 @@ const BlogIndex = async ({ locale, posts }: Readonly<{ locale: PostLanguage; pos
   return (
     <Reader locale={locale}>
       <header className={styles.heading}>
-        <p className={styles.eyebrow}>{'// blog/'}</p>
         <h1>{t('title')}</h1>
         <p>{t('description')}</p>
       </header>

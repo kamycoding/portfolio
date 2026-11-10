@@ -38,8 +38,8 @@ const Footer = async () => {
                 </li>
               ))}
               <li>
-                <Link href='/blog' className={linkClass}>
-                  {t('journal')}
+                <Link href='/blog' className={linkClass} aria-label={`${t('journal')} (blog/)`}>
+                  blog/
                 </Link>
               </li>
             </ul>
