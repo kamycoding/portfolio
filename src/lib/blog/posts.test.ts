@@ -30,7 +30,9 @@ describe('listPosts', () => {
   })
 
   it('validates metadata at listing time and preserves the MDX component', async () => {
-    expect(await listPosts([registration()])).toEqual([{ slug: 'fixture', metadata, outline, learning: null, Content }])
+    expect(await listPosts([registration()])).toEqual([
+      { slug: 'fixture', metadata, outline, learning: null, audio: null, Content }
+    ])
   })
 
   it('rejects a module without the generated outline export', async () => {
@@ -122,5 +124,16 @@ describe('listPosts', () => {
     })
 
     await expect(listPosts([entry])).rejects.toThrow('Invalid learning.json for fixture/en.mdx')
+  })
+
+  it('validates audio.json and names the translation when it is broken', async () => {
+    const clips = { '0123456789abcdef': { text: 'Hallo.', model: 'model', voice: 'voice' } }
+    const [post] = await listPosts([registration({ audio: async () => ({ default: { version: 1, clips } }) })])
+
+    expect(post.audio).toEqual({ version: 1, clips })
+
+    const broken = registration({ audio: async () => ({ default: { version: 2, clips } }) })
+
+    await expect(listPosts([broken])).rejects.toThrow('Invalid audio.json for fixture/en.mdx')
   })
 })

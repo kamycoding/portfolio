@@ -118,6 +118,13 @@
       "yourAnswer": "Your answer",
       "correctAnswer": "Correct answer"
     },
+    "audio": {
+      "term": "Play pronunciation",
+      "sentence": "Play sentence",
+      "line": "Play line {number}, {speaker}",
+      "stop": "Stop",
+      "unavailable": "Audio unavailable"
+    },
     "languages": { "en": "English", "de": "German" },
     "categories": {
       "engineering": "Engineering",

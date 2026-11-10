@@ -5,6 +5,8 @@ import { renderToStaticMarkup } from 'react-dom/server'
 import { NextIntlClientProvider } from 'next-intl'
 import { describe, expect, it } from 'vitest'
 
+import { type AudioManifest, clipHash, glossText } from '@/lib/blog/audio'
+import { audioConfig } from '@/lib/blog/audio-config'
 import { learningSchemas } from '@/lib/blog/learning'
 import type { PublishedPost } from '@/lib/blog/posts'
 
@@ -37,11 +39,12 @@ const learning = learningSchemas.en.parse({
   }
 })
 
-const post = (data: PublishedPost['learning'] = learning): PublishedPost => ({
+const post = (data: PublishedPost['learning'] = learning, audio: AudioManifest | null = null): PublishedPost => ({
   slug: 'fixture',
   Content: () => null,
   outline: [],
   learning: data,
+  audio,
   metadata: {
     title: 'Fixture',
     description: 'Fixture.',
@@ -93,7 +96,7 @@ describe('learningComponents', () => {
     const html = render(<Gloss id='call' />)
     const described = html.match(/aria-describedby="([^"]+)"/)![1]
 
-    expect(html.match(/<button/g)).toHaveLength(1)
+    expect(html.match(/<button[^>]*data-group/g)).toHaveLength(1)
     expect(html).toContain(`id="${described}"`)
     expect(html).not.toContain('data-active')
   })
@@ -114,6 +117,71 @@ describe('learningComponents', () => {
     expect(html).toContain('<legend')
     expect(html).toMatch(/<button type="submit"[^>]*>Check<\/button>/)
     expect(html).toMatch(/<div role="status"[^>]*><\/div>/)
+  })
+})
+
+describe('audio', () => {
+  const narrator = audioConfig.voices.narrator
+  const termHash = clipHash('der Feierabend', narrator, audioConfig)
+  const sentenceText = glossText(learning.sentences!.call.de)
+  const sentenceHash = clipHash(sentenceText, narrator, audioConfig)
+  const lineHash = clipHash('Hallo.', audioConfig.voices.speakers[0], audioConfig)
+
+  const manifest: AudioManifest = {
+    version: 1,
+    clips: {
+      [termHash]: { text: 'der Feierabend', model: audioConfig.model, voice: narrator },
+      [lineHash]: { text: 'Hallo.', model: audioConfig.model, voice: audioConfig.voices.speakers[0] },
+      [sentenceHash]: {
+        text: sentenceText,
+        model: audioConfig.model,
+        voice: narrator,
+        timing: { start: [...sentenceText].map((_, i) => i * 100), end: [...sentenceText].map((_, i) => i * 100 + 90) }
+      }
+    }
+  }
+
+  const bound = learningComponents(post(learning, manifest)) as Bound
+
+  it('offers a listed clip through a native audio element that loads nothing before a click', () => {
+    const html = render(<bound.Term id='feierabend' />)
+
+    expect(html).toContain(`<audio src="/blog-audio/fixture/${termHash}.mp3" preload="none"></audio>`)
+    expect(html).toMatch(/<button type="button"[^>]*aria-label="Play pronunciation"/)
+    expect(html).not.toContain('autoplay')
+  })
+
+  it('renders an unavailable, still focusable button when no clip is listed', () => {
+    const html = render(<Term id='feierabend' />)
+
+    expect(html).not.toContain('<audio')
+    expect(html).toMatch(/aria-label="Audio unavailable" aria-disabled="true"/)
+    expect(html).not.toMatch(/aria-label="Audio unavailable"[^>]* disabled=""/)
+  })
+
+  it('names each dialogue line button by number and speaker', () => {
+    const html = render(<bound.Dialog id='standup' />)
+
+    expect(html).toContain('aria-label="Play line 1, Speaker A"')
+    expect(html).toContain(`/blog-audio/fixture/${lineHash}.mp3`)
+  })
+
+  it('ignores a clip whose text no longer matches the hash', () => {
+    const stale = {
+      version: 1 as const,
+      clips: { [clipHash('der Feierabend!', narrator, audioConfig)]: manifest.clips[termHash] }
+    }
+
+    const { Term: StaleTerm } = learningComponents(post(learning, stale)) as Bound
+
+    expect(render(<StaleTerm id='feierabend' />)).not.toContain('<audio')
+  })
+
+  it('offers the sentence clip with its button', () => {
+    const html = render(<bound.Gloss id='call' />)
+
+    expect(html).toContain(`/blog-audio/fixture/${sentenceHash}.mp3`)
+    expect(html).toContain('aria-label="Play sentence"')
   })
 })
 

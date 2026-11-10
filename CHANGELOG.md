@@ -15,6 +15,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 - Heading IDs are generated at build time, transliterate German umlauts and ß, keep explicit `<h2 id="...">` anchors and avoid duplicates.
 - Journal indexes link a post that exists only in the other language directly to its published version.
 - Journal article components: Term translations in an accessible popover, Gloss sentences with linked German and English word groups, Dialog with a Show English toggle, Quiz with check, explanation and retry, and Callout, TLDR, Takeaways and Figure blocks. Learning data lives in a validated `learning.json` per post, and an unknown id fails the build.
+- Journal audio: play buttons for terms, Gloss sentences and dialogue lines, with same-origin clips, the spoken word group highlighted in Gloss, a local German voice as fallback and a clear unavailable state. Clips are generated locally with `pnpm audio` (a dry run unless `--generate` is given); builds never contact ElevenLabs.
 
 ## [2.2.0] - 2026-11-09
 

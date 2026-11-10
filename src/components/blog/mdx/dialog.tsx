@@ -4,11 +4,12 @@ import { useState } from 'react'
 
 import { useTranslations } from 'next-intl'
 
+import AudioButton, { type ClipAudio } from './audio-button'
 import styles from './learning.module.css'
 
 type DialogProps = Readonly<{
   title?: string
-  lines: ReadonlyArray<Readonly<{ speaker: string; de: string; en: string }>>
+  lines: ReadonlyArray<Readonly<{ speaker: string; de: string; en: string; audio: ClipAudio }>>
 }>
 
 // German first; the English lines are in the HTML from the start and only unhidden, so nothing reflows on load.
@@ -34,7 +35,12 @@ const Dialog = ({ title, lines }: DialogProps) => {
               {line.speaker}
               <span className='sr-only'>:</span>
             </span>
-            <p lang='de'>{line.de}</p>
+            <p lang='de' className={styles.german}>
+              {line.de}
+            </p>
+            <span className={styles.lineAudio}>
+              <AudioButton {...line.audio} label={t('audio.line', { number: index + 1, speaker: line.speaker })} />
+            </span>
             <p lang='en' className={styles.english} hidden={!english}>
               {line.en}
             </p>

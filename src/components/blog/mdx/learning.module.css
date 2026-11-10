@@ -53,6 +53,13 @@
   display: block;
 }
 
+.panel > .panelHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
 .panelTerm {
   font-weight: 600;
 }
@@ -67,6 +74,9 @@
 
 /* Gloss */
 .gloss {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  column-gap: 12px;
   margin-block: 1.75em;
   padding: 14px 18px;
   border: 1px solid var(--hair-2);
@@ -74,10 +84,17 @@
 }
 
 .glossDe {
+  grid-column: 1;
   font-size: 1.05em;
 }
 
+.glossAudio {
+  grid-column: 2;
+  grid-row: 1 / span 2;
+}
+
 .glossEn {
+  grid-column: 1;
   margin-top: 6px;
   color: var(--muted);
 }
@@ -186,11 +203,19 @@
   list-style: none;
 }
 
+/* Speaker, German line and its audio button in one row; the English line sits under the German one. */
 .line {
   display: grid;
-  grid-template-columns: minmax(6rem, max-content) 1fr;
+  grid-template-columns: minmax(6rem, max-content) 1fr auto;
   gap: 2px 16px;
-  padding-block: 8px;
+  margin-inline: -8px;
+  padding: 8px;
+  border-radius: 6px;
+}
+
+/* The line being played; the button itself also turns to Stop. */
+.line:has([data-playing]) {
+  background: var(--kw-a);
 }
 
 .lines .line + .line {
@@ -199,7 +224,8 @@
 }
 
 .speaker {
-  grid-row: span 2;
+  grid-row: 1 / span 2;
+  grid-column: 1;
   padding-top: 0.3em;
   color: var(--muted);
   font-family: var(--font-mono);
@@ -207,7 +233,18 @@
   line-height: 1.6;
 }
 
+.german {
+  grid-row: 1;
+  grid-column: 2;
+}
+
+.lineAudio {
+  grid-row: 1 / span 2;
+  grid-column: 3;
+}
+
 .english {
+  grid-row: 2;
   grid-column: 2;
   color: var(--muted);
   font-size: 0.94em;
@@ -215,13 +252,23 @@
 
 @media (max-width: 560px) {
   .line {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr auto;
   }
 
-  .speaker,
+  .speaker {
+    grid-row: 1;
+    grid-column: 1;
+  }
+
+  .lineAudio {
+    grid-row: 1;
+    grid-column: 2;
+  }
+
+  .german,
   .english {
     grid-row: auto;
-    grid-column: auto;
+    grid-column: 1 / -1;
   }
 }
 

@@ -2,17 +2,21 @@
 
 import { type ReactNode, useEffect, useId, useRef, useState } from 'react'
 
+import { useTranslations } from 'next-intl'
+
 import { placePopover } from '@/lib/blog/popover-position'
 
+import AudioButton, { type ClipAudio } from './audio-button'
 import styles from './learning.module.css'
 
-type TermProps = Readonly<{ de: string; en: string; note?: string; children: ReactNode }>
+type TermProps = Readonly<{ de: string; en: string; note?: string; audio: ClipAudio; children: ReactNode }>
 
 /*
  * A nonmodal disclosure on the native Popover API: Escape, light dismiss and focus return come from the browser,
  * and it opens even before hydration. Script only places it next to the word.
  */
-const Term = ({ de, en, note, children }: TermProps) => {
+const Term = ({ de, en, note, audio, children }: TermProps) => {
+  const t = useTranslations('journal.audio')
   const id = useId()
   const trigger = useRef<HTMLButtonElement>(null)
   const panel = useRef<HTMLSpanElement>(null)
@@ -84,8 +88,11 @@ const Term = ({ de, en, note, children }: TermProps) => {
       </button>
       {/* A span, so the panel stays valid inside the paragraph and is read right after the word. */}
       <span ref={panel} id={id} popover='auto' className={styles.panel}>
-        <span lang='de' className={styles.panelTerm}>
-          {de}
+        <span className={styles.panelHead}>
+          <span lang='de' className={styles.panelTerm}>
+            {de}
+          </span>
+          <AudioButton {...audio} label={t('term')} />
         </span>
         <span lang='en'>{en}</span>
         {note && <span className={styles.note}>{note}</span>}

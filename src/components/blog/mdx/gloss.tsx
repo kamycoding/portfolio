@@ -4,22 +4,40 @@ import { type KeyboardEvent, useEffect, useId, useRef, useState } from 'react'
 
 import { useTranslations } from 'next-intl'
 
+import type { SegmentTime } from '@/lib/blog/audio'
 import type { GlossSegment } from '@/lib/blog/learning'
 import { cn } from '@/lib/utils'
 
+import AudioButton, { type ClipAudio } from './audio-button'
 import styles from './learning.module.css'
 
-type GlossProps = Readonly<{ de: readonly GlossSegment[]; en: readonly GlossSegment[] }>
+type GlossProps = Readonly<{
+  de: readonly GlossSegment[]
+  en: readonly GlossSegment[]
+  audio: ClipAudio
+  times: readonly SegmentTime[] | null
+}>
+
+// The group whose aligned segment is being spoken; gaps between segments highlight nothing.
+const spokenGroup = (de: readonly GlossSegment[], times: readonly SegmentTime[] | null, position: number | null) => {
+  if (position === null || !times) return null
+
+  const index = times.findIndex(time => time && position >= time.start && position <= time.end)
+  const segment = de[index]
+
+  return segment && typeof segment !== 'string' ? segment.group : null
+}
 
 // Authored word-group alignment (docs/adr/0007): hovering, focusing or pinning a group highlights it in both lines.
-const Gloss = ({ de, en }: GlossProps) => {
+const Gloss = ({ de, en, audio, times }: GlossProps) => {
   const t = useTranslations('journal')
   const id = useId()
   const figure = useRef<HTMLElement>(null)
   const [hovered, setHovered] = useState<string | null>(null)
   const [focused, setFocused] = useState<string | null>(null)
   const [pinned, setPinned] = useState<string | null>(null)
-  const active = hovered ?? focused ?? pinned
+  const [position, setPosition] = useState<number | null>(null)
+  const active = spokenGroup(de, times, position) ?? hovered ?? focused ?? pinned
 
   // Delegated pointer tracking, so the English parts highlight on hover without becoming controls themselves.
   useEffect(() => {
@@ -106,6 +124,9 @@ const Gloss = ({ de, en }: GlossProps) => {
           )
         )}
       </p>
+      <div className={styles.glossAudio}>
+        <AudioButton {...audio} label={t('audio.sentence')} onTime={setPosition} />
+      </div>
     </figure>
   )
 }

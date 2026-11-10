@@ -2,6 +2,7 @@ import type { ComponentType } from 'react'
 
 import type { MDXProps } from 'mdx/types'
 
+import { type AudioManifest, audioManifestSchema } from './audio'
 import { type Learning, learningSchemas } from './learning'
 import {
   outlineSchema,
@@ -25,6 +26,7 @@ export type PostRegistration = Readonly<{
   lang: PostLanguage
   load: () => Promise<PostModule>
   learning?: () => Promise<{ default: unknown }>
+  audio?: () => Promise<{ default: unknown }>
 }>
 
 export type PublishedPost = Readonly<{
@@ -32,11 +34,12 @@ export type PublishedPost = Readonly<{
   metadata: PostMetadata
   outline: OutlineItem[]
   learning: Learning | null
+  audio: AudioManifest | null
   Content: PostModule['default']
 }>
 
-// Register explicit imports from content/posts/ here, with the slug's learning.json if it has one. Never import
-// content/drafts/.
+// Register explicit imports from content/posts/ here, with the slug's learning.json and audio.json if it has them.
+// Never import content/drafts/.
 const POSTS: readonly PostRegistration[] = []
 
 // Parsed per translation, so the reader-facing text resolves to that translation's language.
@@ -45,6 +48,19 @@ const parseLearning = async (entry: PostRegistration, load: NonNullable<PostRegi
 
   if (!result.success) {
     throw new Error(`Invalid learning.json for ${entry.slug}/${entry.lang}.mdx: ${result.error.message}`, {
+      cause: result.error
+    })
+  }
+
+  return result.data
+}
+
+// Written by scripts/generate-audio.ts; validated like the other exports, so a broken manifest fails the build.
+const parseAudio = async (entry: PostRegistration, load: NonNullable<PostRegistration['audio']>) => {
+  const result = audioManifestSchema.safeParse((await load()).default)
+
+  if (!result.success) {
+    throw new Error(`Invalid audio.json for ${entry.slug}/${entry.lang}.mdx: ${result.error.message}`, {
       cause: result.error
     })
   }
@@ -91,8 +107,16 @@ export const listPosts = async (registry: readonly PostRegistration[] = POSTS): 
       }
 
       const learning = entry.learning ? await parseLearning(entry, entry.learning) : null
+      const audio = entry.audio ? await parseAudio(entry, entry.audio) : null
 
-      return { slug: entry.slug, metadata: result.data, outline: outline.data, learning, Content: postModule.default }
+      return {
+        slug: entry.slug,
+        metadata: result.data,
+        outline: outline.data,
+        learning,
+        audio,
+        Content: postModule.default
+      }
     })
   )
 

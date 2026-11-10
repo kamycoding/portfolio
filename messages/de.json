@@ -118,6 +118,13 @@
       "yourAnswer": "Deine Antwort",
       "correctAnswer": "Richtige Antwort"
     },
+    "audio": {
+      "term": "Aussprache anhören",
+      "sentence": "Satz anhören",
+      "line": "Zeile {number} anhören, {speaker}",
+      "stop": "Stopp",
+      "unavailable": "Audio nicht verfügbar"
+    },
     "languages": { "en": "Englisch", "de": "Deutsch" },
     "categories": {
       "engineering": "Softwareentwicklung",

@@ -10,6 +10,7 @@ const post: PublishedPost = {
   Content: () => null,
   outline: [],
   learning: null,
+  audio: null,
   metadata: {
     title: 'Metadata fixture',
     description: 'Metadata fixture.',

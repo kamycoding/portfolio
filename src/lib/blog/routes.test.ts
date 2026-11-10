@@ -18,6 +18,7 @@ const post = (slug: string, lang: PostLanguage, date = '2026-11-10'): PublishedP
   Content: () => null,
   outline: [],
   learning: null,
+  audio: null,
   metadata: {
     title: 'Route fixture',
     description: 'Route fixture.',
