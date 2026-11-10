@@ -40,9 +40,13 @@
     },
     "terminal": {
       "label": "Terminal. Type help to see commands.",
-      "help": "<b>help</b>                 this list\n<b>whoami</b>               who is this\n<b>ls</b> [projects]        sections and projects, clickable\n<b>git log</b>              GitHub contributions\n<b>blueprint</b>            switch between plan and build\n<b>theme</b> [list|<name>]  switch the color theme\n<b>lang</b> [de|en]         switch the language\n<b>contact</b>              jump to the contact form\n<b>pet cat</b>              wake the cat\n<b>clear</b>                clear the terminal",
+      "help": "<b>help</b>                 this list\n<b>whoami</b>               who is this\n<b>ls</b> [projects|blog]   sections, projects and posts, clickable\n<b>open</b> '<slug>'          open a journal post, also: cat blog/'<slug>'\n<b>git log</b>              GitHub contributions\n<b>blueprint</b>            switch between plan and build\n<b>theme</b> [list|'<name>']  switch the color theme\n<b>lang</b> [de|en]         switch the language\n<b>contact</b>              jump to the contact form\n<b>pet cat</b>              wake the cat\n<b>clear</b>                clear the terminal",
       "whoami": "<b>Kamyar Zamanfar</b>, full-stack developer near Cologne.\nTypeScript, React, Next.js, Node. Co-founder of Heldio.",
       "lsMissing": "ls: cannot access '{path}': No such file or directory",
+      "blogEmpty": "no posts published yet.",
+      "openUsage": "usage: open [slug], see: ls blog",
+      "catUsage": "usage: cat blog/[slug], see: ls blog",
+      "postMissing": "{command}: no such post: {slug}. see: ls blog",
       "gitUsage": "usage: git log",
       "gitLog": {
         "total": "{count, plural, one {<b>#</b> contribution} other {<b>#</b> contributions}}, {period}",
@@ -129,7 +133,10 @@
       "label": "Written by",
       "role": "Full-stack developer near Cologne."
     },
-    "languages": { "en": "English", "de": "German" },
+    "languages": {
+      "en": "English",
+      "de": "German"
+    },
     "categories": {
       "engineering": "Engineering",
       "product": "Product",
@@ -144,6 +151,83 @@
       "interactive": "Interactive",
       "series": "Series",
       "visual": "Visual"
+    },
+    "home": {
+      "eyebrow": "// journal",
+      "title": "Building software in Germany, <soft>written down.</soft>",
+      "meta": "{count, plural, one {# post} other {# posts}}",
+      "read": "Read the article",
+      "all": "All posts",
+      "diffLabel": "Textbook German compared with what people say",
+      "textbook": "textbook",
+      "real": "what people say",
+      "explorer": "Explorer",
+      "preview": "Preview",
+      "outline": "Outline",
+      "status": "Article facts",
+      "statusRead": "{minutes} min read",
+      "statusTerms": "{count, plural, one {# term} other {# terms}}",
+      "statusClips": "{count, plural, one {# audio clip} other {# audio clips}}"
+    },
+    "interactive": {
+      "puzzle": {
+        "instruction": "Click the console lines in the order you expect them to appear.",
+        "picked": "{count} of {total} chosen",
+        "check": "Check",
+        "retry": "Try again",
+        "right": "Right",
+        "wrong": "Wrong",
+        "correct": "Correct.",
+        "incorrect": "Not quite. {right} of {total} in the right place.",
+        "realOrder": "Real order:",
+        "score": "Score: {correct} of {attempted, plural, one {# puzzle} other {# puzzles}} solved"
+      },
+      "stepper": {
+        "label": "Event loop stepper",
+        "code": "Code",
+        "stack": "Call stack",
+        "micro": "Microtask queue",
+        "tasks": "Task queue",
+        "console": "Console",
+        "empty": "empty",
+        "previous": "Previous",
+        "next": "Next",
+        "reset": "Reset",
+        "step": "Step {number} of {total}",
+        "keys": "Use the left and right arrow keys"
+      },
+      "timeline": {
+        "run": "Run",
+        "running": "Running…",
+        "saves": "Three fake saves of {first}, {second} and {third} ms",
+        "spinner": "Spinner off",
+        "done": "All saves done",
+        "save": "Save {number}",
+        "legend": "Dashed line: the spinner turned off",
+        "summary": "spinner off after {off} ms, all saves done after {done} ms"
+      },
+      "thread": {
+        "frames": "Frames drawn",
+        "block": "Block for 1.5 s (capped)",
+        "chunks": "Same work in chunks",
+        "yieldScheduler": "The chunks yield with scheduler.yield().",
+        "yieldTimeout": "The chunks yield with setTimeout(0).",
+        "working": "Working…",
+        "resultBlock": "Longest gap between frames: {gap} ms. {frames, plural, one {# frame was} other {# frames were}} drawn while the work ran.",
+        "resultChunks": "Longest gap between frames: {gap} ms. {frames, plural, one {# frame was} other {# frames were}} drawn while the work ran."
+      }
+    },
+    "narration": {
+      "label": "Listen to this article",
+      "speed": "Playback speed",
+      "previous": "Previous section",
+      "next": "Next section",
+      "play": "Play",
+      "pause": "Pause",
+      "ready": "{count, plural, one {# section} other {# sections}}, one clip each",
+      "status": "Section {number} of {count}: {title}",
+      "unavailable": "Audio not generated yet",
+      "failed": "The audio could not be played."
     }
   },
   "notFound": {
@@ -587,6 +671,7 @@
     "empty": "No matching command",
     "groups": {
       "nav": "Navigate",
+      "journal": "Journal",
       "actions": "Actions",
       "links": "Links"
     },
@@ -602,7 +687,8 @@
       "cat": "Wake the cat",
       "replay": "Replay intro",
       "gh": "Open GitHub",
-      "li": "Open LinkedIn"
+      "li": "Open LinkedIn",
+      "journal": "Open the journal"
     },
     "themes": {
       "label": "Color Theme",

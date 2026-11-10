@@ -8,11 +8,13 @@ import { getTranslations, setRequestLocale } from 'next-intl/server'
 import ArticleReading from '@/components/blog/article-reading'
 import AuthorBox from '@/components/blog/author-box'
 import JsonLd from '@/components/blog/json-ld'
+import NarrationPlayer from '@/components/blog/narration-player'
 import { learningComponents } from '@/components/blog/mdx/learning'
 import Reader from '@/components/blog/reader'
 import TranslationNotice from '@/components/blog/translation-notice'
 import styles from '@/components/blog/blog.module.css'
 import { journalPostMetadata } from '@/lib/blog/metadata'
+import { narrationSections } from '@/lib/blog/narration'
 import { listPosts } from '@/lib/blog/posts'
 import { journalStaticParams, resolvePostRoute } from '@/lib/blog/routes'
 import { postLanguageSchema } from '@/lib/blog/schema'
@@ -86,6 +88,7 @@ const PostPage = async ({ params }: PostProps) => {
   const t = await getTranslations({ locale, namespace: 'journal' })
   const tHero = await getTranslations({ locale, namespace: 'hero' })
   const { post } = route
+  const narration = narrationSections(post)
 
   return (
     <Reader locale={locale} slug={slug}>
@@ -98,6 +101,7 @@ const PostPage = async ({ params }: PostProps) => {
           <h1>{post.metadata.title}</h1>
           <p>{post.metadata.description}</p>
         </header>
+        {narration && <NarrationPlayer sections={narration} lang={locale} />}
         {/* Keyed by slug, so moving to another post remounts the tracker and resets progress. */}
         <ArticleReading key={slug} outline={post.outline}>
           <post.Content components={learningComponents(post)} />

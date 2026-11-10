@@ -13,6 +13,7 @@ import {
   audioItems,
   audioManifestSchema,
   estimateCredits,
+  narrationItems,
   requestSettings,
   sendsLanguageCode,
   withModel
@@ -21,7 +22,7 @@ import { audioConfig } from '../src/lib/blog/audio-config.ts'
 import { synthesize } from '../src/lib/blog/elevenlabs.ts'
 import { learningSchemas } from '../src/lib/blog/learning.ts'
 
-const usage = `Usage: pnpm audio <slug> [--draft] [--only term|gloss|dialog] [--model <id>] [--prune] [--generate]
+const usage = `Usage: pnpm audio <slug> [--draft] [--only term|gloss|dialog|narration] [--model <id>] [--prune] [--generate]
 
   --draft      read and write content/drafts/<slug>/ instead of the published post
   --only       limit to one kind of clip
@@ -54,7 +55,7 @@ const { values, positionals } = (() => {
 const slug = positionals[0]
 
 if (positionals.length !== 1 || !/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(slug)) fail(usage)
-if (values.only && !['term', 'gloss', 'dialog'].includes(values.only)) fail(usage)
+if (values.only && !['term', 'gloss', 'dialog', 'narration'].includes(values.only)) fail(usage)
 if (values.model && !/^[a-z0-9_]+$/.test(values.model)) fail(`Unexpected model id "${values.model}".`)
 
 const config = values.model ? withModel(audioConfig, values.model) : audioConfig
@@ -83,14 +84,26 @@ const learningFile = path.join(target.source, 'learning.json')
 
 if (!existsSync(learningFile)) fail(`No learning.json in ${relative(target.source)}.`)
 
-// learning.json is parsed with the language of an existing translation; the voiced German text is the same for all.
-const language = ['en', 'de'].find(lang => existsSync(path.join(target.source, `${lang}.mdx`))) ?? 'en'
-const learning = learningSchemas[language as 'en' | 'de'].safeParse(JSON.parse(await readFile(learningFile, 'utf8')))
+// learning.json is parsed once per existing translation: the voiced German phrases are the same for all of them,
+// while each translation has its own narration.
+const learningJson = JSON.parse(await readFile(learningFile, 'utf8'))
+const languages = (['en', 'de'] as const).filter(lang => existsSync(path.join(target.source, `${lang}.mdx`)))
 
-if (!learning.success) fail(`Invalid ${relative(learningFile)}: ${learning.error.message}`)
+const parsed = (languages.length ? languages : (['en'] as const)).map(lang => {
+  const result = learningSchemas[lang].safeParse(learningJson)
+
+  return result.success
+    ? { lang, learning: result.data }
+    : fail(`Invalid ${relative(learningFile)} (${lang}): ${result.error.message}`)
+})
 
 const manifest = await readManifest(manifestFile)
-const all = audioItems(learning.data!, config)
+
+const all = [
+  ...audioItems(parsed[0].learning, config),
+  ...parsed.flatMap(({ lang, learning }) => narrationItems(learning, lang, config))
+]
+
 const items = all.filter(item => !values.only || item.kind === values.only)
 
 // Other posts and drafts may already hold an identical clip; copying it costs nothing.
@@ -203,7 +216,7 @@ for (const item of planned) {
         voiceId: item.voice.id,
         model: item.voice.model,
         settings: requestSettings(item.voice.model, config.settings),
-        languageCode: sendsLanguageCode(item.voice.model) ? config.language : undefined,
+        languageCode: sendsLanguageCode(item.voice.model) ? item.lang : undefined,
         outputFormat: config.outputFormat,
         seed: config.seed,
         apiKey,
@@ -216,10 +229,11 @@ for (const item of planned) {
         text: item.text,
         model: item.voice.model,
         voice: item.voice.id,
-        ...(timing && { timing })
+        ...(timing && item.kind !== 'narration' && { timing })
       }
 
-      if (!timing)
+      // Narration is played as a whole, so its per-character timing would only bloat audio.json.
+      if (!timing && item.kind !== 'narration')
         console.warn(`[audio] No reliable timing for ${item.kind} ${item.id}; it plays without highlighting.`)
     } catch (error) {
       await saveManifest()

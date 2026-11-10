@@ -19,17 +19,33 @@ export type AudioSettings = Readonly<{
 // Each voice names the model that suits it best; the model is part of every clip hash.
 export type VoiceConfig = Readonly<{ id: string; model: string }>
 
+export type NarrationLanguage = 'en' | 'de'
+
 export type AudioConfig = Readonly<{
   outputFormat: string
   language: string
   seed: number
   settings: AudioSettings
-  voices: Readonly<{ narrator: VoiceConfig; speakers: readonly VoiceConfig[] }>
+  voices: Readonly<{
+    narrator: VoiceConfig
+    speakers: readonly VoiceConfig[]
+
+    // The voice that reads a whole article section aloud, per language of the article.
+    narration: Readonly<Record<NarrationLanguage, VoiceConfig>>
+  }>
 }>
 
-export type AudioKind = 'term' | 'gloss' | 'dialog'
+export type AudioKind = 'term' | 'gloss' | 'dialog' | 'narration'
 
-export type AudioItem = Readonly<{ kind: AudioKind; id: string; text: string; voice: VoiceConfig; hash: string }>
+// lang is the language the clip is spoken in, which the request and the clip hash both cover.
+export type AudioItem = Readonly<{
+  kind: AudioKind
+  id: string
+  text: string
+  voice: VoiceConfig
+  lang: string
+  hash: string
+}>
 
 // Eleven v4 has only Stability and Similarity; its docs list no Style, Speed or speaker boost, so those are not sent.
 const V4_MODELS = new Set(['eleven_v4', 'eleven_v4_turbo'])
@@ -47,7 +63,11 @@ export const withModel = (config: AudioConfig, model: string): AudioConfig => ({
   ...config,
   voices: {
     narrator: { ...config.voices.narrator, model },
-    speakers: config.voices.speakers.map(voice => ({ ...voice, model }))
+    speakers: config.voices.speakers.map(voice => ({ ...voice, model })),
+    narration: {
+      en: { ...config.voices.narration.en, model },
+      de: { ...config.voices.narration.de, model }
+    }
   }
 })
 
@@ -55,9 +75,10 @@ export const withModel = (config: AudioConfig, model: string): AudioConfig => ({
 const HASH_VERSION = 1
 
 // The cache key: any change to what is spoken or how it is synthesized gives a new file name.
-export const clipHash = (text: string, voice: VoiceConfig, config: AudioConfig) => {
+// The language defaults to the configured one (German), so every clip made before narration keeps its name.
+export const clipHash = (text: string, voice: VoiceConfig, config: AudioConfig, language = config.language) => {
   const settings = Object.entries(requestSettings(voice.model, config.settings)).sort(([a], [b]) => a.localeCompare(b))
-  const key = [HASH_VERSION, text, config.language, voice.id, voice.model, settings, config.outputFormat, config.seed]
+  const key = [HASH_VERSION, text, language, voice.id, voice.model, settings, config.outputFormat, config.seed]
 
   return createHash('sha256').update(JSON.stringify(key)).digest('hex').slice(0, 16)
 }
@@ -69,13 +90,14 @@ export const glossText = (segments: readonly GlossSegment[]) =>
 export const dialogueVoice = (dialogue: LearningEntry<'dialogues'>, speaker: string, config: AudioConfig) =>
   config.voices.speakers[Object.keys(dialogue.speakers).indexOf(speaker)] ?? config.voices.narrator
 
-const item = (kind: AudioKind, id: string, text: string, voice: VoiceConfig, config: AudioConfig): AudioItem => ({
-  kind,
-  id,
-  text,
-  voice,
-  hash: clipHash(text, voice, config)
-})
+const item = (
+  kind: AudioKind,
+  id: string,
+  text: string,
+  voice: VoiceConfig,
+  config: AudioConfig,
+  lang = config.language
+): AudioItem => ({ kind, id, text, voice, lang, hash: clipHash(text, voice, config, lang) })
 
 // Only German is voiced: terms, Gloss sentences and every dialogue line.
 export const audioItems = (learning: Learning, config: AudioConfig): AudioItem[] => [
@@ -91,6 +113,12 @@ export const audioItems = (learning: Learning, config: AudioConfig): AudioItem[]
     )
   )
 ]
+
+// One clip per h2 section, spoken in the language of the translation the learning data was parsed for.
+export const narrationItems = (learning: Learning, lang: NarrationLanguage, config: AudioConfig): AudioItem[] =>
+  (learning.narration ?? []).map(entry =>
+    item('narration', `${lang}/${entry.heading}`, entry.text, config.voices.narration[lang], config, lang)
+  )
 
 /*
  * Upper bounds per character from ElevenLabs' pricing: multilingual v2 costs one credit, Flash and Turbo up to one.

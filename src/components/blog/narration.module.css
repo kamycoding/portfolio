@@ -1,0 +1,109 @@
+/*
+ * The narration player sits on --bg like Callout and Quiz; every text and background pair was checked for WCAG AA in
+ * all four themes. Heights are reserved, so starting or changing a section never moves the page.
+ */
+.player {
+  max-width: 70ch;
+  min-height: 132px;
+  margin-top: 28px;
+  padding: 12px 18px 14px;
+  border: 1px solid var(--hair-2);
+  border-radius: 8px;
+}
+
+.empty {
+  min-height: 0;
+}
+
+.head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px 16px;
+}
+
+.label {
+  color: var(--com);
+  font:
+    12px/1.6 var(--font-geist-mono),
+    monospace;
+}
+
+.rates,
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.controls {
+  margin-top: 10px;
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 36px;
+  padding: 0 12px;
+  border: 1px solid var(--hair-2);
+  border-radius: 6px;
+  color: var(--muted);
+  font:
+    12px/1.4 var(--font-geist-mono),
+    monospace;
+}
+
+.button:hover {
+  border-color: var(--hair-3);
+  color: var(--text);
+}
+
+.button[aria-pressed='true'] {
+  border-color: var(--kw);
+  color: var(--text);
+}
+
+/* Still focusable, so a keyboard user learns it is the first or last section. */
+.button[aria-disabled='true'] {
+  border-style: dashed;
+  cursor: not-allowed;
+}
+
+/* Same width for Play and Pause. */
+.play {
+  min-width: 96px;
+}
+
+.icon {
+  width: 14px;
+  height: 14px;
+  flex: none;
+}
+
+.status {
+  min-height: 3.2em;
+  margin-top: 10px;
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.empty .status {
+  min-height: 0;
+  margin-top: 4px;
+}
+
+/* Small screens show icons only; the text stays for screen readers. */
+@media (max-width: 560px) {
+  .text {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+}

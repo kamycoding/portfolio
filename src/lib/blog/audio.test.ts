@@ -7,6 +7,7 @@ import {
   clipHash,
   dialogueVoice,
   estimateCredits,
+  narrationItems,
   requestSettings,
   segmentTimes,
   sendsLanguageCode,
@@ -22,7 +23,7 @@ const config: AudioConfig = {
   language: 'de',
   seed: 1,
   settings: { stability: 0.5, similarity_boost: 0.75, style: 0, use_speaker_boost: true, speed: 1 },
-  voices: { narrator, speakers: [first] }
+  voices: { narrator, speakers: [first], narration: { en: { id: 'lawrence', model: 'eleven_v4' }, de: narrator } }
 }
 
 const sentence = {
@@ -106,6 +107,7 @@ describe('model rules', () => {
 
     expect(sample.voices.narrator).toEqual({ id: 'narrator', model: 'eleven_v4' })
     expect(sample.voices.speakers).toEqual([{ id: 'first', model: 'eleven_v4' }])
+    expect(sample.voices.narration.en).toEqual({ id: 'lawrence', model: 'eleven_v4' })
   })
 })
 
@@ -183,5 +185,35 @@ describe('segmentTimes', () => {
   it('gives up when the timing does not cover exactly the displayed text', () => {
     expect(segmentTimes(segments, { start: [0], end: [1] })).toBeNull()
     expect(segmentTimes(segments, undefined)).toBeNull()
+  })
+})
+
+describe('narrationItems', () => {
+  const withNarration = learningSchemas.en.parse({
+    narration: [
+      { heading: 'intro', text: { en: 'First section.', de: 'Erster Abschnitt.' } },
+      { heading: 'end', text: { en: 'Last section.' } }
+    ]
+  })
+
+  it('makes one clip per section with the narrator and language of the translation', () => {
+    const items = narrationItems(withNarration, 'en', config)
+
+    expect(items.map(({ kind, id, text, lang, voice }) => [kind, id, text, lang, voice.id])).toEqual([
+      ['narration', 'en/intro', 'First section.', 'en', 'lawrence'],
+      ['narration', 'en/end', 'Last section.', 'en', 'lawrence']
+    ])
+  })
+
+  it('hashes the spoken language, and leaves German clips with their old names', () => {
+    const [english] = narrationItems(withNarration, 'en', config)
+
+    expect(english.hash).toBe(clipHash('First section.', config.voices.narration.en, config, 'en'))
+    expect(english.hash).not.toBe(clipHash('First section.', config.voices.narration.en, config))
+    expect(audioItems(learning, config)[0].lang).toBe('de')
+  })
+
+  it('has no clips without a narration', () => {
+    expect(narrationItems(learning, 'en', config)).toEqual([])
   })
 })

@@ -40,9 +40,13 @@
     },
     "terminal": {
       "label": "Terminal. Gib help ein, um alle Befehle zu sehen.",
-      "help": "<b>help</b>                 diese Liste\n<b>whoami</b>               wer ist das\n<b>ls</b> [projects]        Bereiche und Projekte, klickbar\n<b>git log</b>              GitHub-Beiträge\n<b>blueprint</b>            zwischen Plan und Umsetzung wechseln\n<b>theme</b> [list|<name>]  Farbdesign wechseln\n<b>lang</b> [de|en]         Sprache wechseln\n<b>contact</b>              zum Kontaktformular springen\n<b>pet cat</b>              Katze wecken\n<b>clear</b>                Terminal leeren",
+      "help": "<b>help</b>                 diese Liste\n<b>whoami</b>               wer ist das\n<b>ls</b> [projects|blog]   Bereiche, Projekte und Beiträge, klickbar\n<b>open</b> '<slug>'          Journal-Beitrag öffnen, auch: cat blog/'<slug>'\n<b>git log</b>              GitHub-Beiträge\n<b>blueprint</b>            zwischen Plan und Umsetzung wechseln\n<b>theme</b> [list|'<name>']  Farbdesign wechseln\n<b>lang</b> [de|en]         Sprache wechseln\n<b>contact</b>              zum Kontaktformular springen\n<b>pet cat</b>              Katze wecken\n<b>clear</b>                Terminal leeren",
       "whoami": "<b>Kamyar Zamanfar</b>, Full-Stack-Entwickler bei Köln.\nTypeScript, React, Next.js, Node. Mitgründer von Heldio.",
       "lsMissing": "ls: Zugriff auf '{path}' nicht möglich: Datei oder Verzeichnis nicht gefunden",
+      "blogEmpty": "noch keine Beiträge veröffentlicht.",
+      "openUsage": "Aufruf: open [slug], siehe: ls blog",
+      "catUsage": "Aufruf: cat blog/[slug], siehe: ls blog",
+      "postMissing": "{command}: Beitrag nicht gefunden: {slug}. Siehe: ls blog",
       "gitUsage": "Nutzung: git log",
       "gitLog": {
         "total": "{count, plural, one {<b>#</b> Beitrag} other {<b>#</b> Beiträge}}, {period}",
@@ -129,7 +133,10 @@
       "label": "Geschrieben von",
       "role": "Full-Stack-Entwickler bei Köln."
     },
-    "languages": { "en": "Englisch", "de": "Deutsch" },
+    "languages": {
+      "en": "Englisch",
+      "de": "Deutsch"
+    },
     "categories": {
       "engineering": "Softwareentwicklung",
       "product": "Produkt",
@@ -144,6 +151,83 @@
       "interactive": "Interaktiv",
       "series": "Serie",
       "visual": "Visuell"
+    },
+    "home": {
+      "eyebrow": "// journal",
+      "title": "Software entwickeln in Deutschland, <soft>aufgeschrieben.</soft>",
+      "meta": "{count, plural, one {# Beitrag} other {# Beiträge}}",
+      "read": "Artikel lesen",
+      "all": "Alle Beiträge",
+      "diffLabel": "Lehrbuchdeutsch im Vergleich zu dem, was Leute wirklich sagen",
+      "textbook": "Lehrbuch",
+      "real": "was Leute sagen",
+      "explorer": "Explorer",
+      "preview": "Vorschau",
+      "outline": "Gliederung",
+      "status": "Fakten zum Artikel",
+      "statusRead": "{minutes} Min. Lesezeit",
+      "statusTerms": "{count, plural, one {# Begriff} other {# Begriffe}}",
+      "statusClips": "{count, plural, one {# Audioclip} other {# Audioclips}}"
+    },
+    "interactive": {
+      "puzzle": {
+        "instruction": "Klick die Konsolenzeilen in der Reihenfolge an, in der du sie erwartest.",
+        "picked": "{count} von {total} gewählt",
+        "check": "Prüfen",
+        "retry": "Nochmal",
+        "right": "Richtig",
+        "wrong": "Falsch",
+        "correct": "Richtig.",
+        "incorrect": "Nicht ganz. {right} von {total} an der richtigen Stelle.",
+        "realOrder": "Tatsächliche Reihenfolge:",
+        "score": "Punkte: {correct} von {attempted, plural, one {# Rätsel} other {# Rätseln}} gelöst"
+      },
+      "stepper": {
+        "label": "Event-Loop-Stepper",
+        "code": "Code",
+        "stack": "Call Stack",
+        "micro": "Microtask-Queue",
+        "tasks": "Task-Queue",
+        "console": "Konsole",
+        "empty": "leer",
+        "previous": "Zurück",
+        "next": "Weiter",
+        "reset": "Zurücksetzen",
+        "step": "Schritt {number} von {total}",
+        "keys": "Mit den Pfeiltasten links und rechts steuern"
+      },
+      "timeline": {
+        "run": "Starten",
+        "running": "Läuft…",
+        "saves": "Drei Fake-Speichervorgänge mit {first}, {second} und {third} ms",
+        "spinner": "Spinner aus",
+        "done": "Alles gespeichert",
+        "save": "Speichern {number}",
+        "legend": "Gestrichelte Linie: der Spinner ging aus",
+        "summary": "Spinner aus nach {off} ms, alles gespeichert nach {done} ms"
+      },
+      "thread": {
+        "frames": "Gezeichnete Frames",
+        "block": "1,5 s blockieren (Obergrenze)",
+        "chunks": "Dieselbe Arbeit in Häppchen",
+        "yieldScheduler": "Die Häppchen geben mit scheduler.yield() ab.",
+        "yieldTimeout": "Die Häppchen geben mit setTimeout(0) ab.",
+        "working": "Arbeitet…",
+        "resultBlock": "Längste Pause zwischen zwei Frames: {gap} ms. Während der Arbeit {frames, plural, one {wurde # Frame} other {wurden # Frames}} gezeichnet.",
+        "resultChunks": "Längste Pause zwischen zwei Frames: {gap} ms. Während der Arbeit {frames, plural, one {wurde # Frame} other {wurden # Frames}} gezeichnet."
+      }
+    },
+    "narration": {
+      "label": "Diesen Artikel anhören",
+      "speed": "Wiedergabegeschwindigkeit",
+      "previous": "Voriger Abschnitt",
+      "next": "Nächster Abschnitt",
+      "play": "Abspielen",
+      "pause": "Pause",
+      "ready": "{count, plural, one {# Abschnitt} other {# Abschnitte}}, je ein Clip",
+      "status": "Abschnitt {number} von {count}: {title}",
+      "unavailable": "Audio noch nicht erzeugt",
+      "failed": "Das Audio konnte nicht abgespielt werden."
     }
   },
   "notFound": {
@@ -595,6 +679,7 @@
     "empty": "Kein passender Befehl",
     "groups": {
       "nav": "Navigation",
+      "journal": "Journal",
       "actions": "Aktionen",
       "links": "Links"
     },
@@ -610,7 +695,8 @@
       "cat": "Katze wecken",
       "replay": "Intro erneut abspielen",
       "gh": "GitHub öffnen",
-      "li": "LinkedIn öffnen"
+      "li": "LinkedIn öffnen",
+      "journal": "Journal öffnen"
     },
     "themes": {
       "label": "Farbdesign",

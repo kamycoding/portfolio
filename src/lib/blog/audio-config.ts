@@ -21,6 +21,12 @@ export const audioConfig: AudioConfig = {
     speakers: [
       { id: 'vv3bG6FrcGtmeOdRSriS', model: 'eleven_v4' },
       { id: 'petid4zVzpITlltH2r3L', model: 'eleven_v4' }
-    ]
+    ],
+
+    // Article narration: Lawrence (a permanent Voice Library voice) in English, the German narrator in German.
+    narration: {
+      en: { id: 'ktkP7Nsj67dw2zcplQYt', model: 'eleven_v4' },
+      de: { id: 'vv3bG6FrcGtmeOdRSriS', model: 'eleven_v4' }
+    }
   }
 }
