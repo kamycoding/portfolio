@@ -6,17 +6,21 @@ import type { AudioConfig } from './audio'
  * voice's notice period.
  */
 export const audioConfig: AudioConfig = {
-  model: 'eleven_multilingual_v2',
   outputFormat: 'mp3_44100_128',
   language: 'de',
   seed: 1,
 
-  // ElevenLabs' defaults.
+  // ElevenLabs' defaults. Eleven v4 receives only stability and similarity_boost (requestSettings in audio.ts).
   settings: { stability: 0.5, similarity_boost: 0.75, style: 0, use_speaker_boost: true, speed: 1 },
+
+  // Each voice with the model that suits it best; `pnpm audio --model` overrides all of them for samples.
   voices: {
-    narrator: 'vv3bG6FrcGtmeOdRSriS',
+    narrator: { id: 'vv3bG6FrcGtmeOdRSriS', model: 'eleven_multilingual_v2' },
 
     // In the order a dialogue declares its speakers: the first speaker shares the narrator's voice.
-    speakers: ['vv3bG6FrcGtmeOdRSriS', 'petid4zVzpITlltH2r3L']
+    speakers: [
+      { id: 'vv3bG6FrcGtmeOdRSriS', model: 'eleven_multilingual_v2' },
+      { id: 'petid4zVzpITlltH2r3L', model: 'eleven_multilingual_v2' }
+    ]
   }
 }

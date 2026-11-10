@@ -130,12 +130,16 @@ describe('audio', () => {
   const manifest: AudioManifest = {
     version: 1,
     clips: {
-      [termHash]: { text: 'der Feierabend', model: audioConfig.model, voice: narrator },
-      [lineHash]: { text: 'Hallo.', model: audioConfig.model, voice: audioConfig.voices.speakers[0] },
+      [termHash]: { text: 'der Feierabend', model: narrator.model, voice: narrator.id },
+      [lineHash]: {
+        text: 'Hallo.',
+        model: audioConfig.voices.speakers[0].model,
+        voice: audioConfig.voices.speakers[0].id
+      },
       [sentenceHash]: {
         text: sentenceText,
-        model: audioConfig.model,
-        voice: narrator,
+        model: narrator.model,
+        voice: narrator.id,
         timing: { start: [...sentenceText].map((_, i) => i * 100), end: [...sentenceText].map((_, i) => i * 100 + 90) }
       }
     }

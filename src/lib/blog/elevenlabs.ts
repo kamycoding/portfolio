@@ -1,11 +1,8 @@
 import { z } from 'zod'
 
-import type { AudioConfig, AudioTiming } from './audio'
+import type { AudioSettings, AudioTiming } from './audio'
 
 const ENDPOINT = 'https://api.elevenlabs.io/v1/text-to-speech'
-
-// The API ignores language_code for multilingual v2, so it is only sent where it enforces German.
-const LANGUAGE_CODE_MODELS = new Set(['eleven_flash_v2_5', 'eleven_turbo_v2_5'])
 
 const alignmentSchema = z.object({
   characters: z.array(z.string()),
@@ -28,10 +25,15 @@ export const timingFromAlignment = (
   return { start: start.map(s => Math.round(s * 1000)), end: end.map(s => Math.round(s * 1000)) }
 }
 
+// The caller passes exactly what the clip hash covers (audio.ts decides settings and language_code per model).
 type SynthesizeOptions = Readonly<{
   text: string
-  voice: string
-  config: AudioConfig
+  voiceId: string
+  model: string
+  settings: Partial<AudioSettings>
+  languageCode?: string
+  outputFormat: string
+  seed: number
   apiKey: string
   fetch: typeof globalThis.fetch
 }>
@@ -51,15 +53,16 @@ const failure = async (response: Response, apiKey: string) => {
   return new Error(`ElevenLabs answered ${response.status}: ${detail.replaceAll(apiKey, '[redacted]').slice(0, 300)}`)
 }
 
-export const synthesize = async ({ text, voice, config, apiKey, fetch }: SynthesizeOptions) => {
-  const url = `${ENDPOINT}/${encodeURIComponent(voice)}/with-timestamps?output_format=${encodeURIComponent(config.outputFormat)}`
+export const synthesize = async (options: SynthesizeOptions) => {
+  const { text, voiceId, model, settings, languageCode, outputFormat, seed, apiKey, fetch } = options
+  const url = `${ENDPOINT}/${encodeURIComponent(voiceId)}/with-timestamps?output_format=${encodeURIComponent(outputFormat)}`
 
   const body = {
     text,
-    model_id: config.model,
-    voice_settings: config.settings,
-    seed: config.seed,
-    ...(LANGUAGE_CODE_MODELS.has(config.model) && { language_code: config.language })
+    model_id: model,
+    voice_settings: settings,
+    seed,
+    ...(languageCode && { language_code: languageCode })
   }
 
   const response = await fetch(url, {

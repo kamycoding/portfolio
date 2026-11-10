@@ -2,7 +2,7 @@ import type { ReactNode } from 'react'
 
 import type { MDXComponents } from 'mdx/types'
 
-import { clipHash, clipPath, dialogueVoice, glossText, segmentTimes } from '@/lib/blog/audio'
+import { clipHash, clipPath, dialogueVoice, glossText, segmentTimes, type VoiceConfig } from '@/lib/blog/audio'
 import { audioConfig } from '@/lib/blog/audio-config'
 import type { LearningEntry, LearningKind } from '@/lib/blog/learning'
 import type { PublishedPost } from '@/lib/blog/posts'
@@ -34,7 +34,7 @@ export const learningComponents = ({ slug, metadata, learning, audio }: Publishe
   }
 
   // Only clips listed in audio.json for the current text and config get a file; the rest fall back (docs/adr/0007).
-  const clip = (text: string, voice: string) => {
+  const clip = (text: string, voice: VoiceConfig) => {
     const hash = clipHash(text, voice, audioConfig)
     const entry = audio?.clips[hash]
 

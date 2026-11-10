@@ -1,19 +1,10 @@
 import { describe, expect, it, vi } from 'vitest'
 
-import type { AudioConfig } from './audio'
 import { synthesize, timingFromAlignment } from './elevenlabs'
-
-const config: AudioConfig = {
-  model: 'eleven_multilingual_v2',
-  outputFormat: 'mp3_44100_128',
-  language: 'de',
-  seed: 1,
-  settings: { stability: 0.5, similarity_boost: 0.75, style: 0, use_speaker_boost: true, speed: 1 },
-  voices: { narrator: 'narrator', speakers: [] }
-}
 
 const apiKey = 'test-key-123'
 const text = 'Hallo.'
+const settings = { stability: 0.5, similarity_boost: 0.75 }
 
 const alignment = {
   characters: [...text],
@@ -21,14 +12,23 @@ const alignment = {
   character_end_times_seconds: [0.1, 0.2, 0.3, 0.4, 0.5, 0.6]
 }
 
+const request = {
+  text,
+  voiceId: 'voice id',
+  model: 'eleven_v4',
+  settings,
+  outputFormat: 'mp3_44100_128',
+  seed: 1,
+  apiKey
+}
+
 const ok = (body: unknown) => vi.fn(async () => new Response(JSON.stringify(body), { status: 200 }))
 
 describe('synthesize', () => {
-  it('posts to the timestamps endpoint with the key only in its header', async () => {
+  it('posts exactly the given values to the timestamps endpoint, with the key only in its header', async () => {
     const fetch = ok({ audio_base64: Buffer.from('mp3').toString('base64'), alignment })
-    const result = await synthesize({ text, voice: 'voice id', config, apiKey, fetch })
+    const result = await synthesize({ ...request, languageCode: 'de', fetch })
     const [url, init] = fetch.mock.calls[0] as unknown as [string, RequestInit]
-    const body = JSON.parse(init.body as string)
 
     expect(url).toBe(
       'https://api.elevenlabs.io/v1/text-to-speech/voice%20id/with-timestamps?output_format=mp3_44100_128'
@@ -36,19 +36,29 @@ describe('synthesize', () => {
     expect(init.headers).toMatchObject({ 'xi-api-key': apiKey })
     expect(url).not.toContain(apiKey)
     expect(init.body).not.toContain(apiKey)
-    expect(body).toEqual({ text, model_id: config.model, voice_settings: config.settings, seed: 1 })
+    expect(JSON.parse(init.body as string)).toEqual({
+      text,
+      model_id: 'eleven_v4',
+      voice_settings: settings,
+      seed: 1,
+      language_code: 'de'
+    })
     expect(result.audio.toString()).toBe('mp3')
     expect(result.timing).toEqual({ start: [0, 100, 200, 300, 400, 500], end: [100, 200, 300, 400, 500, 600] })
   })
 
-  it('sends language_code only to models that enforce it', async () => {
+  it('leaves language_code out when none is given', async () => {
     const fetch = ok({ audio_base64: 'AA==' })
 
-    await synthesize({ text, voice: 'v', config: { ...config, model: 'eleven_flash_v2_5' }, apiKey, fetch })
+    await synthesize({ ...request, fetch })
 
     const [, init] = fetch.mock.calls[0] as unknown as [string, RequestInit]
 
-    expect(JSON.parse(init.body as string).language_code).toBe('de')
+    expect(JSON.parse(init.body as string)).not.toHaveProperty('language_code')
+  })
+
+  it('returns no timing when the response has no alignment', async () => {
+    expect((await synthesize({ ...request, fetch: ok({ audio_base64: 'AA==' }) })).timing).toBeUndefined()
   })
 
   it('reports the status and message, never the key', async () => {
@@ -56,7 +66,7 @@ describe('synthesize', () => {
       async () => new Response(JSON.stringify({ detail: { message: `Invalid key ${apiKey}` } }), { status: 401 })
     )
 
-    const error = await synthesize({ text, voice: 'v', config, apiKey, fetch }).catch((caught: Error) => caught)
+    const error = await synthesize({ ...request, fetch }).catch((caught: Error) => caught)
 
     expect((error as Error).message).toBe('ElevenLabs answered 401: Invalid key [redacted]')
   })

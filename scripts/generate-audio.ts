@@ -12,7 +12,10 @@ import {
   type AudioManifest,
   audioItems,
   audioManifestSchema,
-  estimateCredits
+  estimateCredits,
+  requestSettings,
+  sendsLanguageCode,
+  withModel
 } from '../src/lib/blog/audio.ts'
 import { audioConfig } from '../src/lib/blog/audio-config.ts'
 import { synthesize } from '../src/lib/blog/elevenlabs.ts'
@@ -22,7 +25,7 @@ const usage = `Usage: pnpm audio <slug> [--draft] [--only term|gloss|dialog] [--
 
   --draft      read and write content/drafts/<slug>/ instead of the published post
   --only       limit to one kind of clip
-  --model      override the model from src/lib/blog/audio-config.ts (for samples)
+  --model      use this model for every voice instead of the per-voice models (for samples)
   --prune      list clips that are no longer referenced; deletes them together with --generate
   --generate   call ElevenLabs for new clips (without it, nothing leaves this machine)`
 
@@ -54,7 +57,7 @@ if (positionals.length !== 1 || !/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(slug)) fail(u
 if (values.only && !['term', 'gloss', 'dialog'].includes(values.only)) fail(usage)
 if (values.model && !/^[a-z0-9_]+$/.test(values.model)) fail(`Unexpected model id "${values.model}".`)
 
-const config = { ...audioConfig, model: values.model ?? audioConfig.model }
+const config = values.model ? withModel(audioConfig, values.model) : audioConfig
 const root = path.resolve(import.meta.dirname, '..')
 const relative = (file: string) => path.relative(root, file)
 
@@ -137,22 +140,25 @@ const orphans = [
 ].filter(hash => !referenced.has(hash))
 
 const fresh = planned.filter(item => item.status === 'new')
-const credits = estimateCredits(fresh)
+const estimate = estimateCredits(fresh)
 
-console.info(`[audio] ${slug} (${values.draft ? 'draft' : 'published'}), model ${config.model}`)
+const cost = estimate.unknown.length
+  ? `credits unknown: no published rate for ${estimate.unknown.join(', ')}`
+  : `at most ${estimate.credits} credits`
 
+console.info(`[audio] ${slug} (${values.draft ? 'draft' : 'published'}), clips in ${relative(target.clips)}/`)
+if (values.model) console.info(`[audio] --model ${values.model} replaces the per-voice models.`)
+
+// Two short lines per clip, so nothing runs together when a narrow terminal wraps.
 for (const item of planned) {
-  const voice = item.voice || 'no voice configured'
-
-  console.info(
-    `  ${item.status.padEnd(7)}${`${item.kind} ${item.id}`.padEnd(28)}${String(item.text.length).padStart(4)} chars  ${voice}  ${relative(clipFile(target.clips, item.hash))}`
-  )
+  console.info(`  ${item.status.padEnd(7)} ${item.hash}.mp3  ${item.kind} ${item.id}, ${item.text.length} chars`)
+  console.info(`          model ${item.voice.model}, voice ${item.voice.id || 'missing'}`)
 }
 
-if (values.prune) for (const hash of orphans) console.info(`  unused ${relative(clipFile(target.clips, hash))}`)
+if (values.prune) for (const hash of orphans) console.info(`  unused  ${hash}.mp3`)
 
 console.info(
-  `[audio] ${fresh.length} new (${credits} characters, at most ${credits} credits), ` +
+  `[audio] ${fresh.length} new (${estimate.characters} characters, ${cost}), ` +
     `${planned.filter(item => item.status === 'copy').length} copied, ` +
     `${planned.filter(item => item.status === 'cached').length} cached` +
     (orphans.length ? `, ${orphans.length} unused${values.prune ? '' : ' (see --prune)'}` : '') +
@@ -167,7 +173,7 @@ if (!values.generate) {
 const apiKey = process.env.ELEVENLABS_API_KEY ?? ''
 
 if (fresh.length > 0 && !apiKey) fail('ELEVENLABS_API_KEY is not set. Add it to .env.local; it is never printed.')
-if (fresh.some(item => !item.voice)) fail('A voice id is missing in src/lib/blog/audio-config.ts.')
+if (fresh.some(item => !item.voice.id)) fail('A voice id is missing in src/lib/blog/audio-config.ts.')
 
 // The manifest is rewritten after every clip, so an interrupted run resumes from the cache.
 const prettier = await resolveConfig(manifestFile)
@@ -192,11 +198,26 @@ for (const item of planned) {
 
   if (item.status === 'new') {
     try {
-      const { audio, timing } = await synthesize({ text: item.text, voice: item.voice, config, apiKey, fetch })
+      const { audio, timing } = await synthesize({
+        text: item.text,
+        voiceId: item.voice.id,
+        model: item.voice.model,
+        settings: requestSettings(item.voice.model, config.settings),
+        languageCode: sendsLanguageCode(item.voice.model) ? config.language : undefined,
+        outputFormat: config.outputFormat,
+        seed: config.seed,
+        apiKey,
+        fetch
+      })
 
       await writeFile(`${file}.tmp`, audio)
       await rename(`${file}.tmp`, file)
-      manifest.clips[item.hash] = { text: item.text, model: config.model, voice: item.voice, ...(timing && { timing }) }
+      manifest.clips[item.hash] = {
+        text: item.text,
+        model: item.voice.model,
+        voice: item.voice.id,
+        ...(timing && { timing })
+      }
 
       if (!timing)
         console.warn(`[audio] No reliable timing for ${item.kind} ${item.id}; it plays without highlighting.`)

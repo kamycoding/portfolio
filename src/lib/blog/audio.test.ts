@@ -7,17 +7,22 @@ import {
   clipHash,
   dialogueVoice,
   estimateCredits,
-  segmentTimes
+  requestSettings,
+  segmentTimes,
+  sendsLanguageCode,
+  withModel
 } from './audio'
 import { learningSchemas } from './learning'
 
+const narrator = { id: 'narrator', model: 'eleven_multilingual_v2' }
+const first = { id: 'first', model: 'eleven_flash_v2_5' }
+
 const config: AudioConfig = {
-  model: 'model',
   outputFormat: 'mp3_44100_128',
   language: 'de',
   seed: 1,
   settings: { stability: 0.5, similarity_boost: 0.75, style: 0, use_speaker_boost: true, speed: 1 },
-  voices: { narrator: 'narrator', speakers: ['first'] }
+  voices: { narrator, speakers: [first] }
 }
 
 const sentence = {
@@ -46,46 +51,95 @@ describe('clipHash', () => {
       settings: { speed: 1, style: 0, use_speaker_boost: true, similarity_boost: 0.75, stability: 0.5 }
     }
 
-    expect(clipHash('Hallo.', 'voice', config)).toMatch(/^[0-9a-f]{16}$/)
-    expect(clipHash('Hallo.', 'voice', reordered)).toBe(clipHash('Hallo.', 'voice', config))
+    expect(clipHash('Hallo.', narrator, config)).toMatch(/^[0-9a-f]{16}$/)
+    expect(clipHash('Hallo.', narrator, reordered)).toBe(clipHash('Hallo.', narrator, config))
+  })
+
+  it('keeps the key of the published layout for existing models', () => {
+    // Pinned, so a refactor cannot silently rename every committed clip.
+    const voice = { id: 'vv3bG6FrcGtmeOdRSriS', model: 'eleven_multilingual_v2' }
+
+    expect(clipHash('der Feierabend', voice, config)).toBe('e53ca332a43a4d0e')
   })
 
   it('changes with every input of the cache key', () => {
-    const base = clipHash('Hallo.', 'voice', config)
+    const base = clipHash('Hallo.', narrator, config)
 
     const variants = [
-      clipHash('Hallo!', 'voice', config),
-      clipHash('Hallo.', 'other', config),
-      clipHash('Hallo.', 'voice', { ...config, model: 'other' }),
-      clipHash('Hallo.', 'voice', { ...config, language: 'en' }),
-      clipHash('Hallo.', 'voice', { ...config, outputFormat: 'mp3_44100_64' }),
-      clipHash('Hallo.', 'voice', { ...config, seed: 2 }),
-      clipHash('Hallo.', 'voice', { ...config, settings: { ...config.settings, speed: 0.9 } })
+      clipHash('Hallo!', narrator, config),
+      clipHash('Hallo.', { ...narrator, id: 'other' }, config),
+      clipHash('Hallo.', { ...narrator, model: 'other' }, config),
+      clipHash('Hallo.', narrator, { ...config, language: 'en' }),
+      clipHash('Hallo.', narrator, { ...config, outputFormat: 'mp3_44100_64' }),
+      clipHash('Hallo.', narrator, { ...config, seed: 2 }),
+      clipHash('Hallo.', narrator, { ...config, settings: { ...config.settings, speed: 0.9 } })
     ]
 
     expect(new Set([base, ...variants]).size).toBe(variants.length + 1)
   })
+
+  it('ignores settings that Eleven v4 never receives', () => {
+    const v4 = { id: 'narrator', model: 'eleven_v4' }
+    const faster = { ...config, settings: { ...config.settings, speed: 0.9, style: 0.3 } }
+
+    expect(clipHash('Hallo.', v4, faster)).toBe(clipHash('Hallo.', v4, config))
+    expect(clipHash('Hallo.', v4, { ...config, settings: { ...config.settings, stability: 0.3 } })).not.toBe(
+      clipHash('Hallo.', v4, config)
+    )
+  })
+})
+
+describe('model rules', () => {
+  it('sends only stability and similarity to Eleven v4', () => {
+    expect(requestSettings('eleven_v4', config.settings)).toEqual({ stability: 0.5, similarity_boost: 0.75 })
+    expect(requestSettings('eleven_multilingual_v2', config.settings)).toEqual(config.settings)
+  })
+
+  it('sends language_code to models that enforce it, not to multilingual v2', () => {
+    expect(sendsLanguageCode('eleven_v4')).toBe(true)
+    expect(sendsLanguageCode('eleven_flash_v2_5')).toBe(true)
+    expect(sendsLanguageCode('eleven_multilingual_v2')).toBe(false)
+  })
+
+  it('overrides every voice model for samples and keeps the voice ids', () => {
+    const sample = withModel(config, 'eleven_v4')
+
+    expect(sample.voices.narrator).toEqual({ id: 'narrator', model: 'eleven_v4' })
+    expect(sample.voices.speakers).toEqual([{ id: 'first', model: 'eleven_v4' }])
+  })
 })
 
 describe('audioItems', () => {
-  it('voices terms, sentences and every dialogue line in German', () => {
+  it('voices terms, sentences and every dialogue line in German, each with its voice and model', () => {
     expect(audioItems(learning, config).map(({ kind, id, text, voice }) => [kind, id, text, voice])).toEqual([
-      ['term', 'feierabend', 'der Feierabend', 'narrator'],
-      ['gloss', 'call', 'Ich rufe dich an.', 'narrator'],
-      ['dialog', 'standup/1', 'Hallo.', 'first'],
-      ['dialog', 'standup/2', 'Tschüss.', 'narrator']
+      ['term', 'feierabend', 'der Feierabend', narrator],
+      ['gloss', 'call', 'Ich rufe dich an.', narrator],
+      ['dialog', 'standup/1', 'Hallo.', first],
+      ['dialog', 'standup/2', 'Tschüss.', narrator]
     ])
   })
 
   it('assigns speaker voices in declaration order with the narrator as fallback', () => {
     const dialogue = learning.dialogues!.standup
 
-    expect(dialogueVoice(dialogue, 'a', config)).toBe('first')
-    expect(dialogueVoice(dialogue, 'b', config)).toBe('narrator')
+    expect(dialogueVoice(dialogue, 'a', config)).toBe(first)
+    expect(dialogueVoice(dialogue, 'b', config)).toBe(narrator)
+  })
+})
+
+describe('estimateCredits', () => {
+  it('adds one credit per character as an upper bound for known models', () => {
+    expect(estimateCredits(audioItems(learning, config))).toEqual({
+      characters: 14 + 17 + 6 + 8,
+      credits: 14 + 17 + 6 + 8,
+      unknown: []
+    })
   })
 
-  it('estimates one credit per character as an upper bound', () => {
-    expect(estimateCredits(audioItems(learning, config))).toBe(14 + 17 + 6 + 8)
+  it('reports models without a published rate instead of guessing', () => {
+    const estimate = estimateCredits(audioItems(learning, withModel(config, 'eleven_v4')))
+
+    expect(estimate).toEqual({ characters: 45, credits: null, unknown: ['eleven_v4'] })
   })
 })
 
