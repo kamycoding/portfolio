@@ -199,6 +199,24 @@
   color: var(--text);
 }
 
+/* The section the narration is on: a tint, a --ok bar and a play mark that does not take up room. */
+.toc a[data-narrating] {
+  position: relative;
+  background: var(--kw-a);
+  border-left-color: var(--ok);
+  color: var(--text);
+}
+
+.toc a[data-narrating]::after {
+  position: absolute;
+  top: 5px;
+  right: 8px;
+  color: var(--text);
+  font-size: 10px;
+  line-height: 1.8;
+  content: '▶';
+}
+
 .toc a[aria-current='location'] {
   border-left-color: var(--kw);
   color: var(--text);
@@ -228,11 +246,6 @@
   place-items: center;
   width: 40px;
   height: 40px;
-  border: 2px solid var(--text);
-  border-radius: 9px;
-  font:
-    15px var(--font-geist-mono),
-    monospace;
 }
 
 .authorText {

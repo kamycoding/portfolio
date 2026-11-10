@@ -2,6 +2,7 @@
 
 import { useTranslations } from 'next-intl'
 
+import Logo from '@/components/brand/logo'
 import LanguageSwitch from '@/components/shell/language-switch'
 import ThemeToggle from '@/components/shell/theme-toggle'
 import ui from '@/components/ui/ui.module.css'
@@ -40,12 +41,7 @@ const TopBar = ({ versionLabel }: TopBarProps) => {
         href='/#index'
         className='border-hair flex flex-none items-center gap-2.5 border-r px-3 font-mono text-sm font-medium sm:px-5'
       >
-        <span
-          aria-hidden='true'
-          className='border-text grid size-5.5 place-items-center rounded-md border-[1.5px] font-mono text-[10.5px] font-semibold tracking-[-0.04em]'
-        >
-          k/
-        </span>
+        <Logo height={22} />
         <span className='max-sm:sr-only'>kamycoding</span>
         <span className='text-faint hidden text-[11.5px] font-normal lg:inline'>{versionLabel}</span>
         <span className='sr-only'>, {t('home')}</span>

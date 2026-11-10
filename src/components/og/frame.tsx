@@ -3,6 +3,8 @@ import { join } from 'node:path'
 
 import type { ReactNode } from 'react'
 
+import Logo from '@/components/brand/logo'
+
 // Dark theme tokens from globals.css; the images have no CSS variables.
 export const OG_COLOR = {
   bg: '#181818',
@@ -46,20 +48,7 @@ export const ogFrame = (children: ReactNode) => (
     }}
   >
     <div style={{ display: 'flex', alignItems: 'center', gap: 16, fontFamily: 'Geist Mono', fontSize: 26 }}>
-      <div
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          width: 44,
-          height: 44,
-          border: `2.5px solid ${OG_COLOR.text}`,
-          borderRadius: 10,
-          fontSize: 20
-        }}
-      >
-        k/
-      </div>
+      <Logo height={44} />
       kamycoding
     </div>
 

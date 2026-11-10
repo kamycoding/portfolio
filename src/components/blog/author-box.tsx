@@ -1,5 +1,6 @@
 import { useTranslations } from 'next-intl'
 
+import Logo from '@/components/brand/logo'
 import { AUTHOR_NAME, PROFILES } from '@/lib/site'
 
 import styles from './blog.module.css'
@@ -10,8 +11,8 @@ const AuthorBox = () => {
 
   return (
     <footer className={styles.author}>
-      <span aria-hidden='true' className={styles.authorMark}>
-        k/
+      <span className={styles.authorMark}>
+        <Logo height={34} />
       </span>
       <address className={styles.authorText}>
         <p className={styles.authorLabel}>{t('label')}</p>
