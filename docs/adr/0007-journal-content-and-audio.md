@@ -49,7 +49,7 @@ Reading presentation (step 1c):
 - Shiki keeps each theme's own colours, except the token colours below WCAG AA (4.5:1) on that theme's background, which `colorReplacements` raises the least possible, reusing the adjusted values of `src/app/globals.css` where they exist. Highlighted and diff lines keep the theme background, because a tint would push more tokens below AA, and use a bar and a `+`/`-` sign instead.
 - One client store measures the article body and its outlined headings per animation frame, on scroll, resize and body size changes. It feeds the Outline and the status bar, is reset when the article unmounts, and never moves focus or announces progress.
 
-The published-post list supplies the indexes and static routes. Sitemap and RSS integration follows in step 1f. Both indexes show all published slugs, preferring the requested language and marking other-language posts. While the registry is empty, both indexes use `noindex, follow`; indexing starts automatically once a post exists.
+The published-post list supplies the indexes, static routes, sitemap and feeds. Both indexes show all published slugs, preferring the requested language and marking other-language posts. While the registry is empty, both indexes use `noindex, follow`; indexing starts automatically once a post exists.
 
 Each published slug is prebuilt for both locales, including a localized notice when a translation is unavailable. Notices use `noindex, follow` and point their canonical to the available article. Article language alternates include published translations only, with English as `x-default` when available and German otherwise.
 
@@ -77,6 +77,15 @@ Audio (step 1e):
 - Timing is kept only when `alignment.characters` joins to exactly the sent text, as start and end milliseconds per character. Gloss sums it per aligned segment and highlights the spoken group while its clip plays; nothing else uses timing.
 - Playback uses one native `<audio preload="none">` per button: nothing loads before a click, nothing autoplays, files are same-origin and covered by `default-src 'self'`. One clip plays at a time. Without a listed or loadable clip, a click speaks the text through `speechSynthesis` only with a voice whose `localService` is true and whose language is German; otherwise the button stays focusable with `aria-disabled` and says that audio is unavailable. Clips are served with a one-year immutable cache header, which is safe because their names change with their content.
 
+Search and syndication (step 1f):
+
+- Metadata is checked for search results: a title of at most 60 characters and a description of 70 to 160, so an overlong value fails the build. Article pages use "Title | kamycoding" as the document title, like the index, and the bare title for Open Graph and Twitter.
+- The sitemap lists the home pages, both journal indexes once a post exists (the same condition as their `robots` tag) and every published translation. `lastmod` is `updated` or `date`, for an index the newest of its posts. Alternates name only translations that exist, with English as `x-default` when available. Notices, empty indexes and legal pages are never listed.
+- One RSS 2.0 feed per language contains only that language's translations and is valid with no items. The proxy matcher skips every path with a dot, so `/blog/rss.xml` is never rewritten to `/en/...`: the English feed is a static route in `app/blog/rss.xml`, the German one lives in `app/[locale]/blog/rss.xml` for `de` only, and `/en/blog/rss.xml` stays a 404. Index and article pages link their language's feed through `alternates.types`.
+- Every published translation gets a static Open Graph image at `/[locale]/blog/[slug]/og.png`, a route handler rather than `opengraph-image.tsx`, because that file convention adds its tags to every page of the segment, missing-translation notices included: the homepage image's frame (shared in `src/components/og/frame.tsx`, homepage output byte-identical) with a blueprint sheet of the title, its category, file name, date and language. Fonts come from the `geist` package, so building it makes no request. Satori measures some Geist words wider than it draws them, which leaves uneven gaps, so the title is set in at most two balanced lines whose words are joined by no-break spaces, at the largest size (64, 56 or 48px) where every line fits; widths come from the font file's own advance widths (`src/components/og/metrics.ts`, `title.ts`). A title that cannot fit two lines wraps normally. Article metadata names it for `og:image`, `twitter:image` and the JSON-LD `image`; articles have `og:type` `article` with published and modified times. Notices have no image.
+- Article pages carry one JSON-LD graph with BlogPosting, BreadcrumbList and Person (name, role as the site shows it, GitHub and LinkedIn). React writes script text unchanged, so it needs no `dangerouslySetInnerHTML`; every `<` is escaped as `\u003c`. Notices carry none. DefinedTerm markup for glossary terms is a Phase 2 idea.
+- Each article ends with an author box inside the article's `<footer>`: name, role and location in the site's own wording, and the GitHub and LinkedIn links. It sits outside the measured body, so it never counts as reading progress.
+
 ## Consequences
 
 - Content uses the existing Next.js development and deployment workflow.
@@ -89,4 +98,5 @@ Audio (step 1e):
 - Commercial audio use requires review of the actual ElevenLabs agreement before generation. Kamyar's Starter plan includes a commercial licence and API access.
 - Changing the model, a voice or a setting regenerates every affected clip at its credit cost; the dry run shows that cost first.
 - Phase 1 has no vocabulary basket or persistent learning state. Richer reading tools and discovery features remain in Phase 2.
+- Search engines and feed readers see published translations only; publishing a post updates the sitemap, the feed and its image without further steps.
 - A typo in a learning id or a missing translation of reader-facing text fails the build instead of shipping a broken component.

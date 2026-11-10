@@ -79,7 +79,7 @@ const TopBar = ({ versionLabel }: TopBarProps) => {
         })}
         <Link
           href='/blog'
-          aria-label={`${t('journal')} (blog/)`}
+          aria-label={`blog/, ${t('journal')}`}
           aria-current={journal ? 'location' : undefined}
           className={cn(
             'border-hair relative flex items-center gap-2 border-r px-4.5 font-mono text-[13px] whitespace-nowrap',

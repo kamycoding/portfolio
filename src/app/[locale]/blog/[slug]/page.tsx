@@ -6,6 +6,8 @@ import { notFound } from 'next/navigation'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 
 import ArticleReading from '@/components/blog/article-reading'
+import AuthorBox from '@/components/blog/author-box'
+import JsonLd from '@/components/blog/json-ld'
 import { learningComponents } from '@/components/blog/mdx/learning'
 import Reader from '@/components/blog/reader'
 import TranslationNotice from '@/components/blog/translation-notice'
@@ -14,6 +16,7 @@ import { journalPostMetadata } from '@/lib/blog/metadata'
 import { listPosts } from '@/lib/blog/posts'
 import { journalStaticParams, resolvePostRoute } from '@/lib/blog/routes'
 import { postLanguageSchema } from '@/lib/blog/schema'
+import { articleGraph } from '@/lib/blog/structured-data'
 
 type PostProps = Readonly<{ params: Promise<{ locale: string; slug: string }> }>
 
@@ -57,7 +60,9 @@ export const generateMetadata = async ({ params }: PostProps): Promise<Metadata>
 
   const t = await getTranslations({ locale, namespace: 'journal' })
 
-  return journalPostMetadata(locale, slug, route, { title: t('missingTitle'), description: t('missingMeta') })
+  const notice = { title: t('missingTitle'), description: t('missingMeta') }
+
+  return journalPostMetadata(locale, slug, route, notice, t('metaTitle'))
 }
 
 const PostPage = async ({ params }: PostProps) => {
@@ -79,6 +84,7 @@ const PostPage = async ({ params }: PostProps) => {
   }
 
   const t = await getTranslations({ locale, namespace: 'journal' })
+  const tHero = await getTranslations({ locale, namespace: 'hero' })
   const { post } = route
 
   return (
@@ -96,6 +102,15 @@ const PostPage = async ({ params }: PostProps) => {
         <ArticleReading key={slug} outline={post.outline}>
           <post.Content components={learningComponents(post)} />
         </ArticleReading>
+        <AuthorBox />
+        <JsonLd
+          data={articleGraph({
+            post,
+            journalName: t('title'),
+            jobTitle: tHero('headline.line2'),
+            section: t(`categories.${post.metadata.category}`)
+          })}
+        />
       </article>
     </Reader>
   )

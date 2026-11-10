@@ -116,6 +116,11 @@ const PrivacyPolicy = async () => {
       </section>
 
       <section>
+        <h2>{t('audio.heading')}</h2>
+        <Paragraphs items={raw('audio.paragraphs')} />
+      </section>
+
+      <section>
         <h2>{t('tracking.heading')}</h2>
         <Paragraphs items={raw('tracking.paragraphs')} />
       </section>

@@ -108,6 +108,8 @@ Outlined `kamycoding.com` wordmark, page links, elsewhere links, legal links, co
 - Callout (Note `--kw`, Tip `--ok`, Warning `--str`): accent bar and a coloured mono label on `--bg`. TLDR and Takeaways: a region labelled in `--com`, not a heading, so the Outline stays unchanged. Figure: image with intrinsic size, hairline border and a muted caption.
 - None of them animate. States change colour and decoration only, so nothing shifts; all text and indicator colours were checked for AA in every theme.
 - Audio: a 28px icon button (play triangle, stop square, crossed speaker when unavailable) in the Term popover next to the German form, in a reserved column of Gloss and in every dialogue line. Names: "Aussprache anhören", "Satz anhören", "Zeile 2 anhören, Speaker A", "Stopp" while playing, "Audio nicht verfügbar" with a dashed border when neither a clip nor a local German voice exists. Playing shows a `--kw` border; a playing dialogue line gets the `--kw-a` background, and Gloss highlights the spoken group. No autoplay, no animation.
+- Author box: the article's footer below the text, 70ch wide: a hairline on top, the `k/` mark, "Written by" / "Geschrieben von" in `--com` mono, the name, "Full-stack developer near Cologne." in `--muted`, and GitHub and LinkedIn links in `--kw`.
+- Article Open Graph image: the homepage frame (logo, name, domain, Dark Modern) with `// journal · category` in `--com`, the title in a dashed blueprint outline, a dimension line, and `blog/<slug>.mdx` with `DATE` and language in mono.
 
 ## Global interactions
 - **Intro**: a `pnpm build` log (spinner, steps of the career, progress bar, route table, `Ready in`). Runs on every load, skippable with any key, skipped with reduced motion.

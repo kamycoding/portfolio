@@ -94,6 +94,7 @@ pnpm dev               # http://localhost:3000
 | `pnpm dev`                    | Development server with hot reload                                            |
 | `pnpm build`                  | Production build, after refreshing the GitHub contributions                   |
 | `pnpm contributions:update`   | Refresh `src/content/contributions.json` (needs `GITHUB_CONTRIBUTIONS_TOKEN`) |
+| `pnpm audio <slug>`           | Journal audio: a dry run by default, `--generate` calls ElevenLabs            |
 | `pnpm start`                  | Serve the production build (security headers are active here)                 |
 | `pnpm lint` / `pnpm lint:fix` | ESLint, with automatic fixes                                                  |
 | `pnpm format`                 | Prettier on `src/`                                                            |
@@ -105,6 +106,31 @@ The contact function needs the variables in [`.env.example`](.env.example), set 
 The contribution heatmap is fetched from the GitHub API during production builds only. Without `GITHUB_CONTRIBUTIONS_TOKEN` (local builds, Deploy Previews, forks) the build uses the committed snapshot ([ADR 0006](docs/adr/0006-github-contributions-at-build-time.md)).
 
 Commits follow [Conventional Commits](https://www.conventionalcommits.org/). Git hooks check the message and lint and format staged files.
+
+## Writing for the journal
+
+The journal (`/blog`, `/de/blog`) is MDX in this repository, without a CMS ([ADR 0007](docs/adr/0007-journal-content-and-audio.md)).
+
+1. **Draft** in `content/drafts/<slug>/`, which is gitignored and never imported by the app: `en.mdx`, `de.mdx` or both, and optionally `learning.json`.
+2. **Metadata** is an export at the top of each MDX file (no frontmatter). The build checks it:
+
+   ```js
+   export const metadata = {
+     title: 'At most 60 characters',
+     description: 'Between 70 and 160 characters, used in search results, social cards and the feed.',
+     date: '2026-11-10',
+     category: 'engineering', // product, design, learning, career or tools
+     format: 'essay', // note, interactive, series (needs `series`) or visual
+     tags: ['nextjs'],
+     draft: false,
+     lang: 'en'
+   }
+   ```
+
+3. **Content** is Markdown plus a few components. Fenced code blocks take `filename="..."`, `{2}` and `// [!code ++]`. `<Callout type="tip">`, `<TLDR>`, `<Takeaways>` and `<Figure src={image} alt="...">` work anywhere (import the image in the MDX). `<Term id="..." />`, `<Gloss id="..." />`, `<Dialog id="..." />` and `<Quiz id="..." />` read their entry from `learning.json`; an unknown id fails the build.
+4. **Audio** (optional): `pnpm audio <slug> --draft` lists the German clips, characters and estimated credits without contacting anyone. `pnpm audio <slug> --draft --generate` creates them with ElevenLabs into `content/drafts/<slug>/audio/`. It needs `ELEVENLABS_API_KEY` in `.env.local`; never set it in Netlify. Voices and models live in `src/lib/blog/audio-config.ts`.
+5. **Publish**: move the folder to `content/posts/<slug>/` and register each translation in `src/lib/blog/posts.ts`, with `learning` and `audio` loaders if the files exist. Then run `pnpm audio <slug>`: it should show the draft clips as `copy` and nothing as `new`, and `pnpm audio <slug> --generate` copies them into `public/blog-audio/<slug>/` without calling ElevenLabs.
+6. **Check** with `pnpm build`. The sitemap, the RSS feeds (`/blog/rss.xml`, `/de/blog/rss.xml`), the Open Graph image and the structured data follow from the metadata.
 
 ## Quality and security
 

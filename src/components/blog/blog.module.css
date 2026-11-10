@@ -210,3 +210,67 @@
   text-decoration: underline;
   text-underline-offset: 4px;
 }
+
+/* Author box: the article's footer, aligned with the text column and outside the measured reading progress. */
+.author {
+  display: flex;
+  gap: 16px;
+  max-width: 70ch;
+  margin-top: 56px;
+  padding-top: 24px;
+  border-top: 1px solid var(--hair);
+  font-size: 17px;
+}
+
+.authorMark {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border: 2px solid var(--text);
+  border-radius: 9px;
+  font:
+    15px var(--font-geist-mono),
+    monospace;
+}
+
+.authorText {
+  font-size: 15px;
+  font-style: normal;
+  line-height: 1.6;
+}
+
+.authorLabel {
+  color: var(--com);
+  font:
+    12px var(--font-geist-mono),
+    monospace;
+}
+
+.authorName {
+  color: var(--text);
+  font-weight: 600;
+}
+
+.authorRole {
+  color: var(--muted);
+}
+
+.authorLinks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 16px;
+  margin-top: 6px;
+}
+
+.authorLinks a {
+  color: var(--kw);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+}
+
+.authorLinks a:hover {
+  text-decoration-thickness: 2px;
+}

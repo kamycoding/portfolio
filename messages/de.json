@@ -125,6 +125,10 @@
       "stop": "Stopp",
       "unavailable": "Audio nicht verfügbar"
     },
+    "author": {
+      "label": "Geschrieben von",
+      "role": "Full-Stack-Entwickler bei Köln."
+    },
     "languages": { "en": "Englisch", "de": "Deutsch" },
     "categories": {
       "engineering": "Softwareentwicklung",
@@ -461,15 +465,27 @@
         "Die Website unterstützt Englisch und Deutsch.",
         "Zur Speicherung Ihrer gewählten Sprache wird ein technisch erforderliches Cookie mit dem Namen „NEXT_LOCALE“ in Ihrem Browser gesetzt. Es wird gesetzt, wenn Sie die Sprache wechseln oder eine Sprachversion aufrufen, die von der Spracheinstellung Ihres Browsers abweicht.",
         "Das Cookie enthält lediglich die gewählte Sprache („en“ oder „de“). Es wird nur über verschlüsselte Verbindungen übertragen und läuft mit dem Ende Ihrer Browsersitzung ab.",
-        "Wenn Sie das Farbschema wechseln, wird Ihre Auswahl („light“ oder „dark“) im Local Storage Ihres Browsers unter dem Schlüssel „theme“ gespeichert.",
+        "Wenn Sie das Farbschema wechseln, wird Ihre Auswahl im Local Storage Ihres Browsers unter dem Schlüssel „theme“ gespeichert. Mögliche Werte sind „light“ (Light Modern), „dark“ (Dark Modern), „monokai“ (Monokai), „solarized-dark“ (Solarized Dark) und „system“ (Einstellung Ihres Geräts übernehmen).",
         "Dieser Eintrag bleibt gespeichert, bis Sie ihn in Ihrem Browser löschen.",
         "Die gespeicherten Werte dienen ausschließlich dazu, Ihre Sprach- und Farbschema-Einstellung bei weiteren Seitenaufrufen beizubehalten.",
         "Sie werden nicht für Werbe-, Analyse- oder Trackingzwecke verwendet.",
         "Rechtsgrundlage ist § 25 Abs. 2 Nr. 2 TDDDG, da die Speicherung unbedingt erforderlich ist, um die von Ihnen gewünschte Sprach- und Farbschema-Funktion bereitzustellen, sowie Art. 6 Abs. 1 lit. f DSGVO (unser berechtigtes Interesse an einer nutzerfreundlichen Website)."
       ]
     },
+    "audio": {
+      "heading": "11. Audio im Journal",
+      "paragraphs": [
+        "Einige Beiträge im Journal bieten Audioaufnahmen deutscher Wörter, Sätze und Dialogzeilen an.",
+        "Die Audiodateien sind statische Dateien, die wie alle übrigen Dateien dieser Website über die eigene Domain beim Hosting-Anbieter Netlify ausgeliefert werden (siehe Abschnitt 3). Sie werden erst geladen, wenn Sie die Wiedergabe starten. Eine Verbindung zu anderen Diensten wird dabei nicht hergestellt.",
+        "Die Aufnahmen wurden vorab mit dem Text-to-Speech-Dienst ElevenLabs erstellt. Beim Abspielen werden keine Daten an ElevenLabs übermittelt.",
+        "Ist für einen Text keine Audiodatei vorhanden, kann nach dem Start der Wiedergabe die in Ihrem Browser integrierte Sprachausgabe (Web Speech API) den Text vorlesen. Diese Website verwendet dafür ausschließlich eine deutsche Stimme, die Ihr Browser als lokal auf Ihrem Gerät installiert meldet. Der Text wird von dieser Website weder an mich noch an Dritte übermittelt. Ist keine solche Stimme verfügbar, erfolgt keine Wiedergabe.",
+        "Ob und wie Ihr Browser oder Ihr Betriebssystem bei der Nutzung der Sprachausgabe Daten verarbeitet, bestimmen dessen Hersteller und Ihre Geräteeinstellungen.",
+        "Für diese Funktion werden keine Wiedergabeeinstellungen gespeichert und weder Cookies noch Einträge im Local Storage verwendet.",
+        "Rechtsgrundlage für die Auslieferung der Audiodateien ist Art. 6 Abs. 1 lit. f DSGVO. Das berechtigte Interesse liegt in der Bereitstellung der von Ihnen angeforderten Audiofunktion."
+      ]
+    },
     "tracking": {
-      "heading": "11. Cookies, Analyse und Tracking",
+      "heading": "12. Cookies, Analyse und Tracking",
       "paragraphs": [
         "Diese Website verwendet derzeit keine eigenen Analyse- oder Marketing-Tracking-Dienste.",
         "Insbesondere werden keine Tracking-Cookies für personalisierte Werbung oder Nutzerprofile durch KamyCoding gesetzt.",
@@ -477,7 +493,7 @@
       ]
     },
     "encryption": {
-      "heading": "12. Verschlüsselte Übertragung",
+      "heading": "13. Verschlüsselte Übertragung",
       "paragraphs": [
         "Diese Website wird über HTTPS bereitgestellt.",
         "Dadurch wird die Kommunikation zwischen Ihrem Browser und der Website während der Übertragung verschlüsselt.",
@@ -485,7 +501,7 @@
       ]
     },
     "recipients": {
-      "heading": "13. Empfänger personenbezogener Daten",
+      "heading": "14. Empfänger personenbezogener Daten",
       "intro": "Personenbezogene Daten werden nur an Dienstleister übermittelt, soweit dies für den Betrieb dieser Website und die Bearbeitung von Anfragen erforderlich ist.",
       "listIntro": "Hierzu gehören insbesondere",
       "items": [
@@ -496,7 +512,7 @@
       "outro": "Eine Weitergabe zu Werbezwecken erfolgt nicht."
     },
     "rights": {
-      "heading": "14. Ihre Rechte nach der DSGVO",
+      "heading": "15. Ihre Rechte nach der DSGVO",
       "intro": "Soweit die gesetzlichen Voraussetzungen erfüllt sind, haben Sie insbesondere folgende Rechte",
       "items": [
         "Recht auf Auskunft gemäß Art. 15 DSGVO",
@@ -509,22 +525,22 @@
       "outro": "Wenn eine Verarbeitung auf Ihrer Einwilligung beruht, können Sie eine erteilte Einwilligung grundsätzlich mit Wirkung für die Zukunft widerrufen."
     },
     "objection": {
-      "heading": "15. Widerspruch gegen die Verarbeitung",
+      "heading": "16. Widerspruch gegen die Verarbeitung",
       "body": "Soweit personenbezogene Daten auf Grundlage von Art. 6 Abs. 1 lit. f DSGVO verarbeitet werden, haben Sie unter den gesetzlichen Voraussetzungen das Recht, aus Gründen, die sich aus Ihrer besonderen Situation ergeben, Widerspruch gegen die Verarbeitung einzulegen."
     },
     "complaint": {
-      "heading": "16. Beschwerderecht bei einer Aufsichtsbehörde",
+      "heading": "17. Beschwerderecht bei einer Aufsichtsbehörde",
       "paragraphs": [
         "Sie haben das Recht, sich bei einer Datenschutzaufsichtsbehörde über die Verarbeitung Ihrer personenbezogenen Daten zu beschweren.",
         "Sie können sich insbesondere an die für Ihren Wohnort, Ihren gewöhnlichen Aufenthaltsort, Ihren Arbeitsplatz oder den Ort des mutmaßlichen Verstoßes zuständige Aufsichtsbehörde wenden."
       ]
     },
     "automatedDecisionMaking": {
-      "heading": "17. Automatisierte Entscheidungsfindung",
+      "heading": "18. Automatisierte Entscheidungsfindung",
       "body": "Eine automatisierte Entscheidungsfindung einschließlich Profiling im Sinne von Art. 22 DSGVO findet im Rahmen dieser Website nicht statt."
     },
     "changes": {
-      "heading": "18. Änderung dieser Datenschutzerklärung",
+      "heading": "19. Änderung dieser Datenschutzerklärung",
       "paragraphs": [
         "Diese Datenschutzerklärung kann angepasst werden, wenn sich technische, rechtliche oder organisatorische Rahmenbedingungen ändern.",
         "Es gilt die jeweils auf dieser Website veröffentlichte aktuelle Fassung."
@@ -532,7 +548,7 @@
     },
     "updated": {
       "label": "Stand",
-      "date": "9. November 2026"
+      "date": "10. November 2026"
     }
   },
   "contact": {

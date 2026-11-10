@@ -6,7 +6,7 @@ const Content = () => null
 
 const metadata = {
   title: 'Registry fixture',
-  description: 'Post registry validation fixture.',
+  description: 'Post registry validation fixture with a description long enough for search results.',
   date: '2026-11-10',
   category: 'learning',
   format: 'note',

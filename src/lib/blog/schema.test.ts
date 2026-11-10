@@ -4,7 +4,7 @@ import { postMetadataSchema, postSlugSchema } from './schema'
 
 const metadata = {
   title: 'Schema fixture',
-  description: 'Metadata validation fixture.',
+  description: 'Metadata validation fixture with a description long enough for search results.',
   date: '2026-11-10',
   category: 'engineering',
   format: 'note',
@@ -23,6 +23,21 @@ describe('postMetadataSchema', () => {
       title: 'Fixture',
       tags: ['typescript']
     })
+  })
+
+  it('limits the title to 60 characters and the description to 70 to 160', () => {
+    const parse = (overrides: object) => postMetadataSchema.safeParse({ ...metadata, ...overrides }).success
+
+    expect(parse({ title: 'x'.repeat(60) })).toBe(true)
+    expect(parse({ title: 'x'.repeat(61) })).toBe(false)
+    expect(parse({ description: 'x'.repeat(70) })).toBe(true)
+    expect(parse({ description: 'x'.repeat(69) })).toBe(false)
+    expect(parse({ description: 'x'.repeat(160) })).toBe(true)
+    expect(parse({ description: 'x'.repeat(161) })).toBe(false)
+  })
+
+  it('measures the trimmed text', () => {
+    expect(postMetadataSchema.safeParse({ ...metadata, title: ` ${'x'.repeat(60)} ` }).success).toBe(true)
   })
 
   it.each([true, undefined, 'false'])('rejects draft value %s', draft => {

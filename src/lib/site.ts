@@ -3,6 +3,14 @@ import type { Metadata } from 'next'
 // The production address. Previews use it too, so search engines always point at kamycoding.com.
 export const SITE_URL = 'https://kamycoding.com'
 export const SITE_NAME = 'kamycoding'
+export const AUTHOR_NAME = 'Kamyar Zamanfar'
+export const HOME_IMAGE_ALT = 'Kamyar Zamanfar, kamycoding.com'
+
+// Public profiles, as the footer and the contact section link them.
+export const PROFILES = {
+  github: 'https://github.com/kamycoding',
+  linkedin: 'https://www.linkedin.com/in/kamyarzamanfar'
+} as const
 
 type SiteLocale = 'en' | 'de'
 

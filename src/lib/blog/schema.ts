@@ -5,10 +5,17 @@ export const postSlugSchema = z.string().regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/, 'Us
 
 const text = z.string().trim().min(1)
 
+// Search results cut longer titles and descriptions; the page adds " | kamycoding" to the title on its own.
+const title = text.max(60, 'Keep the title at 60 characters or fewer.')
+
+const description = text
+  .min(70, 'Write a description of at least 70 characters.')
+  .max(160, 'Keep the description at 160 characters or fewer.')
+
 export const postMetadataSchema = z
   .strictObject({
-    title: text,
-    description: text,
+    title,
+    description,
     date: z.iso.date(),
     updated: z.iso.date().optional(),
     category: z.enum(['engineering', 'product', 'design', 'learning', 'career', 'tools']),
