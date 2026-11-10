@@ -40,7 +40,15 @@ export type PublishedPost = Readonly<{
 
 // Register explicit imports from content/posts/ here, with the slug's learning.json and audio.json if it has them.
 // Never import content/drafts/.
-const POSTS: readonly PostRegistration[] = []
+export const POSTS: readonly PostRegistration[] = [
+  {
+    slug: 'german-for-developers-dailies-calls',
+    lang: 'en',
+    load: () => import('../../../content/posts/german-for-developers-dailies-calls/en.mdx'),
+    learning: () => import('../../../content/posts/german-for-developers-dailies-calls/learning.json'),
+    audio: () => import('../../../content/posts/german-for-developers-dailies-calls/audio.json')
+  }
+]
 
 // Parsed per translation, so the reader-facing text resolves to that translation's language.
 const parseLearning = async (entry: PostRegistration, load: NonNullable<PostRegistration['learning']>) => {
@@ -107,6 +115,7 @@ export const listPosts = async (registry: readonly PostRegistration[] = POSTS): 
       }
 
       const learning = entry.learning ? await parseLearning(entry, entry.learning) : null
+
       const audio = entry.audio ? await parseAudio(entry, entry.audio) : null
 
       return {

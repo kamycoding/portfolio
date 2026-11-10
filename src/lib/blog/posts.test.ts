@@ -1,6 +1,10 @@
+import { existsSync, readdirSync, readFileSync } from 'node:fs'
+import path from 'node:path'
+
 import { describe, expect, it, vi } from 'vitest'
 
-import { listPosts, type PostRegistration } from './posts'
+import { learningSchemas } from './learning'
+import { listPosts, POSTS, type PostRegistration } from './posts'
 
 const Content = () => null
 
@@ -24,11 +28,36 @@ const registration = (overrides: Partial<PostRegistration> = {}): PostRegistrati
   ...overrides
 })
 
-describe('listPosts', () => {
-  it('starts with no published content', async () => {
-    expect(await listPosts()).toEqual([])
+const published = path.join(process.cwd(), 'content/posts')
+
+// Vitest does not compile MDX, so the real registry is checked against the files instead of being loaded.
+describe('the published registry', () => {
+  it('registers every folder in content/posts, and nothing else', () => {
+    const folders = existsSync(published) ? readdirSync(published).sort() : []
+
+    expect([...new Set(POSTS.map(entry => entry.slug))].sort()).toEqual(folders)
   })
 
+  it.each(POSTS.map(entry => [`${entry.slug}/${entry.lang}`, entry] as const))(
+    '%s has its MDX file and valid learning data',
+    (_, entry) => {
+      const folder = path.join(published, entry.slug)
+      const learning = path.join(folder, 'learning.json')
+
+      expect(existsSync(path.join(folder, `${entry.lang}.mdx`))).toBe(true)
+      expect(Boolean(entry.learning)).toBe(existsSync(learning))
+      expect(Boolean(entry.audio)).toBe(existsSync(path.join(folder, 'audio.json')))
+
+      if (!entry.learning) return
+
+      const result = learningSchemas[entry.lang].safeParse(JSON.parse(readFileSync(learning, 'utf8')))
+
+      expect(result.error?.message).toBeUndefined()
+    }
+  )
+})
+
+describe('listPosts', () => {
   it('validates metadata at listing time and preserves the MDX component', async () => {
     expect(await listPosts([registration()])).toEqual([
       { slug: 'fixture', metadata, outline, learning: null, audio: null, Content }
