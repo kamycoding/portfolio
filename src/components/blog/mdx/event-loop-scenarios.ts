@@ -2,8 +2,8 @@
 // checked by event-loop-scenarios.test.ts. Every description is in both languages.
 export type Localized = Readonly<{ en: string; de: string }>
 
+// `line` is the 1-based line of the code being run, or null between steps.
 export type Frame = Readonly<{
-  /** The 1-based line of the code being run, or null between steps. */
   line: number | null
   stack: readonly string[]
   micro: readonly string[]
