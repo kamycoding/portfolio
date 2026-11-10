@@ -118,6 +118,7 @@ The journal (`/blog`, `/de/blog`) is MDX in this repository, without a CMS ([ADR
    export const metadata = {
      title: 'At most 60 characters',
      description: 'Between 70 and 160 characters, used in search results, social cards and the feed.',
+     tldr: 'Optional. One or two sentences for the TLDR block and the homepage.',
      date: '2026-11-10',
      category: 'engineering', // product, design, learning, career or tools
      format: 'essay', // note, interactive, series (needs `series`) or visual
@@ -127,7 +128,7 @@ The journal (`/blog`, `/de/blog`) is MDX in this repository, without a CMS ([ADR
    }
    ```
 
-3. **Content** is Markdown plus a few components. Fenced code blocks take `filename="..."`, `{2}` and `// [!code ++]`. `<Callout type="tip">`, `<TLDR>`, `<Takeaways>` and `<Figure src={image} alt="...">` work anywhere (import the image in the MDX). `<Term id="..." />`, `<Gloss id="..." />`, `<Dialog id="..." />` and `<Quiz id="..." />` read their entry from `learning.json`; an unknown id fails the build.
+3. **Content** is Markdown plus a few components. Fenced code blocks take `filename="..."`, `{2}` and `// [!code ++]`. `<Callout type="tip">`, `<TLDR>`, `<Takeaways>` and `<Figure src={image} alt="...">` work anywhere (import the image in the MDX). `<Term id="..." />`, `<Gloss id="..." />`, `<Dialog id="..." />` and `<Quiz id="..." />` read their entry from `learning.json`; an unknown id fails the build. Interactive components for programming articles: `<OutputPuzzle code={...} lines={[...]} answer={[...]} explanation={...} />`, `<EventLoopStepper scenario="order" />` (scenarios live in `src/components/blog/mdx/event-loop-scenarios.ts`), `<AsyncRaceTimeline />` and `<MainThreadDemo />`. An optional `narration` in `learning.json` (`[{ "heading": "<h2 id>", "text": { "en": "...", "de": "..." } }]`) adds a "Listen to this article" player; `pnpm audio <slug>` lists its clips per language. An optional `contrast` in `learning.json` (`{ "textbook": "...", "term": "<term id>" }`) feeds the diff card of the homepage journal section, and `<TLDR><p>{metadata.tldr}</p></TLDR>` reuses the metadata text.
 4. **Audio** (optional): `pnpm audio <slug> --draft` lists the German clips, characters and estimated credits without contacting anyone. `pnpm audio <slug> --draft --generate` creates them with ElevenLabs into `content/drafts/<slug>/audio/`. It needs `ELEVENLABS_API_KEY` in `.env.local`; never set it in Netlify. Voices and models live in `src/lib/blog/audio-config.ts`.
 5. **Publish**: move the folder to `content/posts/<slug>/` and register each translation in `src/lib/blog/posts.ts`, with `learning` and `audio` loaders if the files exist. Then run `pnpm audio <slug>`: it should show the draft clips as `copy` and nothing as `new`, and `pnpm audio <slug> --generate` copies them into `public/blog-audio/<slug>/` without calling ElevenLabs.
 6. **Check** with `pnpm build`. The sitemap, the RSS feeds (`/blog/rss.xml`, `/de/blog/rss.xml`), the Open Graph image and the structured data follow from the metadata.

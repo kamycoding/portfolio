@@ -1,6 +1,6 @@
 {
   "name": "kamycoding-portfolio",
-  "version": "2.2.0",
+  "version": "2.3.0",
   "private": true,
   "packageManager": "pnpm@12.18.0",
   "scripts": {
