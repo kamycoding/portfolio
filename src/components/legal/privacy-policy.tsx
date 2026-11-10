@@ -16,7 +16,7 @@ const PrivacyPolicy = async () => {
       page={getPage('/privacy-policy')!}
       meta={tLegal('privacyMeta')}
       title={t('title')}
-      updated={{ label: t('updated.label'), date: t('updated.date'), dateTime: '2026-11-09' }}
+      updated={{ label: t('updated.label'), date: t('updated.date'), dateTime: '2026-11-10' }}
     >
       <section>
         <h2>{t('controller.heading')}</h2>
