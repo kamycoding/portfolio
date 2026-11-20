@@ -8,14 +8,17 @@ import { getTranslations, setRequestLocale } from 'next-intl/server'
 import ArticleReading from '@/components/blog/article-reading'
 import AuthorBox from '@/components/blog/author-box'
 import JsonLd from '@/components/blog/json-ld'
+import KeepReading from '@/components/blog/keep-reading'
 import NarrationPlayer from '@/components/blog/narration-player'
 import { learningComponents } from '@/components/blog/mdx/learning'
 import Reader from '@/components/blog/reader'
 import TranslationNotice from '@/components/blog/translation-notice'
 import styles from '@/components/blog/blog.module.css'
+import { articleCards } from '@/lib/blog/card'
 import { journalPostMetadata } from '@/lib/blog/metadata'
 import { narrationSections } from '@/lib/blog/narration'
 import { listPosts } from '@/lib/blog/posts'
+import { relatedPosts } from '@/lib/blog/related'
 import { journalStaticParams, resolvePostRoute } from '@/lib/blog/routes'
 import { postLanguageSchema } from '@/lib/blog/schema'
 import { articleGraph } from '@/lib/blog/structured-data'
@@ -40,7 +43,7 @@ const resolvePage = cache(async (requestedLocale: string, slug: string) => {
   const posts = await listPosts()
   const route = resolvePostRoute(posts, slug, locale)
 
-  return { locale, route }
+  return { locale, route, posts }
 })
 
 export const generateMetadata = async ({ params }: PostProps): Promise<Metadata> => {
@@ -64,12 +67,12 @@ export const generateMetadata = async ({ params }: PostProps): Promise<Metadata>
 
   const notice = { title: t('missingTitle'), description: t('missingMeta') }
 
-  return journalPostMetadata(locale, slug, route, notice, t('metaTitle'))
+  return journalPostMetadata(locale, slug, route, notice, t('feedTitle'))
 }
 
 const PostPage = async ({ params }: PostProps) => {
   const { locale: requestedLocale, slug } = await params
-  const { locale, route } = await resolvePage(requestedLocale, slug)
+  const { locale, route, posts } = await resolvePage(requestedLocale, slug)
 
   if (route.kind === 'unknown') notFound()
 
@@ -87,8 +90,10 @@ const PostPage = async ({ params }: PostProps) => {
 
   const t = await getTranslations({ locale, namespace: 'journal' })
   const tHero = await getTranslations({ locale, namespace: 'hero' })
+  const tMeta = await getTranslations({ locale, namespace: 'meta' })
   const { post } = route
   const narration = narrationSections(post)
+  const related = await articleCards(posts, relatedPosts(posts, slug, locale))
 
   return (
     <Reader locale={locale} slug={slug}>
@@ -112,10 +117,12 @@ const PostPage = async ({ params }: PostProps) => {
             post,
             journalName: t('title'),
             jobTitle: tHero('headline.line2'),
+            authorDescription: tMeta('description'),
             section: t(`categories.${post.metadata.category}`)
           })}
         />
       </article>
+      <KeepReading cards={related} />
     </Reader>
   )
 }

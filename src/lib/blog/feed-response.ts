@@ -10,7 +10,7 @@ export const journalFeedResponse = async (locale: PostLanguage) => {
 
   const xml = journalFeed({
     locale,
-    title: t('metaTitle'),
+    title: t('feedTitle'),
     description: t('description'),
     category: category => t(`categories.${category}`),
     posts: await listPosts()

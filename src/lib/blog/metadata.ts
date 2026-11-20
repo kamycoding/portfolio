@@ -1,7 +1,8 @@
 import type { Metadata } from 'next'
 
-import { HOME_IMAGE_ALT, localePath, pageMetadata, SITE_NAME, SITE_URL } from '../site'
+import { documentTitle, HOME_IMAGE_ALT, localePath, pageMetadata, SITE_NAME, SITE_URL } from '../site'
 
+import { berlinMidnight } from './dates'
 import type { PostRoute } from './routes'
 import type { PostLanguage } from './schema'
 
@@ -26,6 +27,7 @@ export const journalIndexMetadata = (
   locale: PostLanguage,
   title: string,
   description: string,
+  feedTitle: string,
   hasPosts: boolean
 ): Metadata => {
   const metadata = pageMetadata({ locale, path: '/blog', title, description })
@@ -34,7 +36,7 @@ export const journalIndexMetadata = (
 
   return {
     ...metadata,
-    alternates: { ...metadata.alternates, types: feedLink(locale, title) },
+    alternates: { ...metadata.alternates, types: feedLink(locale, feedTitle) },
     openGraph: { ...metadata.openGraph, images: [image] },
     twitter: { card: 'summary_large_image', title, description, images: [image] },
     robots: { index: hasPosts, follow: true }
@@ -66,10 +68,10 @@ export const journalPostMetadata = (
   const metadata = pageMetadata({ locale, path, title, description })
   const image = { url: articleImagePath(locale, slug), width: 1200, height: 630, alt: title, type: 'image/png' }
 
-  // The browser title carries the site name like the index; social cards show the article title alone.
+  // The browser title carries the site name while it fits in 60 characters; social cards show the title alone.
   return {
     ...metadata,
-    title: `${title} | ${SITE_NAME}`,
+    title: documentTitle(title),
     alternates: {
       canonical: localePath(locale, path),
       languages: { ...languages, 'x-default': localePath(fallback, path) },
@@ -85,8 +87,8 @@ export const journalPostMetadata = (
       alternateLocale: route.languages
         .filter(language => language !== locale)
         .map(language => (language === 'de' ? 'de_DE' : 'en_US')),
-      publishedTime: date,
-      modifiedTime: updated ?? date,
+      publishedTime: berlinMidnight(date),
+      modifiedTime: berlinMidnight(updated ?? date),
       authors: [SITE_URL],
       tags,
       images: [image]

@@ -150,6 +150,8 @@ The journal (`/blog`, `/de/blog`) is MDX in this repository, without a CMS ([ADR
 - [ADR 0004: Locale routing with next-intl](docs/adr/0004-locale-routing.md)
 - [ADR 0005: Content Security Policy strategy](docs/adr/0005-csp-strategy.md)
 - [ADR 0006: GitHub contributions at build time](docs/adr/0006-github-contributions-at-build-time.md)
+- [ADR 0007: Repository MDX and locally generated journal audio](docs/adr/0007-journal-content-and-audio.md)
+- [ADR 0008: Structured data and search visibility](docs/adr/0008-structured-data-and-search-visibility.md)
 
 The design spec and the approved prototype are in [`docs/design/`](docs/design/), the phase plan in [`docs/ROADMAP.md`](docs/ROADMAP.md).
 

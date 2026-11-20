@@ -1,7 +1,10 @@
 // Small browser actions shared by the hero, the terminal and (Phase 9) the command palette and shortcuts.
 import { showToast } from '@/hooks/use-toast'
 
-export const EMAIL = 'contact@kamycoding.com'
+import { EMAIL } from './site'
+
+// The address lives in site.ts, so server code can use it without loading these browser actions.
+export { EMAIL }
 
 export const prefersReducedMotion = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches
 

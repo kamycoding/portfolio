@@ -6,8 +6,18 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+### Added
+
+- Structured data on the homepage (`/` and `/de`): one JSON-LD graph with ProfilePage, Person and WebSite. The Person is defined once and shared with the articles, so every page points at the same entity (`https://kamycoding.com/#person`): name, role, description, portrait, email, GitHub and LinkedIn, topics, and state and country (ADR 0008).
+- "Keep reading" at the end of every article: up to two other posts as article cards, in the page language first. A post that exists only in the other language keeps its language label. It is hidden when there is no other post and is not part of the Outline or the reading progress.
+
 ### Changed
 
+- Article structured data: `datePublished` and `dateModified` are full ISO 8601 values with the Europe/Berlin offset of that day (`2026-11-10T00:00:00+01:00`), and the author is the shared Person with the same fields as on the homepage.
+- The journal indexes (`/blog`, `/de/blog`) have their own search title and description for the title, the meta description, Open Graph and Twitter: "Journal: JavaScript and German for Developers | kamycoding" and "Journal: JavaScript und Deutsch für Entwickler | kamycoding". The visible tagline and the feed name stay as they were. The message key of the feed name is now `journal.feedTitle` (was `journal.metaTitle`).
+- Article document titles add " | kamycoding" only while the full title stays within 60 characters; a longer one uses the bare article title. "German for Developers: What People Say in Dailies and Calls" (English) and "Der JavaScript-Event-Loop: Sag die Ausgabe voraus" (German) now stand alone.
+- Open Graph `article:published_time` and `article:modified_time` use the same full ISO 8601 values as the structured data.
+- The sitemap names `x-default` (English) for the homepages and the journal indexes, matching the alternates in their HTML.
 - The homepage journal section and the journal index (`/blog`, `/de/blog`) show posts as simple article cards: category and languages, the title, a two-line description, the localized date, the reading time and "Read article". The whole card is one link, named by the title, with a focus ring around the card. The homepage shows the newest three posts and an "All articles" link. The "Open editors" cards, their code preview, minimap, badges and actions (Listen, Copy link, other translation), the scroll buttons, the quick-open filter with its Ctrl or Cmd P shortcut and the category chips are gone, and so is the `preview` metadata field.
 
 ## [2.3.0] - 2026-11-10

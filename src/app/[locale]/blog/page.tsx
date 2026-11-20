@@ -19,7 +19,8 @@ export const generateMetadata = async ({ params }: IndexProps): Promise<Metadata
   const t = await getTranslations({ locale, namespace: 'journal' })
   const posts = await listPosts()
 
-  return journalIndexMetadata(locale, t('metaTitle'), t('description'), posts.length > 0)
+  // Its own search title and description; the page keeps the short tagline (docs/adr/0008).
+  return journalIndexMetadata(locale, t('meta.title'), t('meta.description'), t('feedTitle'), posts.length > 0)
 }
 
 const BlogPage = async ({ params }: IndexProps) => {

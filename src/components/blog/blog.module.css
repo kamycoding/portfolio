@@ -265,3 +265,21 @@
 .authorLinks a:hover {
   text-decoration-thickness: 2px;
 }
+
+/* Keep reading: after the article, in the text column like the author box. */
+.related {
+  max-width: 70ch;
+  margin-top: 56px;
+  padding-top: 24px;
+  border-top: 1px solid var(--hair);
+  font-size: 17px;
+}
+
+.related h2 {
+  margin-bottom: 20px;
+  color: var(--text);
+  font-size: 1.25em;
+  font-weight: 600;
+  line-height: 1.35;
+  letter-spacing: -0.02em;
+}

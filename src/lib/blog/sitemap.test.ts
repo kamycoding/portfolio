@@ -39,6 +39,18 @@ describe('journalSitemap', () => {
     ])
   })
 
+  it('gives both indexes the same alternates as their HTML, with English as x-default', () => {
+    const indexes = journalSitemap([post('one', 'de', '2026-11-01')]).slice(0, 2)
+
+    for (const index of indexes) {
+      expect(index.alternates?.languages).toEqual({
+        en: 'https://kamycoding.com/blog',
+        de: 'https://kamycoding.com/de/blog',
+        'x-default': 'https://kamycoding.com/blog'
+      })
+    }
+  })
+
   it('never lists the notice of a missing translation and links only real translations', () => {
     const entries = journalSitemap([post('one', 'de', '2026-11-01')])
     const article = entries.find(entry => entry.url.endsWith('/one'))
