@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+### Changed
+
+- The homepage journal section and the journal index (`/blog`, `/de/blog`) show posts as simple article cards: category and languages, the title, a two-line description, the localized date, the reading time and "Read article". The whole card is one link, named by the title, with a focus ring around the card. The homepage shows the newest three posts and an "All articles" link. The "Open editors" cards, their code preview, minimap, badges and actions (Listen, Copy link, other translation), the scroll buttons, the quick-open filter with its Ctrl or Cmd P shortcut and the category chips are gone, and so is the `preview` metadata field.
+
 ## [2.3.0] - 2026-11-10
 
 The Journal: a bilingual blog about building software in Germany, with interactive learning components and audio, its first article, a place on the homepage and a redesigned 404 page.

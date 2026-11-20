@@ -65,9 +65,7 @@
   line-height: 1.7;
 }
 
-.eyebrow,
-.language,
-.posts time {
+.eyebrow {
   color: var(--muted);
   font:
     12px var(--font-geist-mono),
@@ -81,27 +79,8 @@
   color: var(--muted);
 }
 
-.posts {
-  display: grid;
+.cards {
   margin-top: 40px;
-  list-style: none;
-}
-
-.posts li {
-  padding-block: 24px;
-  border-top: 1px solid var(--hair);
-}
-
-.posts h2 {
-  margin-block: 10px;
-  font-size: 24px;
-  font-weight: 500;
-}
-
-.posts p {
-  max-width: 70ch;
-  margin-bottom: 16px;
-  line-height: 1.65;
 }
 
 /* Same 17px as the prose, so the 70ch column matches the text measure. */
@@ -222,8 +201,7 @@
   color: var(--text);
 }
 
-.notice a,
-.posts a:hover {
+.notice a {
   color: var(--kw);
   text-decoration: underline;
   text-underline-offset: 4px;

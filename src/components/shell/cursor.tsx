@@ -205,7 +205,9 @@ const Cursor = () => {
 
         if (framed) {
           next = 'frame'
-          frameTarget = framed
+
+          // An article card's title link covers the whole card, so the frame shows the card's real size.
+          frameTarget = framed.closest<HTMLElement>('[data-frame-card]') ?? framed
         } else if (element.closest('[data-bp="terminal"]')) {
           next = 'block'
         } else if (element.closest(TEXT)) {

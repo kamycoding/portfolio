@@ -117,9 +117,9 @@ The journal (`/blog`, `/de/blog`) is MDX in this repository, without a CMS ([ADR
    ```js
    export const metadata = {
      title: 'At most 60 characters',
-     description: 'Between 70 and 160 characters, used in search results, social cards and the feed.',
-     tldr: 'Optional. One or two sentences for the TLDR block and the homepage.',
-     preview: [{ kind: 'code', text: 'Optional. Up to two hook lines for the homepage card.' }], // code, comment, add or remove
+     description:
+       'Between 70 and 160 characters, used in search results, social cards, the feed and the journal cards.',
+     tldr: 'Optional. One or two sentences for the TLDR block.',
      date: '2026-11-10',
      category: 'engineering', // product, design, learning, career or tools
      format: 'essay', // note, interactive, series (needs `series`) or visual
