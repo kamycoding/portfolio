@@ -37,8 +37,8 @@ const render = (locale: 'en' | 'de', data: ArticleCardData = card, headingLevel:
     </NextIntlClientProvider>
   )
 
-// The markup without tags, for checking what a reader sees.
-const textOf = (html: string) => html.replace(/<[^>]+>/g, '')
+// Two text fragments in this order, with nothing but tags between them.
+const inOrder = (first: string, second: string) => new RegExp(`${first}(?:<[^>]+>)*${second}`)
 
 describe('ArticleCard', () => {
   it('renders an article with one link, whose text is the title', () => {
@@ -60,17 +60,17 @@ describe('ArticleCard', () => {
   it('shows category, languages, a localized date and the reading time in English', () => {
     const html = render('en')
 
-    expect(textOf(html)).toContain('EngineeringEnglish, German')
+    expect(html).toMatch(inOrder('Engineering', 'English, German'))
     expect(html).toContain('<time dateTime="2026-11-10">10 Nov 2026</time>')
-    expect(textOf(html)).toContain('9 min read')
+    expect(html).toContain('<span>9 min read</span>')
   })
 
   it('uses German wording and dates on German pages', () => {
     const html = render('de')
 
-    expect(textOf(html)).toContain('SoftwareentwicklungEnglisch, Deutsch')
+    expect(html).toMatch(inOrder('Softwareentwicklung', 'Englisch, Deutsch'))
     expect(html).toContain('<time dateTime="2026-11-10">10. Nov. 2026</time>')
-    expect(textOf(html)).toContain('9 Min. Lesezeit')
+    expect(html).toContain('<span>9 Min. Lesezeit</span>')
   })
 
   it('shows "Read article" to sighted readers only, so screen readers hear one link', () => {
@@ -81,7 +81,7 @@ describe('ArticleCard', () => {
   it('says when a post exists only in the other language and links it there', () => {
     const html = render('de', { ...card, languages: ['en'] })
 
-    expect(textOf(html)).toContain('Verfügbar auf Englisch')
+    expect(html).toContain('<span>Verfügbar auf Englisch</span>')
     expect(html).toContain('<a href="/blog/fixture" hrefLang="en" lang="en"')
   })
 
@@ -94,6 +94,6 @@ describe('ArticleCard', () => {
     const html = render('en', { ...card, minutes: null })
 
     expect(html).toMatch(new RegExp(`<p lang="en" class="[^"]*description[^"]*">${card.description}</p>`))
-    expect(textOf(html)).not.toContain('min read')
+    expect(html).not.toContain('min read')
   })
 })
