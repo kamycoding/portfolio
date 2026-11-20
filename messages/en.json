@@ -156,27 +156,11 @@
       "eyebrow": "// journal",
       "title": "Building software in Germany, <soft>written down.</soft>",
       "meta": "{count, plural, one {# post} other {# posts}}",
-      "openEditors": "Open editors",
-      "quickOpen": "Quick open…",
-      "quickOpenLabel": "Quick open: filter posts by title or tag",
-      "categories": "Categories",
-      "all": "All",
-      "noMatch": "No post matches.",
-      "previous": "Previous posts",
-      "next": "Next posts",
-      "listen": "Listen",
-      "stop": "Stop",
-      "copyLink": "Copy link",
-      "copied": "Copied",
-      "open": "Open",
-      "allPosts": "All posts",
-      "availableIn": "Available in {languages}",
-      "minutes": "{minutes} min",
-      "badgeAudio": "audio",
-      "badgeInteractive": "interactive",
-      "badgeQuiz": "quiz",
-      "lineAdded": "Added line: ",
-      "lineRemoved": "Removed line: "
+      "allArticles": "All articles"
+    },
+    "card": {
+      "read": "Read article",
+      "minutes": "{minutes} min read"
     },
     "interactive": {
       "puzzle": {

@@ -1,16 +1,17 @@
 import { getTranslations } from 'next-intl/server'
 
+import { articleCards } from '@/lib/blog/card'
 import type { PublishedPost } from '@/lib/blog/posts'
 import { journalIndexPosts } from '@/lib/blog/routes'
 import type { PostLanguage } from '@/lib/blog/schema'
 
-import PostLink from './post-link'
+import { ArticleCardList } from './article-card'
 import Reader from './reader'
 import styles from './blog.module.css'
 
 const BlogIndex = async ({ locale, posts }: Readonly<{ locale: PostLanguage; posts: readonly PublishedPost[] }>) => {
   const t = await getTranslations({ locale, namespace: 'journal' })
-  const entries = journalIndexPosts(posts, locale)
+  const cards = await articleCards(posts, journalIndexPosts(posts, locale))
 
   return (
     <Reader locale={locale}>
@@ -18,27 +19,10 @@ const BlogIndex = async ({ locale, posts }: Readonly<{ locale: PostLanguage; pos
         <h1>{t('title')}</h1>
         <p>{t('description')}</p>
       </header>
-      {entries.length === 0 ? (
+      {cards.length === 0 ? (
         <p className={styles.empty}>{t('empty')}</p>
       ) : (
-        <ul className={styles.posts}>
-          {entries.map(post => (
-            <li key={post.slug}>
-              <time dateTime={post.metadata.date}>{post.metadata.date}</time>
-              <h2>
-                <PostLink slug={post.slug} language={post.metadata.lang}>
-                  {post.metadata.title}
-                </PostLink>
-              </h2>
-              <p lang={post.metadata.lang}>{post.metadata.description}</p>
-              <span className={styles.language}>
-                {post.metadata.lang === locale
-                  ? t(`languages.${post.metadata.lang}`)
-                  : t('availableOnly', { language: t(`languages.${post.metadata.lang}`) })}
-              </span>
-            </li>
-          ))}
-        </ul>
+        <ArticleCardList cards={cards} headingLevel={2} className={styles.cards} />
       )}
     </Reader>
   )

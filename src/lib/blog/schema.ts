@@ -12,18 +12,13 @@ const description = text
   .min(70, 'Write a description of at least 70 characters.')
   .max(160, 'Keep the description at 160 characters or fewer.')
 
-export const previewLineSchema = z.strictObject({ kind: z.enum(['code', 'comment', 'add', 'remove']), text })
-
 export const postMetadataSchema = z
   .strictObject({
     title,
     description,
 
-    // One or two sentences, shown by the article's TLDR block and the homepage journal section.
+    // One or two sentences, shown by the article's TLDR block.
     tldr: text.optional(),
-
-    // Up to two "hook" lines for the code-style preview card on the homepage.
-    preview: z.array(previewLineSchema).max(2).optional(),
     date: z.iso.date(),
     updated: z.iso.date().optional(),
     category: z.enum(['engineering', 'product', 'design', 'learning', 'career', 'tools']),
@@ -50,5 +45,4 @@ export const outlineSchema = z.array(
 
 export type PostLanguage = z.infer<typeof postLanguageSchema>
 export type PostMetadata = z.infer<typeof postMetadataSchema>
-export type PreviewLine = z.infer<typeof previewLineSchema>
 export type OutlineItem = z.infer<typeof outlineSchema>[number]
