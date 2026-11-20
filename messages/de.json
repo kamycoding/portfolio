@@ -88,8 +88,13 @@
   },
   "journal": {
     "title": "Journal",
-    "metaTitle": "Journal | kamycoding",
+    "feedTitle": "Journal | kamycoding",
     "description": "Software entwickeln in Deutschland.",
+    "meta": {
+      "title": "Journal: JavaScript und Deutsch für Entwickler | kamycoding",
+      "description": "Praxisnahe Artikel zu JavaScript, Webentwicklung und dem Deutsch, das du als Entwickler im Job brauchst. Mit interaktiven Beispielen, Quiz und Audio."
+    },
+    "keepReading": "Weiterlesen",
     "empty": "Noch keine Beiträge veröffentlicht.",
     "editor": "Journal-Editor",
     "files": "Journal-Dateien",

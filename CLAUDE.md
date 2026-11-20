@@ -39,7 +39,7 @@ pnpm test         # Vitest
 
 ## Content facts (do not invent anything)
 
-- Name: Kamyar Zamanfar. Role: Full-stack developer. Based near Cologne, Germany.
+- Name: Kamyar Zamanfar. Role: Full-stack developer. Based near Cologne, North Rhine-Westphalia, Germany.
 - Background: architecture degree, then software development.
 - Heldio: co-founder and frontend developer, AI platform for contextual language learning.
 - Developer Akademie: full-stack and AI software developer training, intensive course "Softwareentwickler, Schwerpunkt Web-Anwendungen", started 31 March 2026. Front-end certificate on 18 Sep 2026, other modules ongoing.

@@ -5,7 +5,7 @@ export const postSlugSchema = z.string().regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/, 'Us
 
 const text = z.string().trim().min(1)
 
-// Search results cut longer titles and descriptions; the page adds " | kamycoding" to the title on its own.
+// Search results cut longer titles and descriptions; the page adds " | kamycoding" only while the title still fits.
 const title = text.max(60, 'Keep the title at 60 characters or fewer.')
 
 const description = text

@@ -21,7 +21,9 @@ export const journalSitemap = (posts: readonly PublishedPost[]): MetadataRoute.S
   const indexes = LOCALES.map(locale => ({
     url: absolute(locale, '/blog'),
     lastModified: journalIndexPosts(posts, locale).map(lastChange).sort().at(-1),
-    alternates: { languages: { en: absolute('en', '/blog'), de: absolute('de', '/blog') } }
+    alternates: {
+      languages: { en: absolute('en', '/blog'), de: absolute('de', '/blog'), 'x-default': absolute('en', '/blog') }
+    }
   }))
 
   const articles = posts.map(post => {

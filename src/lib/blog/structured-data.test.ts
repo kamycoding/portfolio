@@ -1,5 +1,7 @@
 import { describe, expect, it } from 'vitest'
 
+import { personNode } from '../structured-data'
+
 import type { PublishedPost } from './posts'
 import { articleGraph, serializeJsonLd } from './structured-data'
 
@@ -21,12 +23,16 @@ const post: PublishedPost = {
   }
 }
 
-const graph = articleGraph({
-  post,
+const author = { jobTitle: 'Full-Stack Developer', description: 'Full-Stack-Entwickler bei Köln.' }
+
+const options = {
   journalName: 'Journal',
-  jobTitle: 'Full-Stack Developer',
+  jobTitle: author.jobTitle,
+  authorDescription: author.description,
   section: 'Softwareentwicklung'
-})
+}
+
+const graph = articleGraph({ post, ...options })
 
 const [article, breadcrumb, person] = graph['@graph'] as Record<string, unknown>[]
 
@@ -35,8 +41,8 @@ describe('articleGraph', () => {
     expect(article).toMatchObject({
       '@type': 'BlogPosting',
       headline: post.metadata.title,
-      datePublished: '2026-11-10',
-      dateModified: '2026-11-10',
+      datePublished: '2026-11-10T00:00:00+01:00',
+      dateModified: '2026-11-10T00:00:00+01:00',
       inLanguage: 'de',
       url: 'https://kamycoding.com/de/blog/fixture',
       image: 'https://kamycoding.com/de/blog/fixture/og.png',
@@ -46,21 +52,25 @@ describe('articleGraph', () => {
     })
   })
 
-  it('adds the breadcrumb trail and a Person with only public facts', () => {
+  it('uses the updated day as dateModified, each with the offset of its own day', () => {
+    const summer: PublishedPost = { ...post, metadata: { ...post.metadata, date: '2026-03-20', updated: '2026-07-01' } }
+    const [updated] = articleGraph({ post: summer, ...options })['@graph']
+
+    expect(updated).toMatchObject({
+      datePublished: '2026-03-20T00:00:00+01:00',
+      dateModified: '2026-07-01T00:00:00+02:00'
+    })
+  })
+
+  it('adds the breadcrumb trail and the same Person as the homepage', () => {
     expect(breadcrumb).toMatchObject({ '@type': 'BreadcrumbList' })
     expect((breadcrumb.itemListElement as { item: string }[]).map(item => item.item)).toEqual([
       'https://kamycoding.com/de',
       'https://kamycoding.com/de/blog',
       'https://kamycoding.com/de/blog/fixture'
     ])
-    expect(person).toEqual({
-      '@type': 'Person',
-      '@id': 'https://kamycoding.com/#person',
-      name: 'Kamyar Zamanfar',
-      jobTitle: 'Full-Stack Developer',
-      url: 'https://kamycoding.com',
-      sameAs: ['https://github.com/kamycoding', 'https://www.linkedin.com/in/kamyarzamanfar']
-    })
+    expect(person).toEqual(personNode(author))
+    expect(person['@id']).toBe((article.author as { '@id': string })['@id'])
   })
 
   it('serializes to JSON that cannot close the script element', () => {

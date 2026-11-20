@@ -88,8 +88,13 @@
   },
   "journal": {
     "title": "Journal",
-    "metaTitle": "Journal | kamycoding",
+    "feedTitle": "Journal | kamycoding",
     "description": "Building software in Germany.",
+    "meta": {
+      "title": "Journal: JavaScript and German for Developers | kamycoding",
+      "description": "Practical articles on JavaScript, web development and the German you need at work as a developer in Germany. Interactive examples, quizzes and audio."
+    },
+    "keepReading": "Keep reading",
     "empty": "No posts published yet.",
     "editor": "Journal editor",
     "files": "Journal files",
